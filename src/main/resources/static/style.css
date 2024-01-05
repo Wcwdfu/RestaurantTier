@@ -1,0 +1,54 @@
+/* 전체 페이지에 대한 기본 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #5383E8;
+    color: #FFFFFF;
+
+}
+
+
+/* 검색 섹션  */
+main section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5383E8;
+}
+
+/*검색 버튼 스타일*/
+main button[type="submit"] {
+    padding: 5px 10px;
+    background: #28344E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 사이드바 스타일 */
+aside {
+
+
+    background-color: #FFB900;
+    color: #333333;
+
+    height: 10%;
+    width: 100%;
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0;
+}
+
+header .nav-link {
+    color: #FFFFFF;
+}
+
+header .ul {
+    color: #FFFFFF;
+}
+.row .col .position-absolute{
+    font-weight: bold;
+}
+
+.col {
+    border:none;
+}
