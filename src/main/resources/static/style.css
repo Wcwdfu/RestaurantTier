@@ -45,10 +45,60 @@ header .nav-link {
 header .ul {
     color: #FFFFFF;
 }
-.row .col .position-absolute{
+
+.row .col .position-absolute {
     font-weight: bold;
 }
 
-.col {
-    border:none;
+.row .col .col-12 {
+    border: none;
 }
+.position-absolute{
+    font-size: larger;
+}
+#home{
+    font-size: large;
+}
+#login{
+    font-size: medium;
+}
+@media screen and (min-width: 1024px) {
+
+    .btn{
+        padding:10px
+    }
+    .container-fluid {
+        padding: 20px; /* 원하는 값으로 조정 */
+        margin: 20px; /* 원하는 값으로 조정 */
+    }
+
+
+    .nav-link {
+        font-size: larger; /* 더 큰 텍스트 사이즈로 조정 */
+    }
+
+    .nav-underline {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: larger;
+        margin: 0;
+    }
+
+    .nav-underline .nav-item {
+        padding: 15px;
+    }
+    #home {
+        font-size: xx-large;
+    }
+    #login{
+        font-size: x-large;
+    }
+
+    .row .col {
+        max-width: 250px; /* 더 큰 화면에서의 최대 너비 */
+        max-height: 250px; /* 더 큰 화면에서의 최대 높이 */
+    }
+
+}
+
+
