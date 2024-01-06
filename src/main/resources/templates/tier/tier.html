@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>맛집텨 티어표</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="tier-styles.css?after"/>
+        <script src="tier-js.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="header-top">
+                <a class="logo" href="/">
+                    <img src="resources/logo.png" alt="맛집텨">
+                </a>
+                <div class="login">
+                    <a class="login-button" href="/login">로그인</a>
+                </div>
+            </div>
+            <div class="header-middle">
+                <div class="search-outer">
+                    <div class="search-box">
+                        <div>
+                            <form class="search-form">
+                                <div class="search-wrapper">
+                                    <input id="search" name="search" autocomplete="off" type="text" value>
+                                </div>
+                                <button class="search-btn" type="submit">검색</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="menu-outer">
+                    <nav class="menu">
+                        <ul class="menu-list">
+                            <li class="menu-item-first">
+                                <a href="/home">
+                                    <div data-key="HOME" class="home non-clicked">홈</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/tier">
+                                    <div data-key="TIER" class="tier clicked">티어표</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/rank">
+                                    <div data-key="RANK" class="rank non-clicked">순위</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/community">
+                                    <div data-key="COMMUNITY" class="community non-clicked">커뮤니티</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="category" id="categoryWindow">
+            <div class="category-background" id="categoryBackground">
+                <div class="category-top">
+                    <span class="category-text" id="categoryText">카테고리</span>
+                    <input id="categoryCheckBtn" type="checkbox" checked/>
+                    <label for="categoryCheckBtn" id="categoryLabel" class="category-check-btn">
+                        <span id="categoryCheckBtnText" class="category-check-btn-text">
+                            접기　
+                        </span>
+                        <span id="categoryCheckBtnArrow">▼</span>
+                    </label>
+                </div>
+                <div class="category-list" id="categoryList">
+                    <div class="cuisine">
+                        <span class="text">종류</span>
+                        <div class="buttons scrollable">
+                            <span class="selected button">
+                                <span>한식</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>일식</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>양식</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>중식</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>멕시칸</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>인디안</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>태국</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="situation">
+                        <span class="text">상황</span>
+                        <div class="buttons scrollable">
+                            <span class="unselected button">
+                                <img src="resources/img/person.png">
+                                <span>혼밥</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/people.png">
+                                <span>소규모 회식</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/crowd.png">
+                                <span>단체 회식</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/date.png">
+                                <span>데이트</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/friend.png">
+                                <span>친구 초대</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/blind-date.png">
+                                <span>소개팅</span>
+                            </span>
+                            <span class="unselected button">
+                                <img src="resources/img/meeting.png">
+                                <span>미팅</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main id="tierChartMain">
+            <div class="tier-chart">
+                <table class="tier-table">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">순위</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">티어</th>
+                            <th scope="col">카테고리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tierTableBody">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </body>
+</html>
