@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>맛집티어</title>
+	<link rel="stylesheet" href="evaluation_css.css">
+	<script src="https://kit.fontawesome.com/574b817ac7.js" crossorigin="anonymous"></script>
+	<script src="evaluation_js.js"></script>
+</head>
+
+<body>
+
+	<header>
+		<div id=main1>
+			<input id=main1-1 type=radio name=mainmenu checked=checked>
+			<label for=main1-1 class=main1-1>맛집 티어</label>
+		</div>
+		<div id=loginDiv>
+			<button id=loginBtn>로그인</button>
+		</div>
+	</header>
+
+
+	<div id=searchSection>
+		<input id=searchBar type="text" placeholder="검색어 입력">
+		<button id=searchBtn>
+			<img id=searchIcon src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" style="width: 22px; height: 22px;">
+		</button>
+	</div>
+
+	<div class=navbar>
+		<input id=nav_home type=radio name=nav>
+		<input id=nav_tier type=radio name=nav>
+		<input id=nav_ranking type=radio name=nav>
+		<input id=nav_community type=radio name=nav>
+		<label for id=nav_home class=navTab>홈</label>
+		<label for id=nav_tier class=navTab>티어표</label>
+		<label for id=nav_ranking class=navTab>순위</label>
+		<label for id=nav_community class=navTab>커뮤니티</label>
+	</div>
+
+	<div id=restaurantInfo>
+
+		<img id=restaurantImg src="https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230416_280%2F1681616715628JKtbW_PNG%2F%25BD%25BA%25C5%25A9%25B8%25B0%25BC%25A6_2023-04-16_124046.png" alt="이미지 로드 실패">
+		<div class=restuarant_detail>
+			<h1 id=restaurantName>긴자료코</h1>
+			<h2>돈까스, 경양식</h2>
+		</div>
+
+	</div>
+
+	<div class=restaurant-main-rating>
+		<hr>
+
+		<h1 id=totalRatingName>전체적으로 어떠셨나요?</h1>
+		<h3 id=totalRatingName2>별점을 선택해주세요</h2>
+		<div class=rating_stars>
+			<i class="fa-solid fa-star fa-beat fa-2xl" style="color:#FFF500"></i>
+			<i class="fa-solid fa-star fa-beat fa-2xl" style="color:#FFF500"></i>
+			<i class="fa-solid fa-star fa-beat fa-2xl" style="color:#FFF500"></i>
+			<i class="fa-solid fa-star fa-beat fa-2xl" style="color:#FFF500"></i>
+			<i class="fa-solid fa-star fa-2xl" style="color:white"></i>
+			<i class="fa-solid fa-star fa-2xl" style="color:white"></i>
+			<i class="fa-solid fa-star fa-2xl" style="color:white"></i>
+			<p class=maincomment>평범한 음식점 이에요</p>
+		</div>
+
+		<h2 id=RatingCategory>카테고리</h2>
+		<div class=restaurant_category1>
+			<button class="optionBtn unselected">혼밥하기 좋아요</button>
+			<button class="optionBtn unselected">여럿이 먹기 좋아요</button>
+			<button class="optionBtn unselected">회식하기 좋아요</button>
+		</div>
+		<div class=restaurant_category2>
+			<button class="optionBtn unselected">애인이랑 먹기 좋아요</button>
+			<button class="optionBtn unselected">친구랑 먹기 좋아요</button>
+		</div>
+
+		<hr>
+	</div>
+
+	<p id=plzMsg>추가적으로 평가해주세요. 메인 순위에는 반영되지 않습니다.</p>
+	<hr>
+
+	<div class=restaurant-sub-rating>
+		
+		<p class=subrating-name>가성비</p>
+		<div class=ratingstars-cost-effectiveness>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<p class=subcomment> 선택하지 않았습니다. </p>
+		</div>
+
+		<p class=subrating-name>웨이팅</p>
+		<div class=ratingstars-waiting>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<p class=subcomment> 선택하지 않았습니다. </p>
+		</div>
+
+		<p class=subrating-name>친절도</p>
+		<div class=ratingstars-kindness>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<i class="fa-solid fa-star fa-lg" style="color:white"></i>
+			<p class=subcomment> 선택하지 않았습니다. </p>
+		</div>
+
+	</div>
+
+	<div class=restaurant-comment-rating>
+		<hr>
+		<h1 id=commentRatingTitle>후기를 글로 작성해주세요!</h1>
+		<input id=commentBar type="text" placeholder="음식,서비스,분위기,위상상태,가격 등 이 식당에서의 방문 경험을 적어주세요!(20자 이상)">
+	</div>
+
+	<div id=submit>
+		<button id=submitBtn>제출하기</button>
+	</div>
+
+</body>
+
+</html>

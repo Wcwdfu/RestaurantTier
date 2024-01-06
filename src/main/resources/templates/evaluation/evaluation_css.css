@@ -1,0 +1,198 @@
+header{
+	background-color: #28344E;
+	height:40px;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+
+.main1-1{ /* 상단 맛집 티어 스타일 */
+	display: block;
+	width: 90px;
+	height: 40px;
+	line-height: 40px;
+	color: white;
+	font-weight: bold;
+	background-color: #5383E8;
+	text-align: center;
+}
+
+#loginBtn{
+	width: 60px;
+	height: 26px;
+	color: white;
+	background-color: #5383E8;
+	border: none;
+	border-radius: 3px;
+	margin-right: 10px;
+}
+#loginBtn.pushed {
+      background-color: #658bdd;
+    }
+
+header>div>input{
+	display:none;
+}
+
+/* --------------------------------------------------------- */
+
+body{
+	background-color: #5383E8;
+	margin: 0 auto;
+	text-align: center;
+}
+
+body>div{
+	margin-top: 15px;
+}
+
+#searchSection{
+	position: relative;
+	height: 35px;
+	width: 300px;
+	margin: 15px auto;
+}
+
+#searchBar{
+	height: 100%;
+	width: 80%;
+	padding-left: 5px;
+	padding-right: 55px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+}
+#searchBtn{
+	position: absolute;
+	right: 2px;
+	top: 1px;
+	background-color: #28344E;
+	width: 45px;
+	height: 35px;
+	border: none;
+	border-radius: 0px 5px 5px 0px;
+}
+#searchBtn.pushed{
+	background-color: #bbc1cf;
+}
+
+#searchIcon{
+	filter: invert(80%);
+}
+
+/* --------------------------------------------------------- */
+
+.navTab{
+	list-style: none;
+	color: white;
+	display: inline-block;
+	height: 30px;
+	margin: 0px 15px;
+	box-sizing: border-box; /*전체 높이를 테두리까지 포함*/
+}
+
+.navbar>input{
+	display: none;
+}
+.navbar>label:hover{
+	border-bottom: 2.5px solid white;
+}
+
+/* --------------------------음식점 정보란------------------------------- */
+#restaurantInfo{
+	display: flex;
+	justify-content: center;
+}
+#restaurantImg{
+	margin-right: 10px;
+	width: 200px;
+	height: 200px;
+}
+#restaurantName{
+	color: #FFF500;
+}
+/* ---------------------------별점 선택란------------------------------ */
+.restaurant-main-rating{ /* 메인 평가란 색상 진하게하기*/
+	background-color: #3666CA;
+}
+.optionBtn{ /*카테고리 버튼 공통 스타일*/
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	font-weight: bold;
+}
+.unselected{ /*카테고리 선택되지 않은 버튼 스타일*/
+	background-color: #D9D9D9;
+	color: #606060;
+}
+.selected{ /*카테고리 선택된 버튼 스타일*/
+	background-color: #FFF500;
+	color: #1D1D1D;
+}
+
+#totalRatingName{ /* '전체적으로 어떠셨나요' 글씨 스타일 */
+	color: white;
+}
+#totalRatingName2{ /* '별점을 선택해주세요' 글씨 스타일*/ 
+	color: white;
+	opacity: 0.5;
+}
+#RatingCategory{ /* '카테고리' 글씨 스타일 */
+	color: white;
+}
+.subrating-name{ /*서브 평가 제목 글씨 스타일*/
+	color: white;
+	font-weight: bold;
+}
+
+.restaurant-main-rating>div{ /*평가 항목간 간격*/
+	margin-bottom: 20px;
+}
+
+.maincomment{ /*메인평가 코멘트 글씨 스타일*/
+	color: #28344E;
+	font-size: 18px;
+	font-weight: bold;
+}
+#plzMsg{ /* '추가적으로 평가해주세요' 스타일 */
+	font-size: 12px;
+	margin: 0px;
+}
+.subcomment{ /*서브평가 코멘트 글씨 스타일*/
+	color: #28344E;
+	font-size: 14px;
+	font-weight: bold;
+}
+/* ---------------------------후기글 작성란------------------------------ */
+#commentRatingTitle{
+	color: white;
+}
+#commentBar{
+	width: 400px;
+	height: 100px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+}
+.restaurant-comment-rating{
+	margin-bottom: 60px;
+}
+
+/* ---------------------------제출하기------------------------------ */
+#submitBtn{ /* 제출하기 버튼 스타일 */
+	width: 90%;
+	height: 60px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: #28344E;
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+#submitBtn.pushed{
+	background-color: #303e5d;
+}
