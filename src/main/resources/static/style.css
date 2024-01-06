@@ -91,11 +91,11 @@ header .nav-link {
     }
 
     #home {
-        font-size: xx-large;
+        font-size: x-large;
     }
 
     #login {
-        font-size: x-large;
+        font-size: large;
     }
 
     .row .col {
