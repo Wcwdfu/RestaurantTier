@@ -53,7 +53,7 @@ header {
     min-width: 300px;
 }
 
-/* header top */
+/* header top: 로고와 로그인 버튼 부분*/
 div.header-top {
     height: 40px;
     width: 100%;
@@ -62,22 +62,24 @@ div.header-top {
     align-items: center;
 }
 
+/* 로고 */
 div.header-top > a.logo {
+    display: flex;
     top: 0;
     left: 0;
     height: 40px;
     background-color: #5383E8;
     align-items: center;
 }
-
+/* 로고 안 이미지 */
 div.header-top > a.logo > img {
     border: 0px;
     height: 60%;
-    margin: 0 10px;
+    margin: auto 10px;
     object-fit: contain;
-    vertical-align: middle;
 }
 
+/* 로그인 버튼 부분 */
 div.header-top > div.login {
     margin: 0 16px;
     height: 40px;
@@ -86,7 +88,7 @@ div.header-top > div.login {
     justify-content: flex-end;
     align-items: center;
 }
-
+/* 로그인 버튼 */
 div.header-top > div.login > a {
     display: block;
     padding: 5px 12px;
@@ -99,7 +101,7 @@ div.header-top > div.login > a {
     white-space: nowrap;
 }
 
-/* header middle */
+/* header middle 검색창 부분*/
 div.header-middle {
     width: 100%;
     background-color: #5383E8;
@@ -108,8 +110,9 @@ div.header-middle {
 div.header-middle > div.search-outer {
     display: flex;
     margin: 0 auto;
-    width: 60%;
+    width: 70%;
     min-width: 240px;
+    max-width: 900px;
 }
 
 div.header-middle div.search-box {
@@ -140,11 +143,12 @@ div.header-middle div.search-box > div > form.search-form > div.search-wrapper {
 div.header-middle div.search-box > div > form.search-form > button {
     background-color: #28344E;
     color: #FFF;
-    height: 30px;
+    height: 33px;
     font-size: 14px;
     padding: 0 7px;
-    margin: 0 1px;
+    margin: 0 3px;
     border-radius: 3px;
+    width: 50px;
 }
 
 div.header-middle div.search-box > div > form.search-form > button:hover{
@@ -153,29 +157,22 @@ div.header-middle div.search-box > div > form.search-form > button:hover{
     cursor: pointer;
 }
 
-div.header-middle div.search-box > div > form.search-form > div.search-btn {
-    width: 60px;
-    position: absolute;
-    right: 0;
-    margin: 0 10px;
-}
-
 #search {
     width: 100%;
-    height: 32px;
-    padding: 5px;
+    height: 38px;
+    padding: 7px;
     display: block;
     transition: width 0.2s;
     border: 0;
     box-sizing: border-box;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 18px;
     color: #202D37;
 }
 
-/* header bottom */
+/* header bottom 상단 메뉴바 부분 */
 div.header-bottom {
     display: flex;
     justify-content: center;
@@ -199,6 +196,7 @@ div.header-bottom nav.menu {
     width: 100%;
 }
 
+/* 리스트 */
 div.header-bottom ul.menu-list {
     display: flex;
     align-items: center;
@@ -212,6 +210,7 @@ div.header-bottom ul.menu-list > li.menu-item {
     margin-left: 24px;
 }
 
+/* 리스트의 아이템 중 클릭 상태인 것(티어표) */
 div.header-bottom ul.menu-list > li > a > div.clicked {
     display: flex;
     align-items: center;
@@ -222,7 +221,7 @@ div.header-bottom ul.menu-list > li > a > div.clicked {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
 div.header-bottom ul.menu-list > li > a > div.non-clicked:hover {
     display: flex;
     align-items: center;
@@ -233,7 +232,7 @@ div.header-bottom ul.menu-list > li > a > div.non-clicked:hover {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
 div.header-bottom ul.menu-list > li > a > div.non-clicked {
     display: flex;
     align-items: center;

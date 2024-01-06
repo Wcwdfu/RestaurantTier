@@ -1,8 +1,9 @@
+// 현재 모바일인지 PC인지 체크(boolean)
 var isMobile = /Mobi/i.test(window.navigator.userAgent);
-
+// 창이 로드될 때와 창 크기가 바뀔 때 적용할 함수 넣어주기
 window.onload = adjustCategoryWidth;
 window.onresize = adjustCategoryWidth;
-
+// 창이 로드될 때와 창 크기가 바뀔 때 적용되는 함수
 function adjustCategoryWidth() {
     var categoryBackground = document.getElementById('categoryBackground');
     var tierChart = document.getElementById('tierChartMain');
@@ -26,6 +27,7 @@ function adjustCategoryWidth() {
     }
 }
 
+// 임시 데이터
 const data = [
     [1, '가가가가', 1, '소규모 회식, 데이트'],
     [2, '나나나나나나나', 1, '소개팅, 혼밥'],
@@ -68,6 +70,7 @@ const data = [
     [29, '나나나나나나나', 5, '소개팅, 혼밥'],
     [30, '다다다', 5, '단체 회식']
 ]
+// 데이터 위치
 const imagePaths = {
     person: 'resources/img/person.png',
     people: 'resources/img/people.png',
@@ -77,6 +80,7 @@ const imagePaths = {
     blindDate: 'resources/img/blind-date.png',
     meeting: 'resources/img/meeting.png'
 };
+// 임시 데이터의 텍스트를 매핑해줄 map
 const imageMappings = {
     '혼밥': 'person',
     '소규모 회식': 'people',
@@ -86,8 +90,10 @@ const imageMappings = {
     '소개팅': 'blindDate',
     '미팅': 'meeting',
   };
+// table에 내용을 채우는 함수 실행(정의는 아래쪽에 있음)
 fillTableWithData(data)
 
+// 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
 document.getElementById('categoryCheckBtn').addEventListener('change', function() {
     const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
     const categoryCheckBtnText = document.getElementById('categoryCheckBtnText');
@@ -102,7 +108,8 @@ document.getElementById('categoryCheckBtn').addEventListener('change', function(
         categoryCheckBtnArrow.textContent = '◀'
     }
 });
-
+// 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
+// 두 개인 이유는 텍스트 부분을 누를때는 적용이 안돼서 따로 적용시키기 위함
 document.getElementById('categoryText').addEventListener('touchstart', function() {
     var categoryCheckBtn = document.getElementById('categoryCheckBtn');
     const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
@@ -120,9 +127,8 @@ document.getElementById('categoryText').addEventListener('touchstart', function(
     }
 });
 
-//scrollable
+// pc에서도 카테고리의 가로 스크롤을 마우스 드래그로 할 수 있게 해주는 부분
 var scrollableElements = document.querySelectorAll('.scrollable');
-
 scrollableElements.forEach(function(scrollableElement) {
     var isMouseDown = false;
     var startX, scrollLeft;
@@ -150,7 +156,7 @@ scrollableElements.forEach(function(scrollableElement) {
     });
 });
 
-//카테고리 창 상단 고정
+// 아래로 스크롤 시 카테고리 창 상단 고정해주는 부분
 window.addEventListener('scroll', function() {
     var category = document.getElementById('categoryWindow');
     var headerHeight = document.querySelector('header').offsetHeight;
@@ -163,7 +169,7 @@ window.addEventListener('scroll', function() {
 });
 
 //표 데이터 채우기
-function createImage(imageKey) { //일단 이미지 태그 생성해서 리턴 ㅇㅇ
+function createImage(imageKey) { // 일단 이미지 태그 생성해서 리턴 하는 함수
     const imageName = imageMappings[imageKey];
     const imagePath = imagePaths[imageName];
 
@@ -171,8 +177,7 @@ function createImage(imageKey) { //일단 이미지 태그 생성해서 리턴 �
     img.src = imagePath;
     return img;
 }
-
-function fillTableWithData(data) {
+function fillTableWithData(data) { // 표 채우는 함수
     const tableBody = document.getElementById('tierTableBody');
 
     data.forEach(rowData => {
