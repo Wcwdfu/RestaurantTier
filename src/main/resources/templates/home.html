@@ -13,17 +13,18 @@
 
 </head>
 <body>
-<header class="container-fluid m-0 p-0" style="background-color: #28344E">
 
+<!--상단 배너 -->
+<header class="container-fluid m-0 p-0" style="background-color: #28344E">
+    <!-- 홈페이지 이름과 로그인 버튼  -->
     <div id="header1">
         <nav class="navbar" style="margin:0; padding:0;">
             <div class="container-fluid" style="margin:0; padding:0;">
-                <button id="home" class="navbar-brand" type="button"
-                        style="margin:0; background-color: #5383E8;padding:5px; color: #FFFFFF; border:none">
+                <button id="home" class="navbar-brand" type="button">
                     맛집텨
                 </button>
                 <button id="login" class="btn btn-primary p-1 me-1" type="button"
-                        style="margin:0;background-color: #5383E8; color: #FFFFFF;">로그인
+                >로그인
                 </button>
 
 
@@ -31,7 +32,7 @@
         </nav>
     </div>
 
-
+    <!--  상단 탭 -->
     <ul id="header2" class="nav nav-underline" style="background-color: #5383E8; ">
         <li class="nav-item ps-3">
             <a class="nav-link" aria-current="page" href="#">홈</a>
@@ -54,14 +55,15 @@
 
 </header>
 
-
+<!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid p-0 m-0">
 
     <section>
         <div class="container fluid">
+            <!--    검색창        -->
             <div class="row mt-4">
                 <div class="col-12">
-                    <form class="d-flex justify-content-center ">
+                    <form class="d-flex justify-content-center">
                         <div class="col-md-6 me-2">
                             <input class="form-control" type="search" placeholder="검색어 입력"
                                    aria-label="Search">
@@ -74,56 +76,59 @@
                     </form>
                 </div>
             </div>
+            <!--  티어표 바로가기 텍스트 박스   -->
             <div class="text-center mt-4">
-                <a href="home.html" style="color:white;text-decoration: none;">티어표 바로가기</a>
+                <div>티어표 바로가기</div>
             </div>
-            <div class="row row-cols-3 p-4 mt-5">
+            <!--     이미지 버튼 모아둔 그리드      -->
+            <div class="row row-cols-3 p-4 mt-5 d-flex justify-content-center">
                 <div class="col p-2 position-relative">
-                    <button type="button" class="col-12 p-0 position-relative"><img class="col-12" src="../static/japan.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">일식/돈까스
+                    <button type="button" class="col-12 p-0 position-relative"><img class="col-12"
+                                                                                    src="../static/japan.png"></button>
+                    <div class="position-absolute top-0 start-0 text-black p-2">일식/돈까스
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
-                    <button type="button" class="col-12 p-0"><img class="col-12" src="../static/koreanfood.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">한식
+                    <button type="button" class="col-12 p-0"><img class="col-12" src="../static/koreanfood.png">
+                    </button>
+                    <div class="position-absolute top-0 start-0 text-black p-2">한식
                     </div>
                 </div>
                 <div class="col p-2  position-relative">
                     <button type="button" class="col-12 p-0 "><img class="col-12" src="../static/pizza.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">피자
+                    <div class="position-absolute top-0 start-0 text-black p-2">피자
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/chinese.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">중식
+                    <div class="position-absolute top-0 start-0 text-black p-2">중식
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/bunsik.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">분식
+                    <div class="position-absolute top-0 start-0 text-black p-2">분식
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/jokbal.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">족발
+                    <div class="position-absolute top-0 start-0 text-black p-2">족발
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/chicken.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">치킨
+                    <div class="position-absolute top-0 start-0 text-black p-2">치킨
                     </div>
                 </div>
                 <div class="col p-2 position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/cafe.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">카페/디저트
+                    <div class="position-absolute top-0 start-0 text-black p-2">카페/디저트
                     </div>
                 </div>
                 <div class="col p-2  position-relative">
                     <button type="button" class="col-12 p-0"><img class="col-12" src="../static/night.png"></button>
-                    <div class="position-absolute top-0 start-0 text-black p-2" style="opacity: 0.7;">야식
+                    <div class="position-absolute top-0 start-0 text-black p-2">야식
                     </div>
                 </div>
-
 
 
             </div>
