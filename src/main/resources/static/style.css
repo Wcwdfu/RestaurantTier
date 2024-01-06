@@ -8,14 +8,14 @@ body {
 
 
 /* 검색 섹션  */
-main section {
+header section {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 /*검색 버튼 스타일*/
-main button[type="submit"] {
+header button[type="submit"] {
     padding: 5px 10px;
     background: #28344E;
     color: white;
@@ -41,13 +41,15 @@ header .nav-link {
 }
 
 .row .col .col-12 {
-    border: none;
+
+    border:none;
+    border-radius: 15px;
 }
 
-.position-absolute {
-    font-size: larger;
-}
 
+
+
+/* 홈 버튼 (건메추) */
 #home {
     font-size: large;
     margin: 0;
@@ -56,10 +58,37 @@ header .nav-link {
     color: #FFFFFF;
     border: none;
 }
+/*로그인 버튼*/
 
 #login {
     font-size: medium;
     background-color: #5383E8
+}
+
+/*배경색 */
+main{
+    background-color: #EBEEF1;
+}
+
+#header{
+    background-color: #5383E8;
+}
+
+/* 티어표 바로가기 */
+#tierSign{
+    color:black;
+}
+
+
+/*광고 배너 x 표시*/
+aside div div button{
+    float:right;
+    background: transparent; /* 배경을 투명하게 설정 */
+    border: none; /* 테두리 제거 */
+    color: inherit; /* 버튼 내 텍스트 색상을 상속받음 */
+    text-shadow: none; /* 텍스트 그림자 제거 */
+    box-shadow: none; /* 버튼의 박스 그림자 제거 */
+
 }
 
 /* 화면 크기가 커질 때 */
