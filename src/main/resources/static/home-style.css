@@ -3,7 +3,6 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #5383E8;
     color: #FFFFFF;
-
 }
 
 
@@ -89,6 +88,23 @@ aside div div button{
     text-shadow: none; /* 텍스트 그림자 제거 */
     box-shadow: none; /* 버튼의 박스 그림자 제거 */
 
+}
+.cell{
+    padding: 0.5rem;
+}
+.cell-button{
+
+    border-radius: 10px;
+    background-color: white;
+}
+.cell > .label{
+    font-size: x-small;
+    padding:1rem;
+    color:black;
+    opacity: 0.9;
+}
+.cell-button > .img{
+    padding: 1.25rem;
 }
 
 /* 화면 크기가 커질 때 */
