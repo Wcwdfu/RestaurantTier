@@ -92,13 +92,13 @@ aside div div button{
 .cell{
     padding: 0.5rem;
 }
-.cell-button{
+.img{
 
     border-radius: 10px;
     background-color: white;
 }
-.cell > .label{
-    font-size: x-small;
+.cell-button > .label{
+    font-size: small;
     padding:1rem;
     color:black;
     opacity: 0.9;

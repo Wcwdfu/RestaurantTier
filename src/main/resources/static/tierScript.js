@@ -72,13 +72,13 @@ const data = [
 ]
 // 데이터 위치
 const imagePaths = {
-    person: 'resources/img/person.png',
-    people: 'resources/img/people.png',
-    people: 'resources/img/crowd.png',
-    date: 'resources/img/date.png',
-    friend: 'resources/img/friend.png',
-    blindDate: 'resources/img/blind-date.png',
-    meeting: 'resources/img/meeting.png'
+    person: '/tier-images/person.png',
+    people: '/tier-images/people.png',
+    crowd: '/tier-images/crowd.png',
+    date: '/tier-images/date.png',
+    friend: '/tier-images/friend.png',
+    blindDate: '/tier-images/blind-date.png',
+    meeting: '/tier-images/meeting.png'
 };
 // 임시 데이터의 텍스트를 매핑해줄 map
 const imageMappings = {
