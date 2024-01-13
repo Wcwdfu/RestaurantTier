@@ -107,28 +107,6 @@ aside div div button{
     padding: 1.25rem;
 }
 
-
-div.home:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.tier, .rank, .community {
-    display: flex;
-    align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
 /* 화면 크기가 커질 때 */
 @media screen and (min-width: 1024px) {
 
@@ -173,5 +151,38 @@ div.home:hover {
 }
 
 
+/* 리스트의 아이템 중 클릭 상태인 것(홈) */
+div.header-bottom ul.menu-list > li > a > div.home {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
+.tier:hover,.rank:hover,.community:hover {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
+.tier, .rank,.community {
+    display: flex;
+    align-items: center;
+    color: #B3CDFF;
+    border-bottom: 3px solid transparent;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
 
 
