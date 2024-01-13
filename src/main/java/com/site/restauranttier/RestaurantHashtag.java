@@ -3,11 +3,11 @@ package com.site.restauranttier;
 import jakarta.persistence.*;
 
 @Entity
-public class EvaluationItem {
+public class RestaurantHashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
+    private Long hashtagId;
 
-    private String itemName;
+    private String hashtagName;
     // Getters and Setters...
 }
