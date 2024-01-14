@@ -13,17 +13,16 @@ public class RestaurantComment {
     private int commentId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
 
     @ManyToOne
-    @JoinColumn(name="restaurantId")
+    @JoinColumn(name="restaurant_id")
     private Restaurant restaurant;
 
     private String commentBody;
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    // Getters and Setters...
 }

@@ -1,18 +1,20 @@
 package com.site.restauranttier;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
+@IdClass(EvaluationItemScoreId.class)
 @Table(name="evaluation_item_scores_tbl")
 public class EvaluationItemScore {
-    @Id
-    private int evaluationId;
 
     @Id
-    private int itemId;
+    @ManyToOne
+    @JoinColumn(name="evaluation_id")
+    private Evaluation evaluation;
+    @Id
+    @ManyToOne
+    @JoinColumn(name="item_id")
+    private EvaluationItem evaluationItem;
 
     private float score;
-    // Getters and Setters...
 }
