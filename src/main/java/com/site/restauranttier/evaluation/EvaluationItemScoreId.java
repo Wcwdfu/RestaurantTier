@@ -1,10 +1,10 @@
-package com.site.restauranttier;
+package com.site.restauranttier.evaluation;
 
 import java.io.Serializable;
 
 public class EvaluationItemScoreId implements Serializable {
-    private int evaluation;
-    private int evaluationItem;
+    private Integer evaluation;
+    private Integer evaluationItem;
 
     @Override
     public boolean equals(Object obj) {

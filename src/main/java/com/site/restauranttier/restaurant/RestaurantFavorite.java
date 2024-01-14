@@ -1,28 +1,25 @@
-package com.site.restauranttier;
+package com.site.restauranttier.restaurant;
 
+import com.site.restauranttier.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
-@Table(name="restaurant_comments_tbl")
-public class RestaurantComment {
+@Table(name="restaurant_favorite_tbl")
+public class RestaurantFavorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int commentId;
-
+    private Integer favoriteId;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @JoinColumn(name="user_id")
+    User user;
 
     @ManyToOne
     @JoinColumn(name="restaurant_id")
-    private Restaurant restaurant;
-
-    private String commentBody;
+    Restaurant restaurant;
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

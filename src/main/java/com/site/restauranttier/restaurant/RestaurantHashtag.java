@@ -1,16 +1,17 @@
-package com.site.restauranttier;
+package com.site.restauranttier.restaurant;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
 @Entity
 @Table(name="restaurant_hashtags_tbl")
 public class RestaurantHashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int hashtagId;
+    private Integer hashtagId;
 
     private String hashtagName;
 

@@ -1,16 +1,16 @@
-package com.site.restauranttier;
+package com.site.restauranttier.evaluation;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
 @Entity
 @Table(name="evaluation_items_tbl")
 public class EvaluationItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
+    private Integer itemId;
     @OneToMany(mappedBy = "evaluationItem")
     private List<EvaluationItemScore> EvaluationItemScoreList = new ArrayList<>();
     private String itemName;

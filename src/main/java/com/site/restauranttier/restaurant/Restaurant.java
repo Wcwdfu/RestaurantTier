@@ -1,18 +1,17 @@
-package com.site.restauranttier;
+package com.site.restauranttier.restaurant;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+@Getter
 @Entity
 @Table(name = "restaurants_tbl")
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int restaurantId;
+    private Integer restaurantId;
 
     @ManyToMany
     @JoinTable(name = "restaurant_hashtag_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
@@ -24,7 +23,11 @@ public class Restaurant {
             inverseJoinColumns = @JoinColumn(name="category_id"))
     List<SituationCategory> SituationCategoryList = new ArrayList<>();
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantComment> restaurantCommentList;
+    private List<RestaurantComment> restaurantCommentList = new ArrayList<>();;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();;
+
     private String restaurantName;
     private String restaurantType;
     private String restaurantPosition;
