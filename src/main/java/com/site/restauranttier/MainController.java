@@ -33,7 +33,22 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("tier")
+    @GetMapping("/main/tier")
+    public String tier(Model model, @RequestParam(name="cuisine",required = false) String cuisine) {
+        List<Restaurant> restaurants;
+        if (cuisine != null && !cuisine.isEmpty()) {
+            // cuisine 파라미터가 주어진 경우, 해당하는 데이터를 조회합니다.
+            restaurants = restaurantRepository.findByRestaurantCuisine(cuisine);
+        } else {
+            // cuisine 파라미터가 없는 경우, 모든 레스토랑을 조회합니다.
+            restaurants = restaurantRepository.findAll();
+        }
+        model.addAttribute("restaurants",restaurants);
+        return "tier";
+    }
+
+
+    @GetMapping("/tier")
     public String tier(){
         return "tier";
     }

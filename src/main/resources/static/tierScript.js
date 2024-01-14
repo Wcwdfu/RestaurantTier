@@ -20,11 +20,11 @@ $(document).ready(function () {
                 var tableContent = '';
                 data.forEach(function(restaurant) {
                     tableContent += '<tr>' +
-                        '<td>' + "-" + '</td>' +
+                        '<td>' + "0" + '</td>' +
                         '<td>' + restaurant.restaurantName + '</td>' +
-                        '<td>' + "-" + '</td>' +
+                        '<td>' + "0" + '</td>' +
                         '<td>' + restaurant.restaurantCuisine + '</td>' +
-                        '<td>' + "-" + '</td>' +
+                        '<td>' + "0" + '</td>' +
                         '<td>' + restaurant.restaurantType + '</td>' +
                         '</tr>';
                 });
