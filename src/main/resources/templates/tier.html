@@ -5,6 +5,9 @@
         <title>건메추</title>
         <meta charset="UTF-8"/>
         <link rel="stylesheet" type="text/css" href="/tier-style.css"/>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+                integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="/tierScript.js"></script>
 
     </head>
     <body>
@@ -83,32 +86,62 @@
                     <div class="cuisine">
                         <span class="text">종류</span>
                         <div class="buttons scrollable">
-                            <span class="selected button">
+                            <span class="unselected button">
+                                <span>전체</span>
+                            </span>
+                            <span class="unselected button">
                                 <span>한식</span>
                             </span>
                             <span class="unselected button">
                                 <span>일식</span>
                             </span>
                             <span class="unselected button">
-                                <span>양식</span>
-                            </span>
-                            <span class="unselected button">
                                 <span>중식</span>
                             </span>
                             <span class="unselected button">
-                                <span>멕시칸</span>
+                                <span>양식</span>
                             </span>
                             <span class="unselected button">
-                                <span>인디안</span>
+                                <span>아시안</span>
                             </span>
                             <span class="unselected button">
-                                <span>태국</span>
+                                <span>햄버거/피자</span>
+                            </span>
+                            </span>
+                            <span class="unselected button">
+                                <span>분식</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>고기</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>치킨</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>해산물</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>술집</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>카페/디저트</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>베이커리</span>
+                            </span>
+                            <span class="unselected button">
+                                <span>기타</span>
                             </span>
                         </div>
                     </div>
+
                     <div class="situation">
                         <span class="text">상황</span>
                         <div class="buttons scrollable">
+                            <span class="unselected button">
+                                <img src="/tier-images/person.png">
+                                <span>전체</span>
+                            </span>
                             <span class="unselected button">
                                 <img src="/tier-images/person.png">
                                 <span>혼밥</span>
@@ -156,6 +189,8 @@
                             <th scope="col">순위</th>
                             <th scope="col">이름</th>
                             <th scope="col">티어</th>
+                            <th scope="col">종류</th>
+                            <th scope="col">상황</th>
                             <th scope="col">카테고리</th>
                         </tr>
                     </thead>
@@ -172,6 +207,5 @@
                 </table>
             </div>
         </main>
-        <script src="/tierScript.js"></script>
     </body>
 </html>

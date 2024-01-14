@@ -427,6 +427,7 @@ td {
     margin: 0;
     display: table-cell;
     background-color: #FFF;
+    text-align: center;
 }
 
 tbody > tr {
