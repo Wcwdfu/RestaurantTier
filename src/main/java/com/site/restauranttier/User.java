@@ -2,23 +2,30 @@ package com.site.restauranttier;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
+@Table(name="users_tbl")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private String userId;
 
+    @OneToMany(mappedBy ="user")
+    private List<RestaurantComment> restaruantCommentList;
+    @OneToMany(mappedBy = "user")
+    private List<Evaluation> EvaluationList;
     private String userPassword;
-    private Integer userNum;
+    private int userNum;
     private String userName;
     private String userSex;
-    private Date userBirthday;
+    private LocalDate userBirthday;
     private String userEmail;
     private String userNickname;
     private String status;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
 
