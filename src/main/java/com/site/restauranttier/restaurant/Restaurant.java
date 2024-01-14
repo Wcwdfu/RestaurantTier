@@ -34,6 +34,7 @@ public class Restaurant {
     private String restaurantAddress;
     private String restaurantTel;
     private String restaurantUrl;
+    private String restaurantCuisine;
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

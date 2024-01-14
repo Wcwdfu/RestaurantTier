@@ -209,3 +209,4 @@ function fillTableWithData(data) { // 표 채우는 함수
         tableBody.appendChild(tr);
     });
 }
+
