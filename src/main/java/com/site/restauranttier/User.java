@@ -6,12 +6,14 @@ import com.site.restauranttier.restaurant.RestaurantCommentlike;
 import com.site.restauranttier.restaurant.RestaurantFavorite;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "users_tbl")
 public class User {
@@ -28,6 +30,18 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
+
+    public User(String userId, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.userEmail = userEmail;
+        this.userNickname = userNickname;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+    public User(){
+
+    }
 
     private String userPassword;
     private String userEmail;

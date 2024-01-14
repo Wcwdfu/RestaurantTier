@@ -91,7 +91,7 @@ const imageMappings = {
     '미팅': 'meeting',
   };
 // table에 내용을 채우는 함수 실행(정의는 아래쪽에 있음)
-fillTableWithData(data)
+// fillTableWithData(data)
 
 // 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
 document.getElementById('categoryCheckBtn').addEventListener('change', function() {
