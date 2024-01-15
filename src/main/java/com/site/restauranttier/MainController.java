@@ -5,6 +5,8 @@ import com.site.restauranttier.restaurant.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -84,33 +86,41 @@ public class MainController {
     public String auth() {
         return "callback";
     }
-    @ResponseBody
-    @PostMapping("/api/user")
-    public ResponseEntity<?> userCreated(@RequestBody Map<String,String> userData){
-        String userId = userData.get("userId");
-        String userEmail = userData.get("userEmail");
-        String userNickname=userData.get("userNickname");
 
-        Optional<User> userOptional = userRepository.findById(userId);
-        
-        // 기존 사용자면 정보 업데이트
-        if(userOptional.isPresent()){
-            User user=userOptional.get();
-            user.setUserEmail(userEmail);
-            user.setUserNickname(userNickname);
-            user.setUpdatedAt(LocalDateTime.now());
-            userRepository.save(user);
-        }
-        // 새로운 사용자면 user 객체 만들고 db에 저장
-        else{
-        User newUser = new User();
-        newUser.setUserId(userId);
-        newUser.setCreatedAt(LocalDateTime.now());
-        newUser.setUserEmail(userEmail);
-        newUser.setUserNickname(userNickname);
-        newUser.setStatus("ACTIVE");
-        userRepository.save(newUser);
-        }
-        return ResponseEntity.ok().build();
+
+    @GetMapping("/loginSuccess")
+    public String loginSuccess(@AuthenticationPrincipal OAuth2User principal) {
+        // 로그인 성공 처리
+        // 예: 사용자 정보를 세션에 저장하거나, 홈페이지로 리디렉션
+        return "redirect:/home";
     }
+//    @ResponseBody
+//    @PostMapping("/api/user")
+//    public ResponseEntity<?> userCreated(@RequestBody Map<String,String> userData){
+//        String userId = userData.get("userId");
+//        String userEmail = userData.get("userEmail");
+//        String userNickname=userData.get("userNickname");
+//
+//        Optional<User> userOptional = userRepository.findById(userId);
+//
+//        // 기존 사용자면 정보 업데이트
+//        if(userOptional.isPresent()){
+//            User user=userOptional.get();
+//            user.setUserEmail(userEmail);
+//            user.setUserNickname(userNickname);
+//            user.setUpdatedAt(LocalDateTime.now());
+//            userRepository.save(user);
+//        }
+//        // 새로운 사용자면 user 객체 만들고 db에 저장
+//        else{
+//        User newUser = new User();
+//        newUser.setUserId(userId);
+//        newUser.setCreatedAt(LocalDateTime.now());
+//        newUser.setUserEmail(userEmail);
+//        newUser.setUserNickname(userNickname);
+//        newUser.setStatus("ACTIVE");
+//        userRepository.save(newUser);
+//        }
+//        return ResponseEntity.ok().build();
+//    }
 }
