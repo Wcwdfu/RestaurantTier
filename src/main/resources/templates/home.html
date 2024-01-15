@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="/home-style.css">
     <link rel="stylesheet" type="text/css" href="/navbar-style.css">
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -16,68 +17,6 @@
 <body>
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{navbar :: navbarFragment}"></header>
-
-<!--상단 배너 -->
-<!--<header class="container-fluid m-0 p-0">-->
-<!--    &lt;!&ndash; 홈페이지 이름과 로그인 버튼  &ndash;&gt;-->
-<!--    <div id="header1" style="background-color: #28344E">-->
-<!--        <nav class="navbar" style="margin:0; padding:0;">-->
-<!--            <div class="container-fluid" style="margin:0; padding:0;">-->
-<!--                &lt;!&ndash; '홈' 버튼 &ndash;&gt;-->
-<!--                <a id="home" class="navbar-brand p-2" href="/home">-->
-<!--                    건메추-->
-<!--                </a>-->
-
-<!--                &lt;!&ndash; '로그인' 버튼 &ndash;&gt;-->
-<!--                <a id="login" class="btn btn-primary p-1 me-1" href="/login">-->
-<!--                    로그인-->
-<!--                </a>-->
-
-
-<!--            </div>-->
-<!--        </nav>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash;  상단 탭 &ndash;&gt;-->
-<!--    <ul id="header2" class="nav nav-underline">-->
-<!--        <li class="nav-item ps-3">-->
-<!--            <a class="nav-link" aria-current="page" href="/home">홈</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/tier">티어표</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="#">순위</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/talk">커뮤니티</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--    <aside id="header3">-->
-<!--        <div class="container-fluid m-0 p-2">-->
-<!--            <div>-->
-<!--                최신 공지사항-->
-<!--                <button type="button" onclick="closeBanner()">X</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </aside>-->
-<!--    <div class="row mt-5 mb-5">-->
-<!--        <div class="col-12">-->
-<!--            <form class="d-flex justify-content-center">-->
-<!--                <div class="col-md-6 me-2">-->
-<!--                    <input class="form-control" type="search" placeholder="검색어 입력"-->
-<!--                           aria-label="Search">-->
-<!--                </div>-->
-<!--                <div class="col-md-1">-->
-<!--                    <button class="btn" type="submit">검색-->
-<!--                    </button>-->
-<!--                </div>-->
-
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--</header>-->
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid p-0 m-0">
@@ -217,5 +156,7 @@
 
 <footer>
 </footer>
+
+
 </body>
 </html>
