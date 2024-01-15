@@ -32,10 +32,7 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+
 
     @GetMapping("/main/tier")
     public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
@@ -57,6 +54,7 @@ public class MainController {
         return "tier";
     }
 
+    // 티어표 안에서 종류 카테고리 누를때 데이터 반환
     @ResponseBody
     @GetMapping("/api/tier")
     public ResponseEntity<List<Restaurant>> getRestaurantsByCuisine(@RequestParam(name = "cuisine", required = false) String cuisine) {
@@ -82,18 +80,18 @@ public class MainController {
         return "ranking";
     }
 
-    @GetMapping("/login/callback")
-    public String auth() {
-        return "callback";
-    }
 
 
-    @GetMapping("/loginSuccess")
-    public String loginSuccess(@AuthenticationPrincipal OAuth2User principal) {
-        // 로그인 성공 처리
-        // 예: 사용자 정보를 세션에 저장하거나, 홈페이지로 리디렉션
-        return "redirect:/home";
-    }
+
+
+
+}
+//    @GetMapping("/loginSuccess")
+//    public String loginSuccess(@AuthenticationPrincipal OAuth2User principal) {
+//        // 로그인 성공 처리
+//        // 예: 사용자 정보를 세션에 저장하거나, 홈페이지로 리디렉션
+//        return "redirect:/home";
+
 //    @ResponseBody
 //    @PostMapping("/api/user")
 //    public ResponseEntity<?> userCreated(@RequestBody Map<String,String> userData){
@@ -123,4 +121,4 @@ public class MainController {
 //        }
 //        return ResponseEntity.ok().build();
 //    }
-}
+

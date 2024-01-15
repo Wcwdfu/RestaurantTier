@@ -44,7 +44,9 @@ public class User {
     }
 
     private String userPassword;
+    @Column(unique = true)
     private String userEmail;
+    @Column(unique = true)
     private String userNickname;
     private String status;
     private LocalDateTime createdAt;

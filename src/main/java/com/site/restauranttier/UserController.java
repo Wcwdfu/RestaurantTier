@@ -3,6 +3,7 @@ package com.site.restauranttier;
 
 import jakarta.validation.Valid;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +19,41 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    // signup에 Get => 회원가입 템플릿
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
         return "signup_form";
     }
-
+    // signup에 POST => 회원가입 진행 -> db에 user 생성
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
-
+        // 비밀번호와 비밀번호 확인에 입력값이 다를때 예외처리
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "signup_form";
         }
-
-        userService.create(userCreateForm.getUsername(),
-                userCreateForm.getEmail(), userCreateForm.getPassword1());
-
+        
+        // 닉네임과 email이 겹치는 회원가입일때 예외처리
+        try {
+            userService.create(userCreateForm.getUserId(),
+                    userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getNickname());
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            return "signup_form";
+        } catch (Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "signup_form";
+        }
         return "redirect:/";
     }
 }
