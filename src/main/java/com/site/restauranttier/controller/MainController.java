@@ -3,7 +3,10 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.RestaurantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,13 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class MainController {
-    @Autowired
-    private RestaurantRepository restaurantRepository;
-    @Autowired
-    private UserRepository userRepository;
-
+    private final RestaurantRepository restaurantRepository;
+    private final UserRepository userRepository;
+    private final RestaurantService restaurantService;
+    
+    // 루트는 홈으로 리다이렉트
     @GetMapping("/")
     public String root() {
         return "redirect:/home";
@@ -29,7 +33,23 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/tier")
+    public String tier() {
 
+        return "tier";
+    }
+
+    @GetMapping("/talk")
+    public String talk() {
+        return "community";
+    }
+
+    @GetMapping("/ranking")
+    public String ranking() {
+        return "ranking";
+    }
+
+    // 메인에서 이미지 클릭했을때 티어로 넘어가는 URL
     @GetMapping("/main/tier")
     public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
         List<Restaurant> restaurants;
@@ -45,10 +65,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/tier")
-    public String tier() {
-        return "tier";
-    }
+
 
     // 티어표 안에서 종류 카테고리 누를때 데이터 반환
     @ResponseBody
@@ -66,36 +83,20 @@ public class MainController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
-    @GetMapping("/talk")
-    public String talk() {
-        return "community";
-    }
 
-    @GetMapping("/ranking")
-    public String ranking() {
-        return "ranking";
-    }
-
+    // 검색 결과
     @GetMapping("/api/search")
-    public String serach(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
-        List<Restaurant> restaurants;
-        //키워드가 있을때
-        if (keyword != null && !keyword.isEmpty()) {
-            restaurants = restaurantRepository.findByRestaurantName(keyword);
-
-        } else {
-            // 키워드가 없을때 모든 식당 반환
-            restaurants = restaurantRepository.findAll();
-
-        }
-        model.addAttribute("restaurants", restaurants);
+    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
+        model.addAttribute(paging);
+        model.addAttribute("kw", kw);
         return "searchResult";
-        
+
+
     }
-
-
-
 }
+
+
 
 // 네이버 로그인 파트
 
