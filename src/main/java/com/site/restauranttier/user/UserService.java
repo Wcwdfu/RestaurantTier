@@ -2,6 +2,7 @@ package com.site.restauranttier.user;
 
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     // 회원 가입 폼에 대한 회원가입 서비스
     public User create(String id, String email, String password, String nickname) {
         User user = new User();
+        if (userRepository.findById(id).isPresent()){
+            throw new DataIntegrityViolationException("User with id " + id + " already exists.");
+        }
         user.setUserId(id);
         user.setUserEmail(email);
         user.setUserPassword(passwordEncoder.encode(password));

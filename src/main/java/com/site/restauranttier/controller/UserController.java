@@ -28,6 +28,7 @@ public class UserController {
         return "login_form";
     }
 
+
     // signup에 Get => 회원가입 템플릿
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -48,6 +49,8 @@ public class UserController {
         
         // 닉네임과 email이 겹치는 회원가입일때 예외처리
         try {
+            
+            // 일단 service 안에 throw DataIntegrityViolationException 처리 해놨음. 엔티티 수정 필요
             userService.create(userCreateForm.getUserId(),
                     userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getNickname());
         } catch (DataIntegrityViolationException e) {
@@ -59,6 +62,6 @@ public class UserController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-        return "redirect:/";
+        return "redirect:/user/login";
     }
 }

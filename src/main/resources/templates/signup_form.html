@@ -17,17 +17,16 @@
             <p id="memberTitle">member</p>
 
         </div>
-        <a role="button" class="btn btn-outline-primary" href="/user/signup">회원가입</a>
     </div>
     <hr>
 </header>
+<div id="contents">
+    <p id="loginTitle">로그인</p>
+    <p id="welcomeTitle">건국대 주변의 모든 음식점 정보와 랭킹,<br>맛집 공유 커뮤니티에 오신 것을 환영합니다.</p>
+</div>
 <div class="container my-3">
-    <div class="my-3 border-bottom">
-        <div>
-            <h4>회원가입</h4>
-        </div>
-    </div>
-    <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+
+    <form class="signupForm container-fluid" th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">
             <label for="userId" class="form-label">사용자ID</label>
@@ -45,7 +44,7 @@
             <label for="email" class="form-label">이메일</label>
             <input type="email" th:field="*{email}" class="form-control">
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="nickname" class="form-label">닉네임</label>
             <input type="text" th:field="*{nickname}" class="form-control">
         </div>

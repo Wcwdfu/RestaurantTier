@@ -5,7 +5,9 @@
             <img src="/img/tier/logo.png" alt="건메추">
         </a>
         <div class="login">
-            <a class="login-button" href="/user/login">로그인</a>
+            <a class="login-button" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+            <a class="login-button" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+
         </div>
     </div>
     <!-- 검색창 부분 -->
@@ -13,7 +15,7 @@
         <div class="search-outer">
             <div class="search-box">
                 <div>
-                    <form class="search-form">
+                    <form class="search-form" action="/api/search">
                         <div class="search-wrapper">
                             <!-- 입력 부분 -->
                             <input id="search" name="search" autocomplete="off" type="text" value>

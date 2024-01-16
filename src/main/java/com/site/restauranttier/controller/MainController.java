@@ -18,6 +18,7 @@ public class MainController {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("/")
     public String root() {
         return "redirect:/home";
@@ -27,7 +28,6 @@ public class MainController {
     public String home() {
         return "home";
     }
-
 
 
     @GetMapping("/main/tier")
@@ -76,12 +76,26 @@ public class MainController {
         return "ranking";
     }
 
+    @GetMapping("/api/search")
+    public String serach(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+        List<Restaurant> restaurants;
+        //키워드가 있을때
+        if (keyword != null && !keyword.isEmpty()) {
+            restaurants = restaurantRepository.findByRestaurantName(keyword);
 
+        } else {
+            // 키워드가 없을때 모든 식당 반환
+            restaurants = restaurantRepository.findAll();
 
-
-
+        }
+        model.addAttribute("restaurants", restaurants);
+        return "tier";
+    }
 
 }
+
+// 네이버 로그인 파트
+
 //    @GetMapping("/loginSuccess")
 //    public String loginSuccess(@AuthenticationPrincipal OAuth2User principal) {
 //        // 로그인 성공 처리

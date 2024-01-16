@@ -88,12 +88,9 @@ hr{
 #privacyPolicy{
     font-size: 15px;
 }
+/* 폼 스타일링 추가 */
 
 .form{
-    width: 60vw;
+    width: 80vw;
     max-width: 600px;
-}
-.container{
-    display: flex;
-    justify-content: center;
 }
