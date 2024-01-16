@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-// 회원가입 폼
+// 회원가입 정보 입력 받는 폼
 @Getter
 @Setter
 public class UserCreateForm {

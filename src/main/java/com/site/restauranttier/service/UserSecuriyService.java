@@ -18,6 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserSecuriyService implements UserDetailsService {
     private final UserRepository userRepository;
+
+    // 인증 절차 (아이디 있는지 확인하고 없으면 권한 부여)
     @Override
     public UserDetails loadUserByUsername(String userTokenId) throws UsernameNotFoundException {
         Optional<User> siteUser = this.userRepository.findByUserTokenId(userTokenId);
