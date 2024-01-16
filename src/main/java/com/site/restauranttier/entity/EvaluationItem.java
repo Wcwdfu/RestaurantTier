@@ -10,8 +10,14 @@ import java.util.List;
 @Table(name="evaluation_items_tbl")
 public class EvaluationItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer itemId;
+
+    @Column(unique = true)
+    private String itemName;
+
     @OneToMany(mappedBy = "evaluationItem")
     private List<EvaluationItemScore> EvaluationItemScoreList = new ArrayList<>();
-    private String itemName;
+
+
 }

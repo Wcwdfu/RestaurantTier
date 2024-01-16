@@ -1,4 +1,4 @@
-package com.site.restauranttier.Service;
+package com.site.restauranttier.service;
 
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
@@ -18,13 +18,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입 폼에 대한 회원가입 서비스
-    public User create(String id, String email, String password, String nickname) {
+    public User create(String userTokenId, String email, String password, String nickname) {
         User user = new User();
-        if (userRepository.findById(id).isPresent()){
-            throw new DataIntegrityViolationException("User with id " + id + " already exists.");
+        if (userRepository.findByUserTokenId(userTokenId).isPresent()){
+            throw new DataIntegrityViolationException("User with id " + userTokenId+ " already exists.");
         }
-        user.setUserId(id);
+        user.setUserTokenId(userTokenId);
         user.setUserEmail(email);
+        user.setLoginApi("self");
         user.setUserPassword(passwordEncoder.encode(password));
         user.setUserNickname(nickname);
         user.setCreatedAt(LocalDateTime.now());
