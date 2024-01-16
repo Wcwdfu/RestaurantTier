@@ -21,10 +21,13 @@ public class UserController {
 
     private final UserService userService;
 
+    
+    // 실제 로그인을 진행하는 post는 스프링 시큐리티가 해줌
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "login_form";
     }
+
     // signup에 Get => 회원가입 템플릿
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {

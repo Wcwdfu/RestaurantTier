@@ -1,0 +1,29 @@
+#logoArea{
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 50px;
+}
+#logoTitle{
+    font-size: 25px;
+    font-weight: 900;
+    color: inherit;
+    text-decoration: none;
+}
+#memberTitleBox{
+    background-color: black;
+    border-radius: 3px 3px 15px 3px;
+    display: flex;
+    align-items: center;
+    height: 26px;
+
+}
+#memberTitle{
+    color: white;
+    font-weight: bold;
+    padding: 0px 8px;
+}
+hr{
+    opacity: 0.5;
+}

@@ -3,7 +3,10 @@ body{
 }
 
 /* ------------------- header ----------------- */
-
+header{
+    display: flex;
+    align-items: center;
+}
 #logoArea{
     margin-left: 20px;
     display: flex;
@@ -84,4 +87,13 @@ hr{
 }
 #privacyPolicy{
     font-size: 15px;
+}
+
+.form{
+    width: 60vw;
+    max-width: 600px;
+}
+.container{
+    display: flex;
+    justify-content: center;
 }
