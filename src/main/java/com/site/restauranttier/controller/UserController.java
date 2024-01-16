@@ -1,8 +1,8 @@
 package com.site.restauranttier.controller;
 
 
-import com.site.restauranttier.UserCreateForm;
-import com.site.restauranttier.UserService;
+import com.site.restauranttier.user.UserCreateForm;
+import com.site.restauranttier.user.UserService;
 import jakarta.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;

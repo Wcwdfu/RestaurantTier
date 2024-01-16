@@ -1,4 +1,4 @@
-package com.site.restauranttier;
+package com.site.restauranttier.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

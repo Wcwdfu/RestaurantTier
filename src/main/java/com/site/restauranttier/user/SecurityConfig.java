@@ -1,4 +1,4 @@
-package com.site.restauranttier;
+package com.site.restauranttier.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

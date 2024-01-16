@@ -1,4 +1,4 @@
-package com.site.restauranttier;
+package com.site.restauranttier.user;
 
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
