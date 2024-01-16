@@ -81,7 +81,6 @@ div.header-top > a.logo > img {
 
 /* 로그인 버튼 부분 */
 div.header-top > div.login {
-    margin: 0 16px;
     height: 40px;
     display: flex;
     flex: 1;
@@ -94,7 +93,7 @@ div.header-top > div.login > a {
     padding: 5px 12px;
     line-height: 18px;
     font-size: 13px;
-    background-color: #5383E8;
+    /*background-color: #5383E8;*/
     color: #FFF;
     border-radius: 4px;
     text-decoration: none;
@@ -188,7 +187,6 @@ div.header-bottom > div.menu-outer {
 }
 
 div.header-bottom nav.menu {
-    width: 80%;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -210,4 +208,15 @@ div.header-bottom ul.menu-list > li.menu-item {
     margin-left: 24px;
 }
 
+/* 추가 */
+#myPage{
+    width: 20px;
+    height: 20px;
+    background-color: #28344E;
+    vertical-align: middle;
+
+}
+.link{
+    background-color: #28344E;
+}
 
