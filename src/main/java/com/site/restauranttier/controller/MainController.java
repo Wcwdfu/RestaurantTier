@@ -89,9 +89,11 @@ public class MainController {
 
         }
         model.addAttribute("restaurants", restaurants);
-        return "tier";
+        return "searchResult";
         
     }
+
+
 
 }
 

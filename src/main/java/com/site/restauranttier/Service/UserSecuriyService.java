@@ -1,7 +1,8 @@
-package com.site.restauranttier.user;
+package com.site.restauranttier.Service;
 
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.user.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

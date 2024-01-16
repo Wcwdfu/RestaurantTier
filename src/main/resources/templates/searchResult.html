@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+</head>
+<header th:replace="~{navbar :: navbarFragment}"></header>
+<link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
+<link rel="stylesheet" type="text/css" href="/css/serachResult-style.css">
+
+<body>
+<div class="container-fluid">
+
+<table class="tier-table">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <thead>
+  <tr>
+    <th scope="col">순위</th>
+    <th scope="col">이름</th>
+    <th scope="col">티어</th>
+    <th scope="col">종류</th>
+    <th scope="col">상황</th>
+    <th scope="col">카테고리</th>
+  </tr>
+  </thead>
+  <tbody id="tierTableBody">
+  <tr th:each="restaurant : ${restaurants}">
+    <td th:text="0"></td>
+    <td th:text="${restaurant.restaurantName}"></td>
+    <td th:text="0"></td>
+    <td th:text="${restaurant.restaurantCuisine}"></td>
+    <td th:text="0"></td>
+    <td th:text="${restaurant.restaurantType}"></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>
