@@ -1,9 +1,9 @@
-package com.site.restauranttier;
+package com.site.restauranttier.entity;
 
-import com.site.restauranttier.evaluation.Evaluation;
-import com.site.restauranttier.restaurant.RestaurantComment;
-import com.site.restauranttier.restaurant.RestaurantCommentlike;
-import com.site.restauranttier.restaurant.RestaurantFavorite;
+import com.site.restauranttier.entity.Evaluation;
+import com.site.restauranttier.entity.RestaurantComment;
+import com.site.restauranttier.entity.RestaurantCommentlike;
+import com.site.restauranttier.entity.RestaurantFavorite;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

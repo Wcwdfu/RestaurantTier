@@ -1,20 +1,16 @@
-package com.site.restauranttier;
+package com.site.restauranttier.controller;
 
-import com.site.restauranttier.restaurant.Restaurant;
-import com.site.restauranttier.restaurant.RestaurantRepository;
+import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.repository.RestaurantRepository;
+import com.site.restauranttier.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class MainController {

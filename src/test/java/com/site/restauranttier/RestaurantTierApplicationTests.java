@@ -1,7 +1,9 @@
 package com.site.restauranttier;
 
-import com.site.restauranttier.restaurant.Restaurant;
-import com.site.restauranttier.restaurant.RestaurantRepository;
+import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.entity.User;
+import com.site.restauranttier.repository.RestaurantRepository;
+import com.site.restauranttier.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

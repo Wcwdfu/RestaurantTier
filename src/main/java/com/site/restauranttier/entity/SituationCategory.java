@@ -1,4 +1,4 @@
-package com.site.restauranttier.restaurant;
+package com.site.restauranttier.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Entity
-@Table(name="restaurant_hashtags_tbl")
-public class RestaurantHashtag {
+@Table(name="situation_categories_tbl")
+public class SituationCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hashtagId;
+    private Integer categoryId;
 
-    private String hashtagName;
-
-    @ManyToMany(mappedBy = "restaurantHashtagList")
+    @ManyToMany(mappedBy = "SituationCategoryList")
     private List<Restaurant> restaurantList = new ArrayList<>();
-
+    private String categoryName;
 }

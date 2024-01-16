@@ -1,6 +1,5 @@
-package com.site.restauranttier.evaluation;
+package com.site.restauranttier.entity;
 
-import com.site.restauranttier.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 

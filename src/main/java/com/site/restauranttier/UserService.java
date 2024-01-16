@@ -1,7 +1,7 @@
 package com.site.restauranttier;
 
-import com.site.restauranttier.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.site.restauranttier.entity.User;
+import com.site.restauranttier.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

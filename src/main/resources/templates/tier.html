@@ -4,72 +4,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>건메추</title>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="/tier-style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
+        <link rel="stylesheet" type="text/css" href="/css/tier-style.css"/>
         <script src="https://code.jquery.com/jquery-3.7.1.js"
                 integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="/tierScript.js"></script>
+        <script src="/js/tierScript.js"></script>
+
 
     </head>
     <body>
-        <header>
-            <!-- 로고와 로그인 버튼 부분 -->
-            <div class="header-top">
-                <a class="logo" href="/home">
-                    <img src="/tier-images/logo.png" alt="건메추">
-                </a>
-                <div class="login">
-                    <a class="login-button" href="/login">로그인</a>
-                </div>
-            </div>
-            <!-- 검색창 부분 -->
-            <div class="header-middle">
-                <div class="search-outer">
-                    <div class="search-box">
-                        <div>
-                            <form class="search-form">
-                                <div class="search-wrapper">
-                                    <!-- 입력 부분 -->
-                                    <input id="search" name="search" autocomplete="off" type="text" value>
-                                </div>
-                                <!-- 검색 버튼 -->
-                                <button class="search-btn" type="submit">
-                                    검색
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 상단 메뉴바 부분 -->
-            <div class="header-bottom">
-                <div class="menu-outer">
-                    <nav class="menu">
-                        <ul class="menu-list">
-                            <li class="menu-item-first">
-                                <a href="/home">
-                                    <div data-key="HOME" class="home non-clicked">홈</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/tier">
-                                    <div data-key="TIER" class="tier clicked">티어표</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/ranking">
-                                    <div data-key="RANKING" class="rank non-clicked">순위</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/talk">
-                                    <div data-key="TALK" class="community non-clicked">커뮤니티</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
+    <header th:replace="~{navbar :: navbarFragment}"></header>
+
+    <!--        <header>-->
+<!--            &lt;!&ndash; 로고와 로그인 버튼 부분 &ndash;&gt;-->
+<!--            <div class="header-top">-->
+<!--                <a class="logo" href="/home">-->
+<!--                    <img src="/tier-images/logo.png" alt="건메추">-->
+<!--                </a>-->
+<!--                <div class="login">-->
+<!--                    <a class="login-button" href="/login">로그인</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 검색창 부분 &ndash;&gt;-->
+<!--            <div class="header-middle">-->
+<!--                <div class="search-outer">-->
+<!--                    <div class="search-box">-->
+<!--                        <div>-->
+<!--                            <form class="search-form">-->
+<!--                                <div class="search-wrapper">-->
+<!--                                    &lt;!&ndash; 입력 부분 &ndash;&gt;-->
+<!--                                    <input id="search" name="search" autocomplete="off" type="text" value>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; 검색 버튼 &ndash;&gt;-->
+<!--                                <button class="search-btn" type="submit">-->
+<!--                                    검색-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 상단 메뉴바 부분 &ndash;&gt;-->
+<!--            <div class="header-bottom">-->
+<!--                <div class="menu-outer">-->
+<!--                    <nav class="menu">-->
+<!--                        <ul class="menu-list">-->
+<!--                            <li class="menu-item-first">-->
+<!--                                <a href="/home">-->
+<!--                                    <div data-key="HOME" class="home non-clicked">홈</div>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="menu-item">-->
+<!--                                <a href="/tier">-->
+<!--                                    <div data-key="TIER" class="tier clicked">티어표</div>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="menu-item">-->
+<!--                                <a href="/ranking">-->
+<!--                                    <div data-key="RANKING" class="rank non-clicked">순위</div>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="menu-item">-->
+<!--                                <a href="/talk">-->
+<!--                                    <div data-key="TALK" class="community non-clicked">커뮤니티</div>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
         <div class="category" id="categoryWindow">
             <div class="category-background" id="categoryBackground">
                 <div class="category-top">
@@ -139,35 +143,35 @@
                         <span class="text">상황</span>
                         <div class="buttons scrollable">
                             <span class="unselected button">
-                                <img src="/tier-images/person.png">
+                                <img src="/img/tier/person.png">
                                 <span>전체</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/person.png">
+                                <img src="/img/tier/person.png">
                                 <span>혼밥</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/people.png">
+                                <img src="/img/tier/people.png">
                                 <span>소규모 회식</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/crowd.png">
+                                <img src="/img/tier/crowd.png">
                                 <span>단체 회식</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/date.png">
+                                <img src="/img/tier/date.png">
                                 <span>데이트</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/friend.png">
+                                <img src="/img/tier/friend.png">
                                 <span>친구 초대</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/blind-date.png">
+                                <img src="/img/tier/blind-date.png">
                                 <span>소개팅</span>
                             </span>
                             <span class="unselected button">
-                                <img src="/tier-images/meeting.png">
+                                <img src="/img/tier/meeting.png">
                                 <span>미팅</span>
                             </span>
                         </div>

@@ -1,6 +1,5 @@
-package com.site.restauranttier.restaurant;
+package com.site.restauranttier.entity;
 
-import com.site.restauranttier.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

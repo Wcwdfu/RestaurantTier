@@ -1,5 +1,6 @@
-package com.site.restauranttier.restaurant;
+package com.site.restauranttier.repository;
 
+import com.site.restauranttier.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
