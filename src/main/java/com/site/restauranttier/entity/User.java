@@ -39,6 +39,7 @@ public class User {
         this.status = status;
         this.createdAt = createdAt;
     }
+
     public User(){
 
     }
