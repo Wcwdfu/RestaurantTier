@@ -88,12 +88,13 @@ div.header-top > div.login {
     align-items: center;
 }
 /* 로그인 버튼 */
-div.header-top > div.login > a {
+.login-button{
+    margin: 1rem;
     display: block;
     padding: 5px 12px;
     line-height: 18px;
     font-size: 13px;
-    /*background-color: #5383E8;*/
+    background-color: #5383E8;
     color: #FFF;
     border-radius: 4px;
     text-decoration: none;

@@ -11,11 +11,27 @@ import java.util.List;
 @Table(name = "restaurants_tbl")
 public class Restaurant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer restaurantId;
 
+
+    private String restaurantName;
+    private String restaurantType;
+    private String restaurantPosition;
+    private String restaurantAddress;
+    private String restaurantTel;
+    @Column(unique = true)
+    private String restaurantUrl;
+    private String restaurantCuisine;
+    private String status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Integer restaurantVisitCount;
+
+    // 다른 테이블과의 관계 매핑
     @ManyToMany
     @JoinTable(name = "restaurant_hashtag_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
-    inverseJoinColumns = @JoinColumn(name="hashtag_id"))
+            inverseJoinColumns = @JoinColumn(name="hashtag_id"))
     List<RestaurantHashtag> restaurantHashtagList = new ArrayList<>();
 
     @ManyToMany
@@ -27,15 +43,4 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();;
-
-    private String restaurantName;
-    private String restaurantType;
-    private String restaurantPosition;
-    private String restaurantAddress;
-    private String restaurantTel;
-    private String restaurantUrl;
-    private String restaurantCuisine;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

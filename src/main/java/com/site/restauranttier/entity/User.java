@@ -17,13 +17,34 @@ import java.util.List;
 @Entity
 @Table(name = "users_tbl")
 public class User {
+
     @Id
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
+    @Column(unique = true,nullable = false)
+    private String userTokenId;
+
+    private String userPassword;
+    @Column(unique = true, nullable = false)
+    private String userEmail;
+    @Column(unique = true, nullable = false)
+
+    private String userNickname;
+    @Column(nullable = false)
+
+    private String status;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+    @Column(nullable = false)
+    private String loginApi;
 
     @OneToMany(mappedBy = "user")
     private List<RestaurantComment> restaruantCommentList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
-    private List<Evaluation> EvaluationList = new ArrayList<>();
+    private List<Evaluation> evaluationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<RestaurantFavorite> restaurantFavoriteList = new ArrayList<>();
@@ -31,8 +52,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
 
-    public User(String userId, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
-        this.userId = userId;
+    public User(String userTokenId, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
+        this.userTokenId = userTokenId;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userNickname = userNickname;
@@ -40,16 +61,8 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public User(){
+    public User() {
 
     }
-
-    private String userPassword;
-    private String userEmail;
-
-    private String userNickname;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }
 
