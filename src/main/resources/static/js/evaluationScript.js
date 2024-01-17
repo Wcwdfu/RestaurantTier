@@ -14,11 +14,19 @@ stars.forEach(function(star,index){
 function setMainRating(selectedIndex){
   stars.forEach(function(star,index){
       if(index<=selectedIndex){
-          star.src="/img/evaluation/star-filled.png";
+          star.src="star-filled.png";
       }else{
-          star.src="/img/evaluation/star-empty.png";
+          star.src="star-empty.png";
       }
   });
+
+  if(selectedIndex<5){
+    comment.classList.remove("good");
+    comment.style.opacity = 0.7;
+  }else{
+    comment.classList.add("good");
+    comment.style.opacity = 1;
+  }
 
   if(selectedIndex==0){
       comment.textContent = "장사를 왜 하는지 모르겠어요";
@@ -55,72 +63,67 @@ var categoryBtns = document.querySelectorAll(".categoryBtn");
 
   // ---------- (third) 버튼 선택 효과 로직---------- //
 
-  document.querySelectorAll(".keywordBtn").forEach(function (button) {
+  document.querySelectorAll(".keywordBtn").forEach(function (button,index) {
       button.addEventListener("click", function () {
-          toggleKeywordPick(button.parentNode);
           toggleKeywordsBtnClass(button);
-          toggleRatingBar(button);
+          togglekeywordsRatingArea(index) 
       });
   });
-  
-  function toggleKeywordPick(keywordDiv) {
-      keywordDiv.classList.toggle("picked");
-  }
-  
+
   function toggleKeywordsBtnClass(button) {
       button.classList.toggle("unselected");
       button.classList.toggle("selected");
   }
   
-  function toggleRatingBar(button) {
-      var ratingBar = button.nextElementSibling;
-      ratingBar.classList.toggle("hidden");
+  function togglekeywordsRatingArea(index) {
+    var targetDiv = document.querySelector('#keywordEvaluateSection .keywordEvaluateArea:nth-child(' + (index + 1) + ')');
+    
+    targetDiv.classList.toggle('hidden');
   }
 
   // ---- 바형 ui에서 선택 효과 로직 ---- //
 
-  var keywords = document.querySelectorAll('.keyword');
+var keywordEvaluateAreas = document.querySelectorAll('.keywordEvaluateArea');
 
-  keywords.forEach(function(keyword) {
-    var selectPoints = keyword.querySelectorAll('.select-point');
-    var ratingParagraphs = keyword.querySelectorAll('.bar-comment-area p');
+keywordEvaluateAreas.forEach(function(keyword) {
+  var selectPoints = keyword.querySelectorAll('.select-point');
 
-    selectPoints.forEach(function(point, index) {
+  selectPoints.forEach(function(point, index) {
       point.addEventListener('click', function() {
-        toggleSelectPoint(index + 1, keyword);
+          toggleSelectPoint(index + 1, keyword);
       });
-    });
+  });
+});
+
+function toggleSelectPoint(rating, keyword) {
+  var selectPoints = keyword.querySelectorAll('.select-point');
+  var ratingParagraphs = keyword.querySelectorAll('.bar-comment-area p');
+
+  // 해당 keyword 내에서 모든 select-point에서 picked 클래스 제거
+  selectPoints.forEach(function(point) {
+      point.classList.remove('picked');
   });
 
-  function toggleSelectPoint(rating, keyword) {
-    // 해당 keyword 내에서 모든 select-point에서 picked 클래스 제거
-    keyword.querySelectorAll('.select-point').forEach(function(point) {
-      point.classList.remove('picked');
-    });
+  // 클릭된 select-point에 picked 클래스 추가
+  keyword.querySelector('.select-point.lv' + rating).classList.add('picked');
 
-    // 클릭된 select-point에 picked 클래스 추가
-    keyword.querySelector('.select-point.lv' + rating).classList.add('picked');
+  // 각 p 태그에 bold 클래스를 toggle
+  ratingParagraphs.forEach(function(p, index) {
+      p.classList.toggle('bold', index + 1 === rating);
+  });
+}
 
-    // 각 p 태그에 bold 클래스를 toggle
-    keyword.querySelectorAll('.bar-comment-area p').forEach(function(p, index) {
-      if (index + 1 === rating) {
-        p.classList.toggle('bold');
-      } else {
-        p.classList.remove('bold');
-      }
-    });
-  }
 
   // ----------제출 버튼 눌림효과 로직---------- //
+
   var submitBtn = document.getElementById('submitBtn');
 
   submitBtn.addEventListener('mousedown', function() {
-    submitBtn.style.backgroundColor= '#365392';
+    submitBtn.classList.add('pushed');
   });
 
   submitBtn.addEventListener('mouseup', function() {
-    submitBtn.style.backgroundColor = '#28344E';
+    submitBtn.classList.remove('pushed');
   });
-
 
 });
