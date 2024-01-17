@@ -39,7 +39,7 @@ public class MainController {
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
-        if (cuisine != null) {
+        if (cuisine != null && !cuisine.isEmpty() && !"null".equals(cuisine)) {
             Pageable pageable = PageRequest.of(page, 30);
             Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisine(cuisine, pageable);
 
