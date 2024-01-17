@@ -49,7 +49,7 @@ public class MainController {
         return "ranking";
     }
 
-    // 메인에서 이미지 클릭했을때 티어로 넘어가는 URL
+    // 메인에서 이미지 클릭했을때 티어표로 넘어가는 URL
     @GetMapping("/main/tier")
     public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
         List<Restaurant> restaurants;

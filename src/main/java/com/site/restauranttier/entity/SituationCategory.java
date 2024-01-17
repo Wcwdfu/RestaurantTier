@@ -13,6 +13,12 @@ public class SituationCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
 
+    public SituationCategory(String categoryName) {
+        this.categoryName = categoryName;
+    }
+    public SituationCategory(){
+
+    };
     @ManyToMany(mappedBy = "SituationCategoryList")
     private List<Restaurant> restaurantList = new ArrayList<>();
     private String categoryName;

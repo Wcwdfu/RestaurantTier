@@ -2,11 +2,13 @@ package com.site.restauranttier.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Getter
+@Setter
 @Entity
 @Table(name = "restaurants_tbl")
 public class Restaurant {
@@ -22,12 +24,27 @@ public class Restaurant {
     private String restaurantTel;
     @Column(unique = true)
     private String restaurantUrl;
+    private Integer restaurantVisitCount;
+
     private String restaurantCuisine;
     private String status;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private Integer restaurantVisitCount;
 
+    public Restaurant(String restaurantName, String restaurantType, String restaurantUrl, String restaurantCuisine, String status, LocalDateTime createdAt) {
+        this.restaurantName = restaurantName;
+        this.restaurantType = restaurantType;
+        this.restaurantUrl = restaurantUrl;
+        this.restaurantCuisine = restaurantCuisine;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+
+    private LocalDateTime updatedAt;
+
+
+    public Restaurant(){
+
+    }
     // 다른 테이블과의 관계 매핑
     @ManyToMany
     @JoinTable(name = "restaurant_hashtag_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),

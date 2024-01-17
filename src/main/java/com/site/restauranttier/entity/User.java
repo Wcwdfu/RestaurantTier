@@ -52,8 +52,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
 
-    public User(String userTokenId, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
+    public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
+        this.loginApi=loginApi;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userNickname = userNickname;
