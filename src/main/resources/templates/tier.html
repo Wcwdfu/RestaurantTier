@@ -231,7 +231,7 @@
             <!-- 이전 페이지 링크 -->
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{|?page=${paging.number-1}|}">
+                   th:href="@{|?page=${paging.number-1}&cuisine=${cuisine}|}">
                     <span>이전</span>
                 </a>
             </li>
@@ -239,20 +239,20 @@
             <!-- 페이지 번호 -->
             <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
                 th:if="${page >= paging.number-2 and page <= paging.number+4}"
-
                 th:classappend="${page == paging.number + 1} ? 'active'"
                 class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+                <a th:text="${page}" class="page-link"
+                   th:href="@{|?page=${page-1}&cuisine=${cuisine}|}"></a>
             </li>
 
             <!-- 다음 페이지 링크 -->
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number+1}&cuisine=${cuisine}|}">
                     <span>다음</span>
                 </a>
             </li>
         </ul>
     </div>
-
 </footer>
 </html>

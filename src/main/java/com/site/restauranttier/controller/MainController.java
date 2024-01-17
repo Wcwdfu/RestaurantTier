@@ -7,6 +7,8 @@ import com.site.restauranttier.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,7 @@ public class MainController {
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
     private final RestaurantService restaurantService;
-    
+
     // ---------------상단 탭 관련-------------------
 
     @GetMapping("/")
@@ -33,12 +35,23 @@ public class MainController {
     public String home() {
         return "home";
     }
+
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
-    public String tier(Model model, @RequestParam(value = "page",defaultValue = "0") int page) {
-        Page<Restaurant> paging = this.restaurantService.getList(page);
-        model.addAttribute("paging", paging);
-        return "tier";
+    public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
+        if (cuisine != null) {
+            Pageable pageable = PageRequest.of(page, 30);
+            Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisine(cuisine, pageable);
+
+            model.addAttribute("paging", paging);
+            model.addAttribute("cuisine",cuisine);
+            return "tier";
+        } else {
+            Page<Restaurant> paging = this.restaurantService.getList(page);
+            model.addAttribute("paging", paging);
+            return "tier";
+        }
+
     }
 
     @GetMapping("/restaurant")
@@ -60,22 +73,20 @@ public class MainController {
     // --------------상단 탭 관련---------------------
 
 
-    // 메인에서 이미지 클릭했을때 티어표로 넘어가는 URL
-    @GetMapping("/main/tier")
-    public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
-        List<Restaurant> restaurants;
-        if (cuisine != null && !cuisine.isEmpty()) {
-            // cuisine 파라미터가 주어진 경우, 해당하는 데이터를 조회합니다.
-            restaurants = restaurantRepository.findByRestaurantCuisine(cuisine);
-        } else {
-            // cuisine 파라미터가 없는 경우, 모든 레스토랑을 조회합니다.
-            restaurants = restaurantRepository.findAll();
-        }
-        model.addAttribute("restaurants", restaurants);
-        return "tier";
-    }
-
-
+//    // 메인에서 이미지 클릭했을때 티어표로 넘어가는 URL
+//    @GetMapping("/main/tier")
+//    public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
+//        List<Restaurant> restaurants;
+//        if (cuisine != null && !cuisine.isEmpty()) {
+//            // cuisine 파라미터가 주어진 경우, 해당하는 데이터를 조회합니다.
+//            restaurants = restaurantRepository.findByRestaurantCuisine(cuisine);
+//        } else {
+//            // cuisine 파라미터가 없는 경우, 모든 레스토랑을 조회합니다.
+//            restaurants = restaurantRepository.findAll();
+//        }
+//        model.addAttribute("restaurants", restaurants);
+//        return "tier";
+//    }
 
 
     // 티어표 안에서 종류 카테고리 누를때 데이터 반환
@@ -106,7 +117,6 @@ public class MainController {
 
     }
 }
-
 
 
 // 네이버 로그인 파트

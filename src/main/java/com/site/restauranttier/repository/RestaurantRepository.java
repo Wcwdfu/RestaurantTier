@@ -11,9 +11,11 @@ import java.util.List;
 public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> {
     List<Restaurant> findByRestaurantCuisine(String cuisine);
     List<Restaurant> findByRestaurantName(String name);
-    
+    Page<Restaurant> findByRestaurantCuisine(String cuisine, Pageable pageable);
+
     // 페이징
     Page<Restaurant> findAll(Pageable pageable);
     // 검색결과 페이징
     Page<Restaurant> findAll(Specification<Restaurant> spec, Pageable pageable);
+
 }
