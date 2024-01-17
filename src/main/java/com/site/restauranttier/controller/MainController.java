@@ -41,6 +41,11 @@ public class MainController {
         return "tier";
     }
 
+    @GetMapping("/restaurant")
+    public String restaurant() {
+        return "restaurant";
+    }
+
     @GetMapping("/talk")
     public String talk() {
         return "community";
