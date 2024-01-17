@@ -44,14 +44,10 @@ public class RestaurantService {
             }
         };
     }
-
-    public Page<Restaurant> getList(int page,String kw) {
-        // 여기서 티어 순으로 정렬해서 가져올 수 있음, 아래는 만들진 순으로 정렬
-//        List<Sort.Order> sorts = new ArrayList<>();
-//        sorts.add(Sort.Order.desc("createDate"));
+    // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
+    public Page<Restaurant> getList(int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        Specification<Restaurant> spec=search(kw);
-        return this.restaurantRepository.findAll(spec,pageable);
+        return this.restaurantRepository.findAll(pageable);
     }
 
 }

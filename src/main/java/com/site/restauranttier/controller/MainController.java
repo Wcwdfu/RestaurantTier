@@ -22,7 +22,8 @@ public class MainController {
     private final UserRepository userRepository;
     private final RestaurantService restaurantService;
     
-    // 루트는 홈으로 리다이렉트
+    // ---------------상단 탭 관련-------------------
+
     @GetMapping("/")
     public String root() {
         return "redirect:/home";
@@ -32,10 +33,11 @@ public class MainController {
     public String home() {
         return "home";
     }
-
+    // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
-    public String tier() {
-
+    public String tier(Model model, @RequestParam(value = "page",defaultValue = "0") int page) {
+        Page<Restaurant> paging = this.restaurantService.getList(page);
+        model.addAttribute("paging", paging);
         return "tier";
     }
 
@@ -48,6 +50,8 @@ public class MainController {
     public String ranking() {
         return "ranking";
     }
+    // --------------상단 탭 관련---------------------
+
 
     // 메인에서 이미지 클릭했을때 티어표로 넘어가는 URL
     @GetMapping("/main/tier")
@@ -87,7 +91,7 @@ public class MainController {
     // 검색 결과
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
+        Page<Restaurant> paging = this.restaurantService.getList(page);
         model.addAttribute(paging);
         model.addAttribute("kw", kw);
         return "searchResult";
