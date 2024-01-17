@@ -46,7 +46,7 @@ public class RestaurantService {
     }
     // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
     public Page<Restaurant> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 30);
         return this.restaurantRepository.findAll(pageable);
     }
 
