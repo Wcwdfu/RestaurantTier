@@ -12,7 +12,7 @@ hr{
 
 header{
     height: 50px;
-    background-color: #28344E;
+    background-color: #5383E8;
     margin-bottom: 10px;
 }
 #header{
@@ -65,6 +65,9 @@ header{
     padding-bottom: 20px;
     opacity: 0.6;
 }
+.good{
+    color: green;
+}
 
 /* ------------------- second(category) rating ----------------- */
 
@@ -75,30 +78,20 @@ header{
 #secondTitle p:first-child{
     font-weight: bold;
 }
-.categoryBtn{
-    border: none;
-    margin: 5px;
-    padding: 5px 10px;
-    font-weight: bold;
-    border-radius: 3px;
+#secondTitle p:last-child{
+    opacity: 0.5;
 }
-
 /* ------------------- third(keyword) rating button/area ----------------- */
 
 #third{
     position: relative;
+    padding-bottom: 4px;
 }
 #thirdTitle{
     display: flex;
-    gap: 7px;
     padding: 10px;
-}
-#thirdTitle p:first-child{
     font-weight: bold;
-}
-#thirdTitle p:last-child{
-    opacity: 0.5;
-}
+}  
 #keywordList{
     display: flex;
     flex-wrap: wrap;
@@ -109,9 +102,6 @@ header{
     padding: 5px 10px;
     font-weight: bold;
     border-radius: 3px;
-}
-.picked{ /* keyword가 선택되면 추가됨 -> 한 라인에 하나의 버튼만 보아게 함*/
-    width: 100%;
 }
 .unselected{
     color: #5383E8;
@@ -124,21 +114,36 @@ header{
 }
 
 /* ------------------- third(category) rating bar ----------------- */
-.ratingbar-area{
-    width: 95%;
-    height: 80px;
-    background-color: #5383E8;
-    border-radius: 5px;
+.keywordEvaluateArea{
+    max-width: 600px;
+    display: flex;
+    margin: auto;
+}
+.keyword-name{
+    flex: 2;
+    margin: auto;
 
+    color: #5383E8;
+    font-weight: bold;
+}
+.ratingbar-area{
+    flex: 7;
+    
+    height: 80px;
     display: flex;
     flex-direction: column;
     margin: 5px auto;
 }
+.margin{
+    flex: 1;
+}
 
 .bar{
-    width: 80% ;
+    width: 97% ;
     height: 5px;
     background-color: #EBEEF1;
+
+    border-radius: 5px;
     margin-top: 30px;
     margin-bottom: 15px;
     margin-left: auto;
@@ -152,25 +157,25 @@ header{
     width: 15px;
     height: 15px;
     background-color: #EBEEF1;
+    border: 1px solid white;
     border-radius: 50%;
 }
 .bar .picked{
-    background-color: #FFB900;
+    background-color: #5383E8;
     width: 20px;
     height: 20px;
 }
 .bar-comment-area{
-    width: 95%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    color: #EBEEF1;
     font-size: 14px;
 }
 /* bar형 ui에서 해당ㅇ이 선택되면 글자색을 바꿈*/
 .bar-comment-area .bold{
     font-weight: bold;
-    color: #FFB900; 
+    color: #5383E8; 
 }
 .hidden{
     display: none;
@@ -179,7 +184,7 @@ header{
 /* ------------------- fourth Btn area ----------------- */
 
 #submitBtn{
-    background-color: #28344E;
+    background-color: #5383E8;
     width: 100%;
     height: 60px;
     border: none;
@@ -188,4 +193,8 @@ header{
     color: white;
     font-size: 20px;
 
+}
+
+#submitBtn.pushed{
+    background-color: #668fe6;
 }
