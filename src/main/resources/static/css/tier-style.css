@@ -250,3 +250,8 @@ tbody > tr > td > div > img {
     width: 40px;
     margin-right: 14px;
 }
+
+/* footer 스타일 */
+footer{
+    margin-top: 1rem;
+}

@@ -48,12 +48,14 @@ public class MainController {
 
     @GetMapping("/talk")
     public String talk() {
-        return "community";
+        return "evaluation";
     }
 
+
+    // 테스트 용으로  임시로 restaurant 띄워 놓음
     @GetMapping("/ranking")
     public String ranking() {
-        return "ranking";
+        return "restaurant";
     }
     // --------------상단 탭 관련---------------------
 

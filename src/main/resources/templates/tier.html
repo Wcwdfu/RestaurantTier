@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>건메추</title>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
-        <link rel="stylesheet" type="text/css" href="/css/tier-style.css"/>
-        <script src="https://code.jquery.com/jquery-3.7.1.js"
-                integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="/js/tierScript.js"></script>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>건메추</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/tier-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/tierScript.js"></script>
 
 
-    </head>
-    <body>
-    <header th:replace="~{navbar :: navbarFragment}"></header>
+</head>
+<body>
+<header th:replace="~{navbar :: navbarFragment}"></header>
 
-    <!--        <header>-->
+<!--        <header>-->
 <!--            &lt;!&ndash; 로고와 로그인 버튼 부분 &ndash;&gt;-->
 <!--            <div class="header-top">-->
 <!--                <a class="logo" href="/home">-->
@@ -74,173 +76,176 @@
 <!--                </div>-->
 <!--            </div>-->
 <!--        </header>-->
-        <div class="category" id="categoryWindow">
-            <div class="category-background" id="categoryBackground">
-                <div class="category-top">
-                    <span class="category-text" id="categoryText">카테고리</span>
-                    <input id="categoryCheckBtn" type="checkbox" checked/>
-                    <label for="categoryCheckBtn" id="categoryLabel" class="category-check-btn">
+<div class="category" id="categoryWindow">
+    <div class="category-background" id="categoryBackground">
+        <div class="category-top">
+            <span class="category-text" id="categoryText">카테고리</span>
+            <input id="categoryCheckBtn" type="checkbox" checked/>
+            <label for="categoryCheckBtn" id="categoryLabel" class="category-check-btn">
                         <span id="categoryCheckBtnText" class="category-check-btn-text">
                             접기　
                         </span>
-                        <span id="categoryCheckBtnArrow">▼</span>
-                    </label>
-                </div>
-                <div class="category-list" id="categoryList">
-                    <div class="cuisine">
-                        <span class="text">종류</span>
-                        <div class="buttons scrollable">
+                <span id="categoryCheckBtnArrow">▼</span>
+            </label>
+        </div>
+        <div class="category-list" id="categoryList">
+            <div class="cuisine">
+                <span class="text">종류</span>
+                <div class="buttons scrollable">
                             <span class="unselected button">
                                 <span>전체</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>한식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>일식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>중식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>양식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>아시안</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>고기</span>
                             </span>
-                            </span>
-                            <span class="unselected button">
+                    </span>
+                    <span class="unselected button">
                                 <span>치킨</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>해산물</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>햄버거/피자</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>분식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>술집</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>카페/디저트</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>베이커리</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <span>기타</span>
                             </span>
-                        </div>
-                    </div>
+                </div>
+            </div>
 
-                    <div class="situation">
-                        <span class="text">상황</span>
-                        <div class="buttons scrollable">
+            <div class="situation">
+                <span class="text">상황</span>
+                <div class="buttons scrollable">
                             <span class="unselected button">
                                 <img src="/img/tier/person.png">
                                 <span>전체</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/person.png">
                                 <span>혼밥</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/people.png">
                                 <span>3~4인</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/crowd.png">
                                 <span>5인 이상</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/crowd.png">
                                 <span>단체 회식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/friend.png">
                                 <span>배달</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/friend.png">
                                 <span>야식</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/friend.png">
                                 <span>친구 초대</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/date.png">
                                 <span>데이트</span>
                             </span>
-                            <span class="unselected button">
+                    <span class="unselected button">
                                 <img src="/img/tier/blind-date.png">
                                 <span>소개팅</span>
                             </span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <main id="tierChartMain">
-            <div class="tier-chart">
-                <table class="tier-table">
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th scope="col">순위</th>
-                            <th scope="col">이름</th>
-                            <th scope="col">티어</th>
-                            <th scope="col">종류</th>
-                            <th scope="col">상황</th>
-                            <th scope="col">카테고리</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tierTableBody">
-                        <tr th:each="restaurant:${restaurants}">
-                            <td th:text="0"></td>
-                            <td th:text="${restaurant.restaurantName}"></td>
-                            <td th:text="0"></td>
-                            <td th:text="${restaurant.restaurantCuisine}"></td>
-                            <td th:text="0"></td>
-                            <td th:text="${restaurant.restaurantType}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-<!--                &lt;!&ndash; 페이징처리 시작 &ndash;&gt;-->
-<!--                <div th:if="${!paging.isEmpty()}">-->
-<!--                    <ul class="pagination justify-content-center">-->
-<!--                        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-<!--                            <a class="page-link"-->
-<!--                               th:href="@{|?page=${paging.number-1}|}">-->
-<!--                                <span>이전</span>-->
-<!--                            </a>-->
-<!--                        </li>-->
-<!--                        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
-<!--                            th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
-<!--                            th:classappend="${page == paging.number} ? 'active'"-->
-<!--                            class="page-item">-->
-<!--                            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
-<!--                        </li>-->
-<!--                        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-<!--                            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
-<!--                                <span>다음</span>-->
-<!--                            </a>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; 페이징처리 끝 &ndash;&gt;-->
-            </div>
-        </main>
-    </body>
+    </div>
+</div>
+<main id="tierChartMain">
+    <div class="tier-chart">
+        <table class="tier-table">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">순위</th>
+                <th scope="col">이름</th>
+                <th scope="col">티어</th>
+                <th scope="col">종류</th>
+                <th scope="col">상황</th>
+                <th scope="col">카테고리</th>
+            </tr>
+            </thead>
+            <tbody id="tierTableBody">
+            <tr th:each="restaurant,loop :${paging}">
+                <td th:text="0"></td>
+                <td th:text="${restaurant.restaurantName}"></td>
+                <td th:text="0"></td>
+                <td th:text="${restaurant.restaurantCuisine}"></td>
+                <td th:text="0"></td>
+                <td th:text="${restaurant.restaurantType}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+</body>
+<footer>
+    <!-- 페이지 표시  -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-3 and page <= paging.number+3}"
+
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
 </html>
