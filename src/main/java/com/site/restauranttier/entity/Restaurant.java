@@ -30,10 +30,11 @@ public class Restaurant {
     private String status;
     private LocalDateTime createdAt;
 
-    public Restaurant(String restaurantName, String restaurantType, String restaurantUrl, String restaurantCuisine, String status, LocalDateTime createdAt) {
+    public Restaurant(String restaurantName, String restaurantType, String restaurantUrl, Integer visitCount,String restaurantCuisine, String status, LocalDateTime createdAt) {
         this.restaurantName = restaurantName;
         this.restaurantType = restaurantType;
         this.restaurantUrl = restaurantUrl;
+        this.restaurantVisitCount=visitCount;
         this.restaurantCuisine = restaurantCuisine;
         this.status = status;
         this.createdAt = createdAt;
