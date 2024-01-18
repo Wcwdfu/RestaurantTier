@@ -2,6 +2,8 @@ package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantComment;
+import com.site.restauranttier.entity.RestaurantMenu;
+import com.site.restauranttier.enums.SortComment;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.RestaurantCommentService;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -57,17 +60,32 @@ public class MainController {
 
     }
 
-    @GetMapping("/restaurants")
-    public String restaurant() {
+    @GetMapping("/restaurants/{restaurantId}")
+    public String restaurant(
+            @PathVariable Integer restaurantId
+    ) {
         return "restaurant";
     }
 
+    // 식당 메뉴 반환
+    @GetMapping("/api/restaurants/{restaurantId}/menus")
+    public ResponseEntity<List<RestaurantMenu>> getRestaurantMenusByRestaurantId(
+            @PathVariable Integer restaurantId
+    ) {
+        List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
+        return new ResponseEntity<>(restaurantMenus, HttpStatus.OK);
+    }
+
+    // 식당 댓글 작성
     @PostMapping("/api/restaurants/{restaurantId}/comments")
     public ResponseEntity<String> postRestaurantComment(
             @PathVariable Integer restaurantId,
-            @RequestParam String userTokenId,
-            @RequestParam String commentBody) {
-        String result = restaurantCommentService.addComment(restaurantId, userTokenId, commentBody);
+            @RequestBody Map<String, Object> jsonBody
+    ) {
+        String result = restaurantCommentService.addComment(
+                restaurantId,
+                jsonBody.get("userTokenId").toString(),
+                jsonBody.get("commentBody").toString());
 
         if (result.equals("ok")) {
             return ResponseEntity.ok("Comment added successfully");

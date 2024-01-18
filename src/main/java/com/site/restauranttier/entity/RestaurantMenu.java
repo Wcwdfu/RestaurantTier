@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,8 +15,10 @@ public class RestaurantMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer menuId;
 
-    @OneToMany(mappedBy = "restaurantComment")
-    private List<RestaurantCommentlike> restaurantCommentlikeList=new ArrayList<>();
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="restaurant_id")
+    Restaurant restaurant;
 
     private String menuName;
     private String menuPrice;
