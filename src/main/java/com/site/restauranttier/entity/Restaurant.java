@@ -65,4 +65,7 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantMenu> restaurantMenuList = new ArrayList<>();;
 }
