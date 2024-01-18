@@ -15,8 +15,10 @@ public class EvaluationItemScore {
     private Evaluation evaluation;
     @Id
     @ManyToOne
-    @JoinColumn(name="item_id")
-    private EvaluationItem evaluationItem;
+    @JoinColumn(name="situation_id")
+    private Situation situation;
 
     private double score;
+
+
 }

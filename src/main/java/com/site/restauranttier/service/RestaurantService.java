@@ -2,7 +2,7 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantHashtag;
-import com.site.restauranttier.entity.SituationCategory;
+import com.site.restauranttier.entity.Situation;
 import com.site.restauranttier.repository.RestaurantRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -14,12 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -34,7 +30,7 @@ public class RestaurantService {
             public Predicate toPredicate(Root<Restaurant> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
                 Join<Restaurant, RestaurantHashtag> hashtagJoin  = q.join("restaurantHashtagList", JoinType.LEFT);
-                Join<Restaurant, SituationCategory> categoryJoin  = q.join("SituationCategoryList", JoinType.LEFT);
+                Join<Restaurant, Situation> categoryJoin  = q.join("SituationCategoryList", JoinType.LEFT);
                 Predicate predicate = cb.or(
                         cb.like(q.get("restaurantName"), "%" + kw + "%"),   // 레스토랑 이름
                         cb.like(hashtagJoin.get("hashtagName"), "%" + kw + "%"),  // 레스토랑 해시태그

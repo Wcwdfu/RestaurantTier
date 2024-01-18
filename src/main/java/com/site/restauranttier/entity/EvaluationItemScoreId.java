@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class EvaluationItemScoreId implements Serializable {
     private Integer evaluation;
-    private Integer evaluationItem;
+    private Situation situation;
 
     @Override
     public boolean equals(Object obj) {

@@ -1,7 +1,7 @@
 package com.site.restauranttier;
 
 import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.SituationCategory;
+import com.site.restauranttier.entity.Situation;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.SituationCategoryRepository;
@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 class RestaurantTierApplicationTests {
@@ -46,15 +45,15 @@ class RestaurantTierApplicationTests {
 
         
 		// 상황 테스트 데이터 저장
-        SituationCategory alone = new SituationCategory("혼밥");
-        SituationCategory threeFour = new SituationCategory("3~4인");
-        SituationCategory five = new SituationCategory("5인 이상");
-        SituationCategory group  = new SituationCategory("단체 회식");
-        SituationCategory delivery = new SituationCategory("배달");
-        SituationCategory nightSnack = new SituationCategory("야식");
-        SituationCategory invite = new SituationCategory("친구 초대");
-        SituationCategory date = new SituationCategory("데이트");
-        SituationCategory blindDate = new SituationCategory("소개팅");
+        Situation alone = new Situation("혼밥");
+        Situation threeFour = new Situation("3~4인");
+        Situation five = new Situation("5인 이상");
+        Situation group  = new Situation("단체 회식");
+        Situation delivery = new Situation("배달");
+        Situation nightSnack = new Situation("야식");
+        Situation invite = new Situation("친구 초대");
+        Situation date = new Situation("데이트");
+        Situation blindDate = new Situation("소개팅");
         List situationList = new ArrayList(Arrays.asList(alone,threeFour,five,group,delivery,nightSnack,invite,date,blindDate));
         situationCategoryRepository.saveAll(situationList);
     }

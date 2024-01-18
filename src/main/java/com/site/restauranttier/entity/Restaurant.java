@@ -24,9 +24,13 @@ public class Restaurant {
     private String restaurantTel;
     @Column(unique = true)
     private String restaurantUrl;
+    private String restaurantImgUrl;
     private Integer restaurantVisitCount;
 
     private String restaurantCuisine;
+    private String restaurantLatitude;
+    private String restaurantLongitude;
+
     private String status;
     private LocalDateTime createdAt;
 
@@ -54,8 +58,8 @@ public class Restaurant {
 
     @ManyToMany
     @JoinTable(name = "restaurant_situation_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
-            inverseJoinColumns = @JoinColumn(name="category_id"))
-    List<SituationCategory> SituationCategoryList = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name="situation_id"))
+    List<Situation> situationList = new ArrayList<>();
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantComment> restaurantCommentList = new ArrayList<>();;
 
