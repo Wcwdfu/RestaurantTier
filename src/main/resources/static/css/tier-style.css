@@ -1,3 +1,26 @@
+@media only screen and (max-width: 1024px) {
+    #categoryBackground, #tierChartmain {
+        margin: 0 10px;
+        min-width: 260px;
+    }
+
+    header {
+        min-width: 260px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    #categoryBackground, #tierChartMain {
+        width: 70%;
+        min-width: 450px;
+        max-width: 900px;
+    }
+
+    header {
+        min-width: 450px;
+    }
+}
+
 /* 리스트의 아이템 중 클릭 상태인 것(홈) */
 div.header-bottom ul.menu-list > li > a > div.tier {
     display: flex;
@@ -35,6 +58,7 @@ div.header-bottom ul.menu-list > li > a > div.tier {
 
 /* category 고르기 창 */
 div.category {
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 7px 0;
