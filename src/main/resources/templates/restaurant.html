@@ -17,19 +17,19 @@
         <div class="outer-container" id="outerContainer">
             <div class="inner-container">
                 <div class="basic-info left-justified">
-                    <img id="mainImg" src="https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200523_203%2F1590209976906oa3TH_JPEG%2Fk7Xe41SBMJPF9nly774jDDQh.jpg">
+                    <img id="mainImg" th:src="${restaurant.restaurantImgUrl}">
                     <div class="texts left-justified">
                         <div id="restaurantNameOuter">
-                            <div id="restaurantName">
-                                제주곤이칼국수 건대점
+                            <div id="restaurantName" th:text="${restaurant.restaurantName}">
+
                             </div>
                             <div id="favoriteContainer">
                                 <img id="favoriteImg" class="before-favorite" src="https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104">
                             </div>
                         </div>
-                        <span id="restaurantType">칼국수,만두</span>
-                        <span id="restaurantAddress">서울 광진구 능동로13길 12</span>
-                        <span id="restaurantTel">0507-1449-3433</span>
+                        <span id="restaurantType" th:text="${restaurant.restaurantType}"></span>
+                        <span id="restaurantAddress" th:text="${restaurant.restaurantAddress}"></span>
+                        <span id="restaurantTel" th:text="${restaurant.restaurantTel}"></span>
                     </div>
                 </div>
                 <div>
@@ -76,4 +76,9 @@
             </div>
         </div>
     </body>
+<!-- 자바스크립트 데이터 전달용 태그 -->
+    <div id="restaurantInfo"
+         th:attr="data-name=${restaurant.restaurantName}, data-latitude=${restaurant.restaurantLatitude}, data-longitude=${restaurant.restaurantLongitude}">
+    </div>
+
 </html>

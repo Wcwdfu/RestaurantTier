@@ -210,7 +210,10 @@
             <tbody id="tierTableBody">
             <tr th:each="restaurant,loop :${paging}">
                 <td th:text="0"></td>
-                <td th:text="${restaurant.restaurantName}"></td>
+                <td>
+                    <a class="restaurant-link" th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}" th:text="${restaurant.restaurantName}"></a>
+
+                </td>
                 <td th:text="0"></td>
                 <td th:text="${restaurant.restaurantCuisine}"></td>
                 <td th:text="0"></td>

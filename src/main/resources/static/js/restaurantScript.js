@@ -4,15 +4,19 @@ var isMobile = /Mobi/i.test(window.navigator.userAgent);
 window.onload = function() {
     mainImgResize();
     adjustWidth();
-
+    // html 에서 식당 정보 가져오기
+    var restaurantInfo = document.getElementById('restaurantInfo');
+    var name = restaurantInfo.getAttribute('data-name');
+    var latitude = parseFloat(restaurantInfo.getAttribute('data-latitude'));
+    var longitude = parseFloat(restaurantInfo.getAttribute('data-longitude'));
     // 네이버 지도
     var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.5402396, 127.0705247),//위도, 경도
+        center: new naver.maps.LatLng(latitude, longitude),//위도, 경도
         zoom: 16,
         minZoom: 8,
     });
     var marker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(37.5402396, 127.0705247),//위도, 경도
+        position: new naver.maps.LatLng(latitude, longitude),//위도, 경도
         map: map
     });
 };

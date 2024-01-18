@@ -15,13 +15,13 @@ $(document).ready(function () {
             type: 'GET', // HTTP 메소드
             data: { 'cuisine': cuisine }, // 요청과 함께 보낼 데이터
             success: function(data) {
-                
                 //반환한 데이터로 table 데이터 구성
                 var tableContent = '';
                 data.forEach(function(restaurant) {
+                    var restaurantLink = '/restaurants/' + restaurant.restaurantId; // 링크 생성
                     tableContent += '<tr>' +
                         '<td>' + "0" + '</td>' +
-                        '<td>' + restaurant.restaurantName + '</td>' +
+                        '<td><a href="' + restaurantLink + '" class="restaurant-link">' + restaurant.restaurantName + '</a></td>' + // 링크 추가
                         '<td>' + "0" + '</td>' +
                         '<td>' + restaurant.restaurantCuisine + '</td>' +
                         '<td>' + "0" + '</td>' +
@@ -30,6 +30,7 @@ $(document).ready(function () {
                 });
                 $("#tierTableBody").html(tableContent);
             },
+
             error: function(error) {
                 // 에러 핸들링
                 console.error("Error fetching data: ", error);

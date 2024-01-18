@@ -45,6 +45,7 @@ public class MainController {
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
+        // 메인에서 이미지로 티어표로 이동할 때
         if (cuisine != null && !cuisine.isEmpty() && !"null".equals(cuisine)) {
             Pageable pageable = PageRequest.of(page, 30);
             Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisine(cuisine, pageable);
@@ -53,17 +54,34 @@ public class MainController {
             model.addAttribute("cuisine",cuisine);
             return "tier";
         } else {
+            //그냥 티어표로 이동할때
             Page<Restaurant> paging = this.restaurantService.getList(page);
             model.addAttribute("paging", paging);
             return "tier";
         }
 
     }
+    @GetMapping("/talk")
+    public String talk() {
+        return "talk";
+    }
+
+
+    @GetMapping("/ranking")
+    public String ranking() {
+        return "ranking";
+    }
+    
+    // --------------상단 탭 관련 끝---------------------
+
 
     @GetMapping("/restaurants/{restaurantId}")
-    public String restaurant(
+    public String restaurant(Model model,
             @PathVariable Integer restaurantId
     ) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        model.addAttribute("restaurant",restaurant);
+
         return "restaurant";
     }
 
@@ -99,35 +117,6 @@ public class MainController {
         }
     }
 
-    @GetMapping("/talk")
-    public String talk() {
-        return "evaluation";
-    }
-
-
-    // 테스트 용으로  임시로 restaurant 띄워 놓음
-    @GetMapping("/ranking")
-    public String ranking() {
-        return "restaurant";
-    }
-    // --------------상단 탭 관련---------------------
-
-
-//    // 메인에서 이미지 클릭했을때 티어표로 넘어가는 URL
-//    @GetMapping("/main/tier")
-//    public String tier(Model model, @RequestParam(name = "cuisine", required = false) String cuisine) {
-//        List<Restaurant> restaurants;
-//        if (cuisine != null && !cuisine.isEmpty()) {
-//            // cuisine 파라미터가 주어진 경우, 해당하는 데이터를 조회합니다.
-//            restaurants = restaurantRepository.findByRestaurantCuisine(cuisine);
-//        } else {
-//            // cuisine 파라미터가 없는 경우, 모든 레스토랑을 조회합니다.
-//            restaurants = restaurantRepository.findAll();
-//        }
-//        model.addAttribute("restaurants", restaurants);
-//        return "tier";
-//    }
-
 
     // 티어표 안에서 종류 카테고리 누를때 데이터 반환
     @ResponseBody
@@ -145,6 +134,11 @@ public class MainController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
+
+//    @GetMapping("/restaurants/{restaurantId}")
+//    public String evaluation(Model model,@PathVariable Integer id){
+//
+//    }
 
     // 검색 결과
     @GetMapping("/api/search")

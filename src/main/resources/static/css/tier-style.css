@@ -204,6 +204,7 @@ th {
     font-weight: normal;
     vertical-align: middle;
     padding: 4px;
+    text-align: center;
 }
 
 tbody {
@@ -255,3 +256,8 @@ tbody > tr > td > div > img {
 footer{
     margin-top: 1rem;
 }
+.restaurant-link {
+    color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
+    text-decoration: none; /* 밑줄을 제거합니다 */
+}
+
