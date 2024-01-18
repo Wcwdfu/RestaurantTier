@@ -13,60 +13,7 @@
     </head>
     <body>
         <header th:replace="~{navbar_unselected :: navbarFragment}"></header>
-        <!-- <header>
-            <div class="header-top">
-                <a class="logo" href="/">
-                    <img src="resources/img/logo.png" alt="건메추">
-                </a>
-                <div class="login">
-                    <a class="login-button" href="/login">로그인</a>
-                </div>
-            </div>
-            <div class="header-middle">
-                <div class="search-outer">
-                    <div class="search-box">
-                        <div>
-                            <form class="search-form">
-                                <div class="search-wrapper">
-                                    <input id="search" name="search" autocomplete="off" type="text" value>
-                                </div>
-                                <button class="search-btn" type="submit">
-                                    검색
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="header-bottom">
-                <div class="menu-outer">
-                    <nav class="menu">
-                        <ul class="menu-list">
-                            <li class="menu-item-first">
-                                <a href="/home">
-                                    <div data-key="HOME" class="home non-clicked">홈</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/tier">
-                                    <div data-key="TIER" class="tier clicked">티어표</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/rank">
-                                    <div data-key="RANK" class="rank non-clicked">순위</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/community">
-                                    <div data-key="COMMUNITY" class="community non-clicked">커뮤니티</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header> -->
+        
         <div class="outer-container" id="outerContainer">
             <div class="inner-container">
                 <div class="basic-info left-justified">
@@ -111,12 +58,21 @@
                 <div id="mapUnfoldButton" class="unfold-button">펼치기</div>
             </div>
             <button class="inner-container evaluation-button button">평가하기</button>
-            <div class="inner-container">
+            <div class="comment-container">
                 <div class="section-title">댓글</div>
                 <div class="input-container">
                     <textarea id="commentInput" placeholder="식당에 대한 댓글을 남겨주세요."></textarea>
-                    <button class="button evaluation-button">등록</button>
+                    <button class="button evaluation-button" onclick="sendComment()">등록</button>
                 </div>
+                <div class="sort-toggle-buttons">
+                    <button id="button1" class="active" onclick="toggleButton(1)">인기순</button>
+                    <button id="button2" onclick="toggleButton(2)">최신순</button>
+                </div>
+            </div>
+            <div class="comment-list-container">
+                <ul id="commentList">
+
+                </ul>
             </div>
         </div>
     </body>

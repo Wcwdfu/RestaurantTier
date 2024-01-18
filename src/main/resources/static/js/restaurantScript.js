@@ -27,7 +27,7 @@ function adjustWidth() {
         outerContainer.style.marginLeft = '10px';
         outerContainer.style.marginRight = '10px';
 
-        outerContainer.style.minWidth = '300px';
+        outerContainer.style.minWidth = '260px';
     } else {
         outerContainer.style.width = '70%';
 
@@ -364,3 +364,102 @@ document.getElementById('mapUnfoldButton').addEventListener('click', function() 
         mapDiv.style.height = '150px';
     }
 });
+
+// 댓글 인기순, 최신순 토글 초기화
+let activeButton = document.getElementById('button1');
+// 댓글 토글 함수
+function toggleButton(buttonNumber) {
+  const currentButton = document.getElementById(`button${buttonNumber}`);
+  
+  if (activeButton === currentButton) {
+    // active 버튼 다시 클릭
+  } else {
+    // active가 아닌 버튼 클릭
+    if (activeButton) {
+      activeButton.classList.remove('active');
+    }
+    currentButton.classList.add('active');
+    activeButton = currentButton;
+  }
+}
+
+// 댓글 동적 생성
+commentData = [
+  [4, '김성운6', '2024.01.16. 17:11', '하하하하하하하하 나나 아아아아아 나나나나나 아아아앙'],
+  [142, '김성운1', '2024.01.16. 17:11', '하하하하하하하하'],
+  [43, '김성운3', '2024.01.16. 17:11', '나나 아아아아아 나나나나나 아아아앙'],
+  [-22, '김성운9', '2024.01.16. 17:11', '하하하하하하하하'],
+  [63, '김성운2', '2024.01.16. 17:11', '하하하하하하하하히히히히히히ㅣ히히히히히히히ㅣ힣 힣 딯 ㅈ ㄹㅈ ㄹ  가가가각 ㅇ나나나나나 아아아아아 나나나나나 아아아앙 나나나나나 앙아아'],
+  [33, '김성운4', '2024.01.16. 17:11', '하하하하하하하하'],
+  [-2, '김성운8', '2024.01.16. 17:11', '하하하하하하하하'],
+  [12, '김성운5', '2024.01.16. 17:11', '나나 아아아아아 나나나나나 아아아앙'],
+  [2, '김성운7', '2024.01.16. 17:11', '하하하하하하하하 나나 아아아아아 나나나나나 아아아앙 나나 아아아아아 나나나나나 아아아앙'],
+  [-2424, '김성운ㅈㅈㅈㅈㅈ', '2024.01.16. 17:11', '하하하하하하하하']
+]
+fillCommentInfo(commentData);
+function fillCommentInfo(data) {
+    const commentList = document.getElementById('commentList');
+    for (var i = 0; i < data.length; i++) {
+      const li = document.createElement('li');
+
+      const likeDiv = document.createElement('div');
+      likeDiv.classList.add('like-div');
+      likeDiv.textContent = data[i][0];
+      li.appendChild(likeDiv);
+
+      const bodyDiv = document.createElement('div');
+      bodyDiv.classList.add('body-div');
+
+      const nickDateDiv = document.createElement('div');
+      nickDateDiv.classList.add('nick-date-div');
+      const nickSpan = document.createElement('span');
+      nickSpan.classList.add('nick-span');
+      nickSpan.textContent = data[i][1];
+      const dateSpan = document.createElement('span');
+      dateSpan.classList.add('date-span');
+      dateSpan.textContent = data[i][2];
+      nickDateDiv.appendChild(nickSpan);
+      nickDateDiv.appendChild(dateSpan);
+      bodyDiv.appendChild(nickDateDiv);
+
+      const realCommentContainer = document.createElement('div');
+      realCommentContainer.classList.add('real-comment-container');
+      const realComment = document.createElement('span');
+      realComment.textContent = data[i][3];
+      realCommentContainer.appendChild(realComment);
+      bodyDiv.appendChild(realCommentContainer);
+
+      li.appendChild(bodyDiv);
+
+      commentList.appendChild(li);
+    }
+}
+
+// 댓글 달기 요청
+function sendComment() {
+  const userTokenId = "user123";
+  const apiUrl = "/api/restaurants/1/comments";
+  const commentBody = document.getElementById('commentInput').textContent;
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userTokenId: userTokenId,
+      commentBody: commentBody,
+    }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Comment added successfully:", data);
+    })
+    .catch(error => {
+      console.error("Error adding comment:", error);
+    });
+}

@@ -1,8 +1,10 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.entity.RestaurantComment;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class MainController {
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
     private final RestaurantService restaurantService;
+    private final RestaurantCommentService restaurantCommentService;
 
     // ---------------상단 탭 관련-------------------
 
@@ -54,9 +57,25 @@ public class MainController {
 
     }
 
-    @GetMapping("/restaurant")
+    @GetMapping("/restaurants")
     public String restaurant() {
         return "restaurant";
+    }
+
+    @PostMapping("/api/restaurants/{restaurantId}/comments")
+    public ResponseEntity<String> postRestaurantComment(
+            @PathVariable Integer restaurantId,
+            @RequestParam String userTokenId,
+            @RequestParam String commentBody) {
+        String result = restaurantCommentService.addComment(restaurantId, userTokenId, commentBody);
+
+        if (result.equals("ok")) {
+            return ResponseEntity.ok("Comment added successfully");
+        } else if (result.equals("userTokenId")) {
+            return ResponseEntity.ok("UserTokenId doesn't exist");
+        } else {
+            return ResponseEntity.ok("what");
+        }
     }
 
     @GetMapping("/talk")
