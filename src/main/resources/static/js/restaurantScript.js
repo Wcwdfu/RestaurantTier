@@ -3,7 +3,6 @@ var isMobile = /Mobi/i.test(window.navigator.userAgent);
 // 창이 로드될 때와 창 크기가 바뀔 때 적용할 함수 넣어주기
 window.onload = function() {
     mainImgResize();
-    adjustWidth();
     // html 에서 식당 정보 가져오기
     var restaurantInfo = document.getElementById('restaurantInfo');
     var name = restaurantInfo.getAttribute('data-name');
@@ -22,22 +21,6 @@ window.onload = function() {
 };
 window.onresize = function() {
     mainImgResize();
-    adjustWidth();
-}
-// 창이 로드될 때와 창 크기가 바뀔 때 적용되는 함수
-function adjustWidth() {
-    var outerContainer = document.getElementById('outerContainer');
-    if (isMobile) {
-        outerContainer.style.marginLeft = '10px';
-        outerContainer.style.marginRight = '10px';
-
-        outerContainer.style.minWidth = '260px';
-    } else {
-        outerContainer.style.width = '70%';
-
-        outerContainer.style.minWidth = '450px';
-        outerContainer.style.maxWidth = '900px';
-    }
 }
 
 // 메인 이미지 정사각형으로 되게

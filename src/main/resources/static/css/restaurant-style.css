@@ -49,12 +49,30 @@ li {
     border: none;
 }
 
-header {
-    min-width: 260px;
+/* header 이후 새로운 부분 시작 */
+@media only screen and (max-width: 1024px) {
+    #outerContainer {
+        margin: 0 10px;
+        min-width: 260px;
+    }
+
+    header {
+        min-width: 260px;
+    }
 }
 
+@media only screen and (min-width: 1025px) {
+    #outerContainer {
+        width: 70%;
+        min-width: 450px;
+        max-width: 900px;
+    }
 
-/* header 이후 새로운 부분 시작 */
+    header {
+        min-width: 450px;
+    }
+}
+
 .left-justified {
     text-align: left;
 }
