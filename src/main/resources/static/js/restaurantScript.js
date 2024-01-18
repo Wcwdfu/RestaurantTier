@@ -1,5 +1,3 @@
-// 현재 모바일인지 PC인지 체크(boolean)
-var isMobile = /Mobi/i.test(window.navigator.userAgent);
 // 창이 로드될 때와 창 크기가 바뀔 때 적용할 함수 넣어주기
 window.onload = function() {
     mainImgResize();
@@ -128,62 +126,67 @@ getMenuData()
         console.error('데이터 로딩 실패:', error);
     });
 
-function fillMenuInfo(data, num) { //num은 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
-    const menuInfoContainer = document.getElementById('menuInfoContainer');
-    menuInfoContainer.innerHTML = '';
-    const menuUl = document.createElement('ul');
-    menuUl.classList.add('menu-ul');
-    menuInfoContainer.appendChild(menuUl);
+function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
+  if (!data || data.length < 4) {
+    const menuUnfoldButton = document.getElementById('menuUnfoldButton');
+    menuUnfoldButton.style.display = 'none';
+  }
 
-    for (var i = 0; i < data.length; i++) {
-        const item = data[i];
-        const menuLi = document.createElement('li');
-        const textDiv = document.createElement('div');
-        textDiv.classList.add('menu-text-container');
-        const menuNameDiv = document.createElement('div');
-        menuNameDiv.classList.add('menu-name');
-        menuNameDiv.textContent = item.menuName;
-        const menuPriceContainer = document.createElement('div');
-        menuPriceContainer.classList.add('menu-price');
-        const menuPriceEm = document.createElement('em');
-        if (item.menuPrice != undefined) {
-            menuPriceEm.textContent = item.menuPrice.slice(0,-1);
-        }
-        const menuPriceSpan = document.createElement('span');
-        menuPriceSpan.textContent = '원';
-        menuPriceContainer.appendChild(menuPriceEm);
-        menuPriceContainer.appendChild(menuPriceSpan);
-        textDiv.appendChild(menuNameDiv);
-        textDiv.appendChild(menuPriceContainer);
-        
-        if (item.naverType === 'type1' || item.naverType === 'type3') {
-            const imgDiv = document.createElement('div');
-            imgDiv.classList.add('menu-img-container');
-            const img = document.createElement('img');
-            const menuImgUrl = item.menuImgUrl
-            if (menuImgUrl === 'icon') {
-                img.setAttribute('src', '/img/tier/logo.png');
-                img.style.backgroundColor = '#aaa';
-            } else {
-                img.setAttribute('src', menuImgUrl);
-            }
-            menuLi.appendChild(img);
-            menuLi.appendChild(textDiv);
-        } else if (item.naverType === 'type2' || item.naverType === 'type4') {
-            menuLi.appendChild(textDiv);
-        } else {
-            const nullDiv = document.createElement('div');
-            nullDiv.classList.add('menu-name');
-            nullDiv.textContent = '메뉴 없음';
-            menuLi.appendChild(nullDiv);
-        }
+  const menuInfoContainer = document.getElementById('menuInfoContainer');
+  menuInfoContainer.innerHTML = '';
+  const menuUl = document.createElement('ul');
+  menuUl.classList.add('menu-ul');
+  menuInfoContainer.appendChild(menuUl);
 
-        menuUl.appendChild(menuLi);
-      
-        if (i + 1 >= num && num !== -1) {
-          break;
-        }
+  for (var i = 0; i < data.length; i++) {
+    const item = data[i];
+    const menuLi = document.createElement('li');
+    const textDiv = document.createElement('div');
+    textDiv.classList.add('menu-text-container');
+    const menuNameDiv = document.createElement('div');
+    menuNameDiv.classList.add('menu-name');
+    menuNameDiv.textContent = item.menuName;
+    const menuPriceContainer = document.createElement('div');
+    menuPriceContainer.classList.add('menu-price');
+    const menuPriceEm = document.createElement('em');
+    if (item.menuPrice != undefined) {
+      menuPriceEm.textContent = item.menuPrice.slice(0,-1);
+    }
+    const menuPriceSpan = document.createElement('span');
+    menuPriceSpan.textContent = '원';
+    menuPriceContainer.appendChild(menuPriceEm);
+    menuPriceContainer.appendChild(menuPriceSpan);
+    textDiv.appendChild(menuNameDiv);
+    textDiv.appendChild(menuPriceContainer);
+    
+    if (item.naverType === 'type1' || item.naverType === 'type3') {
+      const imgDiv = document.createElement('div');
+      imgDiv.classList.add('menu-img-container');
+      const img = document.createElement('img');
+      const menuImgUrl = item.menuImgUrl
+      if (menuImgUrl === 'icon') {
+          img.setAttribute('src', '/img/tier/logo.png');
+          img.style.backgroundColor = '#aaa';
+      } else {
+          img.setAttribute('src', menuImgUrl);
       }
+      menuLi.appendChild(img);
+      menuLi.appendChild(textDiv);
+    } else if (item.naverType === 'type2' || item.naverType === 'type4') {
+      menuLi.appendChild(textDiv);
+    } else {
+      const nullDiv = document.createElement('div');
+      nullDiv.classList.add('menu-name');
+      nullDiv.textContent = '메뉴 없음';
+      menuLi.appendChild(nullDiv);
+    }
+
+    menuUl.appendChild(menuLi);
+  
+    if (i + 1 >= num && num !== -1) {
+      break;
+    }
+  }
 }
 
 // 메뉴 펼쳤다 접기
