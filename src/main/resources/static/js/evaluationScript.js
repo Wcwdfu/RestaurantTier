@@ -14,9 +14,9 @@ stars.forEach(function(star,index){
 function setMainRating(selectedIndex){
   stars.forEach(function(star,index){
       if(index<=selectedIndex){
-          star.src="star-filled.png";
+          star.src="/img/evaluation/star-filled.png";
       }else{
-          star.src="star-empty.png";
+          star.src="/img/evaluation/star-empty.png";
       }
   });
 
