@@ -72,11 +72,14 @@ public class MainController {
     public ResponseEntity<List<RestaurantMenu>> getRestaurantMenusByRestaurantId(
             @PathVariable Integer restaurantId
     ) {
+        //TODO: 반환값이 null일 경우(해당 식당의 status가 ACTIVE가 아닐 경우) 처리 해줘야함.
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
+
         return new ResponseEntity<>(restaurantMenus, HttpStatus.OK);
     }
 
     // 식당 댓글 작성
+    //TODO: 안됨 다시 해야됨.
     @PostMapping("/api/restaurants/{restaurantId}/comments")
     public ResponseEntity<String> postRestaurantComment(
             @PathVariable Integer restaurantId,
