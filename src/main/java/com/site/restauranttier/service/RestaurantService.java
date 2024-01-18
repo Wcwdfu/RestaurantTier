@@ -2,7 +2,10 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantHashtag;
+import com.site.restauranttier.entity.RestaurantMenu;
 import com.site.restauranttier.entity.Situation;
+import com.site.restauranttier.enums.SortComment;
+import com.site.restauranttier.repository.RestaurantMenuRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,11 +20,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantMenuRepository restaurantmenuRepository;
     private Specification<Restaurant> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
@@ -46,4 +52,8 @@ public class RestaurantService {
         return this.restaurantRepository.findAll(pageable);
     }
 
+    public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        return restaurantmenuRepository.findByRestaurantOrderByMenuId(restaurant);
+    }
 }

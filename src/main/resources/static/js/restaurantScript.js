@@ -90,7 +90,6 @@ const tierData = [
 ]
 fillTierInfo(tierData);
 function fillTierInfo(data) {
-    console.log("eee");
     const tierInfoContainer = document.getElementById('tierInfoContainer');
 
     for (let i = 0; i < data.length; i++) {
@@ -106,170 +105,42 @@ function fillTierInfo(data) {
     }
 }
 
-// 메뉴 element 동적 생성
-const menuJsonData = [
-    {
-        "menu_id": 1,
-        "restaurant_id": 1,
-        "menu_name": "크로와상",
-        "menu_price": "3,200원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230703_218%2F1688371350659NMHlP_JPEG%2FEmmoBollP-9f7S9t1Tm8IS74CMqR8F-2GksEA5oyR8jBJCV0u53yveqmBO1yHubC.jpg&quot"
-      },
-      {
-        "menu_id": 2,
-        "restaurant_id": 1,
-        "menu_name": "로쉐 초코 크로와상",
-        "menu_price": "4,500원",
-        "naver_type": "type3",
-        "menu_img_url": "icon"
-      },
-      {
-        "menu_id": 3,
-        "restaurant_id": 1,
-        "menu_name": "과일 크림 크로와상",
-        "menu_price": "5,000원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230703_31%2F1688371401181SrNUi_JPEG%2FEmmoBollP-9f7S9t1Tm8IWE-UBogjC5twOCK2PRJFbuRf7PKn2oFqf7YB4L5CjsF.jpg&quot"
-      },
-      {
-        "menu_id": 4,
-        "restaurant_id": 1,
-        "menu_name": "카야잼 버터 크로와상",
-        "menu_price": "4,800원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230703_3%2F1688371416401iXlcd_JPEG%2FEmmoBollP-9f7S9t1Tm8Ia0MCo4L7avZscDoUWphehEnIczhsCfxtBcVpWjFku8X.jpg&quot"
-      },
-      {
-        "menu_id": 5,
-        "restaurant_id": 1,
-        "menu_name": "소금빵",
-        "menu_price": "3,900원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230704_138%2F1688433321224GTLUD_JPEG%2FXrM3Mp6YBABY1q36_F6caPLoJXVHDJqhyDA6RFDQTQtK7frqt9toy42U0eQOLKsF.jpg&quot"
-      },
-      {
-        "menu_id": 6,
-        "restaurant_id": 1,
-        "menu_name": "팔미까레",
-        "menu_price": "5,500원",
-        "naver_type": "type3",
-        "menu_img_url": "icon"
-      },
-      {
-        "menu_id": 7,
-        "restaurant_id": 1,
-        "menu_name": "바닐라까눌레",
-        "menu_price": "3,500원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230529_241%2F16852994917006Fppq_JPEG%2F6qYFq-IDTjRvZBJPt5BS5GO5tsTqB4LgEH7Ctg8r-8Ry0zc6SbOq-b1aidomFTE7.jpg&quot"
-      },
-      {
-        "menu_id": 8,
-        "restaurant_id": 1,
-        "menu_name": "얼그레이까눌레",
-        "menu_price": "3,500원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230529_75%2F1685299475621EaPav_JPEG%2F6qYFq-IDTjRvZBJPt5BS5NNr6nvlEhugsTtWf53ghZAL270rPmFCt_IQLfSxR9Pv.jpg&quot"
-      },
-      {
-        "menu_id": 9,
-        "restaurant_id": 1,
-        "menu_name": "논산딸기주스(R(16oz))",
-        "menu_price": "6,900원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240115_289%2F1705294526391UVC0H_JPEG%2FyfcXVdXtym0K4bfjcnZYoG1Ikz_fzpVUTct8Nmxb2NSuOr_3TfhsV6v5HOqkXYRZylcf4txMVZ2JSrpz.jpg&quot"
-      },
-      {
-        "menu_id": 10,
-        "restaurant_id": 1,
-        "menu_name": "논산딸기바나나스노우(R(16oz))",
-        "menu_price": "6,900원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240115_157%2F1705294526419PDClF_JPEG%2F2HBh0voQNU1V8-S8i-jTfO48apnwTrazG0NE5AjiyUehizLvn238UqEyZ1cA8AjeiDq3zRT78uFdzr05.jpg&quot"
-      },
-      {
-        "menu_id": 11,
-        "restaurant_id": 1,
-        "menu_name": "논산딸기베리라떼(R(16oz))",
-        "menu_price": "6,900원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240115_114%2F1705294526394jBDE6_JPEG%2FTyXrsfd0VwkaTM95FLDeUU72CDrLC4Dopgakvqvp86kFhul-4DZAJC6sKIcSBE08h0FHWVYMfcV-P3Rz.jpg&quot"
-      },
-      {
-        "menu_id": 12,
-        "restaurant_id": 1,
-        "menu_name": "딸기 파베쇼콜라",
-        "menu_price": "6,000원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240115_205%2F1705294526345xa0dG_JPEG%2FsvRTvZyHhoV50FnT-h-L_smlUCeHavWuPgzKCXMI2DFZvkcYIaeJSSKCwpMkKi7ehewnWwxOJVMeUoPG.jpg&quot"
-      },
-      {
-        "menu_id": 13,
-        "restaurant_id": 1,
-        "menu_name": "딸기 치즈 케이크",
-        "menu_price": "6,500원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240115_176%2F1705294526377OnN8F_JPEG%2FM1p0GuGzNd6_D8GD0Eu18bqOfXX-ZR_WeAyjhgZJvVusJrOJVRO30eAe2KxuByP4zoDY7R6i8Ks-YwPg.jpg&quot"
-      },
-      {
-        "menu_id": 14,
-        "restaurant_id": 1,
-        "menu_name": "오리지널 불고기 반미",
-        "menu_price": "7,400원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220825_141%2F1661388672073SA3q7_JPEG%2FwC7u9bajJU7sLc4p6S71faamQ45jEEG_9dY3JQJF8WNCf5OyXwfJDzWqoLoJSV4GMAyfo6RIl0LACH7X.jpg&quot"
-      },
-      {
-        "menu_id": 15,
-        "restaurant_id": 1,
-        "menu_name": "에그마요 반미",
-        "menu_price": "6,200원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220825_79%2F1661388671881lX1yz_JPEG%2Fa1XLjxd01OiAeFKYC-4vRmbWjbCvYlsZVqAnizIomF-j1EHA3q9Y6p7yAxH22UIJ2M47e12FSKJL0iOR.jpg&quot"
-      },
-      {
-        "menu_id": 16,
-        "restaurant_id": 1,
-        "menu_name": "햄&에그 반미",
-        "menu_price": "7,200원",
-        "naver_type": "type3",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220414_89%2F1649925107360IefB6_JPEG%2FJ3_58AP2YjavaBthBGO71pLyjaY6_PRaC02sKV9cgq-rpwHrMJdb7QYD-CspuGyDM3UDt7s81p0luHL5.jpg&quot"
-      },
-      {
-        "menu_id": 17,
-        "restaurant_id": 1,
-        "menu_name": "햄치즈 토스트",
-        "menu_price": "4,700원",
-        "naver_type": "type2",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220715_89%2F1657846595850BHq8S_JPEG%2F48Xdo7_0tnrxvZMx6CGwRkN45h7i9y1KU1Z6EXpCOjObXF2i4GUUXHr5tP5uWdFxHjVSPjL80Y_FGANp.jpg&quot"
-      },
-      {
-        "menu_id": 18,
-        "restaurant_id": 1,
-        "menu_name": "에그 햄치즈 토스트",
-        "menu_price": "5,200원",
-        "naver_type": "type2",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220825_292%2F1661388671816Tckt8_JPEG%2FyImRAYEA1kFe-cEahZJJJK9G3uktjz6VgltKniSL-hEy9bSmVzsZ_q2sH1MyT3_j5ubiHubZ44XeGv0q.jpg&quot"
-      },
-      {
-        "menu_id": 19,
-        "restaurant_id": 1,
-        "menu_name": "1인 샌드위치 SET",
-        "menu_price": "10,700원",
-        "naver_type": "type4",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221018_108%2F1666051618915M0UcT_JPEG%2F3Ktw_mjCsDrC-wZG5p9ZroYQ73z83WvBMQeFCTIfklZhYdAInvQmxbkAhatnaLRmIlbeiKT97UpxJeMV.jpg&quot"
-      },
-      {
-        "menu_id": 20,
-        "restaurant_id": 1,
-        "menu_name": "FRESH SANDWICH SET",
-        "menu_price": "15,200원",
-        "naver_type": "type4",
-        "menu_img_url": "https://search.pstatic.net/common/?autoRotate=true&amp;quality=95&amp;type=f320_320&amp;src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221018_155%2F1666051618924WWrOe_JPEG%2Fx2fzTDsh7cX1CrRxeQM-nI08TPqHvgnFzoqpGHIpJyUbaVEWSWCKY1jpW1nvaI2_m63zjXEuqrIelAc_.jpg&quot"
-      }
-]
-fillMenuInfo(menuJsonData, 3);
+// 메뉴 데이터 가져오기
+let menuData;
+
+async function getMenuData() {
+    if (!menuData) {
+        var currentUrl = window.location.href;
+        const restaurantId = currentUrl.split('/')[4];
+
+        console.log(currentUrl);
+
+        if (!isNaN(restaurantId)) {
+            try {
+                const response = await fetch(`/api/restaurants/${restaurantId}/menus`);
+                menuData = await response.json();
+            } catch (error) {
+                console.error('API 요청 실패:', error);
+                throw error;
+            }
+        } else {
+            console.log("올바르지 않은 페이지");
+        }
+    }
+    return menuData;
+}
+
+getMenuData()
+    .then(data => {
+        if (data) {
+            fillMenuInfo(data, 3);
+            console.log(data);
+        }
+    })
+    .catch(error => {
+        console.error('데이터 로딩 실패:', error);
+    });
+
 function fillMenuInfo(data, num) { //num은 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
     const menuInfoContainer = document.getElementById('menuInfoContainer');
     menuInfoContainer.innerHTML = '';
@@ -284,12 +155,12 @@ function fillMenuInfo(data, num) { //num은 표시할 메뉴 개수임. -1일 �
         textDiv.classList.add('menu-text-container');
         const menuNameDiv = document.createElement('div');
         menuNameDiv.classList.add('menu-name');
-        menuNameDiv.textContent = item.menu_name;
+        menuNameDiv.textContent = item.menuName;
         const menuPriceContainer = document.createElement('div');
         menuPriceContainer.classList.add('menu-price');
         const menuPriceEm = document.createElement('em');
-        if (item.menu_price != undefined) {
-            menuPriceEm.textContent = item.menu_price.slice(0,-1);
+        if (item.menuPrice != undefined) {
+            menuPriceEm.textContent = item.menuPrice.slice(0,-1);
         }
         const menuPriceSpan = document.createElement('span');
         menuPriceSpan.textContent = '원';
@@ -298,11 +169,11 @@ function fillMenuInfo(data, num) { //num은 표시할 메뉴 개수임. -1일 �
         textDiv.appendChild(menuNameDiv);
         textDiv.appendChild(menuPriceContainer);
         
-        if (item.naver_type === 'type1' || item.naver_type === 'type3') {
+        if (item.naverType === 'type1' || item.naverType === 'type3') {
             const imgDiv = document.createElement('div');
             imgDiv.classList.add('menu-img-container');
             const img = document.createElement('img');
-            const menuImgUrl = item.menu_img_url
+            const menuImgUrl = item.menuImgUrl
             if (menuImgUrl === 'icon') {
                 img.setAttribute('src', '/img/tier/logo.png');
                 img.style.backgroundColor = '#aaa';
@@ -311,7 +182,7 @@ function fillMenuInfo(data, num) { //num은 표시할 메뉴 개수임. -1일 �
             }
             menuLi.appendChild(img);
             menuLi.appendChild(textDiv);
-        } else if (item.naver_type === 'type2' || item.naver_type === 'type4') {
+        } else if (item.naverType === 'type2' || item.naverType === 'type4') {
             menuLi.appendChild(textDiv);
         } else {
             const nullDiv = document.createElement('div');
@@ -335,12 +206,11 @@ document.getElementById('menuUnfoldButton').addEventListener('click', function()
 
     if (thisText === '펼치기') {
         this.textContent = '접기';
-        fillMenuInfo(menuJsonData, -1); // 모든 메뉴 표시
+        fillMenuInfo(menuData, -1); // 모든 메뉴 표시
     } else {
         this.textContent = '펼치기';
-        fillMenuInfo(menuJsonData, 3); // 메뉴 3개만 표시
+        fillMenuInfo(menuData, 3); // 메뉴 3개만 표시
     }
-    // 메뉴가 가장 위로 오도록 화면 스크롤
     menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
@@ -439,7 +309,7 @@ function fillCommentInfo(data) {
 function sendComment() {
   const userTokenId = "user123";
   const apiUrl = "/api/restaurants/1/comments";
-  const commentBody = document.getElementById('commentInput').textContent;
+  const commentBody = document.getElementById('commentInput').value;
   fetch(apiUrl, {
     method: "POST",
     headers: {

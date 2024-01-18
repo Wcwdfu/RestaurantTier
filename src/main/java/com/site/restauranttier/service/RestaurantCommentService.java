@@ -2,7 +2,9 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantComment;
+import com.site.restauranttier.entity.RestaurantMenu;
 import com.site.restauranttier.entity.User;
+import com.site.restauranttier.enums.SortComment;
 import com.site.restauranttier.repository.RestaurantCommentRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -40,6 +43,16 @@ public class RestaurantCommentService {
             return "ok";
         } else {
             return "userTokenId";
+        }
+    }
+
+    public List<RestaurantComment> getCommentList(int restaurantId, SortComment sortComment) {
+        if (sortComment == SortComment.POPULAR) {
+            return null;
+        } else if (sortComment == SortComment.LATEST) {
+            return null;
+        } else {
+            return null;
         }
     }
 }
