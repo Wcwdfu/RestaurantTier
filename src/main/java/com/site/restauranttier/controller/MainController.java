@@ -135,10 +135,12 @@ public class MainController {
     }
 
 
-//    @GetMapping("/restaurants/{restaurantId}")
-//    public String evaluation(Model model,@PathVariable Integer id){
-//
-//    }
+    @GetMapping("/evaluation/{restaurantId}")
+    public String evaluation(Model model,@PathVariable Integer restaurantId){
+        Restaurant restaurant= restaurantRepository.findByRestaurantId(restaurantId);
+        model.addAttribute("restaurant",restaurant);
+        return "evaluation";
+    }
 
     // 검색 결과
     @GetMapping("/api/search")

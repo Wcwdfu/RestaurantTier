@@ -252,6 +252,8 @@ div.basic-info > div.texts > span {
 
 /* 평가하기 버튼 */
 .evaluation-button {
+    display: inline-block; /* 또는 display: block; */
+    width: 100%; /* 또는 다른 너비 값 설정 */
     color: #fff;
     background-color: #5383E8;
     font-size: 15px;

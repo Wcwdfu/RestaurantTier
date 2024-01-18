@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>맛집텨 티어표</title>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="/css/restaurant-style.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
-        <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-                charset="utf-8"></script>
-        <script src="/js/restaurantScript.js" defer></script>
-        <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gifrujmoep"></script>
-    </head>
-    <body>
-        <header th:replace="~{navbar_unselected :: navbarFragment}"></header>
-        
-        <div class="outer-container" id="outerContainer">
-            <div class="inner-container">
-                <div class="basic-info left-justified">
-                    <img id="mainImg" th:src="${restaurant.restaurantImgUrl}">
-                    <div class="texts left-justified">
-                        <div id="restaurantNameOuter">
-                            <div id="restaurantName" th:text="${restaurant.restaurantName}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>맛집텨 티어표</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/restaurant-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+            charset="utf-8"></script>
+    <script src="/js/restaurantScript.js" defer></script>
+    <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gifrujmoep"></script>
+</head>
+<body>
+<header th:replace="~{navbar_unselected :: navbarFragment}"></header>
 
-                            </div>
-                            <div id="favoriteContainer">
-                                <img id="favoriteImg" class="before-favorite" src="https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104">
-                            </div>
-                        </div>
-                        <span id="restaurantType" th:text="${restaurant.restaurantType}"></span>
-                        <span id="restaurantAddress" th:text="${restaurant.restaurantAddress}"></span>
-                        <span id="restaurantTel" th:text="${restaurant.restaurantTel}"></span>
-                    </div>
-                </div>
-                <div>
-                    <div class="tier-info left-justified" id="tierInfoContainer">
-                        
-                    </div>
-                </div>
-                <div class="stats-info">
-                    <div class="stat-data" style="margin-right: 10px;">
-                        <div class="stat-name">페이지 방문 횟수</div>
-                        <div id="statVisitors" class="stat-value">1231회 (상위 12.2%)</div>
-                    </div>
-                    <div class="stat-data">
-                        <div class="stat-name">평가 데이터 개수</div>
-                        <div id="statDatas" class="stat-value">132개 (상위 24.0%)</div>
-                    </div>
-                </div>
-            </div>
-            <div id="menuContainer" class="inner-container">
-                <div class="section-title">메뉴</div>
-                <div id="menuInfoContainer"></div>
-                <div id="menuUnfoldButton" class="unfold-button">펼치기</div>
-            </div>
-            <div id="mapContainer" class="inner-container">
-                <div id="map"></div>
-                <div id="mapUnfoldButton" class="unfold-button">펼치기</div>
-            </div>
-            <button class="inner-container evaluation-button button">평가하기</button>
-            <div class="comment-container">
-                <div class="section-title">댓글</div>
-                <div class="input-container">
-                    <textarea id="commentInput" placeholder="식당에 대한 댓글을 남겨주세요."></textarea>
-                    <button class="button evaluation-button" onclick="sendComment()">등록</button>
-                </div>
-                <div class="sort-toggle-buttons">
-                    <button id="button1" class="active" onclick="toggleButton(1)">인기순</button>
-                    <button id="button2" onclick="toggleButton(2)">최신순</button>
-                </div>
-            </div>
-            <div class="comment-list-container">
-                <ul id="commentList">
+<div class="outer-container" id="outerContainer">
+    <div class="inner-container">
+        <div class="basic-info left-justified">
+            <img id="mainImg" th:src="${restaurant.restaurantImgUrl}">
+            <div class="texts left-justified">
+                <div id="restaurantNameOuter">
+                    <div id="restaurantName" th:text="${restaurant.restaurantName}">
 
-                </ul>
+                    </div>
+                    <div id="favoriteContainer">
+                        <img id="favoriteImg" class="before-favorite"
+                             src="https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104">
+                    </div>
+                </div>
+                <span id="restaurantType" th:text="${restaurant.restaurantType}"></span>
+                <span id="restaurantAddress" th:text="${restaurant.restaurantAddress}"></span>
+                <span id="restaurantTel" th:text="${restaurant.restaurantTel}"></span>
             </div>
         </div>
-    </body>
-<!-- 자바스크립트 데이터 전달용 태그 -->
-    <div id="restaurantInfo"
-         th:attr="data-name=${restaurant.restaurantName}, data-latitude=${restaurant.restaurantLatitude}, data-longitude=${restaurant.restaurantLongitude}">
+        <div>
+            <div class="tier-info left-justified" id="tierInfoContainer">
+
+            </div>
+        </div>
+        <div class="stats-info">
+            <div class="stat-data" style="margin-right: 10px;">
+                <div class="stat-name">페이지 방문 횟수</div>
+                <div id="statVisitors" class="stat-value">1231회 (상위 12.2%)</div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-name">평가 데이터 개수</div>
+                <div id="statDatas" class="stat-value">132개 (상위 24.0%)</div>
+            </div>
+        </div>
     </div>
+    <div id="menuContainer" class="inner-container">
+        <div class="section-title">메뉴</div>
+        <div id="menuInfoContainer"></div>
+        <div id="menuUnfoldButton" class="unfold-button">펼치기</div>
+    </div>
+    <div id="mapContainer" class="inner-container">
+        <div id="map"></div>
+        <div id="mapUnfoldButton" class="unfold-button">
+            펼치기</div>
+    </div>
+
+    <a class="inner-container evaluation-button button" th:href="@{/evaluation/{restuarantId}(restuarantId=${restaurant.restaurantId})}">평가하기</a>
+    <div class="comment-container">
+        <div class="section-title">댓글</div>
+        <div class="input-container">
+            <textarea id="commentInput" placeholder="식당에 대한 댓글을 남겨주세요."></textarea>
+            <button class="button evaluation-button" onclick="sendComment()">등록</button>
+        </div>
+        <div class="sort-toggle-buttons">
+            <button id="button1" class="active" onclick="toggleButton(1)">인기순</button>
+            <button id="button2" onclick="toggleButton(2)">최신순</button>
+        </div>
+    </div>
+    <div class="comment-list-container">
+        <ul id="commentList">
+
+        </ul>
+    </div>
+</div>
+</body>
+<!-- 자바스크립트 데이터 전달용 태그 -->
+<div id="restaurantInfo"
+     th:attr="data-name=${restaurant.restaurantName}, data-latitude=${restaurant.restaurantLatitude}, data-longitude=${restaurant.restaurantLongitude}">
+</div>
 
 </html>
