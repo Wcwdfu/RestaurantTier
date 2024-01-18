@@ -29,6 +29,7 @@ $(document).ready(function () {
                         '</tr>';
                 });
                 $("#tierTableBody").html(tableContent);
+                $("footer").html("")
             },
 
             error: function(error) {
