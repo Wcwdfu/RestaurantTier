@@ -92,6 +92,7 @@ function fillTierInfo(data) {
 
 // 메뉴 데이터 가져오기
 let menuData;
+const initialDisplayMenuCount = 3;
 
 async function getMenuData() {
     if (!menuData) {
@@ -118,7 +119,7 @@ async function getMenuData() {
 getMenuData()
     .then(data => {
         if (data) {
-            fillMenuInfo(data, 3);
+            fillMenuInfo(data, initialDisplayMenuCount);
             console.log(data);
         }
     })
@@ -127,7 +128,7 @@ getMenuData()
     });
 
 function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
-  if (!data || data.length < 4) {
+  if (!data || data.length < initialDisplayMenuCount + 1) {
     const menuUnfoldButton = document.getElementById('menuUnfoldButton');
     menuUnfoldButton.style.display = 'none';
   }
@@ -199,7 +200,7 @@ document.getElementById('menuUnfoldButton').addEventListener('click', function()
         fillMenuInfo(menuData, -1); // 모든 메뉴 표시
     } else {
         this.textContent = '펼치기';
-        fillMenuInfo(menuData, 3); // 메뉴 3개만 표시
+        fillMenuInfo(menuData, initialDisplayMenuCount); // 메뉴 3개만 표시
     }
     menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
