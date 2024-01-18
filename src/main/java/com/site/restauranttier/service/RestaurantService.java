@@ -54,6 +54,10 @@ public class RestaurantService {
 
     public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        return restaurantmenuRepository.findByRestaurantOrderByMenuId(restaurant);
+        if (restaurant.getStatus().equals("ACTIVE")) {
+            return restaurantmenuRepository.findByRestaurantOrderByMenuId(restaurant);
+        } else {
+            return null;
+        }
     }
 }
