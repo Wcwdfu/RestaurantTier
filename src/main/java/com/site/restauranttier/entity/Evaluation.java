@@ -14,15 +14,20 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer evaluationId;
 
+    private String evaluationComment;
+
+    private Double evaluationScore;
+
+    private String status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationItemScore> EvaluationItemScoreList = new ArrayList<>();
-    private String evaluationComment;
-    private Double evaluationScore;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

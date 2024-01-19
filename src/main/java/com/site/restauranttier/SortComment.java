@@ -1,4 +1,4 @@
-package com.site.restauranttier.enums;
+package com.site.restauranttier;
 
 public enum SortComment {
     POPULAR("popular"), LATEST("latest");

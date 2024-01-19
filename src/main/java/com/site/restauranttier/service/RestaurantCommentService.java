@@ -2,9 +2,8 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantComment;
-import com.site.restauranttier.entity.RestaurantMenu;
 import com.site.restauranttier.entity.User;
-import com.site.restauranttier.enums.SortComment;
+import com.site.restauranttier.SortComment;
 import com.site.restauranttier.repository.RestaurantCommentRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;

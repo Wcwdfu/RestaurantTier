@@ -1,15 +1,12 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.RestaurantComment;
 import com.site.restauranttier.entity.RestaurantMenu;
-import com.site.restauranttier.enums.SortComment;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +39,17 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/community")
+    public String community() {
+        return "community";
+    }
+
+    @GetMapping("/ranking")
+    public String ranking() {
+        return "ranking";
+    }
+
+
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
@@ -61,16 +69,8 @@ public class MainController {
         }
 
     }
-    @GetMapping("/community")
-    public String talk() {
-        return "community";
-    }
 
 
-    @GetMapping("/ranking")
-    public String ranking() {
-        return "ranking";
-    }
     
     // --------------상단 탭 관련 끝---------------------
 
@@ -81,7 +81,6 @@ public class MainController {
     ) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         model.addAttribute("restaurant",restaurant);
-
         return "restaurant";
     }
 
