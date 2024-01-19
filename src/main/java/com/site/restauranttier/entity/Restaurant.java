@@ -60,6 +60,7 @@ public class Restaurant {
     @JoinTable(name = "restaurant_situation_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name="situation_id"))
     List<Situation> situationList = new ArrayList<>();
+
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantComment> restaurantCommentList = new ArrayList<>();;
 

@@ -61,9 +61,9 @@ public class MainController {
         }
 
     }
-    @GetMapping("/talk")
+    @GetMapping("/community")
     public String talk() {
-        return "talk";
+        return "community";
     }
 
 
@@ -145,8 +145,8 @@ public class MainController {
     // 검색 결과
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Restaurant> paging = this.restaurantService.getList(page);
-        model.addAttribute(paging);
+        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
+        model.addAttribute("paging",paging);
         model.addAttribute("kw", kw);
         return "searchResult";
 

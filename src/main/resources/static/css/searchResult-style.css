@@ -1,0 +1,72 @@
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(전부) */
+.tier:hover, .rank:hover, .community:hover, .home:hover {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(전부) */
+.tier, .rank, .community, .home {
+    display: flex;
+    align-items: center;
+    color: #B3CDFF;
+    border-bottom: 3px solid transparent;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
+}
+
+/* 기본 테이블 스타일 */
+.tier-table {
+    width: 100%;
+    max-width: 900px;
+    table-layout: auto;
+    border-radius: 4px;
+
+}
+
+/* 테이블 헤더 스타일 */
+.tier-table thead th {
+    position: relative;
+    user-select: none;
+    background-color: #f7f8fa;
+    color: gray;
+    font-size: 12px;
+    line-height: 17px;
+    border-bottom: 1px solid #EBEEF1;
+    white-space: nowrap;
+    box-sizing: border-box;
+    font-weight: normal;
+    vertical-align: middle;
+    padding: 4px;
+    text-align: center;
+}
+
+/* 테이블 바디 스타일 */
+.tier-table tbody td {
+
+    margin: 0;
+    display: table-cell;
+    background-color: #FFF;
+    text-align: center;
+
+
+}
+tr td a{
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
