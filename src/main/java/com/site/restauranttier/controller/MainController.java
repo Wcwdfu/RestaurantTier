@@ -7,6 +7,7 @@ import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public class MainController {
     private final UserRepository userRepository;
     private final RestaurantService restaurantService;
     private final RestaurantCommentService restaurantCommentService;
+
+    @Value("${restaurant.initialDisplayMenuCount}")
+    private int initialDisplayMenuCount;
 
     // ---------------상단 탭 관련-------------------
 
@@ -76,6 +80,12 @@ public class MainController {
     ) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         model.addAttribute("restaurant",restaurant);
+
+        List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
+        model.addAttribute("menus",restaurantMenus);
+
+        model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
+
         return "restaurant";
     }
 

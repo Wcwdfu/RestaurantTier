@@ -47,6 +47,7 @@ li {
 .button {
     cursor: pointer;
     text-decoration: none;
+    line-height: normal;
 }
 
 header {
@@ -149,6 +150,7 @@ div.header-middle div.search-box > div > form.search-form > button {
     margin: 0 3px;
     border-radius: 3px;
     width: 50px;
+    border: none;
 }
 
 div.header-middle div.search-box > div > form.search-form > button:hover{

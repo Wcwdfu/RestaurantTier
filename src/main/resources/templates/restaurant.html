@@ -6,9 +6,14 @@
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/restaurant-style.css"/>
     <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
+    <!-- Thymeleaf를 통해 서버 측에서 전달된 데이터를 JavaScript 파일에 전달 -->
+    <script th:inline="javascript">
+        const restaurantMenus = /*[[${menus}]]*/ [];
+        const initialDisplayMenuCount = /*[[${initialDisplayMenuCount}]]*/ [];
+    </script>
+    <script src="/js/restaurantScript.js" defer></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
             charset="utf-8"></script>
-    <script src="/js/restaurantScript.js" defer></script>
     <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gifrujmoep"></script>
 </head>
 <body>
@@ -49,15 +54,27 @@
             </div>
         </div>
     </div>
-    <div id="menuContainer" class="inner-container">
+    <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 0}">
         <div class="section-title">메뉴</div>
-        <div id="menuInfoContainer"></div>
-        <div id="menuUnfoldButton" class="unfold-button">펼치기</div>
+        <div id="menuInfoContainer">
+            <ul class="menu-ul" id="menuUL">
+                <li th:each="menu, iterStat : ${menus}" th:if="${iterStat.index < initialDisplayMenuCount}">
+                    <img th:if="${menu.naverType eq 'type1' or menu.naverType eq 'type3'}" th:src="${menu.menuImgUrl}" alt="menu img">
+                    <div class="menu-text-container">
+                        <div class="menu-name" th:text="${menu.menuName}"></div>
+                        <div class="menu-price">
+                            <em th:text="${menu.menuPrice.substring(0, menu.menuPrice.length())}"></em>
+                            <span>원</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="menuUnfoldButton" class="unfold-button" th:if="${#lists.size(menus) > 3}">펼치기</div>
     </div>
     <div id="mapContainer" class="inner-container">
         <div id="map"></div>
-        <div id="mapUnfoldButton" class="unfold-button">
-            펼치기</div>
+        <div id="mapUnfoldButton" class="unfold-button">펼치기</div>
     </div>
 
     <a class="inner-container evaluation-button button" th:href="@{/evaluation/{restuarantId}(restuarantId=${restaurant.restaurantId})}">평가하기</a>
