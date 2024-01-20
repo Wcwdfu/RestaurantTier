@@ -44,10 +44,11 @@ li {
 
 }
 
-.button {
+button {
     cursor: pointer;
     text-decoration: none;
     line-height: normal;
+    text-align: center;
 }
 
 header {
@@ -220,6 +221,8 @@ div.header-bottom ul.menu-list > li.menu-item {
 
 }
 .link{
+    display: inline-block;
+    line-height: 20px;
     background-color: #28344E;
 }
 
