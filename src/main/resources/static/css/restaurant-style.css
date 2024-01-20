@@ -53,11 +53,11 @@ li {
 @media only screen and (max-width: 1024px) {
     #outerContainer {
         margin: 0 10px;
-        min-width: 260px;
+        min-width: 280px;
     }
 
     header {
-        min-width: 260px;
+        min-width: 280px;
     }
 }
 
@@ -188,7 +188,6 @@ div.basic-info > div.texts > span {
 }
 
 .stats-info > .stat-data {
-    width: 100;
     padding: 0 8px 0 12px;
     border-left: 1px solid #777;
 }
