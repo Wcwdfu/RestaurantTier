@@ -24,6 +24,7 @@ window.onresize = function() {
 // 메인 이미지 정사각형으로 되게
 function mainImgResize() {
     const mainImg = document.getElementById('mainImg');
+    mainImg.alt = 'main img';
     let mainImgWidth = parseFloat(getComputedStyle(mainImg.parentElement).width) * 0.3;
     mainImg.style.width = mainImgWidth + 'px';
     mainImg.style.height = mainImgWidth + 'px';
@@ -90,52 +91,12 @@ function fillTierInfo(data) {
     }
 }
 
-// 메뉴 데이터 가져오기
-let menuData;
-const initialDisplayMenuCount = 3;
-
-async function getMenuData() {
-    if (!menuData) {
-        var currentUrl = window.location.href;
-        const restaurantId = currentUrl.split('/')[4];
-
-        console.log(currentUrl);
-
-        if (!isNaN(restaurantId)) {
-            try {
-                const response = await fetch(`/api/restaurants/${restaurantId}/menus`);
-                menuData = await response.json();
-            } catch (error) {
-                console.error('API 요청 실패:', error);
-                throw error;
-            }
-        } else {
-            console.log("올바르지 않은 페이지");
-        }
-    }
-    return menuData;
-}
-
-getMenuData()
-    .then(data => {
-        if (data) {
-            fillMenuInfo(data, initialDisplayMenuCount);
-            console.log(data);
-        }
-    })
-    .catch(error => {
-        console.error('데이터 로딩 실패:', error);
-    });
-
+// 메뉴
 function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
-  if (!data || data.length < initialDisplayMenuCount + 1) {
-    const menuUnfoldButton = document.getElementById('menuUnfoldButton');
-    menuUnfoldButton.style.display = 'none';
-  }
-
   const menuInfoContainer = document.getElementById('menuInfoContainer');
   menuInfoContainer.innerHTML = '';
   const menuUl = document.createElement('ul');
+  menuUl.id = 'menuUL'
   menuUl.classList.add('menu-ul');
   menuInfoContainer.appendChild(menuUl);
 
@@ -164,6 +125,7 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
       const imgDiv = document.createElement('div');
       imgDiv.classList.add('menu-img-container');
       const img = document.createElement('img');
+      img.alt = 'menu img';
       const menuImgUrl = item.menuImgUrl
       if (menuImgUrl === 'icon') {
           img.setAttribute('src', '/img/tier/logo.png');
@@ -174,7 +136,7 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
       menuLi.appendChild(img);
       menuLi.appendChild(textDiv);
     } else if (item.naverType === 'type2' || item.naverType === 'type4') {
-      menuLi.appendChild(textDiv);
+        menuLi.appendChild(textDiv);
     } else {
       const nullDiv = document.createElement('div');
       nullDiv.classList.add('menu-name');
@@ -191,19 +153,31 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
 }
 
 // 메뉴 펼쳤다 접기
-document.getElementById('menuUnfoldButton').addEventListener('click', function() {
-    const thisText = this.textContent;
-    const menuContainer = document.getElementById('menuContainer');
-
-    if (thisText === '펼치기') {
-        this.textContent = '접기';
-        fillMenuInfo(menuData, -1); // 모든 메뉴 표시
-    } else {
-        this.textContent = '펼치기';
-        fillMenuInfo(menuData, initialDisplayMenuCount); // 메뉴 3개만 표시
-    }
-    menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+const unfoldButton = document.getElementById('menuUnfoldButton');
+const initialMenusHeight = parseFloat(getComputedStyle(document.getElementById('menuUL')).height)
+if (unfoldButton) {
+    unfoldButton.addEventListener('click', function() {
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        const thisText = this.textContent;
+        const menuContainer = document.getElementById('menuContainer');
+        if (thisText === '펼치기') {
+            fillMenuInfo(restaurantMenus, -1); // 모든 메뉴 표시
+            const menuUL = document.getElementById('menuUL');
+            this.textContent = '접기';
+            let maxHeight
+                = windowHeight * 0.55 > initialMenusHeight + 70 ? windowHeight * 0.55 : initialMenusHeight + 70;
+            menuUL.style.maxHeight = maxHeight + 'px';
+            menuUL.style.overflowY = 'scroll';
+        } else {
+            fillMenuInfo(restaurantMenus, initialDisplayMenuCount);
+            const menuUL = document.getElementById('menuUL');
+            this.textContent = '펼치기';
+            menuUL.style.maxHeight = 'none';
+            menuUL.style.overflowY = 'visible';
+        }
+        menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    })
+}
 
 // 네이버 지도 펼쳤다 접기
 document.getElementById('mapUnfoldButton').addEventListener('click', function() {
