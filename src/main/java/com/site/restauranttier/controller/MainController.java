@@ -49,7 +49,6 @@ public class MainController {
         return "ranking";
     }
 
-
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
@@ -70,11 +69,7 @@ public class MainController {
 
     }
 
-
-    
     // --------------상단 탭 관련 끝---------------------
-
-
     @GetMapping("/restaurants/{restaurantId}")
     public String restaurant(Model model,
             @PathVariable Integer restaurantId
@@ -115,8 +110,6 @@ public class MainController {
             return ResponseEntity.ok("what");
         }
     }
-
-
     // 티어표 안에서 종류 카테고리 누를때 데이터 반환
     @ResponseBody
     @GetMapping("/api/tier")
@@ -133,7 +126,7 @@ public class MainController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
-
+    // 평가 페이지
     @GetMapping("/evaluation/{restaurantId}")
     public String evaluation(Model model,@PathVariable Integer restaurantId){
         Restaurant restaurant= restaurantRepository.findByRestaurantId(restaurantId);
@@ -141,7 +134,7 @@ public class MainController {
         return "evaluation";
     }
 
-    // 검색 결과
+    // 검색 결과 페이지
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Restaurant> paging = this.restaurantService.getList(page,kw);
@@ -154,41 +147,5 @@ public class MainController {
 }
 
 
-// 네이버 로그인 파트
 
-//    @GetMapping("/loginSuccess")
-//    public String loginSuccess(@AuthenticationPrincipal OAuth2User principal) {
-//        // 로그인 성공 처리
-//        // 예: 사용자 정보를 세션에 저장하거나, 홈페이지로 리디렉션
-//        return "redirect:/home";
-
-//    @ResponseBody
-//    @PostMapping("/api/user")
-//    public ResponseEntity<?> userCreated(@RequestBody Map<String,String> userData){
-//        String userId = userData.get("userId");
-//        String userEmail = userData.get("userEmail");
-//        String userNickname=userData.get("userNickname");
-//
-//        Optional<User> userOptional = userRepository.findById(userId);
-//
-//        // 기존 사용자면 정보 업데이트
-//        if(userOptional.isPresent()){
-//            User user=userOptional.get();
-//            user.setUserEmail(userEmail);
-//            user.setUserNickname(userNickname);
-//            user.setUpdatedAt(LocalDateTime.now());
-//            userRepository.save(user);
-//        }
-//        // 새로운 사용자면 user 객체 만들고 db에 저장
-//        else{
-//        User newUser = new User();
-//        newUser.setUserId(userId);
-//        newUser.setCreatedAt(LocalDateTime.now());
-//        newUser.setUserEmail(userEmail);
-//        newUser.setUserNickname(userNickname);
-//        newUser.setStatus("ACTIVE");
-//        userRepository.save(newUser);
-//        }
-//        return ResponseEntity.ok().build();
-//    }
 
