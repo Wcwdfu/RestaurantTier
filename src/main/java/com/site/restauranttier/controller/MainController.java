@@ -88,7 +88,7 @@ public class MainController {
     // --------------상단 탭 관련 끝---------------------
     @GetMapping("/restaurants/{restaurantId}")
     public String restaurant(Model model,
-                             @PathVariable Integer restaurantId
+                             @PathVariable Integer restaurantId, Principal principal
     ) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         model.addAttribute("restaurant",restaurant);
@@ -97,6 +97,8 @@ public class MainController {
         model.addAttribute("menus",restaurantMenus);
 
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
+        // 해당 식당 평가한 적 있으면 버튼 이름 변경 (다시 평가하기)
+        String name = principal.getName();
 
         return "restaurant";
     }
