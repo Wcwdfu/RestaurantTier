@@ -110,30 +110,7 @@ aside div div button{
 /* 화면 크기가 커질 때 */
 @media screen and (min-width: 1024px) {
 
-    .btn {
-        padding: 10px
-    }
 
-    .container-fluid {
-        padding: 15px; /* 원하는 값으로 조정 */
-        margin: 15px; /* 원하는 값으로 조정 */
-    }
-
-
-    .nav-link {
-        font-size: larger; /* 더 큰 텍스트 사이즈로 조정 */
-    }
-
-    .nav-underline {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: larger;
-        margin: 0;
-    }
-
-    .nav-underline .nav-item {
-        padding: 15px;
-    }
 
     #home {
         font-size: x-large;
@@ -149,7 +126,17 @@ aside div div button{
     }
 
 }
+.row{
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+}
 
+.main-container{
+    display: flex;
+    justify-content: center;
+
+}
 
 /* 리스트의 아이템 중 클릭 상태인 것(홈) */
 div.header-bottom ul.menu-list > li > a > div.home {
