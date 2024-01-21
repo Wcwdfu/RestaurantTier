@@ -64,6 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
         button.classList.toggle("selected");
     }
 
+    // 상단 X 클릭시 뒤로가기
+    document.getElementById('closeBtn').addEventListener('click', function() {
+        window.history.back();
+    });
+
+
     // ---------- (third) 버튼 선택 효과 로직---------- //
 
     document.querySelectorAll(".keywordBtn").forEach(function (button, index) {

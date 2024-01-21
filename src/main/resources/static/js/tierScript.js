@@ -1,47 +1,17 @@
 $(document).ready(function () {
-
-    // // 종류와 상황 버튼에 맞는 음식점들 나열: 버튼에 리스너 추가
-    // document.querySelectorAll('.unselected.button').forEach(button => {
-    //     button.addEventListener('click', function () {
-    //         // 버튼 클릭되면 모두 unselect으로 설정하고 클릭된 버튼만 selected으로 변경
-    //         document.querySelectorAll('.button').forEach(btn => {
-    //             btn.classList.remove('selected');
-    //             btn.classList.add('unselected');
-    //         });
-    //         this.classList.remove('unselected');
-    //         this.classList.add('selected');
-    //
-    //         var cuisine = this.textContent.trim(); // 버튼의 텍스트를 가져옵니다.
-    //         if (cuisine === "전체")
-    //             cuisine = "";
-    //
-    //         // Fetch API를 사용하여 서버에 데이터를 요청합니다.
-    //         fetch('/api/tier?cuisine=' + encodeURIComponent(cuisine), {
-    //             method: 'GET' // HTTP 메소드
-    //         })
-    //             .then(response => response.json()) // 응답을 JSON으로 변환
-    //             .then(data => {
-    //                 // 데이터 처리 로직
-    //                 console.log(data);
-    //             })
-    //             .catch(error => {
-    //                 // 오류 처리 로직
-    //                 console.error('Error:', error);
-    //             });
-    //     });
-    // });
-// 현재 URL에서 쿼리 스트링 추출
+    // --------------- 클릭된 종류 버튼 효과 ----------------------------
+        // 현재 URL에서 쿼리 스트링 추출
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const cuisineParam = urlParams.get('cuisine');
 
-// 모든 버튼 클래스 초기화
+        // 모든 버튼 클래스 초기화
     document.querySelectorAll('.button').forEach(btn => {
         btn.classList.remove('selected');
         btn.classList.add('unselected');
     });
 
-// 해당하는 cuisine의 a 태그 찾기
+        // 해당하는 cuisine의 a 태그 찾기
     document.querySelectorAll('.cuisine-link').forEach(link => {
         if (link.textContent.trim() === cuisineParam) {
             // a 태그의 부모 span 태그에 클래스 변경
