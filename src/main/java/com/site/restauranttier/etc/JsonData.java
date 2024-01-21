@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class JsonData {
-    int starRating;
+    Double starRating;
     int restaurantId;
-    List<Integer> barRatings;
+    List<Double> barRatings;
 }

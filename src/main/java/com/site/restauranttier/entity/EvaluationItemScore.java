@@ -20,7 +20,7 @@ public class EvaluationItemScore {
     @JoinColumn(name="situation_id")
     private Situation situation;
 
-    public EvaluationItemScore(Evaluation evaluation, Situation situation, double score) {
+    public EvaluationItemScore(Evaluation evaluation, Situation situation, Double score) {
         this.evaluation = evaluation;
         this.situation = situation;
         this.score = score;

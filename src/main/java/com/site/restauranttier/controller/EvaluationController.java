@@ -2,12 +2,12 @@ package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
-import com.site.restauranttier.repository.EvaluationRepository;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.SituationRepository;
-import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.repository.*;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class EvaluationController {
 
     private final EvaluationRepository evaluationRepository;
     private final SituationRepository situationRepository;
+    private final EvaluationItemScoreRepository evaluationItemScoreRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 평가 페이지
@@ -48,39 +50,61 @@ public class EvaluationController {
     // 평가 데이터 db 저장 (한 user의 똑같은 식당이면 업데이트 진행)
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
-        logger.info("데이터 확인");
+        logger.info("컨트롤러 진입");
         Restaurant restaurant = restaurantRepository.findByRestaurantId(jsonData.getRestaurantId());
         Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());
 
         if (userOptional.isPresent() && restaurant != null) {
             User user = userOptional.get();
-
             // 기존 평가를 찾습니다.
             Optional<Evaluation> existingEvaluation = evaluationRepository.findByUserAndRestaurant(user, restaurant);
             Evaluation evaluation;
             if (existingEvaluation.isPresent()) {
-                // 기존 평가가 존재하면, 업데이트합니다.
+                // 기존 평가가 존재하면, 업데이트
                 evaluation = existingEvaluation.get();
                 evaluation.setEvaluationScore((double) jsonData.getStarRating());
-                updateEvaluationItemScores(jsonData, evaluation);
 
             } else {
-                // 새로운 평가를 생성합니다.
-                evaluation = new Evaluation(restaurant, user, (double) jsonData.getStarRating());
-                restaurant.getEvaluationList().add(evaluation);
-                List scoreList=new ArrayList();
+                logger.info("새로운 평가 진입");
 
-                // 상황1부터 9까지 score 만들고 evalution과 situation에 각각 관계 저장
-                for(int i=1;i<10;i++){
-                    Optional<Situation> situationOptional= situationRepository.findById(i);
+                // 새로운 평가를 생성
+                evaluation = new Evaluation(restaurant, user, (double) jsonData.getStarRating());
+                evaluation = this.evaluationRepository.save(evaluation);
+
+                restaurant.getEvaluationList().add(evaluation);
+                List scoreList = new ArrayList();
+                List situationScoreList = jsonData.getBarRatings();
+                // 각 상황마다 해당하는 점수를 저장
+                for (int i = 0; i < situationScoreList.size(); i++) {
+                    // 평가되지 않은 상황번호는 넘기기
+                    if (situationScoreList.get(i) == null) {
+                        logger.info("없는 번호의 상황 넘기기");
+
+                        continue;
+
+                    }
+                    Optional<Situation> situationOptional = situationRepository.findById(i);
                     Situation situation = situationOptional.get();
-                    EvaluationItemScore score =  new EvaluationItemScore(evaluation,situation,(double) jsonData.getBarRatings().get(i-1));
+
+                    // score 생성
+                    EvaluationItemScore score = new EvaluationItemScore(evaluation, situation, (Double) situationScoreList.get(i));
                     scoreList.add(score);
+                    // score 저장
+                    this.evaluationItemScoreRepository.save(score);
+                    // situtation 일대다 매핑 -score
                     situation.getEvaluationItemScoreList().add(score);
+
+
                 }
+                // evalutation 일대다 매핑 -score
                 evaluation.setEvaluationItemScoreList(scoreList);
+                // evaluation 저장
+                this.evaluationRepository.save(evaluation);
+                logger.info("저장");
+
             }
-            evaluationRepository.save(evaluation);
+
+
             // 리다이렉트 대신에 성공 응답을 보냅니다.
             return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
         }
@@ -88,30 +112,6 @@ public class EvaluationController {
         // 에러 메시지를 클라이언트에게 전달합니다.
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");
     }
-    // 상황 점수를 업데이트하는 메소드 (이해 못함)
-    private void updateEvaluationItemScores(JsonData jsonData, Evaluation evaluation) {
-        List<Integer> barRatings = jsonData.getBarRatings();
-        for (int i = 0; i < barRatings.size(); i++) {
-            int situationId = i + 1; // 인덱스에 1을 더해 상황 ID를 얻습니다.
-            double scoreValue = barRatings.get(i);
 
-            // 해당 상황 ID로 저장된 EvaluationItemScore를 찾습니다.
-            Optional<EvaluationItemScore> scoreOptional = evaluation.getEvaluationItemScoreList()
-                    .stream()
-                    .filter(score -> score.getSituation().getSituationId() == situationId)
-                    .findFirst();
 
-            if (scoreOptional.isPresent()) {
-                // 존재하면 업데이트
-                EvaluationItemScore score = scoreOptional.get();
-                score.setScore(scoreValue);
-            } else {
-                // 존재하지 않으면 새로운 상황 점수를 추가
-                Situation situation = situationRepository.findById(situationId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Situation not found"));
-                EvaluationItemScore newScore = new EvaluationItemScore(evaluation, situation, scoreValue);
-                evaluation.getEvaluationItemScoreList().add(newScore);
-            }
-        }
-    }
 }

@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 전송 데이터 초기화
     var evaluationData = {
         starRating: 0,
-        barRatings: [0,0,0,0,0,0,0,0,0],
+        barRatings: [],
         restaurantId: 0
     }
     // ----------제출 버튼 눌림효과 로직---------- //
