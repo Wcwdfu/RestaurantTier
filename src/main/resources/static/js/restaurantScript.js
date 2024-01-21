@@ -154,8 +154,8 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
 
 // 메뉴 펼쳤다 접기
 const unfoldButton = document.getElementById('menuUnfoldButton');
-const initialMenusHeight = parseFloat(getComputedStyle(document.getElementById('menuUL')).height)
 if (unfoldButton) {
+    const initialMenusHeight = parseFloat(getComputedStyle(document.getElementById('menuUL')).height)
     unfoldButton.addEventListener('click', function() {
         const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         const thisText = this.textContent;
@@ -166,6 +166,7 @@ if (unfoldButton) {
             this.textContent = '접기';
             let maxHeight
                 = windowHeight * 0.55 > initialMenusHeight + 70 ? windowHeight * 0.55 : initialMenusHeight + 70;
+            console.log(initialMenusHeight);
             menuUL.style.maxHeight = maxHeight + 'px';
             menuUL.style.overflowY = 'scroll';
         } else {
