@@ -1,43 +1,56 @@
 $(document).ready(function () {
 
-    // 종류와 상황 버튼에 맞는 음식점들 나열 : 버튼에 리스너 추가
-    $('.unselected.button').click(function() {
-        // 버튼 클릭되면 모두 unselect으로 설정하고 클릭된 버튼만 selected으로 변경
-        $('.button').removeClass('selected').addClass('unselected')
-        $(this).removeClass('unselected').addClass('selected')
+    // // 종류와 상황 버튼에 맞는 음식점들 나열: 버튼에 리스너 추가
+    // document.querySelectorAll('.unselected.button').forEach(button => {
+    //     button.addEventListener('click', function () {
+    //         // 버튼 클릭되면 모두 unselect으로 설정하고 클릭된 버튼만 selected으로 변경
+    //         document.querySelectorAll('.button').forEach(btn => {
+    //             btn.classList.remove('selected');
+    //             btn.classList.add('unselected');
+    //         });
+    //         this.classList.remove('unselected');
+    //         this.classList.add('selected');
+    //
+    //         var cuisine = this.textContent.trim(); // 버튼의 텍스트를 가져옵니다.
+    //         if (cuisine === "전체")
+    //             cuisine = "";
+    //
+    //         // Fetch API를 사용하여 서버에 데이터를 요청합니다.
+    //         fetch('/api/tier?cuisine=' + encodeURIComponent(cuisine), {
+    //             method: 'GET' // HTTP 메소드
+    //         })
+    //             .then(response => response.json()) // 응답을 JSON으로 변환
+    //             .then(data => {
+    //                 // 데이터 처리 로직
+    //                 console.log(data);
+    //             })
+    //             .catch(error => {
+    //                 // 오류 처리 로직
+    //                 console.error('Error:', error);
+    //             });
+    //     });
+    // });
+// 현재 URL에서 쿼리 스트링 추출
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const cuisineParam = urlParams.get('cuisine');
 
-        var cuisine = $(this).text().trim(); // 버튼의 텍스트를 가져옵니다.
-        if(cuisine==="전체")
-            cuisine=""
-        // AJAX 요청을 사용하여 서버에 데이터를 요청합니다.
-        $.ajax({
-            url: '/api/tier', // 요청을 보낼 URL
-            type: 'GET', // HTTP 메소드
-            data: { 'cuisine': cuisine }, // 요청과 함께 보낼 데이터
-            success: function(data) {
-                //반환한 데이터로 table 데이터 구성
-                var tableContent = '';
-                data.forEach(function(restaurant) {
-                    var restaurantLink = '/restaurants/' + restaurant.restaurantId; // 링크 생성
-                    tableContent += '<tr>' +
-                        '<td>' + "0" + '</td>' +
-                        '<td><a href="' + restaurantLink + '" class="restaurant-link">' + restaurant.restaurantName + '</a></td>' + // 링크 추가
-                        '<td>' + "0" + '</td>' +
-                        '<td>' + restaurant.restaurantCuisine + '</td>' +
-                        '<td>' + "0" + '</td>' +
-                        '<td>' + restaurant.restaurantType + '</td>' +
-                        '</tr>';
-                });
-                $("#tierTableBody").html(tableContent);
-                $("footer").html("")
-            },
-
-            error: function(error) {
-                // 에러 핸들링
-                console.error("Error fetching data: ", error);
-            }
-        });
+// 모든 버튼 클래스 초기화
+    document.querySelectorAll('.button').forEach(btn => {
+        btn.classList.remove('selected');
+        btn.classList.add('unselected');
     });
+
+// 해당하는 cuisine의 a 태그 찾기
+    document.querySelectorAll('.cuisine-link').forEach(link => {
+        if (link.textContent.trim() === cuisineParam) {
+            // a 태그의 부모 span 태그에 클래스 변경
+            link.parentElement.classList.add('selected');
+            link.parentElement.classList.remove('unselected');
+        }
+    });
+
+
 
 // 데이터 위치
     const imagePaths = {

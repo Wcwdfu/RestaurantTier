@@ -280,8 +280,14 @@ tbody > tr > td > div > img {
 footer{
     margin-top: 1rem;
 }
+/* 식당 이름에 링크 스타일 제거*/
 .restaurant-link {
     color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
     text-decoration: none; /* 밑줄을 제거합니다 */
+}
+/* 종류에 링크 스타일 제거*/
+.cuisine-link{
+    color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
+    text-decoration: none;
 }
 
