@@ -3,40 +3,17 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #5383E8;
     color: #FFFFFF;
-}
-
-
-/* 검색 섹션  */
-header section {
+    height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* 자식 요소를 세로로 정렬 */
+
 }
 
-/*검색 버튼 스타일*/
-header button[type="submit"] {
-    padding: 5px 10px;
-    background: #28344E;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 100%;
-}
 
-/* 사이드바 스타일 */
-aside {
-    background-color: #FFB900;
-    color: #333333;
-}
-
-header .nav-link {
-    color: #FFFFFF;
-}
 
 
 .row .col .position-absolute {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .row .col .col-12 {
@@ -45,7 +22,9 @@ header .nav-link {
     border-radius: 15px;
 }
 
-
+.label{
+    font-weight: bold;
+}
 
 
 /* 홈 버튼 (건메추) */
@@ -67,6 +46,7 @@ header .nav-link {
 /*배경색 */
 main{
     background-color: #EBEEF1;
+    flex-grow: 1;
 }
 
 #header{
@@ -107,36 +87,17 @@ aside div div button{
     padding: 1.25rem;
 }
 
-/* 화면 크기가 커질 때 */
-@media screen and (min-width: 1024px) {
-
-
-
-    #home {
-        font-size: x-large;
-    }
-
-    #login {
-        font-size: large;
-    }
-
-    .row .col {
-        max-width: 250px;
-        max-height: 250px;
-    }
-
-}
 .row{
     display: flex;
     justify-content: center;
     max-width: 800px;
 }
 
-.main-container{
+.main-container {
     display: flex;
     justify-content: center;
-
 }
+
 
 /* 리스트의 아이템 중 클릭 상태인 것(홈) */
 div.header-bottom ul.menu-list > li > a > div.home {
