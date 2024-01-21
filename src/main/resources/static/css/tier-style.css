@@ -2,10 +2,12 @@
     #categoryBackground, #tierChartmain {
         margin: 0 10px;
         min-width: 260px;
+        width: 100%;
     }
 
     header {
         min-width: 260px;
+        width: 100%;
     }
 }
 
