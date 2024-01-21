@@ -2,9 +2,11 @@ package com.site.restauranttier.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
+@Setter
 @IdClass(EvaluationItemScoreId.class)
 @Table(name="evaluation_item_scores_tbl")
 public class EvaluationItemScore {
@@ -18,7 +20,16 @@ public class EvaluationItemScore {
     @JoinColumn(name="situation_id")
     private Situation situation;
 
-    private double score;
+    public EvaluationItemScore(Evaluation evaluation, Situation situation, double score) {
+        this.evaluation = evaluation;
+        this.situation = situation;
+        this.score = score;
+    }
+
+    private Double score;
 
 
+    public EvaluationItemScore() {
+
+    }
 }

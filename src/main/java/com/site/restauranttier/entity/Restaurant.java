@@ -60,13 +60,16 @@ public class Restaurant {
     @JoinTable(name = "restaurant_situation_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name="situation_id"))
     List<Situation> situationList = new ArrayList<>();
+    @OneToMany(mappedBy = "restaurant")
+    private List<Evaluation> evaluationList=new ArrayList<>();
+
 
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantComment> restaurantCommentList = new ArrayList<>();;
+    private List<RestaurantComment> restaurantCommentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();;
+    private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantMenu> restaurantMenuList = new ArrayList<>();;
+    private List<RestaurantMenu> restaurantMenuList = new ArrayList<>();
 }

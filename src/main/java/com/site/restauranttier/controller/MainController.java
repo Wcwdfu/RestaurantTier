@@ -1,13 +1,18 @@
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.RestaurantMenu;
+import com.site.restauranttier.entity.*;
+import com.site.restauranttier.etc.JsonData;
+import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
+import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
+import groovy.util.Eval;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +21,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,6 +36,9 @@ public class MainController {
     private final UserRepository userRepository;
     private final RestaurantService restaurantService;
     private final RestaurantCommentService restaurantCommentService;
+    private final EvaluationRepository evaluationRepository;
+    private final SituationRepository situationRepository;
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Value("${restaurant.initialDisplayMenuCount}")
     private int initialDisplayMenuCount;
@@ -62,7 +74,7 @@ public class MainController {
             Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisine(cuisine, pageable);
 
             model.addAttribute("paging", paging);
-            model.addAttribute("cuisine",cuisine);
+            model.addAttribute("cuisine", cuisine);
             return "tier";
         } else {
             //그냥 티어표로 이동할때
@@ -76,7 +88,7 @@ public class MainController {
     // --------------상단 탭 관련 끝---------------------
     @GetMapping("/restaurants/{restaurantId}")
     public String restaurant(Model model,
-            @PathVariable Integer restaurantId
+                             @PathVariable Integer restaurantId
     ) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         model.addAttribute("restaurant",restaurant);
@@ -120,6 +132,7 @@ public class MainController {
             return ResponseEntity.ok("what");
         }
     }
+
     // 티어표 안에서 종류 카테고리 누를때 데이터 반환
     @ResponseBody
     @GetMapping("/api/tier")
@@ -136,19 +149,13 @@ public class MainController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
-    // 평가 페이지
-    @GetMapping("/evaluation/{restaurantId}")
-    public String evaluation(Model model,@PathVariable Integer restaurantId){
-        Restaurant restaurant= restaurantRepository.findByRestaurantId(restaurantId);
-        model.addAttribute("restaurant",restaurant);
-        return "evaluation";
-    }
+
 
     // 검색 결과 페이지
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
-        model.addAttribute("paging",paging);
+        Page<Restaurant> paging = this.restaurantService.getList(page, kw);
+        model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "searchResult";
 
