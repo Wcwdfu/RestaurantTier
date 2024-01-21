@@ -91,17 +91,25 @@ public class MainController {
                              @PathVariable Integer restaurantId, Principal principal
     ) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        model.addAttribute("restaurant",restaurant);
+        model.addAttribute("restaurant", restaurant);
 
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
-        model.addAttribute("menus",restaurantMenus);
+        model.addAttribute("menus", restaurantMenus);
 
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
         // 해당 식당 평가한 적 있으면 버튼 이름 변경 (다시 평가하기)
         String name = principal.getName();
+        User user = userRepository.findByUserTokenId(name).orElseThrow();
+        Optional<Evaluation> evaluationOpt = evaluationRepository.findByUserAndRestaurant(user, restaurant);
+        if (evaluationOpt.isPresent()) {
+            model.addAttribute("evaluationButton", "다시 평가하기");
+        } else {
+            model.addAttribute("evaluationButton", " 평가하기");
 
+        }
         return "restaurant";
     }
+
 
     // 식당 메뉴 반환
     @GetMapping("/api/restaurants/{restaurantId}/menus")
@@ -150,7 +158,6 @@ public class MainController {
 
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
-
 
 
     // 검색 결과 페이지
