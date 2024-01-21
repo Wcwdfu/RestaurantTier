@@ -20,13 +20,16 @@
 <header th:replace="~{navbar :: navbarFragment}"></header>
 
 <!-- 하단 메인 컨텐츠 -->
-<main class="container-fluid p-0">
+<main class="container-fluid p-0 m-0">
 
-    <section class="pt-5 mx-2">
-        <div class="container fluid main-container">
+    <section>
+        <div class="container fluid">
+
+
+
 
             <!--     이미지 버튼 모아둔 그리드      -->
-            <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 mt-6 p-0">
+            <div class="row row-cols-3 mt-6 p-2">
 
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"
@@ -127,7 +130,7 @@
                     </a>
 
                 </div>
-                <div class="cell col position-relative">
+                <div class="cell col  position-relative">
                     <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"
                                                                                       src="/img/home/bakery.png">
                         <div class="label position-absolute top-0 start-0">베이커리
