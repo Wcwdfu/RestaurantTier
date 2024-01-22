@@ -24,10 +24,15 @@ div.header-bottom ul.menu-list > li > a > div.community {
 .tier, .rank,.home {
     display: flex;
     align-items: center;
-    color: #B3CDFF;
+    color: white;
     border-bottom: 3px solid transparent;
     font-size: 15px;
     box-sizing: border-box;
     line-height: 22px;
     padding: 6px 0 5px;
+}
+
+#topDiv{
+    padding-left: 5%;
+    padding-top: 3%;
 }

@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/community-navber-style.css">
     <link rel="stylesheet" type="text/css" href="/css/community-style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{navbar :: navbarFragment}"></header>
+<header th:replace="~{community_navbar :: navbarFragment}"></header>
+<div id="topDiv">
+    <select id="dropdown">
+        <option value="free">자유 게시판</option>
+        <option value="column">칼럼 게시판</option>
+        <option value="review">후기 게시판</option>
+    </select>
+</div>
+<div id="middleDiv">
 
+</div>
 </body>
 </html>
