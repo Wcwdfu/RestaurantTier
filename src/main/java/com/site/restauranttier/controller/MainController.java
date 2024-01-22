@@ -98,16 +98,23 @@ public class MainController {
 
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
         // 해당 식당 평가한 적 있으면 버튼 이름 변경 (다시 평가하기)
-        String name = principal.getName();
-        User user = userRepository.findByUserTokenId(name).orElseThrow();
-        Optional<Evaluation> evaluationOpt = evaluationRepository.findByUserAndRestaurant(user, restaurant);
-        if (evaluationOpt.isPresent()) {
-            model.addAttribute("evaluationButton", "다시 평가하기");
-        } else {
+        // 로그인 안되어있을 경우
+        if (principal == null) {
             model.addAttribute("evaluationButton", " 평가하기");
+            return "restaurant";
+        } else {
+            String name = principal.getName();
+            User user = userRepository.findByUserTokenId(name).orElseThrow();
+            Optional<Evaluation> evaluationOpt = evaluationRepository.findByUserAndRestaurant(user, restaurant);
+            if (evaluationOpt.isPresent()) {
+                model.addAttribute("evaluationButton", "다시 평가하기");
+            } else {
+                model.addAttribute("evaluationButton", " 평가하기");
 
+            }
+            return "restaurant";
         }
-        return "restaurant";
+
     }
 
 

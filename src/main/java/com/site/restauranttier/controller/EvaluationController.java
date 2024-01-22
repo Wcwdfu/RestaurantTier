@@ -50,6 +50,9 @@ public class EvaluationController {
     // 평가 데이터 db 저장 (한 user의 똑같은 식당이면 업데이트 진행)
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
+        if(principal==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
         logger.info("컨트롤러 진입");
         Restaurant restaurant = restaurantRepository.findByRestaurantId(jsonData.getRestaurantId());
         Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());

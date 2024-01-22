@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response =>{
                 if(!response.ok){
-                    throw new Error("Network response was not ok");
+                    throw new Error("로그인이 되지 않았습니다");
                 }
                 return response;
             })
@@ -189,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         )
             .catch(error =>{
+                alert(error.message)
                 console.error('Error:',error)
             })
 
