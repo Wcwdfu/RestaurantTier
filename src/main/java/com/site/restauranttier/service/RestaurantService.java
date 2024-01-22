@@ -33,31 +33,37 @@ public class RestaurantService {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Predicate toPredicate(Root<Restaurant> r, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<Restaurant> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
-                Join<Restaurant, RestaurantHashtag> u1 = r.join("restaurantHashtagList", JoinType.LEFT);
-                Join<Restaurant, Situation> u2 = r.join("situationList", JoinType.LEFT);
-                return cb.or(cb.like(r.get("restaurantName"), "%" + kw + "%"), // 식당 이름
-                        cb.like(r.get("restaurantType"), "%" + kw + "%"),      // 식당 카테고리 (ex.곰탕)
-                        cb.like(r.get("restaurantCuisine"), "%" + kw + "%"),    // 식당 종류 (ex.한식)
-                        cb.like(u1.get("hashtagName"), "%" + kw + "%"),      // 해시태그 이름
-                        cb.like(u2.get("situationName"), "%" + kw + "%"));   // 상황 이름
+
+                // 조인
+                Join<Restaurant, RestaurantHashtag> joinHashtag = root.join("restaurantHashtagList", JoinType.LEFT);
+                Join<Restaurant, Situation> joinSituation = root.join("situationList", JoinType.LEFT);
+
+                // 검색 조건
+                Predicate namePredicate = cb.like(root.get("restaurantName"), "%" + kw + "%");
+                Predicate typePredicate = cb.like(root.get("restaurantType"), "%" + kw + "%");
+                Predicate cuisinePredicate = cb.like(root.get("restaurantCuisine"), "%" + kw + "%");
+                Predicate hashtagPredicate = cb.like(joinHashtag.get("hashtagName"), "%" + kw + "%");
+                Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
+
+                // 'ACTIVE' 상태 조건 추가
+                Predicate statusPredicate = cb.equal(root.get("status"), "ACTIVE");
+
+                // 모든 조건을 결합
+                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate, situationPredicate));
             }
         };
     }
 
-    // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
-    public Page<Restaurant> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 30);
-        return this.restaurantRepository.findAll(pageable);
-    }
+
 
     // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
     public Page<Restaurant> getList(int page,String kw) {
         Pageable pageable = PageRequest.of(page, 30);
         Specification<Restaurant> spec = search(kw);
 
-        return this.restaurantRepository.findAll(spec,pageable);
+        return restaurantRepository.findAll(spec,pageable);
     }
 
     public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {

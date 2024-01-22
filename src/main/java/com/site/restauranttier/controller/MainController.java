@@ -69,16 +69,15 @@ public class MainController {
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
         // 메인에서 이미지로 티어표로 이동할 때
+        Pageable pageable = PageRequest.of(page, 30);
         if (cuisine != null && !cuisine.isEmpty() && !"null".equals(cuisine)) {
-            Pageable pageable = PageRequest.of(page, 30);
-            Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisine(cuisine, pageable);
-
+            Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE", pageable);
             model.addAttribute("paging", paging);
             model.addAttribute("cuisine", cuisine);
             return "tier";
         } else {
             //그냥 티어표로 이동할때
-            Page<Restaurant> paging = this.restaurantService.getList(page);
+            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE",pageable);
             model.addAttribute("paging", paging);
             return "tier";
         }
@@ -150,27 +149,14 @@ public class MainController {
         }
     }
 
-    // 티어표 안에서 종류 카테고리 누를때 데이터 반환
-    @ResponseBody
-    @GetMapping("/api/tier")
-    public ResponseEntity<List<Restaurant>> getRestaurantsByCuisine(@RequestParam(name = "cuisine", required = false) String cuisine) {
-        List<Restaurant> restaurants;
-        if (cuisine != null && !cuisine.isEmpty()) {
-            // cuisine 파라미터가 주어진 경우, 해당하는 데이터를 조회합니다.
-            restaurants = restaurantRepository.findByRestaurantCuisine(cuisine);
-        } else {
-            // cuisine 파라미터가 없는 경우, 모든 레스토랑을 조회합니다.
-            restaurants = restaurantRepository.findAll();
-        }
-
-        return new ResponseEntity<>(restaurants, HttpStatus.OK);
-    }
-
-
     // 검색 결과 페이지
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Restaurant> paging = this.restaurantService.getList(page, kw);
+        logger.info(kw);
+        logger.info(String.valueOf(page));
+
+        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
+        logger.info("서비스 통과");
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "searchResult";
