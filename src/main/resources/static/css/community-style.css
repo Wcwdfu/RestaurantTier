@@ -9,8 +9,9 @@ div.header-bottom ul.menu-list > li > a > div.community {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.tier:hover,.rank:hover,.home:hover {
+.tier:hover, .rank:hover, .home:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -20,8 +21,9 @@ div.header-bottom ul.menu-list > li > a > div.community {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.tier, .rank,.home {
+.tier, .rank, .home {
     display: flex;
     align-items: center;
     color: white;
@@ -32,7 +34,63 @@ div.header-bottom ul.menu-list > li > a > div.community {
     padding: 6px 0 5px;
 }
 
-#topDiv{
-    padding-left: 5%;
-    padding-top: 3%;
+#topDiv {
+    padding-top: 1%;
+    max-width: 700px;
+}
+
+.dropdown-toggle {
+    border: none;
+}
+
+body {
+    background-color: white;
+}
+
+.icon {
+    width: 40%;
+    height: auto;
+    padding: 3%;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.firstFilter {
+    padding-left: 1rem;
+}
+
+.right-Icon {
+    display: flex;
+    justify-content: end;
+}
+
+.postRow {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    border: #EBEEF1 1px;
+    display: flex;
+    align-items: center;
+}
+
+#postImage {
+    width: auto; /* 이미지 원본 비율 유지 */
+    height: 100%; /* 행 높이에 맞춤 */
+
+}
+
+.imageTd {
+    text-align: right;
+    height: 60px;
+    padding: 0;
+}
+
+.table {
+    padding: 0;
+}
+
+.post {
+    text-decoration: none;
+    padding-left: 3rem;
+    color: inherit; /* 링크의 색상 제거 */
 }
