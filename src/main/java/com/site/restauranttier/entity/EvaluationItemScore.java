@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @IdClass(EvaluationItemScoreId.class)
-@Table(name="evaluation_item_scores_tbl")
+@Table(name="evaluation_item_scores_TBL")
 public class EvaluationItemScore {
 
     @Id

@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users_tbl")
+@Table(name = "users_TBL")
 public class User {
 
     @Id
@@ -52,6 +52,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
 
+    @OneToMany(mappedBy="user")
+    private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<PostComment> postCommentList=new ArrayList<>();
     public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
         this.loginApi=loginApi;

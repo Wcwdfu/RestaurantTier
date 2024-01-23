@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 // 한 사용자가 한 식당을 중복 평가 할 수 없음
-@Table(name="evaluations_tbl")
+@Table(name="evaluations_TBL")
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

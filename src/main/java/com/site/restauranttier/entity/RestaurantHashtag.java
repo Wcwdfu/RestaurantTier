@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Entity
-@Table(name="restaurant_hashtags_tbl")
+@Table(name="restaurant_hashtags_TBL")
 public class RestaurantHashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

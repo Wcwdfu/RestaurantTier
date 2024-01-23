@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Entity
 @Setter
-@Table(name="situations_tbl")
+@Table(name="situations_TBL")
 public class Situation {
     @Id
     private Integer situationId;
