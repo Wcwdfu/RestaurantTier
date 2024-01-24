@@ -34,9 +34,9 @@ div.header-bottom ul.menu-list > li > a > div.community {
     padding: 6px 0 5px;
 }
 
-#topDiv {
+#container {
     padding-top: 1%;
-    max-width: 700px;
+    max-width: 900px;
 }
 
 .dropdown-toggle {
@@ -51,46 +51,129 @@ body {
     width: 40%;
     height: auto;
     padding: 3%;
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 40px;
+    max-height: 40px;
 }
 
 .firstFilter {
-    padding-left: 1rem;
+    margin-left: 1rem;
 }
 
 .right-Icon {
-    display: flex;
-    justify-content: end;
+    float: right;
 }
 
-.postRow {
-    padding-bottom: 1rem;
+#postul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    height: 80px;
+    border-top: 1px solid white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.postLink {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+
+}
+
+.postImage {
+    width: 60px;
+    height: 60px;
+}
+
+.rowPost {
+    flex-shrink: 0;
     padding-top: 1rem;
 
-    border: #EBEEF1 1px;
+}
+
+.filter {
+    display: inline-block;
+}
+
+.postli {
+    width: 100%;
+    display: flex;
+    height: 77px;
+    align-items: center;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 14px;
+    background: white;
+    border-top: 1px solid #ebeef1;
+    position: relative;
+
+}
+.postBox{
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-right: 12px;
+}
+.recommend{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: center;
+    font-size: 14px;
+    color: gray;
+    white-space: nowrap;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    text-align: center;
+
+    flex-shrink: 0;
+}
+#category{
+    padding-left: 0;
+}
+#creatdAt{
+
+}
+#author{
+    flex: 1;
+    overflow: hidden;
+}
+
+.underLink > span{
+    float: left;
+    padding-left: 8px;
+    line-height: 24px;
+    white-space: nowrap;
     display: flex;
     align-items: center;
 }
 
-#postImage {
-    width: auto; /* 이미지 원본 비율 유지 */
-    height: 100%; /* 행 높이에 맞춤 */
-
+#createdAt::before, #author::before{
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #ebeef1;
+    height: 12px;
+    content: "";
+    margin-right: 8px;
 }
 
-.imageTd {
-    text-align: right;
-    height: 60px;
-    padding: 0;
-}
-
-.table {
-    padding: 0;
-}
-
-.post {
-    text-decoration: none;
-    padding-left: 3rem;
-    color: inherit; /* 링크의 색상 제거 */
+.underLink{
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    color: #8b99a6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 24px;
 }

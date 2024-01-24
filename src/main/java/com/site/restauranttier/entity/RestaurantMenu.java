@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name="restaurant_menus_TBL")
+@Table(name="restaurant_menus_tbl")
 public class RestaurantMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

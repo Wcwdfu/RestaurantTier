@@ -14,9 +14,9 @@
 <body>
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{community_navbar :: navbarFragment}"></header>
-<div id=topDiv class="container">
-    <div class="row">
-        <div class="dropdown col-2">
+<div id=container class="container">
+    <div class="rowPost">
+        <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 전체
             </button>
@@ -27,22 +27,44 @@
                 <li><a class="dropdown-item" href="#">건의 게시판</a></li>
             </ul>
         </div>
-        <div class="col-7"></div>
-        <div class="col-3 right-Icon">
+        <div class="right-Icon">
             <img class="icon" src="/img/community/loupe.png" alt="검색">
             <img class="icon" src="/img/community/write.png" alt="글쓰기">
         </div>
     </div>
-    <div class="row">
-        <div class="col-2 firstFilter">최신</div>
-        <div class="col-2">인기</div>
-        <div class="col-2">TOP</div>
+    <div class="rowPost">
+        <div class="filter firstFilter">최신</div>
+        <div class="filter">인기</div>
+        <div class="filter">TOP</div>
     </div>
+    <ul id="postul" class="rowPost">
+        <li th:each="post: ${DTOList}" class="postli">
+        <span class="recommend">
+
+        </span>
+            <div class="postBox">
+                <a class="postLink" th:text="${post.postTitle}"
+                   th:href="@{/community/{postId}(postId=${post.postId})}"></a>
+                <div class="underLink">
+                    <span id="category">유머</span>
+                    <span id="createdAt">13시간전 </span>
+                    <span id="author">임재형</span>
+                </div>
+            </div>
+
+            <!-- Check if postPhotoList is not empty -->
+            <img class="postImage" th:if="${not #strings.isEmpty(post.photoImgUrl)}" th:src="${post.photoImgUrl}"/>
+
+            <!-- Display a temporary image if postPhotoList is empty -->
+            <img class="postImage" th:if="${#strings.isEmpty(post.photoImgUrl)}"
+                 th:src="@{/img/community/post_hidden.png}"/>
+
+        </li>
+    </ul>
+
 
 </div>
-<div id="postDiv" class="row postRow">
-    <a class="post" href="#">게시글 이름</a>
-</div>
+
 
 </body>
 </html>

@@ -55,10 +55,6 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/community")
-    public String community() {
-        return "community";
-    }
 
     @GetMapping("/ranking")
     public String ranking() {

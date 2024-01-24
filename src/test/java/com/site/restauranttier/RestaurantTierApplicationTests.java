@@ -1,18 +1,26 @@
 package com.site.restauranttier;
 
+import com.site.restauranttier.controller.MainController;
+import com.site.restauranttier.entity.Post;
+import com.site.restauranttier.entity.PostPhoto;
 import com.site.restauranttier.entity.Situation;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.SituationRepository;
-import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.entity.User;
+import com.site.restauranttier.repository.*;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class RestaurantTierApplicationTests {
@@ -21,38 +29,49 @@ class RestaurantTierApplicationTests {
     private UserRepository userRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
-	@Autowired
+    @Autowired
     private SituationRepository situationRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private PostPhotoRepository postPhotoRepository;
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantTierApplicationTests.class);
 
     // 테스트 데이터 추가
     @Test
-    void textJpa() {
+    @Transactional
+    @Rollback(false)
+    void textCommunity() {
 
-//		// 유저 테스트 데이터 추가
-//        for (int i = 0; i < 10; i++) {
-//            User newUser = new User("userId" + i, "self", "pass" + i, "user" + i + "@example.com", "UserNickName" + i, "online", LocalDateTime.now());
-//            userRepository.save(newUser);
-//        }
-//
-//		Restaurant res1 = new Restaurant("숨맑은집 호계점","카페","https://map.naver.com/p/search/%EC%88%A8%EB%A7%91%EC%9D%80%EC%A7%91/place/1468337474?c=14.28,0,0,0,dh",0,"카페/디저트","normal",LocalDateTime.now());
-//        // 식당 테스트 데이터 추가
-//        List<Restaurant> restaurants = new ArrayList<>();
-//        restaurants.add(res1);
-//        restaurantRepository.saveAll(restaurants);
+        // 커뮤니티 테스트
 
-//
-//		// 상황 테스트 데이터 저장
-//        Situation alone = new Situation(1,"혼밥");
-//        Situation threeFour = new Situation(2,"2~4인");
-//        Situation five = new Situation(3,"5인 이상");
-//        Situation group  = new Situation(4,"단체 회식");
-//        Situation delivery = new Situation(5,"배달");
-//        Situation nightSnack = new Situation(6,"야식");
-//        Situation invite = new Situation(7,"친구 초대");
-//        Situation date = new Situation(8,"데이트");
-//        Situation blindDate = new Situation(9,"소개팅");
-//        List situationList = new ArrayList(Arrays.asList(alone,threeFour,five,group,delivery,nightSnack,invite,date,blindDate));
-//        situationRepository.saveAll(situationList);
+        Post post = new Post(1,"부탄츄 후기", "부탄츄 건대점에 다녀왔습니다", "ACTIVE", LocalDateTime.now());
+        // 이미지 설정과 양방향 매핑
+        PostPhoto postPhoto = new PostPhoto("https://mblogthumb-phinf.pstatic.net/MjAyMDAxMTlfMTEg/MDAxNTc5NDMyNjY5OTg4.XkEOiHNJDaEgWAawh-IzZFPkovVqLXlQRcdDiWFOW5gg.h5WRn-eHCJ9FxK2ou6P892Zt0Xd1_MrBWOWc6t7VMJAg.JPEG.effy0424/1579432668513.jpg?type=w800", "ACTIVE");
+        postPhoto.setPost(post);
+        post.getPostPhotoList().add(postPhoto);
+        // user 설정과 양방향 매핑
+        Optional<User> userOptional = userRepository.findById(1);
+        User user = userOptional.get();
+        post.setUser(user);
+        user.getPostList().add(post);
+        postRepository.save(post);
+        postPhotoRepository.save(postPhoto);
+
+
+//        Post post2 = new Post(2,"긴자료코 후기", "긴자료코 건대점에 다녀왔습니다", "ACTIVE", LocalDateTime.now());
+//        // 이미지 설정과 양방향 매핑
+//        PostPhoto postPhoto2 = new PostPhoto("https://i0.wp.com/43.200.108.156/wp-content/uploads/ginjaRyoko_pork_cutlet.webp?fit=833%2C658&ssl=1", "ACTIVE");
+//        postPhoto.setPost(post2);
+//        post.getPostPhotoList().add(postPhoto2);
+//        // user 설정과 양방향 매핑
+//        Optional<User> userOptional2 = userRepository.findById(2);
+//        User user2 = userOptional2.get();
+//        post2.setUser(user2);
+//        user2.getPostList().add(post2);
+//        postRepository.save(post2);
+//        postPhotoRepository.save(postPhoto2);
+
     }
 
 }

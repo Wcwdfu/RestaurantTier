@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name="restaurant_comments_TBL")
+@Table(name="restaurant_comments_tbl")
 public class RestaurantComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

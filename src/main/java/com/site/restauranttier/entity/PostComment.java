@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(name="post_comments_TBL")
+@Table(name="post_comments_tbl")
 public class PostComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer commentId;
 
     String commentBody;
-    String parentCommentId;
+    Integer parentCommentId;
     String status;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
@@ -28,5 +28,4 @@ public class PostComment {
     @ManyToOne
     @JoinColumn(name="user_id")
     User user;
-
 }

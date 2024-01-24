@@ -1,9 +1,15 @@
 package com.site.restauranttier.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+@Getter
+@Setter
 @Entity
-public class PostScraps {
+@Table(name="post_scraps_tbl")
+public class PostScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +23,6 @@ public class PostScraps {
     @JoinColumn(name="post_id")
     Post post;
 
-    //created 가 필요한가? 없으면 ManyToMany로 가능.
+    LocalDateTime createdAt;
 
 }
