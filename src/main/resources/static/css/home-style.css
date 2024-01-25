@@ -93,7 +93,7 @@ div.header-bottom ul.menu-list > li > a > div.home {
 }
 @media only screen and (max-width: 1024px) {
     .random-drawing {
-        margin: 0 10px;
+        margin: 0 15px;
         min-width: 260px;
         width: 100%;
         text-align: center;
@@ -143,6 +143,7 @@ div.header-bottom ul.menu-list > li > a > div.home {
 #cuisineSelect{
     font-size: 16px;
     margin-left: 10px;
+    padding: 2px 0;
 }
 .drawing-button {
     padding: 5px 12px;
@@ -163,7 +164,8 @@ div.header-bottom ul.menu-list > li > a > div.home {
 #stopButton {
     background-color: #cb1717;
 }
-.drawing-result > p {
+.drawing-result > a {
+    cursor: pointer;
     text-align: center;
     margin: auto;
     padding: 0;

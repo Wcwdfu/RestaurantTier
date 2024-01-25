@@ -11,7 +11,6 @@ $(document).ready(function () {
     drawingButton.on('click', function () {
         fetchData();
     });
-
     stopButton.on('click', function() {
         isStopped = true;
     })
@@ -43,7 +42,8 @@ $(document).ready(function () {
         function showNextRestaurant() {
             const restaurant = data[i];
             const color = getRandomColor();
-            const resultHtml = `<p style="color: ${color};">${restaurant.restaurantName}</p>`;
+            const hrefValue = '/restaurants/' + restaurant.restaurantId;
+            const resultHtml = `<a style="color: ${color};">${restaurant.restaurantName}</a>`;
             drawingResult.html(resultHtml);
             if (maxIndex === 1) {
                 return;
@@ -59,11 +59,12 @@ $(document).ready(function () {
                 }
                 setTimeout(showNextRestaurant, 50);
             } else {
+                clearTimeout(showNextRestaurant);
+                drawingResult.find('a').attr('href', hrefValue);
                 document.getElementById("cuisineSelect").disabled = false;
                 document.getElementById("drawingButton").style.display = 'inline-block';
                 document.getElementById("stopButton").style.display = 'none';
                 document.getElementById("drawingResult").style.borderColor = '#5383E8';
-                return;
             }
         }
         showNextRestaurant();
