@@ -16,12 +16,17 @@
 <main>
 
     <div>
-        <form>
-            <select>
-                <option>채널 선택</option>
-                <option>자유게시판</option>
-                <option>칼럼게시판</option>
-                <option>건의게시판</option>
+        <form method="post" action="/api/community/post/create">
+            <div class="top-banner">
+                <h1 class="writeText">게시글 작성</h1>
+                <button id="back-button" type="button"><img src="/img/community/back-button.png"></button>
+                <button id="complete-button" type="submit">작성 완료</button>
+            </div>
+            <select name="category">
+                <option value="" disabled selected hidden>채널 선택</option>
+                <option value="자유게시판">자유게시판</option>
+                <option value="칼럼게시판">칼럼게시판</option>
+                <option value="건의게시판">건의게시판</option>
             </select>
             <input name="title" placeholder="제목">
             <div class="post-body">
@@ -44,16 +49,11 @@
                             <img src="/img/community/text-editor.png">
                         </button>
                     </div>
-                    <div class="post-content"></div>
+                    <textarea class="post-content" name="content"></textarea>
                 </div>
             </div>
         </form>
 
-    </div>
-    <div class="top-banner">
-        <h1 class="writeText">게시글 작성</h1>
-        <button id="back-button" type="button"><img src="/img/community/back-button.png"></button>
-        <button id="complete-button" type="button">작성 완료</button>
     </div>
 
 

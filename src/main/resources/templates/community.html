@@ -44,7 +44,9 @@
     <ul id="postul">
         <li th:each="post,iterStat: ${postList}" class="postli">
         <span class="recommend">
-
+            <img src="/img/community/up.png">
+            <span th:text="${post.postScrapList.size()}"></span>
+            <img src="/img/community/down.png">
         </span>
             <div class="postBox">
                 <a class="postLink" th:text="${post.postTitle}"
@@ -59,11 +61,11 @@
             </div>
 
             <!-- Check if postPhotoList is not empty -->
-            <img class="postImage" th:if="${not #strings.isEmpty(post.postPhotoList)}"
+            <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"
                  th:src="${post.postPhotoList.get(0).photoImgUrl}"/>
 
             <!-- Display a temporary image if postPhotoList is empty -->
-            <img class="postImage" th:if="${#strings.isEmpty(post.postPhotoList)}"
+            <img class="postImage" th:if="${#lists.isEmpty(post.postPhotoList)}"
                  th:src="@{/img/community/post_hidden.png}"/>
 
         </li>

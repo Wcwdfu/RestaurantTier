@@ -25,8 +25,7 @@ public class Post {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 
-    public Post(Integer postId, String postTitle, String postBody, String postCategory, String status, LocalDateTime createdAt) {
-        this.postId = postId;
+    public Post(String postTitle, String postBody, String postCategory, String status, LocalDateTime createdAt) {
         this.postTitle = postTitle;
         this.postBody = postBody;
         this.postCategory = postCategory;
@@ -50,4 +49,5 @@ public class Post {
     public Post() {
 
     }
+
 }

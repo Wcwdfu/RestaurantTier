@@ -22,10 +22,22 @@ public class PostComment {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 
+    public PostComment(String commentBody, String status, LocalDateTime createdAt, Post post, User user) {
+        this.commentBody = commentBody;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.post = post;
+        this.user = user;
+    }
+
     @ManyToOne
     @JoinColumn(name="post_id")
     Post post;
     @ManyToOne
     @JoinColumn(name="user_id")
     User user;
+
+    public PostComment() {
+
+    }
 }
