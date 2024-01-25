@@ -8,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +28,16 @@ public class CommunityController {
         return "community";
     }
 
+     @GetMapping("/community/{postId}")
+    public String post(Model model, @PathVariable Integer postId){
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if(postOptional.isEmpty()){
+            return "community_post";
+        }
+        Post post=postOptional.get();
+        model.addAttribute("Post",post);
+        return "community_post";
+     }
 
 
 }
