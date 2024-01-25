@@ -45,7 +45,7 @@ class RestaurantTierApplicationTests {
 
         // 커뮤니티 테스트
 
-        Post post = new Post(1,"부탄츄 후기", "부탄츄 건대점에 다녀왔습니다", "ACTIVE", LocalDateTime.now());
+        Post post = new Post(1,"부탄츄 후기", "부탄츄 건대점에 다녀왔습니다", "자유게시판", "ACTIVE", LocalDateTime.now());
         // 이미지 설정과 양방향 매핑
         PostPhoto postPhoto = new PostPhoto("https://mblogthumb-phinf.pstatic.net/MjAyMDAxMTlfMTEg/MDAxNTc5NDMyNjY5OTg4.XkEOiHNJDaEgWAawh-IzZFPkovVqLXlQRcdDiWFOW5gg.h5WRn-eHCJ9FxK2ou6P892Zt0Xd1_MrBWOWc6t7VMJAg.JPEG.effy0424/1579432668513.jpg?type=w800", "ACTIVE");
         postPhoto.setPost(post);

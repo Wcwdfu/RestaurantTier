@@ -14,8 +14,8 @@
 <body>
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{community_navbar :: navbarFragment}"></header>
-<div id=container class="container">
-    <div class="rowPost">
+<div id="content">
+    <div id="filterDiv">
         <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 전체
@@ -32,13 +32,14 @@
             <img class="icon" src="/img/community/write.png" alt="글쓰기">
         </div>
     </div>
-    <div class="rowPost">
-        <div class="filter firstFilter">최신</div>
-        <div class="filter">인기</div>
-        <div class="filter">TOP</div>
-    </div>
-    <ul id="postul" class="rowPost">
-        <li th:each="post: ${DTOList}" class="postli">
+    <!--추후에 기능 추가-->
+    <!--    <div>-->
+    <!--        <div class="filter firstFilter">최신</div>-->
+    <!--        <div class="filter">인기</div>-->
+    <!--        <div class="filter">TOP</div>s-->
+    <!--    </div>-->
+    <ul id="postul">
+        <li th:each="post: ${postList}" class="postli">
         <span class="recommend">
 
         </span>
@@ -53,10 +54,11 @@
             </div>
 
             <!-- Check if postPhotoList is not empty -->
-            <img class="postImage" th:if="${not #strings.isEmpty(post.photoImgUrl)}" th:src="${post.photoImgUrl}"/>
+            <img class="postImage" th:if="${not #strings.isEmpty(post.getPostPhotoList())}"
+                 th:src="${post.getPostPhotoList().get(0).getPhotoImgUrl()}"/>
 
             <!-- Display a temporary image if postPhotoList is empty -->
-            <img class="postImage" th:if="${#strings.isEmpty(post.photoImgUrl)}"
+            <img class="postImage" th:if="${#strings.isEmpty(post.getPostPhotoList())}"
                  th:src="@{/img/community/post_hidden.png}"/>
 
         </li>

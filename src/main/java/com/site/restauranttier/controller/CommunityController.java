@@ -1,9 +1,6 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Post;
-import com.site.restauranttier.entity.PostPhoto;
-import com.site.restauranttier.etc.PostDTO;
-import com.site.restauranttier.etc.PostMapper;
 import com.site.restauranttier.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,24 +21,7 @@ public class CommunityController {
     @GetMapping("/community")
     public String community(Model model) {
         List<Post> postList = postRepository.findAll();
-
-        List<PostDTO> dtoList = new ArrayList();
-        for(Post post : postList){
-            logger.info(post.getPostPhotoList().get(0).getPhotoImgUrl());
-            PostDTO postDTO = PostMapper.INSTANCE.postToPostDTO(post);
-
-            if(!post.getPostPhotoList().isEmpty()){
-                postDTO.setPhotoImgUrl(post.getPostPhotoList().get(0).getPhotoImgUrl());
-            }
-            else{
-                postDTO.setPhotoImgUrl(null);
-            }
-            dtoList.add(postDTO);
-        }
-        for(PostDTO dto : dtoList){
-            logger.info(dto.getPhotoImgUrl());
-        }
-        model.addAttribute("DTOList",dtoList);
+        model.addAttribute("postList",postList);
         return "community";
     }
 

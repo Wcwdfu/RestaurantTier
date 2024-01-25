@@ -19,13 +19,15 @@ public class Post {
     String postTitle;
     String postBody;
     String status;
+    String postCategory;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 
-    public Post(Integer postId, String postTitle, String postBody, String status, LocalDateTime createdAt) {
+    public Post(Integer postId, String postTitle, String postBody, String postCategory, String status, LocalDateTime createdAt) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postBody = postBody;
+        this.postCategory = postCategory;
         this.status = status;
         this.createdAt = createdAt;
     }
