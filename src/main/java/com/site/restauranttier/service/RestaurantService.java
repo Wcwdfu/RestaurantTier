@@ -74,4 +74,11 @@ public class RestaurantService {
             return null;
         }
     }
+    public List<Restaurant> getRestaurantList(String cuisine) {
+        if (cuisine.equals("전체")) {
+            return restaurantRepository.findByStatus("ACTIVE");
+        } else {
+            return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
+        }
+    }
 }

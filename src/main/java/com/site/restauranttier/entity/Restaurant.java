@@ -1,5 +1,8 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,24 +55,30 @@ public class Restaurant {
     }
     // 다른 테이블과의 관계 매핑
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "restaurant_hashtag_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name="hashtag_id"))
     List<RestaurantHashtag> restaurantHashtagList = new ArrayList<>();
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "restaurant_situation_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name="situation_id"))
     List<Situation> situationList = new ArrayList<>();
+
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     private List<Evaluation> evaluationList=new ArrayList<>();
 
-
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     private List<RestaurantComment> restaurantCommentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     private List<RestaurantFavorite> restaurantFavorite = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     private List<RestaurantMenu> restaurantMenuList = new ArrayList<>();
 }

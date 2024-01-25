@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>건메추</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/homeScript.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="/css/home-style.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/homeScript.js"></script>
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
@@ -19,7 +20,21 @@
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid pt-4 m-0">
+    <section class="section-center">
+        <div class="random-drawing">
+            <div>
+                <span>메뉴 추천</span>
+                <select id="cuisineSelect">
+                    <option th:each="cuisine : ${cuisines}" th:value="${cuisine}" th:text="${cuisine}"></option>
+                </select>
+                <button id="drawingButton" class="drawing-button">시작</button>
+                <button id="stopButton" class="drawing-button" style="display: none;">정지</button>
+            </div>
+            <div id="drawingResult" class="drawing-result">
 
+            </div>
+        </div>
+    </section>
     <section>
         <div class="container fluid">
 
