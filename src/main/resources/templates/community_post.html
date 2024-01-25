@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>커뮤니티 게시글</title>
+    <title th:text="${post.postTitle}"></title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar-community-style.css">
     <link rel="stylesheet" type="text/css" href="/css/community-post-style.css">
@@ -17,29 +17,29 @@
 <main>
     <div class="post">
         <div class="post-top">
-            <h1>부탄츄 후기</h1>
+            <h1 th:text="${post.postTitle}"></h1>
             <div>
                 <div class="post-details">
                     <div class="post-detail">
                         <span class="first-detail">
-                            <a href="#">자유</a>
+                            <a th:text="${post.postCategory}" href="#"></a>
                         </span>
-                        <span class="second-detail updated-time">
+                        <span th:text="${timeAgoData}" class="second-detail updated-time">
                             5시간 전
                         </span>
-                        <span class="third-detail user-name">
+                        <span th:text="${post.user.userNickname} "class="third-detail user-name">
                             임재
                         </span>
                     </div>
                     <div class="post-detail">
                         <span class="first-detail">
-                            조회수 14786
+                            조회수 23
                         </span>
-                        <span class="second-detail">
-                            댓글 22
+                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
+
                         </span>
-                        <span class="third-detail">
-                            추천 280
+                        <span th:text="'추천 '+ ${post.postScrapList.size()}" class ="third-detail">
+
                         </span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
         <div class="post-body">
             <div>
                 <article>
-                    <p>부탄츄 건대점에 다녀왔습니다.
+                    <p th:text="${post.postBody}">
                         <img src="/img/community/post_hidden.png"></p>
                 </article>
             </div>

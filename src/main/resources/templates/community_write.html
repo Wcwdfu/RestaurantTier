@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/community_write_style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+    <script src="/js/community_write.js"></script>
+</head>
+<body>
+<main>
+
+    <div>
+        <form>
+            <select>
+                <option>채널 선택</option>
+                <option>자유게시판</option>
+                <option>칼럼게시판</option>
+                <option>건의게시판</option>
+            </select>
+            <input name="title" placeholder="제목">
+            <div class="post-body">
+                <div class="post-body-inner">
+                    <div class="toolbar">
+                        <button>
+                            <img src="/img/community/pictures.png">
+                        </button>
+                        <button>
+                            <img src="/img/community/b.png">
+                        </button>
+
+                        <button>
+                            <img src="/img/community/italic-font.png">
+                        </button>
+                        <button>
+                            <img src="/img/community/letter-h.png">
+                        </button>
+                        <button>
+                            <img src="/img/community/text-editor.png">
+                        </button>
+                    </div>
+                    <div class="post-content"></div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="top-banner">
+        <h1 class="writeText">게시글 작성</h1>
+        <button id="back-button" type="button"><img src="/img/community/back-button.png"></button>
+        <button id="complete-button" type="button">작성 완료</button>
+    </div>
+
+
+</main>
+</body>
+</html>

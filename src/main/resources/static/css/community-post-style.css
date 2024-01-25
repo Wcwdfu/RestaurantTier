@@ -135,6 +135,8 @@ article > p > img {
     padding: 12px;
     border-top-width: 1px;
     border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-left-width: 1px;
     border-style: solid;
     border-color: #ebeef1;
     gap: 12px;
@@ -168,4 +170,9 @@ div>button > img{
 }
 #scrap{
     width: 60px;
+}
+
+main{
+    margin: auto;
+    max-width: 900px;
 }
