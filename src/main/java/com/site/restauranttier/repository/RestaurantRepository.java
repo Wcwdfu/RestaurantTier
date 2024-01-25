@@ -16,6 +16,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
 
     Page<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status, Pageable pageable);
 
+    List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
+    List<Restaurant> findByStatus(String status);
+
     // 페이징
     Page<Restaurant> findAll(Pageable pageable);
     // 검색결과 페이징
