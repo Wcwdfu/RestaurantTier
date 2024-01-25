@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class RestaurantFavorite {
     @JoinColumn(name="user_id")
     User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="restaurant_id")
     Restaurant restaurant;

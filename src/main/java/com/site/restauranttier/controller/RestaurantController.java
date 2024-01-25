@@ -16,10 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -68,6 +65,16 @@ public class RestaurantController {
             return "restaurant";
         }
 
+    }
+
+    // 해당 cuisine에 맞는 식당 목록 반환
+    @GetMapping("/api/restaurants")
+    public ResponseEntity<List<Restaurant>> getRestaurantsByCuisine(
+            @RequestParam(value = "cuisine", defaultValue = "전체") String cuisine
+    ) {
+        List<Restaurant> restaurants = restaurantService.getRestaurantList(cuisine);
+
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
 

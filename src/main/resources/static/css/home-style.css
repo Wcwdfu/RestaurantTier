@@ -86,4 +86,90 @@ div.header-bottom ul.menu-list > li > a > div.home {
     padding: 6px 0 5px;
 }
 
-
+/* 뽑기 창 시작 */
+.section-center {
+    display:flex;
+    justify-content: center;
+}
+@media only screen and (max-width: 1024px) {
+    .random-drawing {
+        margin: 0 10px;
+        min-width: 260px;
+        width: 100%;
+        text-align: center;
+    }
+    #drawingResult {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 50px;
+        border: 2px solid #0a53be;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    .random-drawing {
+        width: 70%;
+        min-width: 450px;
+        max-width: 900px;
+        text-align: center;
+    }
+    #drawingResult {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 50px;
+        border: 2px solid #0a53be;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+.random-drawing > div {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.random-drawing > div > span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin: 0;
+}
+#cuisineSelect{
+    font-size: 16px;
+    margin-left: 10px;
+}
+.drawing-button {
+    padding: 5px 12px;
+    margin-left: 10px;
+    line-height: 20px;
+    font-size: 16px;
+    color: #FFF;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+}
+#drawingButton {
+    background-color: #5383E8;
+}
+#stopButton {
+    background-color: #cb1717;
+}
+.drawing-result > p {
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px;
+}

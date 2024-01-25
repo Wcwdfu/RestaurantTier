@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class Evaluation {
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationItemScore> EvaluationItemScoreList = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="restaurant_id")
     private Restaurant restaurant;

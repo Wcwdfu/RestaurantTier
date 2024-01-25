@@ -24,10 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,6 +33,12 @@ public class MainController {
     private final RestaurantService restaurantService;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
+    //@Value("#{'${restaurant.cuisines}'.split(',\\s*')}")
+    private List<String> cuisines = Arrays.asList(
+            "전체", "한식", "일식", "중식", "양식", "아시안", "고기",
+            "치킨", "해산물", "햄버거/피자", "분식", "술집", "카페/디저트",
+            "베이커리", "기타"
+    );
 
     // ---------------상단 탭 관련-------------------
 
@@ -45,9 +48,13 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String home() {
+    public String home(
+            Model model
+    ) {
+        model.addAttribute("cuisines", cuisines);
         return "home";
     }
+
 
 
     @GetMapping("/ranking")
