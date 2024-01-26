@@ -4,6 +4,41 @@
 }
 
 
+/* 리스트의 아이템 중 클릭 상태인 것(커뮤니티) */
+div.header-bottom ul.menu-list > li > a > div.community {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(커뮤니티 제외 나머지) */
+.tier:hover, .rank:hover, .home:hover, .recommend:hover {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
+
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(커뮤니티 제외 나머지) */
+.tier, .rank, .home, .recommend {
+    display: flex;
+    align-items: center;
+    color: white;
+    border-bottom: 3px solid transparent;
+    font-size: 15px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 0 5px;
+}
 
 div {
     padding: 0;

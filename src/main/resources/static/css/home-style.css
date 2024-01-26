@@ -63,7 +63,7 @@ div.header-bottom ul.menu-list > li > a > div.home {
 }
 
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier:hover, .rank:hover, .community:hover {
+.tier:hover, .rank:hover, .community:hover, .recommend:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -75,7 +75,7 @@ div.header-bottom ul.menu-list > li > a > div.home {
 }
 
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier, .rank, .community {
+.tier, .rank, .community, .recommend {
     display: flex;
     align-items: center;
     color: #B3CDFF;

@@ -1,5 +1,5 @@
-/* 리스트의 아이템 중 클릭 상태인 것(랭크) */
-div.header-bottom ul.menu-list > li > a > div.rank {
+/* 리스트의 아이템 중 클릭 상태인 것(추천) */
+div.header-bottom ul.menu-list > li > a > div.recommend {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -9,8 +9,9 @@ div.header-bottom ul.menu-list > li > a > div.rank {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier:hover,.home:hover,.community:hover,.recommend:hover {
+
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(추천 제외 나머지) */
+.tier:hover, .rank:hover, .community:hover, .home:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -20,8 +21,9 @@ div.header-bottom ul.menu-list > li > a > div.rank {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier, .home,.community,.recommend{
+
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(추천 제외 나머지) */
+.tier, .rank, .community, .home {
     display: flex;
     align-items: center;
     color: #B3CDFF;

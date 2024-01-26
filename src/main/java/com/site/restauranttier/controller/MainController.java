@@ -56,11 +56,16 @@ public class MainController {
     }
 
 
-
     @GetMapping("/ranking")
     public String ranking() {
         return "ranking";
     }
+
+    @GetMapping("/recommend")
+    public String recommend() {
+        return "recommend";
+    }
+
 
     // 티어표 들어갈 때 기본 값으로 전체 식당 출력
     @GetMapping("/tier")
@@ -74,7 +79,7 @@ public class MainController {
             return "tier";
         } else {
             //그냥 티어표로 이동할때
-            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE",pageable);
+            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
             model.addAttribute("paging", paging);
             return "tier";
         }
@@ -90,7 +95,7 @@ public class MainController {
         logger.info(kw);
         logger.info(String.valueOf(page));
 
-        Page<Restaurant> paging = this.restaurantService.getList(page,kw);
+        Page<Restaurant> paging = this.restaurantService.getList(page, kw);
         logger.info("서비스 통과");
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);

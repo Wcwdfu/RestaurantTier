@@ -53,7 +53,6 @@ public class EvaluationController {
         if(principal==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
-        logger.info("컨트롤러 진입");
         Restaurant restaurant = restaurantRepository.findByRestaurantId(jsonData.getRestaurantId());
         Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());
 
@@ -63,7 +62,6 @@ public class EvaluationController {
             Evaluation evaluation;
 
             if (existingEvaluation.isPresent()) {
-                logger.info("기존 평가 업데이트 진입");
                 evaluation = existingEvaluation.get();
                 evaluation.setEvaluationScore( jsonData.getStarRating());
 
@@ -79,7 +77,6 @@ public class EvaluationController {
                 // evaluation 업뎃
                 evaluation.getEvaluationItemScoreList().clear();
             } else {
-                logger.info("새로운 평가 생성 진입");
                 evaluation = new Evaluation(restaurant, user, jsonData.getStarRating());
             }
             evaluationRepository.save(evaluation);
