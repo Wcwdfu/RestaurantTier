@@ -1,3 +1,4 @@
+/* 공통 상단 탭 관련 코드 */
 /* 리스트의 아이템 중 클릭 상태인 것(추천) */
 div.header-bottom ul.menu-list > li > a > div.recommend {
     display: flex;

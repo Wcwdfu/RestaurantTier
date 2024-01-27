@@ -6,6 +6,8 @@ import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.PostService;
+import com.site.restauranttier.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,72 +32,55 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class CommunityController {
+    private final PostService postService;
+    private final UserService userService;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostCommentRepository postCommentRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
+// 커뮤니티 메인화면
     @GetMapping("/community")
     public String community(Model model) {
-        List<Post> postList = postRepository.findAll();
+        List<Post> postList = postService.getList();
         LocalDateTime now = LocalDateTime.now();
 
+        // postList의 createdAt 필드를 문자열 형식으로 만들어 timeAgoList에 할당
         List<String> timeAgoList = postList.stream()
                 .map(post -> {
                     LocalDateTime createdAt = post.getCreatedAt();
+                    // datetime 타입의 createdAt을 string 타입으로 변환해주는 함수
                     return timeAgo(now, createdAt);
                 })
                 .collect(Collectors.toList());
-
+        // postList와 각각의 createdAt을 문자열로 변환한 List를 모델에 주입한다.
         model.addAttribute("postList", postList);
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
     }
-
+// 커뮤니티 게시글 화면
     @GetMapping("/community/{postId}")
     public String post(Model model, @PathVariable Integer postId) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if (postOptional.isEmpty()) {
-            return "community_post";
-        }
-        Post post = postOptional.get();
+        Post post = postService.getPost(postId);
         String timeAgoData = timeAgo(LocalDateTime.now(), post.getCreatedAt());
         List<PostComment> postCommentList = post.getPostCommentList();
 
         // Comment의 createdAt을 문자열로 변환하여 저장할 리스트
-        List<String> commentCreatedList = postCommentList.stream()
+        List<String> commentCreatedAtList = postCommentList.stream()
                 .map(comment -> formatDateTime(comment.getCreatedAt()))
                 .collect(Collectors.toList());
-        model.addAttribute("commentCreatedList",commentCreatedList);
 
         model.addAttribute("post", post);
+        model.addAttribute("commentCreatedAtList",commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
         return "community_post";
     }
-
+// 커뮤니티 글 작성화면
     @GetMapping("/community/write")
     public String write() {
         return "community_write";
     }
 
-    // 만들어 진지 얼마나 됐는지 계산하는 함수
-    private String timeAgo(LocalDateTime now, LocalDateTime past) {
-        long minutes = Duration.between(past, now).toMinutes();
-        if (minutes < 60) {
-            return minutes + "분 전";
-        }
-        long hours = minutes / 60;
-        if (hours < 24) {
-            return hours + "시간 전";
-        }
-        long days = hours / 24;
-        return days + "일 전";
-    }
-    // 날짜, 시간 생성
-    private String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dateTime.format(formatter);
-    }
 
     // 게시글 생성
     @PostMapping("/api/community/post/create")
@@ -108,8 +93,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Post post = new Post(title, content, category, "ACTIVE", LocalDateTime.now());
-        Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());
-        User user = userOptional.get();
+        User user = userService.getUser(principal.getName());
         post.setUser(user);
         Post savedpost = postRepository.save(post);
         user.getPostList().add(savedpost);
@@ -139,5 +123,27 @@ public class CommunityController {
         postRepository.save(post);
 
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
+    }
+
+
+    // 작성글이나 댓글이 만들어진지 얼마나 됐는지 계산하는 함수
+    private String timeAgo(LocalDateTime now, LocalDateTime past) {
+        long minutes = Duration.between(past, now).toMinutes();
+        if (minutes < 60) {
+            return minutes + "분 전";
+        }
+        long hours = minutes / 60;
+        if (hours < 24) {
+            return hours + "시간 전";
+        }
+        long days = hours / 24;
+        return days + "일 전";
+    }
+
+
+    // datetime 타입의 시간을 특정 형식으로 formatting하는 함수
+    private String formatDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(formatter);
     }
 }
