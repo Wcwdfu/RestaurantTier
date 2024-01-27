@@ -29,17 +29,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Controller
 public class EvaluationController {
-
-
     private final RestaurantService restaurantService;
     private final UserService userService;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationService evaluationService;
-    private final EvaluationItemScoreService evaluationItemScoreService;
-    private final SituationRepository situationRepository;
+    private final SituationService situationService;
     private final EvaluationItemScoreRepository evaluationItemScoreRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-
     // 평가 페이지
     @GetMapping("/evaluation/{restaurantId}")
     public String evaluation(Model model, @PathVariable Integer restaurantId) {
@@ -47,8 +43,7 @@ public class EvaluationController {
         model.addAttribute("restaurant", restaurant);
         return "evaluation";
     }
-
-    // 평가 데이터 db 저장 (한 user의 똑같은 식당이면 업데이트 진행)
+    // 평가 데이터 db 저장 (기존 평가 존재 시 업데이트 진행)
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
         if (principal == null) {
@@ -57,7 +52,7 @@ public class EvaluationController {
         Restaurant restaurant = restaurantService.getRestaurant(jsonData.getRestaurantId());
         User user = userService.getUser(principal.getName());
 
-        // user와 restaurant 정보로 평가 db에 평가한 데이터가 있는지 확인
+        // user와 restaurant 정보로 db에 평가한 데이터가 있는지 확인
         Evaluation evaluation = evaluationService.getByUserAndRestaurant(user, restaurant);
         // 있으면 업데이트 및 삭제
         if (evaluation != null) {
@@ -80,8 +75,7 @@ public class EvaluationController {
                 continue;
             }
 
-            Optional<Situation> situationOptional = situationRepository.findById(i + 1); // 1인덱싱이라 +1
-            Situation situation = situationOptional.get();
+            Situation situation = situationService.getSituation(i + 1); // 1인덱싱이라 +1
 
             EvaluationItemScore evaluationItemScore = new EvaluationItemScore(evaluation, situation, (Double) situationScoreList.get(i));
             evaluationItemScoreRepository.save(evaluationItemScore);

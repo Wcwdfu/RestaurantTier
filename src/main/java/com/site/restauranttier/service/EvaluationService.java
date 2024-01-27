@@ -30,6 +30,5 @@ public class EvaluationService {
             evaluationItemScoreRepository.delete(itemScore);
         }
         evaluation.getEvaluationItemScoreList().clear();
-
     }
 }

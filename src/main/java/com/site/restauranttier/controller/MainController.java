@@ -92,16 +92,10 @@ public class MainController {
     // 검색 결과 페이지
     @GetMapping("/api/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        logger.info(kw);
-        logger.info(String.valueOf(page));
-
         Page<Restaurant> paging = this.restaurantService.getList(page, kw);
-        logger.info("서비스 통과");
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "searchResult";
-
-
     }
 }
 
