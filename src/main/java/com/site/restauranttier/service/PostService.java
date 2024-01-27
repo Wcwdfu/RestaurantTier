@@ -2,7 +2,9 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.Post;
+import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostRepository;
+import com.site.restauranttier.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-
+    private final UserRepository userRepository;
     public List<Post> getList(){
         return this.postRepository.findAll();
     }
@@ -27,5 +29,11 @@ public class PostService {
         else{
             throw new DataNotFoundException("post not found");
         }
+    }
+    public void create(Post post, User user){
+        post.setUser(user);
+        Post savedpost = postRepository.save(post);
+        user.getPostList().add(savedpost);
+        userRepository.save(user);
     }
 }

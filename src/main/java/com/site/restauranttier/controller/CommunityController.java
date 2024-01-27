@@ -6,6 +6,7 @@ import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.PostCommentService;
 import com.site.restauranttier.service.PostService;
 import com.site.restauranttier.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,12 +35,10 @@ import java.util.stream.Collectors;
 public class CommunityController {
     private final PostService postService;
     private final UserService userService;
-    private final PostRepository postRepository;
-    private final UserRepository userRepository;
-    private final PostCommentRepository postCommentRepository;
+    private final PostCommentService postCommentService;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-// 커뮤니티 메인화면
+    // 커뮤니티 메인화면
     @GetMapping("/community")
     public String community(Model model) {
         List<Post> postList = postService.getList();
@@ -58,7 +57,8 @@ public class CommunityController {
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
     }
-// 커뮤니티 게시글 화면
+
+    // 커뮤니티 게시글 화면
     @GetMapping("/community/{postId}")
     public String post(Model model, @PathVariable Integer postId) {
         Post post = postService.getPost(postId);
@@ -71,16 +71,16 @@ public class CommunityController {
                 .collect(Collectors.toList());
 
         model.addAttribute("post", post);
-        model.addAttribute("commentCreatedAtList",commentCreatedAtList);
+        model.addAttribute("commentCreatedAtList", commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
         return "community_post";
     }
-// 커뮤니티 글 작성화면
+
+    // 커뮤니티 글 작성화면
     @GetMapping("/community/write")
     public String write() {
         return "community_write";
     }
-
 
     // 게시글 생성
     @PostMapping("/api/community/post/create")
@@ -94,34 +94,24 @@ public class CommunityController {
         }
         Post post = new Post(title, content, category, "ACTIVE", LocalDateTime.now());
         User user = userService.getUser(principal.getName());
-        post.setUser(user);
-        Post savedpost = postRepository.save(post);
-        user.getPostList().add(savedpost);
-        userRepository.save(user);
+        postService.create(post, user);
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
+
     // 댓글 생성
     @PostMapping("/api/community/comment/create")
-    public ResponseEntity<String> postCreate(
+    public ResponseEntity<String> postCommentCreate(
             @RequestParam("content") String content,
             @RequestParam("postId") String postId,
             Model model, Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
-        Integer postidInt= Integer.valueOf(postId);
-        Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());
-        User user = userOptional.get();
-        Optional<Post> postOptional = postRepository.findById(postidInt);
-        Post post= postOptional.get();
-
-        PostComment postComment = new PostComment(content,"ACTIVE",LocalDateTime.now(),post,user);
-        PostComment savedPostComment = postCommentRepository.save(postComment);
-        user.getPostCommentList().add(savedPostComment);
-        post.getPostCommentList().add(savedPostComment);
-        userRepository.save(user);
-        postRepository.save(post);
-
+        Integer postidInt = Integer.valueOf(postId);
+        User user = userService.getUser(principal.getName());
+        Post post = postService.getPost(postidInt);
+        PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
+        postCommentService.create(post, user, postComment);
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
     }
 

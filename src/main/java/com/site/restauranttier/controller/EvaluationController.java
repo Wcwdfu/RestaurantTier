@@ -3,8 +3,7 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.repository.*;
-import com.site.restauranttier.service.RestaurantCommentService;
-import com.site.restauranttier.service.RestaurantService;
+import com.site.restauranttier.service.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -31,10 +30,12 @@ import java.util.Optional;
 @Controller
 public class EvaluationController {
 
-    private final RestaurantRepository restaurantRepository;
-    private final UserRepository userRepository;
 
+    private final RestaurantService restaurantService;
+    private final UserService userService;
     private final EvaluationRepository evaluationRepository;
+    private final EvaluationService evaluationService;
+    private final EvaluationItemScoreService evaluationItemScoreService;
     private final SituationRepository situationRepository;
     private final EvaluationItemScoreRepository evaluationItemScoreRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -42,7 +43,7 @@ public class EvaluationController {
     // 평가 페이지
     @GetMapping("/evaluation/{restaurantId}")
     public String evaluation(Model model, @PathVariable Integer restaurantId) {
-        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         return "evaluation";
     }
@@ -50,65 +51,53 @@ public class EvaluationController {
     // 평가 데이터 db 저장 (한 user의 똑같은 식당이면 업데이트 진행)
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
-        if(principal==null){
+        if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
-        Restaurant restaurant = restaurantRepository.findByRestaurantId(jsonData.getRestaurantId());
-        Optional<User> userOptional = userRepository.findByUserTokenId(principal.getName());
+        Restaurant restaurant = restaurantService.getRestaurant(jsonData.getRestaurantId());
+        User user = userService.getUser(principal.getName());
 
-        if (userOptional.isPresent() && restaurant != null) {
-            User user = userOptional.get();
-            Optional<Evaluation> existingEvaluation = evaluationRepository.findByUserAndRestaurant(user, restaurant);
-            Evaluation evaluation;
+        // user와 restaurant 정보로 평가 db에 평가한 데이터가 있는지 확인
+        Evaluation evaluation = evaluationService.getByUserAndRestaurant(user, restaurant);
+        // 있으면 업데이트 및 삭제
+        if (evaluation != null) {
+            // 메인 점수 업데이트
+            evaluation.setEvaluationScore(jsonData.getStarRating());
+            // 상황 점수 삭제
+            evaluationService.deleteItemScoresAll(evaluation);
+        }
+        // 없으면 새로 평가 데이터 생성
+        else {
+            evaluation = new Evaluation(restaurant, user, jsonData.getStarRating());
+        }
+        evaluationRepository.save(evaluation);
 
-            if (existingEvaluation.isPresent()) {
-                evaluation = existingEvaluation.get();
-                evaluation.setEvaluationScore( jsonData.getStarRating());
-
-                // 기존 EvaluationItemScore 삭제 및 Evaluation과 Situation 업데이트
-                for (EvaluationItemScore itemScore : evaluation.getEvaluationItemScoreList()) {
-                    // situation 업뎃
-                    Situation situation = itemScore.getSituation();
-                    situation.getEvaluationItemScoreList().remove(itemScore);
-                    situationRepository.save(situation);
-                    // 기존 EvaluationItemScore 삭제
-                    evaluationItemScoreRepository.delete(itemScore);
-                }
-                // evaluation 업뎃
-                evaluation.getEvaluationItemScoreList().clear();
-            } else {
-                evaluation = new Evaluation(restaurant, user, jsonData.getStarRating());
-            }
-            evaluationRepository.save(evaluation);
-
-            // 새로운 EvaluationItemScore 생성 및 저장
-            List<EvaluationItemScore> evaluationItemScoreList = new ArrayList<>();
-            List situationScoreList = jsonData.getBarRatings();
-            for (int i = 0; i < situationScoreList.size(); i++) {
-                if (situationScoreList.get(i) == null) {
-                    continue;
-                }
-
-                Optional<Situation> situationOptional = situationRepository.findById(i+1); // 1인덱싱이라 +1
-                Situation situation = situationOptional.get();
-
-                EvaluationItemScore evaluationItemScore = new EvaluationItemScore(evaluation, situation, (Double) situationScoreList.get(i));
-                evaluationItemScoreRepository.save(evaluationItemScore);
-                
-                // EvaluationItemScore -> evaluationItemScore, situation 과 일대다 매핑
-                evaluationItemScoreList.add(evaluationItemScore);
-                situation.getEvaluationItemScoreList().add(evaluationItemScore);
+        // 새로운 EvaluationItemScore 생성 및 저장
+        List<EvaluationItemScore> evaluationItemScoreList = new ArrayList<>();
+        List situationScoreList = jsonData.getBarRatings();
+        for (int i = 0; i < situationScoreList.size(); i++) {
+            if (situationScoreList.get(i) == null) {
+                continue;
             }
 
-            evaluation.setEvaluationItemScoreList(evaluationItemScoreList);
-            evaluationRepository.save(evaluation);
+            Optional<Situation> situationOptional = situationRepository.findById(i + 1); // 1인덱싱이라 +1
+            Situation situation = situationOptional.get();
 
-            return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
+            EvaluationItemScore evaluationItemScore = new EvaluationItemScore(evaluation, situation, (Double) situationScoreList.get(i));
+            evaluationItemScoreRepository.save(evaluationItemScore);
+
+            // EvaluationItemScore -> evaluationItemScore, situation 과 일대다 매핑
+            evaluationItemScoreList.add(evaluationItemScore);
+            situation.getEvaluationItemScoreList().add(evaluationItemScore);
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");
-    }
+        evaluation.setEvaluationItemScoreList(evaluationItemScoreList);
+        evaluationRepository.save(evaluation);
 
+        return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
+
+
+    }
 
 
 }

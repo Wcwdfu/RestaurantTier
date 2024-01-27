@@ -1,5 +1,6 @@
 package com.site.restauranttier.service;
 
+import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantHashtag;
 import com.site.restauranttier.entity.RestaurantMenu;
@@ -20,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -56,14 +58,23 @@ public class RestaurantService {
         };
     }
 
+    public Restaurant getRestaurant(Integer id) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if (restaurant.isPresent()) {
+            return restaurant.get();
+        } else {
+            throw new DataNotFoundException("restaurant not found");
+        }
+
+    }
 
 
     // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
-    public Page<Restaurant> getList(int page,String kw) {
+    public Page<Restaurant> getList(int page, String kw) {
         Pageable pageable = PageRequest.of(page, 30);
         Specification<Restaurant> spec = search(kw);
 
-        return restaurantRepository.findAll(spec,pageable);
+        return restaurantRepository.findAll(spec, pageable);
     }
 
     public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {
@@ -74,6 +85,7 @@ public class RestaurantService {
             return null;
         }
     }
+
     public List<Restaurant> getRestaurantList(String cuisine) {
         if (cuisine.equals("전체")) {
             return restaurantRepository.findByStatus("ACTIVE");
