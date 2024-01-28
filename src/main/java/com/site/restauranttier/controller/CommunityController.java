@@ -53,6 +53,8 @@ public class CommunityController {
     @GetMapping("/community/{postId}")
     public String post(Model model, @PathVariable Integer postId) {
         Post post = postService.getPost(postId);
+        // 조회수 증가
+        postService.increaseVisitCount(post);
         String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
         List<PostComment> postCommentList = post.getPostCommentList();
         // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
@@ -103,8 +105,30 @@ public class CommunityController {
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
     }
 
+    // 좋아요 생성
+    @GetMapping("/api/post/like")
+    public ResponseEntity<String> postLikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
+        if(principal==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+        Integer postidInt = Integer.valueOf(postId);
+        User user = userService.getUser(principal.getName());
+        Post post = postService.getPost(postidInt);
+        postService.likeCreateOrDelete(post,user);
+        return ResponseEntity.ok("좋아요가 처리 완료되었습니다");
+    }
 
-
+    @GetMapping("/api/post/dislike")
+    public ResponseEntity<String> postDislikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
+        if(principal==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+        Integer postidInt = Integer.valueOf(postId);
+        User user = userService.getUser(principal.getName());
+        Post post = postService.getPost(postidInt);
+        postService.dislikeCreateOrDelete(post,user);
+        return ResponseEntity.ok("싫어요가 처리 완료되었습니다");
+    }
 
 
 }

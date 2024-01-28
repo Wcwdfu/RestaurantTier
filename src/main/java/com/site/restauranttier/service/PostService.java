@@ -67,4 +67,38 @@ public class PostService {
         long days = hours / 24;
         return days + "일 전";
     }
+    public void increaseVisitCount(Post post){
+        int visitCount = post.getPostVisitCount();
+        post.setPostVisitCount(++visitCount);
+        postRepository.save(post);
+    }
+    public void likeCreateOrDelete(Post post, User user){
+        List<User> userList =post.getLikeUserList();
+        List<Post> postList =user.getLikePostList();
+        if(userList.contains(user)){
+            postList.remove(post);
+            userList.remove(user);
+        }
+        else{
+            userList.add(user);
+            postList.add(post);
+        }
+        postRepository.save(post);
+        userRepository.save(user);
+    }
+    public void dislikeCreateOrDelete(Post post, User user){
+        List<User> userList =post.getDislikeUserList();
+        List<Post> postList =user.getDislikePostList();
+        if(userList.contains(user)){
+            postList.remove(post);
+            userList.remove(user);
+        }
+        else{
+           userList.add(user);
+           postList.add(post);
+        }
+        postRepository.save(post);
+        userRepository.save(user);
+    }
+
 }

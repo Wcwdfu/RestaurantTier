@@ -26,20 +26,20 @@
                             <a th:text="${post.postCategory}" href="#"></a>
                         </span>
                         <span th:text="${timeAgoData}" class="second-detail updated-time">
-                            5시간 전
+
                         </span>
                         <span th:text="${post.user.userNickname} " class="third-detail user-name">
-                            임재
+
                         </span>
                     </div>
                     <div class="post-detail">
-                        <span class="first-detail">
-                            조회수 23
+                        <span th:text="'조회수 '+ ${post.postVisitCount}" class="first-detail">
+
                         </span>
                         <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
 
                         </span>
-                        <span th:text="'추천 '+ ${post.postScrapList.size()}" class="third-detail">
+                        <span th:text="'추천 '+ ${post.likeUserList.size()}" class="third-detail">
 
                         </span>
                     </div>
@@ -56,16 +56,17 @@
         </div>
 
         <div class="post-like">
-            <button type="button" class="post-button">
+            <button type="button" id="likeButton" class="post-button" th:data-post-id="${post.postId}">
                 <img src="/img/community/up.png">
-                <span>27</span>
+                <span th:text="${post.likeUserList.size()}"></span>
             </button>
-            <button type="button" class="post-button">
+            <button type="button" id="dislikeButton" class="post-button" th:data-post-id="${post.postId}">
                 <img src="/img/community/down.png">
-                <span>0</span>
+                <span th:if="${post.dislikeUserList.size() >0}" th:text="'-'+${post.dislikeUserList.size()}"></span>
+                <span th:if="${post.dislikeUserList.size() ==0}" th:text="${post.dislikeUserList.size()}"></span>
 
             </button>
-            <button type="button" id="scrap" class="post-button ">
+            <button type="button" id="scrap" class="post-button" th:data-post-id="${post.postId}">
                 <img src="/img/community/bookmark.png">
             </button>
         </div>

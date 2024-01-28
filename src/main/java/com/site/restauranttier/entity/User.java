@@ -21,7 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String userTokenId;
 
     private String userPassword;
@@ -52,14 +52,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<PostComment> postCommentList=new ArrayList<>();
+    private List<PostComment> postCommentList = new ArrayList<>();
+
     public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
-        this.loginApi=loginApi;
+        this.loginApi = loginApi;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userNickname = userNickname;
@@ -68,7 +69,11 @@ public class User {
     }
 
     public User() {
-
     }
+
+    @ManyToMany(mappedBy = "dislikeUserList")
+    private List<Post> dislikePostList = new ArrayList<>();
+    @ManyToMany(mappedBy = "likeUserList")
+    private List<Post> likePostList = new ArrayList<>();
 }
 

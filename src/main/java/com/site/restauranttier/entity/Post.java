@@ -24,6 +24,7 @@ public class Post {
     String postCategory;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
+    Integer postVisitCount;
 
     public Post(String postTitle, String postBody, String postCategory, String status, LocalDateTime createdAt) {
         this.postTitle = postTitle;
@@ -49,5 +50,12 @@ public class Post {
     public Post() {
 
     }
+
+    @ManyToMany
+    @JoinTable(name="post_likes_tbl",joinColumns = @JoinColumn(name="post_id"),inverseJoinColumns = @JoinColumn(name="user_id"))
+    private List<User> dislikeUserList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name="post_dislikes_tbl",joinColumns = @JoinColumn(name="post_id"),inverseJoinColumns = @JoinColumn(name="user_id"))
+    private List<User> likeUserList = new ArrayList<>();
 
 }
