@@ -40,34 +40,34 @@ public class MainController {
             "베이커리", "기타"
     );
 
-    // ---------------상단 탭 관련-------------------
-
     @GetMapping("/")
     public String root() {
         return "redirect:/home";
     }
-
+    // 홈 화면
     @GetMapping("/home")
     public String home(
             Model model
     ) {
+        // 랜덤 뽑기 관련 분류 데이터
         model.addAttribute("cuisines", cuisines);
         return "home";
     }
 
-
+    // 랭킹 화면
     @GetMapping("/ranking")
     public String ranking() {
         return "ranking";
     }
 
+    // 추천 화면
     @GetMapping("/recommend")
     public String recommend() {
         return "recommend";
     }
 
 
-    // 티어표 들어갈 때 기본 값으로 전체 식당 출력
+    // 티어표 화면
     @GetMapping("/tier")
     public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
         // 메인에서 이미지로 티어표로 이동할 때
@@ -78,7 +78,7 @@ public class MainController {
             model.addAttribute("cuisine", cuisine);
             return "tier";
         } else {
-            //그냥 티어표로 이동할때
+            // 상단 탭을 통해 티어표로 이동할 때
             Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
             model.addAttribute("paging", paging);
             return "tier";
@@ -86,11 +86,9 @@ public class MainController {
 
     }
 
-    // --------------상단 탭 관련 끝---------------------
 
-
-    // 검색 결과 페이지
-    @GetMapping("/api/search")
+    // 검색 결과 화면
+    @GetMapping("/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Restaurant> paging = this.restaurantService.getList(page, kw);
         model.addAttribute("paging", paging);

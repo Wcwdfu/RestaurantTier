@@ -37,7 +37,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
-        // 비밀번호와 비밀번호 확인에 입력값이 다를때 예외처리
+        // 비밀번호와 비밀번호 확인에 입력 값이 다를때 예외처리
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");

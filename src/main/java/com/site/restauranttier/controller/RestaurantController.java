@@ -8,8 +8,10 @@ import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.EvaluationService;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
+import com.site.restauranttier.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -27,9 +29,9 @@ import java.util.Optional;
 @Controller
 public class RestaurantController {
     private final RestaurantCommentService restaurantCommentService;
-    private final EvaluationRepository evaluationRepository;
+    private final EvaluationService evaluatioanService;
     private final SituationRepository situationRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantService restaurantService;
     
@@ -40,23 +42,24 @@ public class RestaurantController {
     public String restaurant(Model model,
                              @PathVariable Integer restaurantId, Principal principal
     ) {
-        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
 
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);
 
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
-        // 해당 식당 평가한 적 있으면 버튼 이름 변경 (다시 평가하기)
+
+        // 평가하기 버튼
         // 로그인 안되어있을 경우
         if (principal == null) {
             model.addAttribute("evaluationButton", " 평가하기");
             return "restaurant";
         } else {
             String name = principal.getName();
-            User user = userRepository.findByUserTokenId(name).orElseThrow();
-            Optional<Evaluation> evaluationOpt = evaluationRepository.findByUserAndRestaurant(user, restaurant);
-            if (evaluationOpt.isPresent()) {
+            User user = userService.getUser(name);
+            Evaluation evaluation = evaluatioanService.getByUserAndRestaurant(user, restaurant);
+            if (evaluation!=null) {
                 model.addAttribute("evaluationButton", "다시 평가하기");
             } else {
                 model.addAttribute("evaluationButton", " 평가하기");

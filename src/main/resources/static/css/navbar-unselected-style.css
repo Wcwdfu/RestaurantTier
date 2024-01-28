@@ -228,7 +228,7 @@ div.header-bottom ul.menu-list > li.menu-item {
     background-color: #28344E;
 }
 
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
+/* 리스트의 아이템 중 클릭 상태가 아닌 것 */
 a > div.unselected:hover {
     display: flex;
     align-items: center;
@@ -239,7 +239,7 @@ a > div.unselected:hover {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
+/* 리스트의 아이템 중 클릭 상태가 아닌 것*/
 a > div.unselected {
     display: flex;
     align-items: center;
