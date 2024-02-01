@@ -43,8 +43,15 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model) {
-        List<Post> postList = postService.getList();
+    public String community(Model model, @RequestParam(name="category", required = false) String postCategory) {
+        List<Post> postList;
+        if (postCategory==null){
+            postList = postService.getList();
+        }
+        else{
+            postList = postService.getListByPostCategory(postCategory);
+            model.addAttribute("category",postCategory);
+        }
         List<String> timeAgoList = postService.getTimeAgoList(postList);
         model.addAttribute("postList", postList);
         model.addAttribute("timeAgoList", timeAgoList);
@@ -144,7 +151,6 @@ public class CommunityController {
         if(principal==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
-        logger.info("북마크 진입");
         Integer postidInt = Integer.valueOf(postId);
         User user = userService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);

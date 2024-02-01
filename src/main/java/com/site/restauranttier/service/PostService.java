@@ -26,6 +26,9 @@ public class PostService {
     public List<Post> getList(){
         return this.postRepository.findAll();
     }
+    public List<Post> getListByPostCategory(String postCategory){
+        return this.postRepository.findByPostCategory(postCategory);
+    }
 
     public Post getPost(Integer id){
         Optional<Post> post = this.postRepository.findById(id);

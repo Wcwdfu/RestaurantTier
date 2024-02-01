@@ -17,17 +17,29 @@
 <header th:replace="~{community_navbar :: navbarFragment}"></header>
 <div id="content">
     <div id="filterDiv">
+<!--        <div class="dropdown">-->
+<!--            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                전체-->
+<!--            </button>-->
+<!--            <ul class="dropdown-menu">-->
+<!--                <li><a class="dropdown-item" href="/community">전체</a></li>-->
+<!--                <li><a class="dropdown-item" href="/community?category=자유게시판">자유 게시판</a></li>-->
+<!--                <li><a class="dropdown-item" href="/community?category=칼럼게시판">칼럼 게시판</a></li>-->
+<!--                <li><a class="dropdown-item" href="/community?category=건의게시판">건의 게시판</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
         <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                전체
+            <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <span th:text="${category != null ? category : '전체'}"></span>
             </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">전체</a></li>
-                <li><a class="dropdown-item" href="#">자유 게시판</a></li>
-                <li><a class="dropdown-item" href="#">칼럼 게시판</a></li>
-                <li><a class="dropdown-item" href="#">건의 게시판</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" th:href="@{/community}" th:classappend="${category == null ? 'active' : ''}">전체</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(category='자유게시판')}" th:classappend="${category == '자유게시판' ? 'active' : ''}">자유 게시판</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(category='칼럼게시판')}" th:classappend="${category == '칼럼게시판' ? 'active' : ''}">칼럼 게시판</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(category='건의게시판')}" th:classappend="${category == '건의게시판' ? 'active' : ''}">건의 게시판</a></li>
             </ul>
         </div>
+
         <div class="right-Icon">
             <a><img class="icon" src="/img/community/loupe.png" alt="검색">
             </a>
