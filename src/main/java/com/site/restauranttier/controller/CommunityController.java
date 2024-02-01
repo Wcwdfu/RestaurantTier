@@ -7,6 +7,7 @@ import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.PostCommentService;
+import com.site.restauranttier.service.PostScrapService;
 import com.site.restauranttier.service.PostService;
 import com.site.restauranttier.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class CommunityController {
     private final UserService userService;
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
+    private final PostScrapService postScrapService;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 커뮤니티 메인 화면
@@ -51,7 +53,7 @@ public class CommunityController {
 
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
-    public String post(Model model, @PathVariable Integer postId) {
+    public String post(Model model, @PathVariable Integer postId,Principal principal) {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
@@ -63,6 +65,13 @@ public class CommunityController {
         model.addAttribute("post", post);
         model.addAttribute("commentCreatedAtList", commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
+        boolean isPostScrappedByUser = false;
+        if(principal!=null){
+            User user = userService.getUser(principal.getName());
+            model.addAttribute("user",user);
+            isPostScrappedByUser = post.getPostScrapList().stream()
+                    .anyMatch(scrap -> scrap.getUser().equals(user)); };
+        model.addAttribute("isPostScrappedByUser",isPostScrappedByUser);
         return "community_post";
     }
 
@@ -130,5 +139,17 @@ public class CommunityController {
         return ResponseEntity.ok("싫어요가 처리 완료되었습니다");
     }
 
+    @GetMapping("/api/post/scrap")
+    public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
+        if(principal==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+        logger.info("북마크 진입");
+        Integer postidInt = Integer.valueOf(postId);
+        User user = userService.getUser(principal.getName());
+        Post post = postService.getPost(postidInt);
+        postScrapService.scrapCreateOfDelete(post,user);
+        return ResponseEntity.ok("북마크가 처리 완료되었습니다");
+    }
 
 }

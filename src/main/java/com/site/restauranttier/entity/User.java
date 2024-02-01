@@ -58,6 +58,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PostComment> postCommentList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<PostScrap> scrapList = new ArrayList<>();
+
     public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
         this.loginApi = loginApi;

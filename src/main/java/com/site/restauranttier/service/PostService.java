@@ -2,8 +2,10 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.Post;
+import com.site.restauranttier.entity.PostScrap;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostRepository;
+import com.site.restauranttier.repository.PostScrapRepository;
 import com.site.restauranttier.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final PostScrapRepository postScrapRepository;
     public List<Post> getList(){
         return this.postRepository.findAll();
     }
@@ -73,32 +76,56 @@ public class PostService {
         postRepository.save(post);
     }
     public void likeCreateOrDelete(Post post, User user){
-        List<User> userList =post.getLikeUserList();
-        List<Post> postList =user.getLikePostList();
-        if(userList.contains(user)){
-            postList.remove(post);
-            userList.remove(user);
+        List<User> likeUserList =post.getLikeUserList();
+        List<User> dislikeUserList = post.getDislikeUserList();
+        List<Post> likePostList =user.getLikePostList();
+        List<Post> dislikePostList =user.getDislikePostList();
+        //해당 post 를 이미 like 한 경우 - 제거
+        if(likeUserList.contains(user)){
+            likePostList.remove(post);
+            likeUserList.remove(user);
         }
+        //해당 post를 이미 dislike 한 경우 - 제거하고 추가
+        else if(dislikeUserList.contains(user)){
+            dislikeUserList.remove(user);
+            dislikePostList.remove(post);
+            likeUserList.add(user);
+            likePostList.add(post);
+        }
+        // 처음 like 하는 경우-추가
         else{
-            userList.add(user);
-            postList.add(post);
+            likeUserList.add(user);
+            likePostList.add(post);
         }
         postRepository.save(post);
         userRepository.save(user);
     }
     public void dislikeCreateOrDelete(Post post, User user){
-        List<User> userList =post.getDislikeUserList();
-        List<Post> postList =user.getDislikePostList();
-        if(userList.contains(user)){
-            postList.remove(post);
-            userList.remove(user);
+        List<User> likeUserList =post.getLikeUserList();
+        List<User> dislikeUserList = post.getDislikeUserList();
+        List<Post> likePostList =user.getLikePostList();
+        List<Post> dislikePostList =user.getDislikePostList();
+        //해당 post를 이미 dislike 한 경우 - 제거
+        if(dislikeUserList.contains(user)){
+            dislikePostList.remove(post);
+            dislikeUserList.remove(user);
         }
+        //해당 post를 이미 like 한 경우 - 제거하고 추가
+        else if(likeUserList.contains(user)){
+            likeUserList.remove(user);
+            likePostList.remove(post);
+            dislikeUserList.add(user);
+            dislikePostList.add(post);
+        }
+        // 처음 dislike 하는 경우-추가
         else{
-           userList.add(user);
-           postList.add(post);
+            dislikeUserList.add(user);
+            dislikePostList.add(post);
         }
         postRepository.save(post);
         userRepository.save(user);
     }
+
+
 
 }
