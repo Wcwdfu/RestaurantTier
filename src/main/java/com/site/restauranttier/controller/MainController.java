@@ -80,6 +80,7 @@ public class MainController {
         } else {
             // 상단 탭을 통해 티어표로 이동할 때
             Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
+            logger.info(paging.toString());
             model.addAttribute("paging", paging);
             return "tier";
         }

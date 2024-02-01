@@ -70,7 +70,7 @@
 <!-- 페이징처리 끝 -->
 
 <!--서버에 검색 버튼을 눌러 요청할때 키워드 값과 페이지 값 넘기기-->
-<form th:action="@{/api/search}" method="get" id="searchForm">
+<form th:action="@{/search}" method="get" id="searchForm">
     <input type="hidden" id="kw" name="kw" th:value="${kw}">
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
 </form>
