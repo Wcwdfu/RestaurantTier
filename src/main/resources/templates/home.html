@@ -19,20 +19,7 @@
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid pt-4 m-0">
-    <section class="section-center">
-        <div class="random-drawing">
-            <div>
-                <span>메뉴 추천</span>
-                <select id="cuisineSelect">
-                    <option th:each="cuisine : ${cuisines}" th:value="${cuisine}" th:text="${cuisine}"></option>
-                </select>
-                <button id="drawingButton" class="drawing-button">시작</button>
-                <button id="stopButton" class="drawing-button" style="display: none;">정지</button>
-            </div>
-            <div id="drawingResult" class="drawing-result">
-            </div>
-        </div>
-    </section>
+
     <section>
         <div class="container fluid">
 

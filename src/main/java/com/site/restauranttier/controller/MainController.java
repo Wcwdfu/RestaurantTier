@@ -44,15 +44,21 @@ public class MainController {
     public String root() {
         return "redirect:/home";
     }
+
+
     // 홈 화면
     @GetMapping("/home")
-    public String home(
-            Model model
-    ) {
-        // 랜덤 뽑기 관련 분류 데이터
-        model.addAttribute("cuisines", cuisines);
+    public String home() {
         return "home";
     }
+
+    // 메뉴추천 화면
+    @GetMapping("/recommend")
+    public String recommend(Model model){
+        model.addAttribute("cuisines",cuisines);
+        return "recommend";
+    }
+
 
     // 랭킹 화면
     @GetMapping("/ranking")
@@ -61,10 +67,10 @@ public class MainController {
     }
 
     // 추천 화면
-    @GetMapping("/recommend")
-    public String recommend() {
-        return "recommend";
-    }
+//    @GetMapping("/recommend")
+//    public String recommend() {
+//        return "recommend";
+//    }
 
 
     // 티어표 화면
