@@ -2,13 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건메추 - 가게추천</title>
+
     <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">
     <link rel="stylesheet" type="text/css" href="/css/recommend-style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/recommendScript.js"></script>
 
 </head>
+
 <body>
+
 <header th:replace="~{navbar :: navbarFragment}"></header>
+<div id="mainContents">
+
+
+<section class="section-center">
+    <div class="random-drawing">
+        <div>
+            <span>메뉴 추천</span>
+            <select id="cuisineSelect">
+                <option th:each="cuisine : ${cuisines}" th:value="${cuisine}" th:text="${cuisine}"></option>
+            </select>
+            <button id="drawingButton" class="drawing-button">시작</button>
+            <button id="stopButton" class="drawing-button" style="display: none;">정지</button>
+        </div>
+        <div id="drawingResult" class="drawing-result">
+        </div>
+    </div>
+</section>
+
+<div id="imgSlideBar">
+
+</div>
+
+<section id="survey">
+    <div id="recommendArea">
+        <hr>
+        <p id="recommendTitle">
+            나 지금 뭐먹지
+            <img id="wonderingIcon" src="/img/recommend/wondering.png" alt="wondering_img">
+        </p>
+        <hr>
+        <div class="option">
+            <span>대상</span>
+            <div>
+                <button>가게</button>
+                <button>메뉴</button>
+            </div>
+        </div>
+        <div class="option">
+            <span>상황</span>
+            <div>
+                <button>아침</button>
+                <button>점심</button>
+                <button>간식/디저트</button>
+                <button>저녁</button>
+                <button>음주/술안주</button>
+            </div>
+        </div>
+        <div class="option2">
+            <span>제외시키고싶은 메뉴를 골라주세요</span>
+            <div>
+                <button>한식</button>
+                <button>일식</button>
+                <button>중식</button>
+                <button>양식</button>
+                <button>아시안</button>
+            </div>
+        </div>
+        <div>
+            <button id="recommendBtn">추천받기</button>
+        </div>
+
+    </div>
+</section>
+</div>
+
 </body>
 </html>

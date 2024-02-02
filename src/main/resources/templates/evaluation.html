@@ -6,25 +6,26 @@
     <title>건메추 - 가게평가</title>
 
     <link rel="stylesheet" href="/css/evaluation-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
     <script src="/js/evaluationScript.js"></script>
 </head>
 
 
 <body>
 
-<header>
-    <div id="header">
-        <div id="evaluateTitle">
-            <p id="restaurantName">'가게이름'</p>
-            <p>평가하기</p>
-        </div>
+<!--<header th:replace="~{navbar_unselected :: navbarFragment}"></header>-->
 
-        <img id="closeBtn" src="/img/evaluation/close-icon.png">
-
-
+<div id="evaluationWindow">
+<div id="header">
+    <div id="evaluateTitle">
+        <p id="restaurantName">'가게이름'</p>
+        <p>평가하기</p>
     </div>
 
-</header>
+    <img id="closeBtn" src="/img/evaluation/close-icon.png">
+
+</div>
+
 
 
 <div id="first" class="contents">
@@ -266,6 +267,7 @@
 
 <div id="forth" class="contents">
     <button id="submitBtn">평가 제출</button>
+</div>
 </div>
 
 </body>
