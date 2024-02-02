@@ -9,13 +9,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> {
-    List<Restaurant> findByRestaurantCuisine(String cuisine);
-    List<Restaurant> findByRestaurantName(String name);
 
     Restaurant findByRestaurantId(Integer id);
+    Page<Restaurant> findByStatus(String status, Pageable pageable);
 
 
-    Page<Restaurant> findByRestaurantCuisine(String cuisine, Pageable pageable);
+    Page<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status, Pageable pageable);
+
+    List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
+    List<Restaurant> findByStatus(String status);
 
     // 페이징
     Page<Restaurant> findAll(Pageable pageable);

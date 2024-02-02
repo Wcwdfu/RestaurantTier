@@ -36,6 +36,10 @@ header{
     margin-left: 30px;
     align-items: center;
 }
+#closeBtn {
+    cursor: pointer;
+}
+
 
 /* ------------------- body ----------------- */
 /* ------------------- first(main) rating ----------------- */

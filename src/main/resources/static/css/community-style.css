@@ -1,33 +1,190 @@
-/* 리스트의 아이템 중 클릭 상태인 것(티어표) */
-div.header-bottom ul.menu-list > li > a > div.community {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
+
+
+
+
+.dropdown-toggle {
     line-height: 22px;
-    padding: 6px 0 5px;
+    font-size: 14px;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    appearance: none;
+    outline: 0 none;
+    border: 0 none;
+    background: none right center;
+    width: initial;}
+
+body {
+    background-color: white;
+
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.tier:hover,.rank:hover,.home:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
+
+.icon {
+    width: 24px;
+    height: 24px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.tier, .rank,.home {
+
+.firstFilter {
+    margin-left: 1rem;
+}
+
+.right-Icon {
+    display: flex;
+    gap:8px;
+}
+
+#postul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.postLink {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+
+}
+
+.postImage {
+    width: 60px;
+    height: 60px;
+}
+
+
+.filter {
+    display: inline-block;
+}
+
+.postli {
+    width: 100%;
+    display: flex;
+    height: 77px;
+    align-items: center;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 14px;
+    background: white;
+    border-top: 1px solid #ebeef1;
+    position: relative;
+
+}
+.postBox{
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-right: 12px;
+}
+.recommend-tab{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: center;
+    font-size: 14px;
+    color: gray;
+    white-space: nowrap;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    text-align: center;
+
+    flex-shrink: 0;
+}
+#category{
+    padding-left: 0;
+}
+#creatdAt{
+
+}
+#author{
+    flex: 1;
+    overflow: hidden;
+}
+
+.underLink > span{
+    float: left;
+    padding-left: 8px;
+    line-height: 24px;
+    white-space: nowrap;
     display: flex;
     align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
+}
+
+#createdAt::before, #author::before{
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #ebeef1;
+    height: 12px;
+    content: "";
+    margin-right: 8px;
+}
+
+.underLink{
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    color: #8b99a6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 24px;
+}
+
+#content{
+    margin:auto;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 1%;
+    max-width: 900px;
+
+}
+#filterDiv{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 18px 16px 17px;
+    line-height: 21px;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+.recommend-tab img{
+    width: 14px;
+    height: 14px;
+}
+
+
+.input-group{
+    padding:0 40px
+
+}
+
+.page-controller{
+    margin: 20px 0
+}
+.filter img{
+    width: 20px;
+    height: 20px;
+    margin : 0 7px;
+}
+.filter{
+    text-decoration: none;
+    color:inherit;
 }

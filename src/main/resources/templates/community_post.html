@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.postTitle}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar-community-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/community-post-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/community-post.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<!--상단 탭 fragment 붙여넣기-->
+<header th:replace="~{community_navbar :: navbarFragment}"></header>
+<main>
+    <div class="post">
+        <div class="post-top">
+            <h1 th:text="${post.postTitle}"></h1>
+            <div>
+                <div class="post-details">
+                    <div class="post-detail">
+                        <span class="first-detail">
+                            <a th:text="${post.postCategory}" href="#"></a>
+                        </span>
+                        <span th:text="${timeAgoData}" class="second-detail updated-time">
+
+                        </span>
+                        <span th:text="${post.user.userNickname} " class="third-detail user-name">
+
+                        </span>
+                    </div>
+                    <div class="post-detail">
+                        <span th:text="'조회수 '+ ${post.postVisitCount}" class="first-detail">
+
+                        </span>
+                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
+
+                        </span>
+                        <span th:text="'추천 '+ ${post.likeUserList.size()-post.dislikeUserList.size()}" class="third-detail">
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="post-body">
+            <div>
+                <article>
+                    <p th:text="${post.postBody}">
+                        <img src="/img/community/post_hidden.png"></p>
+                </article>
+            </div>
+        </div>
+
+        <div class="post-like">
+            <button type="button" id="likeButton" class="post-button" th:data-post-id="${post.postId}">
+                <img th:if="${post.likeUserList.contains(user)}" src="/img/community/upGreen.png">
+                <img th:unless="${post.likeUserList.contains(user)}" src="/img/community/up.png">
+                <span th:text="${post.likeUserList.size()}"></span>
+            </button>
+            <button type="button" id="dislikeButton" class="post-button" th:data-post-id="${post.postId}">
+                <img th:if="${post.dislikeUserList.contains(user)}" src="/img/community/down-red.png">
+                <img th:unless="${post.dislikeUserList.contains(user)}" src="/img/community/down.png">
+                <span th:if="${post.dislikeUserList.size() >0}" th:text="'-'+${post.dislikeUserList.size()}"></span>
+                <span th:if="${post.dislikeUserList.size() ==0}" th:text="${post.dislikeUserList.size()}"></span>
+
+            </button>
+            <button type="button" id="scrap" class="post-button" th:data-post-id="${post.postId}">
+                <img th:if="${isPostScrappedByUser}" src="/img/community/scrap-green.png">
+                <img th:unless="${isPostScrappedByUser}" src="/img/community/scrap.png">
+
+            </button>
+        </div>
+    </div>
+
+    <div class="share"></div>
+    <div class="post-footer">
+        <div class="comment-bar"></div>
+        <div class="comment-write">
+            <div>
+                <form id="comment-form" action="/api/community/comment/create" method="post">
+                <textarea name="content" id="comment-content" maxlength="1000"
+                          placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
+                    <div class="under-content">
+                        <div>
+                        <span type="button">
+                            <img src="/img/community/icon-picture.png">
+                            <span>
+                                사진
+                            </span>
+
+                        </span>
+
+
+                        </div>
+                        <button type="submit">
+                            작성
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="comment-filter">
+            <button type="button" class="popularity filter">인기순</button>
+            <button type="button" class="latest filter">최신순</button>
+
+        </div>
+
+        <div class="comment-list">
+            <ul class="comment-ul">
+                <li class="comment-li" th:each="comment,loop:${post.postCommentList}">
+                    <div>
+                        <div class="comment-left">
+                            <button type="button">
+                                <img src="/img/community/up.png">
+                            </button>
+                            <span>0</span>
+                            <button type="button">
+                                <img src="/img/community/down.png">
+                            </button>
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-name">
+                                <img src="/img/community/crown.png">
+                                <span class="user-name" th:text="${comment.user.userNickname}"></span>
+                                <span th:text="${commentCreatedAtList.get(loop.index)}"></span>
+                            </div>
+                            <div class="comment-body">
+                                <div>
+                                    <p th:text="${comment.commentBody}"></p>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <button class="comment-button">신고</button>
+                                </li>
+                                <li>
+                                    <button class="comment-button">답글 쓰기</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+</body>
+</html>

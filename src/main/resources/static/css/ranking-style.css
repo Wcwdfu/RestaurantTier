@@ -10,7 +10,7 @@ div.header-bottom ul.menu-list > li > a > div.rank {
     padding: 6px 0 5px;
 }
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier:hover,.home:hover,.community:hover {
+.tier:hover,.home:hover,.community:hover,.recommend:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -21,7 +21,7 @@ div.header-bottom ul.menu-list > li > a > div.rank {
     padding: 6px 0 5px;
 }
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier, .home,.community {
+.tier, .home,.community,.recommend{
     display: flex;
     align-items: center;
     color: #B3CDFF;

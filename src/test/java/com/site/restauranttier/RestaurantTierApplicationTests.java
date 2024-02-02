@@ -1,14 +1,15 @@
 package com.site.restauranttier;
 
-import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.Situation;
-import com.site.restauranttier.entity.User;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.SituationCategoryRepository;
-import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.controller.MainController;
+import com.site.restauranttier.entity.*;
+import com.site.restauranttier.repository.*;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class RestaurantTierApplicationTests {
@@ -24,38 +26,50 @@ class RestaurantTierApplicationTests {
     private UserRepository userRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
-	@Autowired
-    private SituationCategoryRepository situationCategoryRepository;
+    @Autowired
+    private SituationRepository situationRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private PostPhotoRepository postPhotoRepository;
+    @Autowired
+    private PostCommentRepository postCommentRepository;
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantTierApplicationTests.class);
 
     // 테스트 데이터 추가
     @Test
-    void textJpa() {
+    @Transactional
+    @Rollback(false)
+    void textCommunity() {
 
-		// 유저 테스트 데이터 추가
-        for (int i = 0; i < 10; i++) {
-            User newUser = new User("userId" + i, "self", "pass" + i, "user" + i + "@example.com", "UserNickName" + i, "online", LocalDateTime.now());
-            userRepository.save(newUser);
-        }
+        // 커뮤니티 테스트
 
-		Restaurant res1 = new Restaurant("숨맑은집 호계점","카페","https://map.naver.com/p/search/%EC%88%A8%EB%A7%91%EC%9D%80%EC%A7%91/place/1468337474?c=14.28,0,0,0,dh",0,"카페/디저트","normal",LocalDateTime.now());
-        // 식당 테스트 데이터 추가
-        List<Restaurant> restaurants = new ArrayList<>();
-        restaurants.add(res1);
-        restaurantRepository.saveAll(restaurants);
+        Post postsaved = new Post("부탄츄 후기", "부탄츄 건대점에 다녀왔습니다", "자유게시판", "ACTIVE", LocalDateTime.now());
+        Optional<User> userOptional = userRepository.findById(1);
+        User user = userOptional.get();
+        postsaved.setUser(user);
+        PostPhoto postPhoto = new PostPhoto("https://mblogthumb-phinf.pstatic.net/MjAyMDAxMTlfMTEg/MDAxNTc5NDMyNjY5OTg4.XkEOiHNJDaEgWAawh-IzZFPkovVqLXlQRcdDiWFOW5gg.h5WRn-eHCJ9FxK2ou6P892Zt0Xd1_MrBWOWc6t7VMJAg.JPEG.effy0424/1579432668513.jpg?type=w800", "ACTIVE");
+        postsaved.getPostPhotoList().add(postPhoto);
+        postRepository.save(postsaved);
 
-        
-		// 상황 테스트 데이터 저장
-        Situation alone = new Situation("혼밥");
-        Situation threeFour = new Situation("3~4인");
-        Situation five = new Situation("5인 이상");
-        Situation group  = new Situation("단체 회식");
-        Situation delivery = new Situation("배달");
-        Situation nightSnack = new Situation("야식");
-        Situation invite = new Situation("친구 초대");
-        Situation date = new Situation("데이트");
-        Situation blindDate = new Situation("소개팅");
-        List situationList = new ArrayList(Arrays.asList(alone,threeFour,five,group,delivery,nightSnack,invite,date,blindDate));
-        situationCategoryRepository.saveAll(situationList);
+
+        Post post = postRepository.findByPostTitle(postsaved.getPostTitle());
+        PostComment comment = new PostComment("좋은 글입니다","ACTIVE",LocalDateTime.now(),post,user);
+        PostComment savedcomment = postCommentRepository.save(comment);
+        // photo와 user에서 comment 매핑
+        post.getPostCommentList().add(savedcomment);
+        user.getPostCommentList().add(savedcomment);
+        //        포토와 user에서 post를 매핑
+        postPhoto.setPost(post);
+        user.getPostList().add(post);
+
+        postPhotoRepository.save(postPhoto);
+        userRepository.save(user);
+
+
+
+
+
     }
 
 }

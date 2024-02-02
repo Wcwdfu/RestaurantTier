@@ -77,7 +77,7 @@
         <div id="mapUnfoldButton" class="unfold-button">펼치기</div>
     </div>
 
-    <a class="inner-container evaluation-button button" th:href="@{/evaluation/{restuarantId}(restuarantId=${restaurant.restaurantId})}">평가하기</a>
+    <a class="inner-container evaluation-button button" th:href="@{/evaluation/{restuarantId}(restuarantId=${restaurant.restaurantId})}" th:text="${evaluationButton}"></a>
     <div class="comment-container">
         <div class="section-title">댓글</div>
         <div class="input-container">

@@ -5,34 +5,6 @@ body {
 }
 
 
-/* 검색 섹션  */
-header section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*검색 버튼 스타일*/
-header button[type="submit"] {
-    padding: 5px 10px;
-    background: #28344E;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 100%;
-}
-
-/* 사이드바 스타일 */
-aside {
-    background-color: #FFB900;
-    color: #333333;
-}
-
-header .nav-link {
-    color: #FFFFFF;
-}
-
 
 .row .col .position-absolute {
     font-weight: bold;
@@ -40,114 +12,42 @@ header .nav-link {
 
 .row .col .col-12 {
 
-    border:none;
+    border: none;
     border-radius: 15px;
 }
 
-
-
-
-/* 홈 버튼 (건메추) */
-#home {
-    font-size: large;
-    margin: 0;
-    background-color: #5383E8;
-    padding: 5px;
-    color: #FFFFFF;
-    border: none;
-}
-/*로그인 버튼*/
-
-#login {
-    font-size: medium;
-    background-color: #5383E8
-}
-
 /*배경색 */
-main{
+main {
     background-color: #EBEEF1;
 }
 
-#header{
+#header {
     background-color: #5383E8;
 }
 
-/* 티어표 바로가기 */
-#tierSign{
-    color:black;
-}
 
-
-/*광고 배너 x 표시*/
-aside div div button{
-    float:right;
-    background: transparent; /* 배경을 투명하게 설정 */
-    border: none; /* 테두리 제거 */
-    color: inherit; /* 버튼 내 텍스트 색상을 상속받음 */
-    text-shadow: none; /* 텍스트 그림자 제거 */
-    box-shadow: none; /* 버튼의 박스 그림자 제거 */
-
-}
-.cell{
+.cell {
     padding: 0.5rem;
 }
-.img{
+
+.img {
 
     border-radius: 10px;
     background-color: white;
 }
-.cell-button > .label{
+
+.cell-button > .label {
     font-size: small;
-    padding:1rem;
-    color:black;
+    padding: 1rem;
+    color: black;
     opacity: 0.9;
 }
-.cell-button > .img{
+
+.cell-button > .img {
     padding: 1.25rem;
 }
 
-/* 화면 크기가 커질 때 */
-@media screen and (min-width: 1024px) {
 
-    .btn {
-        padding: 10px
-    }
-
-    .container-fluid {
-        padding: 15px; /* 원하는 값으로 조정 */
-        margin: 15px; /* 원하는 값으로 조정 */
-    }
-
-
-    .nav-link {
-        font-size: larger; /* 더 큰 텍스트 사이즈로 조정 */
-    }
-
-    .nav-underline {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: larger;
-        margin: 0;
-    }
-
-    .nav-underline .nav-item {
-        padding: 15px;
-    }
-
-    #home {
-        font-size: x-large;
-    }
-
-    #login {
-        font-size: large;
-    }
-
-    .row .col {
-        max-width: 250px;
-        max-height: 250px;
-    }
-
-}
 
 
 /* 리스트의 아이템 중 클릭 상태인 것(홈) */
@@ -161,8 +61,9 @@ div.header-bottom ul.menu-list > li > a > div.home {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier:hover,.rank:hover,.community:hover {
+.tier:hover, .rank:hover, .community:hover, .recommend:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -172,8 +73,9 @@ div.header-bottom ul.menu-list > li > a > div.home {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
 /* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier, .rank,.community {
+.tier, .rank, .community, .recommend {
     display: flex;
     align-items: center;
     color: #B3CDFF;
@@ -184,4 +86,92 @@ div.header-bottom ul.menu-list > li > a > div.home {
     padding: 6px 0 5px;
 }
 
-
+/* 뽑기 창 시작 */
+.section-center {
+    display:flex;
+    justify-content: center;
+}
+@media only screen and (max-width: 1024px) {
+    .random-drawing {
+        margin: 0 15px;
+        min-width: 260px;
+        width: 100%;
+        text-align: center;
+    }
+    #drawingResult {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 50px;
+        border: 2px solid #0a53be;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    .random-drawing {
+        width: 70%;
+        min-width: 450px;
+        max-width: 900px;
+        text-align: center;
+    }
+    #drawingResult {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 50px;
+        border: 2px solid #0a53be;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+.random-drawing > div {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.random-drawing > div > span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin: 0;
+}
+#cuisineSelect{
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 2px 0;
+}
+.drawing-button {
+    padding: 5px 12px;
+    margin-left: 10px;
+    line-height: 20px;
+    font-size: 16px;
+    color: #FFF;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+}
+#drawingButton {
+    background-color: #5383E8;
+}
+#stopButton {
+    background-color: #cb1717;
+}
+.drawing-result > a {
+    cursor: pointer;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px;
+}

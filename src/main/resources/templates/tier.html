@@ -33,50 +33,50 @@
                 <span class="text">종류</span>
                 <div class="buttons scrollable">
                             <span class="unselected button">
-                                <span>전체</span>
+                                <a class="cuisine-link" href="/tier">전체</a>
                             </span>
                     <span class="unselected button">
-                                <span>한식</span>
+                                <a class="cuisine-link" href="/tier?cuisine=한식">한식</a>
                             </span>
                     <span class="unselected button">
-                                <span>일식</span>
+                                <a class="cuisine-link" href="/tier?cuisine=일식">일식</a>
                             </span>
                     <span class="unselected button">
-                                <span>중식</span>
+                                <a class="cuisine-link" href="/tier?cuisine=중식">중식</a>
                             </span>
                     <span class="unselected button">
-                                <span>양식</span>
+                                <a class="cuisine-link" href="/tier?cuisine=양식">양식</a>
                             </span>
                     <span class="unselected button">
-                                <span>아시안</span>
+                                <a class="cuisine-link" href="/tier?cuisine=아시안">아시안</a>
                             </span>
                     <span class="unselected button">
-                                <span>고기</span>
+                                <a class="cuisine-link" href="/tier?cuisine=고기">고기</a>
                             </span>
                     </span>
                     <span class="unselected button">
-                                <span>치킨</span>
+                                <a class="cuisine-link" href="/tier?cuisine=치킨">치킨</a>
                             </span>
                     <span class="unselected button">
-                                <span>해산물</span>
+                                <a class="cuisine-link" href="/tier?cuisine=해산물">해산물</a>
                             </span>
                     <span class="unselected button">
-                                <span>햄버거/피자</span>
+                                <a class="cuisine-link" href="/tier?cuisine=햄버거/피자">햄버거/피자</a>
                             </span>
                     <span class="unselected button">
-                                <span>분식</span>
+                                <a class="cuisine-link" href="/tier?cuisine=분식">분식</a>
                             </span>
                     <span class="unselected button">
-                                <span>술집</span>
+                                <a class="cuisine-link" href="/tier?cuisine=술집">술집</a>
                             </span>
                     <span class="unselected button">
-                                <span>카페/디저트</span>
+                                <a class="cuisine-link" href="/tier?cuisine=카페/디저트">카페/디저트</a>
                             </span>
                     <span class="unselected button">
-                                <span>베이커리</span>
+                                <a class="cuisine-link" href="/tier?cuisine=베이커리">베이커리</a>
                             </span>
                     <span class="unselected button">
-                                <span>기타</span>
+                                <a class="cuisine-link" href="/tier?cuisine=기타">기타</a>
                             </span>
                 </div>
             </div>
@@ -152,7 +152,9 @@
             <tr th:each="restaurant,loop :${paging}">
                 <td th:text="0"></td>
                 <td>
-                    <a class="restaurant-link" th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}" th:text="${restaurant.restaurantName}"></a>
+                    <a class="restaurant-link"
+                       th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}"
+                       th:text="${restaurant.restaurantName}"></a>
 
                 </td>
                 <td th:text="0"></td>

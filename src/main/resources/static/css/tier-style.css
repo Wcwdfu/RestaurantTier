@@ -23,7 +23,7 @@
     }
 }
 
-/* 리스트의 아이템 중 클릭 상태인 것(홈) */
+/* 리스트의 아이템 중 클릭 상태인 것(티어표) */
 div.header-bottom ul.menu-list > li > a > div.tier {
     display: flex;
     align-items: center;
@@ -34,8 +34,8 @@ div.header-bottom ul.menu-list > li > a > div.tier {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.home:hover,.rank:hover,.community:hover {
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
+.home:hover,.rank:hover,.community:hover, .recommend:hover {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -45,8 +45,8 @@ div.header-bottom ul.menu-list > li > a > div.tier {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.home, .rank,.community {
+/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
+.home, .rank,.community,.recommend {
     display: flex;
     align-items: center;
     color: #B3CDFF;
@@ -282,8 +282,14 @@ tbody > tr > td > div > img {
 footer{
     margin-top: 1rem;
 }
+/* 식당 이름에 링크 스타일 제거*/
 .restaurant-link {
     color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
     text-decoration: none; /* 밑줄을 제거합니다 */
+}
+/* 종류에 링크 스타일 제거*/
+.cuisine-link{
+    color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
+    text-decoration: none;
 }
 
