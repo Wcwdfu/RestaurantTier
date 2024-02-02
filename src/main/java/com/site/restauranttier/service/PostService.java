@@ -33,7 +33,7 @@ public class PostService {
 
 
     // 검색
-    public Page<Post> getList(int page, String kw) {
+    public Page<Post> getList(int page, String sort, String kw) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
@@ -41,19 +41,25 @@ public class PostService {
         return this.postRepository.findAll(spec, pageable);
     }
 
-    public Page<Post> getList(int page) {
+    // 메인 로딩
+    public Page<Post> getList(int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createdAt"));
-        Pageable pageable = PageRequest.of(page, 20,Sort.by(sorts));
+        if (sort.isEmpty() || sort.equals("recent")) {
+            sorts.add(Sort.Order.desc("createdAt"));
+        } else if (sort.equals("popular")) {
+            sorts.add(Sort.Order.desc("likeCount"));
+        }
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
 
 
         return this.postRepository.findAll(pageable);
     }
 
+    //    드롭다운에서 카테고리 설정
     public Page<Post> getListByPostCategory(String postCategory, int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdAt"));
-        Pageable pageable = PageRequest.of(page, 20,Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
         return this.postRepository.findByPostCategory(postCategory, pageable);
     }
 
@@ -102,12 +108,14 @@ public class PostService {
         return days + "일 전";
     }
 
+    // 조회수 증가
     public void increaseVisitCount(Post post) {
         int visitCount = post.getPostVisitCount();
         post.setPostVisitCount(++visitCount);
         postRepository.save(post);
     }
 
+    // 글 좋아요
     public void likeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
@@ -115,11 +123,13 @@ public class PostService {
         List<Post> dislikePostList = user.getDislikePostList();
         //해당 post 를 이미 like 한 경우 - 제거
         if (likeUserList.contains(user)) {
+            post.setLikeCount(post.getLikeCount() - 1);
             likePostList.remove(post);
             likeUserList.remove(user);
         }
         //해당 post를 이미 dislike 한 경우 - 제거하고 추가
         else if (dislikeUserList.contains(user)) {
+            post.setLikeCount(post.getLikeCount() + 2);
             dislikeUserList.remove(user);
             dislikePostList.remove(post);
             likeUserList.add(user);
@@ -127,6 +137,7 @@ public class PostService {
         }
         // 처음 like 하는 경우-추가
         else {
+            post.setLikeCount(post.getLikeCount() + 1);
             likeUserList.add(user);
             likePostList.add(post);
         }
@@ -134,6 +145,7 @@ public class PostService {
         userRepository.save(user);
     }
 
+    // 글 싫어요
     public void dislikeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
@@ -141,11 +153,15 @@ public class PostService {
         List<Post> dislikePostList = user.getDislikePostList();
         //해당 post를 이미 dislike 한 경우 - 제거
         if (dislikeUserList.contains(user)) {
+            post.setLikeCount(post.getLikeCount() + 1);
+
             dislikePostList.remove(post);
             dislikeUserList.remove(user);
         }
         //해당 post를 이미 like 한 경우 - 제거하고 추가
         else if (likeUserList.contains(user)) {
+            post.setLikeCount(post.getLikeCount() - 2);
+
             likeUserList.remove(user);
             likePostList.remove(post);
             dislikeUserList.add(user);
@@ -153,6 +169,8 @@ public class PostService {
         }
         // 처음 dislike 하는 경우-추가
         else {
+            post.setLikeCount(post.getLikeCount() - 1);
+
             dislikeUserList.add(user);
             dislikePostList.add(post);
         }

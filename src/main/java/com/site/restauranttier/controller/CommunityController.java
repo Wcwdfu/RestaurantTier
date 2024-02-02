@@ -44,10 +44,10 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model, @RequestParam(name = "category", required = false) String postCategory, @RequestParam(name = "page", defaultValue = "0") int page) {
+    public String community(Model model, @RequestParam(name = "category", required = false) String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "") String sort) {
         Page<Post> paging;
         if (postCategory == null) {
-            paging = postService.getList(page);
+            paging = postService.getList(page, sort);
         } else {
             paging = postService.getListByPostCategory(postCategory, page);
             model.addAttribute("category", postCategory);
@@ -56,6 +56,8 @@ public class CommunityController {
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
+
+
     }
 
     // 커뮤니티 게시글 상세 화면
@@ -160,13 +162,14 @@ public class CommunityController {
         return ResponseEntity.ok("북마크가 처리 완료되었습니다");
     }
 
-
+    // 글 검색 화면
     @GetMapping("/community/search")
-    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Post> paging = this.postService.getList(page, kw);
+    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(defaultValue = "recent") String sort) {
+        Page<Post> paging = this.postService.getList(page, sort, kw);
+        List<String> timeAgoList = postService.getTimeAgoList(paging);
+        model.addAttribute("timeAgoList", timeAgoList);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-
         return "community";
     }
 }

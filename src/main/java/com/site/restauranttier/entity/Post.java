@@ -25,7 +25,7 @@ public class Post {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     Integer postVisitCount=0;
-
+    Integer likeCount=0;
     public Post(String postTitle, String postBody, String postCategory, String status, LocalDateTime createdAt) {
         this.postTitle = postTitle;
         this.postBody = postBody;
