@@ -1,11 +1,11 @@
 package com.site.restauranttier.entity;
 
-import com.site.restauranttier.entity.Evaluation;
-import com.site.restauranttier.entity.RestaurantComment;
-import com.site.restauranttier.entity.RestaurantCommentlike;
-import com.site.restauranttier.entity.RestaurantFavorite;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.site.restauranttier.user.UserRole;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users_tbl")
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -41,34 +42,52 @@ public class User {
     @Column(nullable = false)
     private String loginApi;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole userRole;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<RestaurantComment> restaruantCommentList = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Evaluation> evaluationList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<RestaurantFavorite> restaurantFavoriteList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<PostComment> postCommentList = new ArrayList<>();
 
-    public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, String status, LocalDateTime createdAt) {
+    @Builder
+    public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, UserRole userRole, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
         this.loginApi = loginApi;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userNickname = userNickname;
+        this.userRole = userRole;
         this.status = status;
         this.createdAt = createdAt;
     }
 
-    public User() {
+    public User update(String userEmail) {
+        this.userEmail = userEmail;
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.userRole.getValue();
     }
 
     @ManyToMany(mappedBy = "dislikeUserList")
