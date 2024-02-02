@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    /*private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입 폼에 대한 회원가입 서비스
@@ -43,6 +43,6 @@ public class UserService {
         } else {
             throw  new DataNotFoundException("user not found");
         }
-    }
+    }*/
 
 }

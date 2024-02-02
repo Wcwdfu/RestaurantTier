@@ -1,18 +1,61 @@
 package com.site.restauranttier.user;
 
+import com.site.restauranttier.service.CustomOAuth2UserService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+
+import java.io.IOException;
 
 @Configuration
+@RequiredArgsConstructor
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig {
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers((headerConfig) -> headerConfig
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+                        .anyRequest().permitAll())
+                .oauth2Login((oauth2) -> oauth2
+                        .loginPage("/user/login")
+                        .defaultSuccessUrl("/home")
+                        .failureUrl("/user/login")
+                        .userInfoEndpoint(userInfoEndPoint -> userInfoEndPoint
+                                .userService(customOAuth2UserService))
+                        .successHandler(new CustomLoginSuccessHandler()))
+                .logout((logout) -> logout
+                        .logoutUrl("/user/logout")
+                        .logoutSuccessUrl("/home")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll());
+        return http.build();
+    }
+}
+
+/*@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
@@ -49,4 +92,4 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-}
+}*/

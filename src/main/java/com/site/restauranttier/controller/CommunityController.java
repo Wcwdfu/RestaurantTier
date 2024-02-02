@@ -6,10 +6,7 @@ import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.UserRepository;
-import com.site.restauranttier.service.PostCommentService;
-import com.site.restauranttier.service.PostScrapService;
-import com.site.restauranttier.service.PostService;
-import com.site.restauranttier.service.UserService;
+import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +33,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommunityController {
     private final PostService postService;
-    private final UserService userService;
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
     private final PostScrapService postScrapService;
@@ -76,7 +73,7 @@ public class CommunityController {
         model.addAttribute("timeAgoData", timeAgoData);
         boolean isPostScrappedByUser = false;
         if (principal != null) {
-            User user = userService.getUser(principal.getName());
+            User user = customOAuth2UserService.getUser(principal.getName());
             model.addAttribute("user", user);
             isPostScrappedByUser = post.getPostScrapList().stream()
                     .anyMatch(scrap -> scrap.getUser().equals(user));
@@ -103,7 +100,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Post post = new Post(title, content, category, "ACTIVE", LocalDateTime.now());
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
@@ -118,7 +115,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Integer postidInt = Integer.valueOf(postId);
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
         postCommentService.create(post, user, postComment);
@@ -132,7 +129,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Integer postidInt = Integer.valueOf(postId);
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postService.likeCreateOrDelete(post, user);
         return ResponseEntity.ok("좋아요가 처리 완료되었습니다");
@@ -144,7 +141,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Integer postidInt = Integer.valueOf(postId);
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postService.dislikeCreateOrDelete(post, user);
         return ResponseEntity.ok("싫어요가 처리 완료되었습니다");
@@ -156,7 +153,7 @@ public class CommunityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         Integer postidInt = Integer.valueOf(postId);
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postScrapService.scrapCreateOfDelete(post, user);
         return ResponseEntity.ok("북마크가 처리 완료되었습니다");
