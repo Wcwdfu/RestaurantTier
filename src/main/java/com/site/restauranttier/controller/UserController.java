@@ -2,9 +2,16 @@ package com.site.restauranttier.controller;
 
 import com.site.restauranttier.user.UserCreateForm;
 import com.site.restauranttier.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +26,15 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession httpSesseion;
 
     // 실제 로그인을 진행하는 post는 스프링 시큐리티가 해줌
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        String uri = request.getHeader("Referer");
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
         return "login_form";
     }
 
@@ -48,8 +60,8 @@ public class UserController {
         try {
             
             // 일단 service 안에 throw DataIntegrityViolationException 처리 해놨음. 엔티티 수정 필요
-            userService.create(userCreateForm.getUserId(),
-                    userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getNickname());
+            //userService.create(userCreateForm.getUserId(),
+            //        userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getNickname());
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
@@ -65,5 +77,4 @@ public class UserController {
     public String myPage(){
         return "mypage";
     }
-
 }

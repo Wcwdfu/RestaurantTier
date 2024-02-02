@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,10 +15,12 @@ public class RestaurantCommentlike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer likeId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="comment_id")
     private RestaurantComment restaurantComment;

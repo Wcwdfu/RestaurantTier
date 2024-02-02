@@ -1,21 +1,13 @@
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.entity.Evaluation;
-import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.RestaurantMenu;
-import com.site.restauranttier.entity.User;
-import com.site.restauranttier.repository.EvaluationRepository;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.SituationRepository;
-import com.site.restauranttier.repository.UserRepository;
-import com.site.restauranttier.service.EvaluationService;
-import com.site.restauranttier.service.RestaurantCommentService;
-import com.site.restauranttier.service.RestaurantService;
-import com.site.restauranttier.service.UserService;
+import com.site.restauranttier.entity.*;
+import com.site.restauranttier.etc.SortComment;
+import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,25 +22,30 @@ import java.util.Optional;
 public class RestaurantController {
     private final RestaurantCommentService restaurantCommentService;
     private final EvaluationService evaluatioanService;
-    private final SituationRepository situationRepository;
-    private final UserService userService;
-    private final RestaurantRepository restaurantRepository;
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final RestaurantService restaurantService;
+    private final RestaurantFavoriteService restaurantFavoriteService;
     
     @Value("${restaurant.initialDisplayMenuCount}")
     private int initialDisplayMenuCount;
 
     @GetMapping("/restaurants/{restaurantId}")
-    public String restaurant(Model model,
-                             @PathVariable Integer restaurantId, Principal principal
+    public String restaurant(
+            Model model,
+            @PathVariable Integer restaurantId,
+            Principal principal
     ) {
+        // 식당 정보
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
-
+        // 메뉴
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);
-
+        // 메뉴 펼치기 이전에 몇개의 메뉴를 보여줄 것인가
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
+        // 즐겨찾기 여부
+        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
+        model.addAttribute("restaurantComments", restaurantComments);
 
         // 평가하기 버튼
         // 로그인 안되어있을 경우
@@ -56,8 +53,9 @@ public class RestaurantController {
             model.addAttribute("evaluationButton", " 평가하기");
             return "restaurant";
         } else {
+            model.addAttribute("isFavoriteExist", restaurantFavoriteService.isFavoriteExist(principal.getName(), restaurantId));
             String name = principal.getName();
-            User user = userService.getUser(name);
+            User user = customOAuth2UserService.getUser(name);
             Evaluation evaluation = evaluatioanService.getByUserAndRestaurant(user, restaurant);
             if (evaluation!=null) {
                 model.addAttribute("evaluationButton", "다시 평가하기");
@@ -93,23 +91,49 @@ public class RestaurantController {
     }
 
     // 식당 댓글 작성
-    //TODO: 안됨 다시 해야됨.
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/restaurants/{restaurantId}/comments")
     public ResponseEntity<String> postRestaurantComment(
             @PathVariable Integer restaurantId,
-            @RequestBody Map<String, Object> jsonBody
+            @RequestBody Map<String, Object> jsonBody,
+            Principal principal
     ) {
         String result = restaurantCommentService.addComment(
                 restaurantId,
-                jsonBody.get("userTokenId").toString(),
+                principal.getName(),
                 jsonBody.get("commentBody").toString());
-
         if (result.equals("ok")) {
             return ResponseEntity.ok("Comment added successfully");
         } else if (result.equals("userTokenId")) {
             return ResponseEntity.ok("UserTokenId doesn't exist");
         } else {
             return ResponseEntity.ok("what");
+        }
+    }
+
+    // 식당 댓글 로드
+    @GetMapping("/api/restaurants/{restaurantId}/comments")
+    public ResponseEntity<List<Object[]>> getRestaurantCommentByRestaurantId(
+            @PathVariable Integer restaurantId,
+            @RequestParam(value = "sort", defaultValue = "POPULAR") String sort
+    ) {
+        SortComment sortComment = SortComment.valueOf(sort);
+        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);
+        return new ResponseEntity<>(restaurantComments, HttpStatus.OK);
+    }
+
+    // 식당 즐겨찾기
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PostMapping("/api/restaurants/{restaurantId}/favorite/toggle")
+    public ResponseEntity<String> toggleFavorite(
+            @PathVariable Integer restaurantId,
+            Principal principal
+    ) {
+        String returnValue = restaurantFavoriteService.toggleFavorite(principal.getName(), restaurantId);
+        if (returnValue.equals("fail")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        } else {
+            return ResponseEntity.ok(returnValue);
         }
     }
 }

@@ -22,7 +22,7 @@ public class EvaluationService {
     private final SituationRepository situationRepository;
     private final EvaluationItemScoreRepository evaluationItemScoreRepository;
     private final RestaurantService restaurantService;
-    private final UserService userService;
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final SituationService situationService;
 
     public Evaluation getByUserAndRestaurant(User user, Restaurant restaurant) {
@@ -33,7 +33,7 @@ public class EvaluationService {
     public void createOrUpdate(JsonData jsonData, Principal principal) {
 
         Restaurant restaurant = restaurantService.getRestaurant(jsonData.getRestaurantId());
-        User user = userService.getUser(principal.getName());
+        User user = customOAuth2UserService.getUser(principal.getName());
 
         // user와 restaurant 정보로 db에 평가한 데이터가 있는지 확인
         Optional<Evaluation> evaluationOptional = evaluationRepository.findByUserAndRestaurant(user, restaurant);
