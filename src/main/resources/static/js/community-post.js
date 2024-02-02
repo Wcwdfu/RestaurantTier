@@ -73,4 +73,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert("Network error or problem with the request"))
 
         }
-    )})
+    )
+    document.getElementById("scrap").addEventListener('click',
+
+        function (event) {
+
+            event.preventDefault()
+            var postId = this.dataset.postId;
+            fetch("/api/post/scrap?postId=" + postId, {
+                method: 'GET'
+            })
+                .then(reponse => {
+                    if (!reponse.ok) {
+                        if (reponse.status === 401) {
+                            alert("로그인이 되지 않았습니다");
+                        } else {
+                            reponse.text().then(text => {
+                                alert("Error:" + text);
+                            })
+                        }
+                    } else {
+                        console.log("스크랩 처리 완료")
+                        window.location.reload();
+                    }
+                }).catch(error =>
+                alert("Network error or problem with the request"))
+
+        }
+    )
+
+})

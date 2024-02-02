@@ -39,7 +39,7 @@
                         <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
 
                         </span>
-                        <span th:text="'추천 '+ ${post.likeUserList.size()}" class="third-detail">
+                        <span th:text="'추천 '+ ${post.likeUserList.size()-post.dislikeUserList.size()}" class="third-detail">
 
                         </span>
                     </div>
@@ -57,17 +57,21 @@
 
         <div class="post-like">
             <button type="button" id="likeButton" class="post-button" th:data-post-id="${post.postId}">
-                <img src="/img/community/up.png">
+                <img th:if="${post.likeUserList.contains(user)}" src="/img/community/upGreen.png">
+                <img th:unless="${post.likeUserList.contains(user)}" src="/img/community/up.png">
                 <span th:text="${post.likeUserList.size()}"></span>
             </button>
             <button type="button" id="dislikeButton" class="post-button" th:data-post-id="${post.postId}">
-                <img src="/img/community/down.png">
+                <img th:if="${post.dislikeUserList.contains(user)}" src="/img/community/down-red.png">
+                <img th:unless="${post.dislikeUserList.contains(user)}" src="/img/community/down.png">
                 <span th:if="${post.dislikeUserList.size() >0}" th:text="'-'+${post.dislikeUserList.size()}"></span>
                 <span th:if="${post.dislikeUserList.size() ==0}" th:text="${post.dislikeUserList.size()}"></span>
 
             </button>
             <button type="button" id="scrap" class="post-button" th:data-post-id="${post.postId}">
-                <img src="/img/community/bookmark.png">
+                <img th:if="${isPostScrappedByUser}" src="/img/community/scrap-green.png">
+                <img th:unless="${isPostScrappedByUser}" src="/img/community/scrap.png">
+
             </button>
         </div>
     </div>
@@ -117,7 +121,6 @@
                             <span>0</span>
                             <button type="button">
                                 <img src="/img/community/down.png">
-
                             </button>
                         </div>
                         <div class="comment-content">

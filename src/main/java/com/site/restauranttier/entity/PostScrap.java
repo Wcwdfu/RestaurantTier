@@ -15,6 +15,15 @@ public class PostScrap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer scrapId;
 
+    public PostScrap(User user, Post post, LocalDateTime createdAt) {
+        this.user = user;
+        this.post = post;
+        this.createdAt = createdAt;
+    }
+    public PostScrap(){
+
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
