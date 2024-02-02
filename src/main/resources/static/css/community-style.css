@@ -36,7 +36,6 @@ body {
 #postul {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    height: 80px;
     border-top: 1px solid white;
 
     display: flex;
@@ -171,3 +170,12 @@ body {
     height: 14px;
 }
 
+
+.input-group{
+    padding:0 40px
+
+}
+
+.page-controller{
+    margin: 20px 0
+}
