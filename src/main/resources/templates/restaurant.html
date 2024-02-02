@@ -29,8 +29,8 @@
 
                     </div>
                     <div id="favoriteContainer">
-                        <img id="favoriteImg" class="before-favorite"
-                             src="https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104">
+                        <img id="favoriteImg" th:class="${isFavoriteExist} ? 'after-favorite' : 'before-favorite'"
+                             th:src="${isFavoriteExist} ? 'https://s-lol-web.op.gg/images/icon/icon-bookmark-on-w.svg?v=1702977255104' : 'https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104'">
                     </div>
                 </div>
                 <span id="restaurantType" th:text="${restaurant.restaurantType}"></span>
@@ -81,7 +81,10 @@
     <div class="comment-container">
         <div class="section-title">댓글</div>
         <div class="input-container">
-            <textarea id="commentInput" placeholder="식당에 대한 댓글을 남겨주세요."></textarea>
+            <div>
+                <textarea id="commentInput" placeholder="식당에 대한 댓글을 남겨주세요."></textarea>
+                <span id="commentAlert"></span>
+            </div>
             <button class="button evaluation-button" onclick="sendComment()">등록</button>
         </div>
         <div class="sort-toggle-buttons">
@@ -91,7 +94,18 @@
     </div>
     <div class="comment-list-container">
         <ul id="commentList">
-
+            <li th:each="restaurantComment : ${restaurantComments}">
+                <div class="like-div" th:text="${restaurantComment[1]}"></div>
+                <div class="body-div">
+                    <div class="nick-date-div">
+                        <span class="nick-span" th:text="${restaurantComment[0].getUser.getUserNickname()}"></span>
+                        <span class="date-span" th:text="${restaurantComment[0].getCreatedAt()}"></span>
+                    </div>
+                    <div class="real-comment-container">
+                        <span th:text="${restaurantComment[0].getCommentBody()}"></span>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>

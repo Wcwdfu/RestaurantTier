@@ -45,11 +45,12 @@ public class RestaurantCommentService {
         }
     }
 
-    public List<RestaurantComment> getCommentList(int restaurantId, SortComment sortComment) {
+    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         if (sortComment == SortComment.POPULAR) {
-            return null;
+            return restaurantCommentRepository.findOrderPopular(restaurant);
         } else if (sortComment == SortComment.LATEST) {
-            return null;
+            return restaurantCommentRepository.findOrderLatest(restaurant);
         } else {
             return null;
         }

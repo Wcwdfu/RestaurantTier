@@ -1,4 +1,6 @@
 // 창이 로드될 때와 창 크기가 바뀔 때 적용할 함수 넣어주기
+var map;
+var marker;
 window.onload = function() {
     mainImgResize();
     // html 에서 식당 정보 가져오기
@@ -7,12 +9,12 @@ window.onload = function() {
     var latitude = parseFloat(restaurantInfo.getAttribute('data-latitude'));
     var longitude = parseFloat(restaurantInfo.getAttribute('data-longitude'));
     // 네이버 지도
-    var map = new naver.maps.Map('map', {
+    map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(latitude, longitude),//위도, 경도
         zoom: 16,
-        minZoom: 8,
+        minZoom: 10,
     });
-    var marker = new naver.maps.Marker({
+    marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(latitude, longitude),//위도, 경도
         map: map
     });
@@ -31,40 +33,45 @@ function mainImgResize() {
 }
 
 // 초기 favorite 설정
-const beforeImgUrl = 'https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104'
-const afterImgUrl = 'https://s-lol-web.op.gg/images/icon/icon-bookmark-on-w.svg?v=1702977255104'
-let isFavorite = false;
+const beforeImgUrl = 'https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104';
+const afterImgUrl = 'https://s-lol-web.op.gg/images/icon/icon-bookmark-on-w.svg?v=1702977255104';
 const favoriteImg = document.getElementById('favoriteImg');
-if (isFavorite) {
-  setFavorite(favoriteImg);
-} else {
-  unsetFavorite(favoriteImg);
-}
 // favorite 버튼 이벤트리스너 등록
 document.getElementById('favoriteImg').addEventListener('click', function() {
-  if (this.classList.contains('before-favorite')) { // favorite으로 추가한 경우
-    setFavorite(this);
-  } else if (this.classList.contains('after-favorite')) { // favorite에서 뺀 경우
-    unsetFavorite(this);
-  }
+    toggleFavoriteRequest();
+    toggleFavoriteHTML(favoriteImg);
 });
-function setFavorite(favoriteImg) {
-  const imgContainerDiv = document.getElementById('favoriteContainer');
-
-  imgContainerDiv.style.backgroundColor = '#E28400';
-  imgContainerDiv.style.border = '1px solid #E28400'
-  favoriteImg.src = afterImgUrl;
-  favoriteImg.classList.remove('before-favorite');
-  favoriteImg.classList.add('after-favorite');
+// 식당 Favorite 토글 요청
+function toggleFavoriteRequest() {
+    fetch("/api" + window.location.pathname + "/favorite/toggle", {
+        method: 'POST',
+    })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = "/user/login";
+            } else {
+                // 리다이렉션이 없는 경우에 대한 처리
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response;
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
-function unsetFavorite(favoriteImg) {
-  const imgContainerDiv = document.getElementById('favoriteContainer');
+// 식당 Favorite 버튼 토글 변경
+function toggleFavoriteHTML(favoriteImg) {
+    const isFavorite = favoriteImg.classList.contains('after-favorite');
 
-  imgContainerDiv.style.backgroundColor = '#fff';
-  imgContainerDiv.style.border = '1px solid #bbb'
-  favoriteImg.src = beforeImgUrl;
-  favoriteImg.classList.remove('after-favorite');
-  favoriteImg.classList.add('before-favorite');
+    if (isFavorite) {
+        favoriteImg.src = beforeImgUrl;
+        favoriteImg.classList.remove('after-favorite');
+        favoriteImg.classList.add('before-favorite');
+    } else {
+        favoriteImg.src = afterImgUrl;
+        favoriteImg.classList.remove('before-favorite');
+        favoriteImg.classList.add('after-favorite');
+    }
 }
 
 
@@ -154,8 +161,12 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
 
 // 메뉴 펼쳤다 접기
 const unfoldButton = document.getElementById('menuUnfoldButton');
+const menuUL = document.getElementById('menuUL');
 if (unfoldButton) {
-    const initialMenusHeight = parseFloat(getComputedStyle(document.getElementById('menuUL')).height)
+    let initialMenusHeight;
+    if (menuUL) {
+        initialMenusHeight = parseFloat(getComputedStyle(menuUL).height);
+    }
     unfoldButton.addEventListener('click', function() {
         const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         const thisText = this.textContent;
@@ -185,62 +196,72 @@ document.getElementById('mapUnfoldButton').addEventListener('click', function() 
     const thisText = this.textContent;
     const mapDiv = document.getElementById('map');
     const mapContainer = document.getElementById('mapContainer');
+    const width = parseFloat(getComputedStyle(this).width);
 
     if (thisText === '펼치기') {
         this.textContent = '접기';
-        let newHeight = parseFloat(getComputedStyle(this).width) * 0.6;
+        let newHeight = width * 0.6;
         if (newHeight < 400) {
             newHeight = 400;
         }
-        mapDiv.style.height = newHeight + 'px';
+        resize(width, newHeight);
         // 지도가 가장 위로 오도록 화면 스크롤
         mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
         this.textContent = '펼치기';
-        mapDiv.style.height = '150px';
+        resize(width, 150);
     }
 });
+function resize(width, height){
+    var Size = new naver.maps.Size(width, height);
+    map.setSize(Size);
+}
 
 // 댓글 인기순, 최신순 토글 초기화
 let activeButton = document.getElementById('button1');
-// 댓글 토글 함수
+// 댓글 인기순, 최신순 토글 함수
 function toggleButton(buttonNumber) {
-  const currentButton = document.getElementById(`button${buttonNumber}`);
-  
-  if (activeButton === currentButton) {
+    const currentButton = document.getElementById(`button${buttonNumber}`);
+    const queryParameter = buttonNumber === 1 ? 'POPULAR' : 'LATEST';
+    const apiUrl = "/api" + window.location.pathname + "/comments?sort=" + queryParameter;
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 성공적으로 데이터를 받아왔을 때
+            fillCommentInfo(data);
+        })
+        .catch(error => {
+            // 오류 처리
+            console.error('Error fetching data:', error);
+        });
+
+    if (activeButton === currentButton) {
     // active 버튼 다시 클릭
-  } else {
+    } else {
     // active가 아닌 버튼 클릭
     if (activeButton) {
       activeButton.classList.remove('active');
     }
     currentButton.classList.add('active');
     activeButton = currentButton;
-  }
+    }
 }
 
-// 댓글 동적 생성
-commentData = [
-  [4, '김성운6', '2024.01.16. 17:11', '하하하하하하하하 나나 아아아아아 나나나나나 아아아앙'],
-  [142, '김성운1', '2024.01.16. 17:11', '하하하하하하하하'],
-  [43, '김성운3', '2024.01.16. 17:11', '나나 아아아아아 나나나나나 아아아앙'],
-  [-22, '김성운9', '2024.01.16. 17:11', '하하하하하하하하'],
-  [63, '김성운2', '2024.01.16. 17:11', '하하하하하하하하히히히히히히ㅣ히히히히히히히ㅣ힣 힣 딯 ㅈ ㄹㅈ ㄹ  가가가각 ㅇ나나나나나 아아아아아 나나나나나 아아아앙 나나나나나 앙아아'],
-  [33, '김성운4', '2024.01.16. 17:11', '하하하하하하하하'],
-  [-2, '김성운8', '2024.01.16. 17:11', '하하하하하하하하'],
-  [12, '김성운5', '2024.01.16. 17:11', '나나 아아아아아 나나나나나 아아아앙'],
-  [2, '김성운7', '2024.01.16. 17:11', '하하하하하하하하 나나 아아아아아 나나나나나 아아아앙 나나 아아아아아 나나나나나 아아아앙'],
-  [-2424, '김성운ㅈㅈㅈㅈㅈ', '2024.01.16. 17:11', '하하하하하하하하']
-]
-fillCommentInfo(commentData);
+// 댓글생성
 function fillCommentInfo(data) {
     const commentList = document.getElementById('commentList');
+    commentList.innerHTML = '';
     for (var i = 0; i < data.length; i++) {
       const li = document.createElement('li');
 
       const likeDiv = document.createElement('div');
       likeDiv.classList.add('like-div');
-      likeDiv.textContent = data[i][0];
+      likeDiv.textContent = data[i][1];
       li.appendChild(likeDiv);
 
       const bodyDiv = document.createElement('div');
@@ -250,10 +271,10 @@ function fillCommentInfo(data) {
       nickDateDiv.classList.add('nick-date-div');
       const nickSpan = document.createElement('span');
       nickSpan.classList.add('nick-span');
-      nickSpan.textContent = data[i][1];
+      nickSpan.textContent = data[i][0].user.userNickname;
       const dateSpan = document.createElement('span');
       dateSpan.classList.add('date-span');
-      dateSpan.textContent = data[i][2];
+      dateSpan.textContent = data[i][0].createdAt;
       nickDateDiv.appendChild(nickSpan);
       nickDateDiv.appendChild(dateSpan);
       bodyDiv.appendChild(nickDateDiv);
@@ -261,7 +282,7 @@ function fillCommentInfo(data) {
       const realCommentContainer = document.createElement('div');
       realCommentContainer.classList.add('real-comment-container');
       const realComment = document.createElement('span');
-      realComment.textContent = data[i][3];
+      realComment.textContent = data[i][0].commentBody;
       realCommentContainer.appendChild(realComment);
       bodyDiv.appendChild(realCommentContainer);
 
@@ -271,31 +292,64 @@ function fillCommentInfo(data) {
     }
 }
 
+// 댓글 눌렀을 때 로그인 여부 체크
+/*function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    console.log(value);
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+document.getElementById('commentInput').addEventListener('focus', function() {
+    const token = getCookie('JSESSIONID');
+
+    if (!token) {
+        window.location.href = '/user/login';
+    }
+})*/
+
 // 댓글 달기 요청
 function sendComment() {
-  const userTokenId = "user123";
-  const apiUrl = "/api/restaurants/1/comments";
-  const commentBody = document.getElementById('commentInput').value;
-  fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      userTokenId: userTokenId,
-      commentBody: commentBody,
-    }),
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
+    const apiUrl = "/api" + window.location.pathname + "/comments";
+    const currentUrl = window.location.href;
+    const commentInput = document.getElementById('commentInput');
+    const commentBody = commentInput.value;
+    const commentToggleButton2 = document.getElementById('button2');
+
+    const commentAlert = document.getElementById('commentAlert');
+    if (commentBody.length === 0) {
+        commentAlert.innerText = '내용을 입력해 주세요.';
+        return;
+    } else {
+        commentAlert.innerText = '';
+    }
+
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            commentBody: commentBody,
+        }),
     })
-    .then(data => {
-      console.log("Comment added successfully:", data);
-    })
-    .catch(error => {
-      console.error("Error adding comment:", error);
-    });
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = "/user/login";
+            } else {
+                // 리다이렉션이 없는 경우에 대한 처리
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                commentInput.value = '';
+                commentToggleButton2.click();
+
+                return response;
+            }
+        })
+        .then(data => {
+            //console.log("Comment added successfully:", data);
+        })
+        .catch(error => {
+            //console.error("Error adding comment:", error);
+        });
 }

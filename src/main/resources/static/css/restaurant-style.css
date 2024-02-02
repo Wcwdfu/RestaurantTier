@@ -159,6 +159,14 @@ div.basic-info > div.texts > span {
     font-size: 14px;
     color: #000;
 }
+.before-favorite {
+    background-color: #FFF;
+    border: 1px solid #bbb;
+}
+.after-favorite {
+    background-color: #E28400;
+    border: 1px solid #E28400;
+}
 
 /* 티어 정보 */
 .tier-info {
@@ -303,9 +311,18 @@ div.basic-info > div.texts > span {
     margin-left: 10px;
 }
 
-#commentInput {
-    display: flex;
+.input-container > div {
     flex: 1;
+}
+
+.input-container > div > span {
+    color: #FF0000;
+}
+
+#commentInput {
+    resize: none;
+    width: 100%;
+    height: 100%;
     border: none;
     border-radius: 5px;
     background-color: #0000;

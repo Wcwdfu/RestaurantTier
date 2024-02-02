@@ -27,6 +27,7 @@ public class RestaurantComment {
     @JoinColumn(name="restaurant_id")
     private Restaurant restaurant;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantComment")
     private List<RestaurantCommentlike> restaurantCommentlikeList=new ArrayList<>();
 
