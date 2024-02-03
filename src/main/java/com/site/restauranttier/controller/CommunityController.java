@@ -99,9 +99,6 @@ public class CommunityController {
             @RequestParam("category") String category,
             @RequestParam("content") String content,
             Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Post post = new Post(title, content, category, "ACTIVE", LocalDateTime.now());
         User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);
@@ -115,9 +112,6 @@ public class CommunityController {
             @RequestParam("content") String content,
             @RequestParam("postId") String postId,
             Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
@@ -130,9 +124,6 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/like")
     public ResponseEntity<String> postLikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
@@ -142,9 +133,6 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/dislike")
     public ResponseEntity<String> postDislikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
@@ -154,9 +142,6 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
     public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
@@ -180,9 +165,6 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/like/{commentId}")
     public ResponseEntity<String> likeComment(@PathVariable String commentId, Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
@@ -194,9 +176,6 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/dislike/{commentId}")
     public ResponseEntity<String> dislikeComment(@PathVariable String commentId, Model model, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
