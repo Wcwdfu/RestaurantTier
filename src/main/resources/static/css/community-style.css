@@ -172,12 +172,12 @@ body {
 
 
 .input-group{
-    padding:0 40px
+    padding:0 10%;
 
 }
 
 .page-controller{
-    margin: 20px 0
+    margin: 20px 0;
 }
 .filter img{
     width: 20px;
@@ -187,4 +187,12 @@ body {
 .filter{
     text-decoration: none;
     color:inherit;
+}
+
+@media only screen and (min-width: 1025px) {
+
+    .input-group{
+        padding:0 30%;
+
+    }
 }

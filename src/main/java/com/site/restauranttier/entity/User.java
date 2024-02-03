@@ -97,5 +97,10 @@ public class User {
     private List<Post> dislikePostList = new ArrayList<>();
     @ManyToMany(mappedBy = "likeUserList")
     private List<Post> likePostList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "dislikeUserList")
+    private List<PostComment> dislikePostCommentList = new ArrayList<>();
+    @ManyToMany(mappedBy = "likeUserList")
+    private List<PostComment> likePostCommentList = new ArrayList<>();
 }
 

@@ -102,4 +102,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     )
 
+    document.querySelectorAll('.comment-up').forEach(button => {
+        event.preventDefault()
+
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-id'); // data-id 속성에서 댓글 ID 가져오기
+            fetch(`/api/comment/like/${commentId}`, { // 서버에 GET 요청 보내기
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        this.innerHTML = '<img src="/img/community/up-green.png">'; // 버튼 이미지를 초록색으로 변경
+                        const span = this.parentNode.querySelector('span');
+                        let likeCount = parseInt(span.textContent, 10);
+                        likeCount += 1;
+                        span.textContent = likeCount;
+
+                    }
+
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // 'comment-down' 버튼에 대한 이벤트 리스너 추가
+    document.querySelectorAll('.comment-down').forEach(button => {
+        event.preventDefault()
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-id');
+            fetch(`/api/comment/dislike/${commentId}`, {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        this.innerHTML = '<img src="/img/community/down-red.png">'; // 버튼 이미지를 빨간색으로 변경
+                        const span = this.parentNode.querySelector('span');
+                        let likeCount = parseInt(span.textContent, 10);
+                        likeCount -= 1;
+                        span.textContent = likeCount;
+
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+
+
 })

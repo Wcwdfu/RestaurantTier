@@ -57,7 +57,7 @@
 
         <div class="post-like">
             <button type="button" id="likeButton" class="post-button" th:data-post-id="${post.postId}">
-                <img th:if="${post.likeUserList.contains(user)}" src="/img/community/upGreen.png">
+                <img th:if="${post.likeUserList.contains(user)}" src="/img/community/up-green.png">
                 <img th:unless="${post.likeUserList.contains(user)}" src="/img/community/up.png">
                 <span th:text="${post.likeUserList.size()}"></span>
             </button>
@@ -115,11 +115,11 @@
                 <li class="comment-li" th:each="comment,loop:${post.postCommentList}">
                     <div>
                         <div class="comment-left">
-                            <button type="button">
+                            <button class="comment-up" type="button" th:data-id="${comment.commentId}">
                                 <img src="/img/community/up.png">
                             </button>
-                            <span>0</span>
-                            <button type="button">
+                            <span th:text="${comment.likeCount}"></span>
+                            <button class="comment-down" type="button" th:data-id="${comment.commentId}">
                                 <img src="/img/community/down.png">
                             </button>
                         </div>

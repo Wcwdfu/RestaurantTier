@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class CommunityController {
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
     private final PostScrapService postScrapService;
+
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 커뮤니티 메인 화면
@@ -168,5 +170,25 @@ public class CommunityController {
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "community";
+    }
+    // 게시글 댓글 좋아요
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/comment/like/{commentId}")
+    public ResponseEntity<String> likeComment(@PathVariable String commentId, Model model, Principal principal){
+        Integer commentIdInt = Integer.valueOf(commentId);
+        PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
+        User user = customOAuth2UserService.getUser(principal.getName());
+        postCommentService.likeCreateOrDelete(postComment, user);
+        return ResponseEntity.ok("댓글 좋아요가 처리 완료되었습니다");
+    }
+    // 게시글 댓글 싫어요
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/comment/dislike/{commentId}")
+    public ResponseEntity<String> dislikeComment(@PathVariable String commentId, Model model, Principal principal){
+        Integer commentIdInt = Integer.valueOf(commentId);
+        PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
+        User user = customOAuth2UserService.getUser(principal.getName());
+        postCommentService.dislikeCreateOrDelete(postComment, user);
+        return ResponseEntity.ok("댓글 싫어요가 처리 완료되었습니다");
     }
 }

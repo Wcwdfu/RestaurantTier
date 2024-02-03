@@ -9,12 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -44,6 +48,11 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfoEndPoint -> userInfoEndPoint
                                 .userService(customOAuth2UserService))
                         .successHandler(new CustomLoginSuccessHandler()))
+                //사이트 내 로그인
+                .formLogin(form -> form
+                        .loginPage("/user/login")
+                        .defaultSuccessUrl("/home")
+                        .failureUrl("/user/login?error=true"))
                 .logout((logout) -> logout
                         .logoutUrl("/user/logout")
                         .logoutSuccessUrl("/home")
@@ -52,6 +61,19 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll());
         return http.build();
+    }
+
+    //    BCryptPasswordEncoder 암호화 객체를 빈으로 등록
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    //  스프링 시큐리티의 인증을 처리함
+    //  AuthenticationManager는 사용자 인증 시 앞에서 작성한 UserSecurityService와 PasswordEncoder를 내부적으로 사용하여 인증과 권한 부여 프로세스를 처리함
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
 

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('searchForm').submit();
         });
     });
+
     const btn_search = document.getElementById("postSearch");
     console.log(btn_search)
     btn_search.addEventListener('click', function() {
@@ -20,4 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
         document.getElementById('searchForm').submit();
     });
+
+
 });
