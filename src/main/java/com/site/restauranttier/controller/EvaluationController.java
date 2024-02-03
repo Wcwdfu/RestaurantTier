@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class EvaluationController {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 평가 페이지 화면
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/evaluation/{restaurantId}")
     public String evaluation(Model model, @PathVariable Integer restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
@@ -35,6 +37,7 @@ public class EvaluationController {
     }
 
     // 평가 데이터 db 저장 (기존 평가 존재 시 업데이트 진행)
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
         if (principal == null) {
