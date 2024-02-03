@@ -39,7 +39,8 @@
                         <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
 
                         </span>
-                        <span th:text="'추천 '+ ${post.likeUserList.size()-post.dislikeUserList.size()}" class="third-detail">
+                        <span th:text="'추천 '+ ${post.likeUserList.size()-post.dislikeUserList.size()}"
+                              class="third-detail">
 
                         </span>
                     </div>
@@ -116,11 +117,13 @@
                     <div>
                         <div class="comment-left">
                             <button class="comment-up" type="button" th:data-id="${comment.commentId}">
-                                <img src="/img/community/up.png">
+                                <img th:if="${comment.likeUserList.contains(user)}" src="/img/community/up-green.png">
+                                <img th:unless="${comment.likeUserList.contains(user)}" src="/img/community/up.png">
                             </button>
                             <span th:text="${comment.likeCount}"></span>
                             <button class="comment-down" type="button" th:data-id="${comment.commentId}">
-                                <img src="/img/community/down.png">
+                                <img th:if="${comment.dislikeUserList.contains(user)}" src="/img/community/down-red.png">
+                                <img th:unless="${comment.dislikeUserList.contains(user)}" src="/img/community/down.png">
                             </button>
                         </div>
                         <div class="comment-content">

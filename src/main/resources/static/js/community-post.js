@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     )
 
+    // 댓글 좋아요 버튼 리스너
     document.querySelectorAll('.comment-up').forEach(button => {
         event.preventDefault()
 
@@ -112,11 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => {
                     if (response.ok) {
-                        this.innerHTML = '<img src="/img/community/up-green.png">'; // 버튼 이미지를 초록색으로 변경
-                        const span = this.parentNode.querySelector('span');
-                        let likeCount = parseInt(span.textContent, 10);
-                        likeCount += 1;
-                        span.textContent = likeCount;
+                        window.location.reload();
+
 
                     }
 
@@ -125,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 'comment-down' 버튼에 대한 이벤트 리스너 추가
+    // 댓글 싫어요 버튼 리스너
     document.querySelectorAll('.comment-down').forEach(button => {
         event.preventDefault()
         button.addEventListener('click', function () {
@@ -135,11 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => {
                     if (response.ok) {
-                        this.innerHTML = '<img src="/img/community/down-red.png">'; // 버튼 이미지를 빨간색으로 변경
-                        const span = this.parentNode.querySelector('span');
-                        let likeCount = parseInt(span.textContent, 10);
-                        likeCount -= 1;
-                        span.textContent = likeCount;
+                        window.location.reload();
 
                     }
                 })

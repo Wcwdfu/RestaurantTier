@@ -85,12 +85,14 @@ public class CommunityController {
         return "community_post";
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 커뮤니티 글 작성 화면
     @GetMapping("/community/write")
     public String write() {
         return "community_write";
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 게시글 생성
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
@@ -107,6 +109,7 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 댓글 생성
     @PostMapping("/api/community/comment/create")
     public ResponseEntity<String> postCommentCreate(
@@ -125,6 +128,7 @@ public class CommunityController {
     }
 
     // 좋아요 생성
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/like")
     public ResponseEntity<String> postLikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
         if (principal == null) {
@@ -134,9 +138,9 @@ public class CommunityController {
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postService.likeCreateOrDelete(post, user);
-        return ResponseEntity.ok("좋아요가 처리 완료되었습니다");
+        return ResponseEntity.ok("게시글 좋아요가 처리 완료되었습니다");
     }
-
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/dislike")
     public ResponseEntity<String> postDislikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
         if (principal == null) {
@@ -146,9 +150,10 @@ public class CommunityController {
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postService.dislikeCreateOrDelete(post, user);
-        return ResponseEntity.ok("싫어요가 처리 완료되었습니다");
+        return ResponseEntity.ok("게시글 싫어요가 처리 완료되었습니다");
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
     public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
         if (principal == null) {
@@ -158,10 +163,11 @@ public class CommunityController {
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         postScrapService.scrapCreateOfDelete(post, user);
-        return ResponseEntity.ok("북마크가 처리 완료되었습니다");
+        return ResponseEntity.ok("게시글 북마크가 처리 완료되었습니다");
     }
 
     // 글 검색 화면
+
     @GetMapping("/community/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(defaultValue = "recent") String sort) {
         Page<Post> paging = this.postService.getList(page, sort, kw);
@@ -171,20 +177,22 @@ public class CommunityController {
         model.addAttribute("kw", kw);
         return "community";
     }
+
     // 게시글 댓글 좋아요
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/like/{commentId}")
-    public ResponseEntity<String> likeComment(@PathVariable String commentId, Model model, Principal principal){
+    public ResponseEntity<String> likeComment(@PathVariable String commentId, Model model, Principal principal) {
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
         postCommentService.likeCreateOrDelete(postComment, user);
         return ResponseEntity.ok("댓글 좋아요가 처리 완료되었습니다");
     }
+
     // 게시글 댓글 싫어요
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/dislike/{commentId}")
-    public ResponseEntity<String> dislikeComment(@PathVariable String commentId, Model model, Principal principal){
+    public ResponseEntity<String> dislikeComment(@PathVariable String commentId, Model model, Principal principal) {
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
