@@ -58,7 +58,6 @@ public class CommunityController {
 
 
     }
-
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
     public String post(Model model, @PathVariable Integer postId, Principal principal) {
@@ -85,15 +84,15 @@ public class CommunityController {
         return "community_post";
     }
 
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 커뮤니티 글 작성 화면
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/community/write")
     public String write() {
         return "community_write";
     }
 
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 게시글 생성
+
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
             @RequestParam("title") String title,
@@ -109,8 +108,8 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     // 댓글 생성
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/comment/create")
     public ResponseEntity<String> postCommentCreate(
             @RequestParam("content") String content,
@@ -152,7 +151,6 @@ public class CommunityController {
         postService.dislikeCreateOrDelete(post, user);
         return ResponseEntity.ok("게시글 싫어요가 처리 완료되었습니다");
     }
-
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
     public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
@@ -167,9 +165,9 @@ public class CommunityController {
     }
 
     // 글 검색 화면
-
     @GetMapping("/community/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(defaultValue = "recent") String sort) {
+
         Page<Post> paging = this.postService.getList(page, sort, kw);
         List<String> timeAgoList = postService.getTimeAgoList(paging);
         model.addAttribute("timeAgoList", timeAgoList);
@@ -182,6 +180,9 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/like/{commentId}")
     public ResponseEntity<String> likeComment(@PathVariable String commentId, Model model, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
@@ -193,6 +194,9 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/dislike/{commentId}")
     public ResponseEntity<String> dislikeComment(@PathVariable String commentId, Model model, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());

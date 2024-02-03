@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    // 댓글 작성
     document.getElementById('comment-form').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         // 현재 주소에서 postId 추출
@@ -12,10 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
             body: formData
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error("로그인이 되지 않았습니다");
+                console.log(response)
+                if (response.ok) {
+                    if (response.redirected) {
+                        window.location.href = "/user/login";
+                    } else {
+                        window.location.reload();
+
+                    }
+
+
                 }
-                window.location.reload();
             })
             .catch(error => {
                 alert(error.message)
@@ -30,18 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch("/api/post/like?postId=" + postId, {
                 method: 'GET'
             })
-                .then(reponse => {
-                    if (!reponse.ok) {
-                        if (reponse.status === 401) {
-                            alert("로그인이 되지 않았습니다");
+                .then(response => {
+                    if (response.ok) {
+                        if (response.redirected) {
+                            window.location.href = "/user/login";
                         } else {
-                            reponse.text().then(text => {
-                                alert("Error:" + text);
-                            })
+                            window.location.reload();
+
                         }
-                    } else {
-                        console.log("좋아요 생성 완료")
-                        window.location.reload();
+
+
                     }
                 }).catch(error =>
                 alert("Network error or problem with the request"))
@@ -56,18 +63,16 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch("/api/post/dislike?postId=" + postId, {
                 method: 'GET'
             })
-                .then(reponse => {
-                    if (!reponse.ok) {
-                        if (reponse.status === 401) {
-                            alert("로그인이 되지 않았습니다");
+                .then(response => {
+                    if (response.ok) {
+                        if (response.redirected) {
+                            window.location.href = "/user/login";
                         } else {
-                            reponse.text().then(text => {
-                                alert("Error:" + text);
-                            })
+                            window.location.reload();
+
                         }
-                    } else {
-                        console.log("싫어요 생성 완료")
-                        window.location.reload();
+
+
                     }
                 }).catch(error =>
                 alert("Network error or problem with the request"))
@@ -83,18 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch("/api/post/scrap?postId=" + postId, {
                 method: 'GET'
             })
-                .then(reponse => {
-                    if (!reponse.ok) {
-                        if (reponse.status === 401) {
-                            alert("로그인이 되지 않았습니다");
+                .then(response => {
+                    if (response.ok) {
+                        if (response.redirected) {
+                            window.location.href = "/user/login";
                         } else {
-                            reponse.text().then(text => {
-                                alert("Error:" + text);
-                            })
+                            window.location.reload();
+
                         }
-                    } else {
-                        console.log("스크랩 처리 완료")
-                        window.location.reload();
+
+
                     }
                 }).catch(error =>
                 alert("Network error or problem with the request"))
@@ -102,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     )
 
-    // 댓글 좋아요 버튼 리스너
+    // 댓글 싫어요 버튼 리스너
     document.querySelectorAll('.comment-up').forEach(button => {
         event.preventDefault()
 
@@ -113,7 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => {
                     if (response.ok) {
-                        window.location.reload();
+                        if (response.redirected) {
+                            window.location.href = "/user/login";
+                        } else {
+                            window.location.reload();
+
+                        }
 
 
                     }
@@ -133,7 +141,12 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => {
                     if (response.ok) {
-                        window.location.reload();
+                        if (response.redirected) {
+                            window.location.href = "/user/login";
+                        } else {
+                            window.location.reload();
+
+                        }
 
                     }
                 })
