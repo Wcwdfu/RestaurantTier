@@ -26,6 +26,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,32 +44,38 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model, @RequestParam(name = "category", required = false) String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "") String sort) {
+    public String community(Model model, @RequestParam(name = "category", defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "popular") String sort) {
         Page<Post> paging;
-        if (postCategory == null) {
+        if (postCategory.equals("전체")) {
             paging = postService.getList(page, sort);
         } else {
             paging = postService.getListByPostCategory(postCategory, page);
             model.addAttribute("category", postCategory);
         }
+
         List<String> timeAgoList = postService.getTimeAgoList(paging);
+        model.addAttribute("sort",sort);
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
-
-
     }
+
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
-    public String post(Model model, @PathVariable Integer postId, Principal principal) {
+    public String post(Model model, @PathVariable Integer postId, Principal principal,@RequestParam(defaultValue = "popular") String sort) {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
         String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
-        List<PostComment> postCommentList = post.getPostCommentList();
+        List<PostComment> postCommentList = new ArrayList<>();
+        if(sort.equals("popular")){
+            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
+        }else if(sort.equals("recent")){
+            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
+        }
         // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
         List<String> commentCreatedAtList = postCommentService.getCreatedAtList(postCommentList);
-
+        model.addAttribute("postCommentList",postCommentList);
         model.addAttribute("post", post);
         model.addAttribute("commentCreatedAtList", commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
@@ -130,6 +137,7 @@ public class CommunityController {
         postService.likeCreateOrDelete(post, user);
         return ResponseEntity.ok("게시글 좋아요가 처리 완료되었습니다");
     }
+
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/dislike")
     public ResponseEntity<String> postDislikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
@@ -139,6 +147,7 @@ public class CommunityController {
         postService.dislikeCreateOrDelete(post, user);
         return ResponseEntity.ok("게시글 싫어요가 처리 완료되었습니다");
     }
+
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
     public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {

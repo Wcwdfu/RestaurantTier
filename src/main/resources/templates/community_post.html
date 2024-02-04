@@ -39,7 +39,7 @@
                         <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
 
                         </span>
-                        <span th:text="'추천 '+ ${post.likeUserList.size()-post.dislikeUserList.size()}"
+                        <span th:text="'추천 '+ ${post.likeCount}"
                               class="third-detail">
 
                         </span>
@@ -106,14 +106,14 @@
 
         </div>
         <div class="comment-filter">
-            <button type="button" class="popularity filter">인기순</button>
-            <button type="button" class="latest filter">최신순</button>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter">인기순</a>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}" class="latest filter">최신순</a>
 
         </div>
 
         <div class="comment-list">
             <ul class="comment-ul">
-                <li class="comment-li" th:each="comment,loop:${post.postCommentList}">
+                <li class="comment-li" th:each="comment,loop:${postCommentList}">
                     <div>
                         <div class="comment-left">
                             <button class="comment-up" type="button" th:data-id="${comment.commentId}">

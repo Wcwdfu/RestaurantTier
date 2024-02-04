@@ -38,10 +38,15 @@
             <a href="community/write"><img class="icon" src="/img/community/write.png" alt="글쓰기"></a>
         </div>
     </div>
-        <div>
-            <a class="filter firstFilter" href="/community?sort=recent"><img src="/img/community/recent.png">최신</a>
-            <a class="filter" href="/community?sort=popular"><img src="/img/community/fire.png">인기</a>
-        </div>
+    <div>
+
+        <a class="filter firstFilter" href="/community?sort=recent">
+            <img src="/img/community/recent-green.png" th:if="${sort.equals('recent')}"><img
+                src="/img/community/recent.png" th:if="${sort.equals('popular')}">최신</a>
+        <a class="filter" href="/community?sort=popular">
+        <img src="/img/community/fire-green.png" th:if="${sort.equals('popular')}"><img
+            src="/img/community/fire.png" th:if="${sort.equals('recent')}">인기</a>
+    </div>
     <ul id="postul">
         <li th:each="post,iterStat: ${paging}" class="postli">
         <span class="recommend-tab">
@@ -72,7 +77,6 @@
 
 
 </body>
-
 
 
 <div class="input-group">

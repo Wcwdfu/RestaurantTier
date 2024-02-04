@@ -201,8 +201,11 @@ main {
 }
 
 .post-footer > .comment-filter {
+    height:50px;
     padding: 0px 16px;
     border-bottom: 1px solid #ebeef1;
+    display: flex;
+    align-items: center;
 }
 
 .comment-filter .filter {
@@ -210,9 +213,11 @@ main {
     line-height: 1;
     border: none;
     background: none;
-    padding: 16px;
+    padding:0 10px;
     height: auto;
     position: relative;
+    text-decoration: none;
+    color:inherit;
 }
 
 #comment-content {
