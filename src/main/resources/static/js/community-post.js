@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // 댓글 작성
-    document.querySelector('.post-footer comment-form').item(0).addEventListener('submit', function (event) {
+    document.querySelector('.post-footer .comment-form').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         // 현재 주소에서 postId 추출
         var postId = window.location.pathname.split('/').pop();
@@ -31,10 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
+    
+    // 게시글 좋아요
     document.getElementById("likeButton").addEventListener('click',
         function (event) {
 
-            event.preventDefault()
             var postId = this.dataset.postId;
             fetch("/api/post/like?postId=" + postId, {
                 method: 'GET'
@@ -55,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
     )
+    
+    // 게시글 싫어요
     document.getElementById("dislikeButton").addEventListener('click',
         function (event) {
 
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     )
 
-    // 댓글 싫어요 버튼 리스너
+    // 댓글 좋아요 버튼 리스너
     document.querySelectorAll('.comment-up').forEach(button => {
 
         button.addEventListener('click', function (event) {
@@ -133,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 댓글 싫어요 버튼 리스너
     document.querySelectorAll('.comment-down').forEach(button => {
-        event.preventDefault()
         button.addEventListener('click', function (event) {
             event.preventDefault()
             const commentId = this.getAttribute('data-id');
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     // 대댓글 달기 버튼 리스너
-    document.querySelectorAll('.comment-button.reply').forEach(function (button) {
+    document.querySelectorAll('.reply').forEach(function (button) {
         button.addEventListener('click', function (event) {
             event.preventDefault()
             // 현재 페이지의 모든 댓글 작성 창을 찾습니다.
