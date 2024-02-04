@@ -316,12 +316,6 @@ function sendComment() {
     const commentToggleButton2 = document.getElementById('button2');
 
     const commentAlert = document.getElementById('commentAlert');
-    if (commentBody.length === 0) {
-        commentAlert.innerText = '내용을 입력해 주세요.';
-        return;
-    } else {
-        commentAlert.innerText = '';
-    }
 
     fetch(apiUrl, {
         method: "POST",
@@ -334,14 +328,20 @@ function sendComment() {
     })
         .then(response => {
             if (response.redirected) {
-                window.location.href = "/user/login";
+                window.location.href = response.url;
             } else {
                 // 리다이렉션이 없는 경우에 대한 처리
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                commentInput.value = '';
-                commentToggleButton2.click();
+                if (commentBody.length === 0) {
+                    commentAlert.innerText = '내용을 입력해 주세요.';
+                    return;
+                } else {
+                    commentInput.value = '';
+                    commentAlert.innerText = '';
+                    commentToggleButton2.click();
+                }
 
                 return response;
             }
