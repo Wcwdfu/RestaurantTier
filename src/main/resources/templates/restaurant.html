@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 0}">
+    <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 1 || menus[0].menuName != 'no_menu'}">
         <div class="section-title">메뉴</div>
         <div id="menuInfoContainer">
             <ul class="menu-ul" id="menuUL">
@@ -95,7 +95,17 @@
     <div class="comment-list-container">
         <ul id="commentList">
             <li th:each="restaurantComment : ${restaurantComments}">
-                <div class="like-div" th:text="${restaurantComment[1]}"></div>
+                <div class="like-div">
+                    <button class="comment-up" type="button" th:data-id="${restaurantComment[0].commentId}">
+                        <img th:if="${restaurantComment[0].restaurantCommentlikeList.contains(user)}" src="/img/community/up-green.png">
+                        <img th:unless="${restaurantComment[0].restaurantCommentlikeList.contains(user)}" src="/img/community/up.png">
+                    </button>
+                    <span th:text="${restaurantComment[1]}"></span>
+                    <button class="comment-down" type="button" th:data-id="${restaurantComment[0].commentId}">
+                        <img th:if="${restaurantComment[0].restaurantCommentdislikeList.contains(user)}" src="/img/community/down-red.png">
+                        <img th:unless="${restaurantComment[0].restaurantCommentdislikeList.contains(user)}" src="/img/community/down.png">
+                    </button>
+                </div>
                 <div class="body-div">
                     <div class="nick-date-div">
                         <span class="nick-span" th:text="${restaurantComment[0].getUser.getUserNickname()}"></span>

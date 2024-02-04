@@ -39,7 +39,6 @@ const favoriteImg = document.getElementById('favoriteImg');
 // favorite 버튼 이벤트리스너 등록
 document.getElementById('favoriteImg').addEventListener('click', function() {
     toggleFavoriteRequest();
-    toggleFavoriteHTML(favoriteImg);
 });
 // 식당 Favorite 토글 요청
 function toggleFavoriteRequest() {
@@ -54,6 +53,7 @@ function toggleFavoriteRequest() {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                toggleFavoriteHTML(favoriteImg);
                 return response;
             }
         })
@@ -177,7 +177,6 @@ if (unfoldButton) {
             this.textContent = '접기';
             let maxHeight
                 = windowHeight * 0.55 > initialMenusHeight + 70 ? windowHeight * 0.55 : initialMenusHeight + 70;
-            console.log(initialMenusHeight);
             menuUL.style.maxHeight = maxHeight + 'px';
             menuUL.style.overflowY = 'scroll';
         } else {
@@ -257,39 +256,73 @@ function fillCommentInfo(data) {
     const commentList = document.getElementById('commentList');
     commentList.innerHTML = '';
     for (var i = 0; i < data.length; i++) {
-      const li = document.createElement('li');
+        const li = document.createElement('li');
 
-      const likeDiv = document.createElement('div');
-      likeDiv.classList.add('like-div');
-      likeDiv.textContent = data[i][1];
-      li.appendChild(likeDiv);
+        appendLikeDiv(li);
 
-      const bodyDiv = document.createElement('div');
-      bodyDiv.classList.add('body-div');
+        const bodyDiv = document.createElement('div');
+        bodyDiv.classList.add('body-div');
 
-      const nickDateDiv = document.createElement('div');
-      nickDateDiv.classList.add('nick-date-div');
-      const nickSpan = document.createElement('span');
-      nickSpan.classList.add('nick-span');
-      nickSpan.textContent = data[i][0].user.userNickname;
-      const dateSpan = document.createElement('span');
-      dateSpan.classList.add('date-span');
-      dateSpan.textContent = data[i][0].createdAt;
-      nickDateDiv.appendChild(nickSpan);
-      nickDateDiv.appendChild(dateSpan);
-      bodyDiv.appendChild(nickDateDiv);
+        const nickDateDiv = document.createElement('div');
+        nickDateDiv.classList.add('nick-date-div');
+        const nickSpan = document.createElement('span');
+        nickSpan.classList.add('nick-span');
+        nickSpan.textContent = data[i][0].user.userNickname;
+        const dateSpan = document.createElement('span');
+        dateSpan.classList.add('date-span');
+        dateSpan.textContent = data[i][0].createdAt;
+        nickDateDiv.appendChild(nickSpan);
+        nickDateDiv.appendChild(dateSpan);
+        bodyDiv.appendChild(nickDateDiv);
 
-      const realCommentContainer = document.createElement('div');
-      realCommentContainer.classList.add('real-comment-container');
-      const realComment = document.createElement('span');
-      realComment.textContent = data[i][0].commentBody;
-      realCommentContainer.appendChild(realComment);
-      bodyDiv.appendChild(realCommentContainer);
+        const realCommentContainer = document.createElement('div');
+        realCommentContainer.classList.add('real-comment-container');
+        const realComment = document.createElement('span');
+        realComment.textContent = data[i][0].commentBody;
+        realCommentContainer.appendChild(realComment);
+        bodyDiv.appendChild(realCommentContainer);
 
-      li.appendChild(bodyDiv);
+        li.appendChild(bodyDiv);
 
-      commentList.appendChild(li);
+        commentList.appendChild(li);
     }
+}
+function appendLikeDiv(li) {
+    const likeDiv = document.createElement('div');
+    likeDiv.classList.add('like-div');
+    // 첫 번째 버튼 생성
+    var upButton = document.createElement("button");
+    upButton.className = "comment-up";
+    upButton.type = "button";
+    upButton.setAttribute("data-id", "78"); // data-id 속성 설정
+
+    var upImg = document.createElement("img");
+    upImg.src = "/img/community/up.png";
+
+    upButton.appendChild(upImg);
+
+    // 숫자를 보여주는 span 요소 생성
+    var countSpan = document.createElement("span");
+    countSpan.innerText = "0"; // 초기값으로 0 설정
+
+    // 두 번째 버튼 생성
+    var downButton = document.createElement("button");
+    downButton.className = "comment-down";
+    downButton.type = "button";
+    downButton.setAttribute("data-id", "78"); // data-id 속성 설정
+
+    var downImg = document.createElement("img");
+    downImg.src = "/img/community/down.png";
+
+    downButton.appendChild(downImg);
+
+    // 각각의 요소를 부모 요소에 추가
+    likeDiv.appendChild(upButton);
+    likeDiv.appendChild(countSpan);
+    likeDiv.appendChild(downButton);
+
+    // 부모 요소에 생성한 div를 추가
+    li.appendChild(likeDiv);
 }
 
 // 댓글 눌렀을 때 로그인 여부 체크

@@ -2,50 +2,32 @@ package com.site.restauranttier.repository;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantComment;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class RestaurantCommentRepository {
+public interface RestaurantCommentRepository extends JpaRepository<RestaurantComment, Long> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Query("SELECT e, COUNT(a) " +
+            "FROM RestaurantComment e " +
+            "LEFT JOIN e.restaurantCommentlikeList a " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "GROUP BY e " +
+            "ORDER BY COUNT(a) DESC")
+    List<Object[]> findOrderPopular(@Param("restaurant") Restaurant restaurant);
 
-    @Transactional
-    public void save(RestaurantComment restaurantComment) {
-        entityManager.persist(restaurantComment);
-    }
+    @Query("SELECT e, COUNT(a) " +
+            "FROM RestaurantComment e " +
+            "LEFT JOIN e.restaurantCommentlikeList a " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "GROUP BY e " +
+            "ORDER BY e.createdAt DESC")
+    List<Object[]> findOrderLatest(@Param("restaurant") Restaurant restaurant);
 
-    public List<Object[]> findOrderPopular(Restaurant restaurant) {
-        return entityManager.createQuery(
-                        "SELECT e, COUNT(a) " +
-                                "FROM RestaurantComment e " +
-                                "LEFT JOIN e.restaurantCommentlikeList a " +
-                                "WHERE e.restaurant = :value1 " +
-                                "AND e.status = :value2 " +
-                                "GROUP BY e " +
-                                "ORDER BY COUNT(a) DESC", Object[].class)
-                .setParameter("value1", restaurant)
-                .setParameter("value2", "ACTIVE")
-                .getResultList();
-    }
-
-    public List<Object[]> findOrderLatest(Restaurant restaurant) {
-        return entityManager.createQuery(
-                        "SELECT e, COUNT(a) " +
-                                "FROM RestaurantComment e " +
-                                "LEFT JOIN e.restaurantCommentlikeList a " +
-                                "WHERE e.restaurant = :value1 " +
-                                "AND e.status = :value2 " +
-                                "GROUP BY e " +
-                                "ORDER BY e.createdAt DESC", Object[].class)
-                .setParameter("value1", restaurant)
-                .setParameter("value2", "ACTIVE")
-                .getResultList();
-    }
+    Optional<RestaurantComment> findByCommentId(Integer commentId);
 }

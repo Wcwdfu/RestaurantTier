@@ -1,17 +1,15 @@
 package com.site.restauranttier.service;
 
-import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.entity.RestaurantComment;
-import com.site.restauranttier.entity.User;
+import com.site.restauranttier.DataNotFoundException;
+import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.SortComment;
-import com.site.restauranttier.repository.RestaurantCommentRepository;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -19,6 +17,8 @@ import java.util.Optional;
 public class RestaurantCommentService {
 
     private final RestaurantCommentRepository restaurantCommentRepository;
+    private final RestaurantCommentLikeRepository restaurantCommentLikeRepository;
+    private final RestaurantCommentDislikeRepository restaurantCommentDislikeRepository;
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
 
@@ -45,6 +45,15 @@ public class RestaurantCommentService {
         }
     }
 
+    public RestaurantComment getComment(int commentId) {
+        Optional<RestaurantComment> restaurantCommentOptional = restaurantCommentRepository.findByCommentId(commentId);
+        if (restaurantCommentOptional.isPresent()) {
+            return restaurantCommentOptional.get();
+        } else {
+            throw new DataNotFoundException("comment not found");
+        }
+    }
+
     public List<Object[]> getCommentList(int restaurantId, SortComment sortComment) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         if (sortComment == SortComment.POPULAR) {
@@ -53,6 +62,70 @@ public class RestaurantCommentService {
             return restaurantCommentRepository.findOrderLatest(restaurant);
         } else {
             return null;
+        }
+    }
+
+    /*public void likeComment(User user, RestaurantComment restaurantComment, Map<String, String> responseMap) {
+        Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+        Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+
+        if (restaurantCommentlikeOptional.isPresent() && restaurantCommentdislikeOptional.isPresent()) {
+            throw new IllegalStateException("Both like and dislike exist for the same comment.");
+        } else if (restaurantCommentlikeOptional.isPresent()) { // 좋아요를 눌렀었던 경우
+            user.getRestaurantCommentlikeList().remove(restaurantCommentlikeOptional.get());
+            responseMap.put("status", "unliked");
+        } else if (restaurantCommentdislikeOptional.isPresent()) { // 싫어요를 눌렀었던 경우
+            user.getRestaurantCommentdislikeList().remove(restaurantCommentdislikeOptional.get());
+            RestaurantCommentlike restaurantCommentlike = new RestaurantCommentlike(user, restaurantComment);
+            user.getRestaurantCommentlikeList().add(restaurantCommentlike);
+            responseMap.put("status", "switched");
+        } else { // 새로 댓글을 다는 경우
+            RestaurantCommentlike restaurantCommentlike = new RestaurantCommentlike(user, restaurantComment);
+            user.getRestaurantCommentlikeList().add(restaurantCommentlike);
+            responseMap.put("status", "liked");
+        }
+        userRepository.save(user);
+    }*/
+
+    public void likeComment(User user, RestaurantComment restaurantComment, Map<String, String> responseMap) {
+        Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+        Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+
+        if (restaurantCommentlikeOptional.isPresent() && restaurantCommentdislikeOptional.isPresent()) {
+            throw new IllegalStateException("Both like and dislike exist for the same comment.");
+        } else if (restaurantCommentlikeOptional.isPresent()) { // 좋아요를 눌렀었던 경우
+            restaurantCommentLikeRepository.delete(restaurantCommentlikeOptional.get());
+            responseMap.put("status", "unliked");
+        } else if (restaurantCommentdislikeOptional.isPresent()) { // 싫어요를 눌렀었던 경우
+            restaurantCommentDislikeRepository.delete(restaurantCommentdislikeOptional.get());
+            RestaurantCommentlike restaurantCommentlike = new RestaurantCommentlike(user, restaurantComment);
+            restaurantCommentLikeRepository.save(restaurantCommentlike);
+            responseMap.put("status", "switched");
+        } else { // 새로 좋아요를 누르는 경우
+            RestaurantCommentlike restaurantCommentlike = new RestaurantCommentlike(user, restaurantComment);
+            restaurantCommentLikeRepository.save(restaurantCommentlike);
+            responseMap.put("status", "liked");
+        }
+    }
+
+    public void dislikeComment(User user, RestaurantComment restaurantComment, Map<String, String> responseMap) {
+        Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+        Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+
+        if (restaurantCommentlikeOptional.isPresent() && restaurantCommentdislikeOptional.isPresent()) {
+            throw new IllegalStateException("Both like and dislike exist for the same comment.");
+        } else if (restaurantCommentdislikeOptional.isPresent()) { // 싫어요를 눌렀었던 경우
+            restaurantCommentDislikeRepository.delete(restaurantCommentdislikeOptional.get());
+            responseMap.put("status", "unhated");
+        } else if (restaurantCommentlikeOptional.isPresent()) { // 좋아요를 눌렀었던 경우
+            restaurantCommentLikeRepository.delete(restaurantCommentlikeOptional.get());
+            RestaurantCommentdislike restaurantCommentdislike = new RestaurantCommentdislike(user, restaurantComment);
+            restaurantCommentDislikeRepository.save(restaurantCommentdislike);
+            responseMap.put("status", "switched");
+        } else { // 새로 싫어요를 누르는 경우
+            RestaurantCommentdislike restaurantCommentdislike = new RestaurantCommentdislike(user, restaurantComment);
+            restaurantCommentDislikeRepository.save(restaurantCommentdislike);
+            responseMap.put("status", "hated");
         }
     }
 }

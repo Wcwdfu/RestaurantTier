@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.site.restauranttier.user.UserRole;
 import jakarta.persistence.*;
@@ -60,6 +61,10 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<RestaurantCommentdislike> restaurantCommentdislikeList = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -69,6 +74,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PostComment> postCommentList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<PostScrap> scrapList = new ArrayList<>();
 
@@ -93,13 +99,17 @@ public class User {
         return this.userRole.getValue();
     }
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "dislikeUserList")
     private List<Post> dislikePostList = new ArrayList<>();
+    @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<Post> likePostList = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "dislikeUserList")
     private List<PostComment> dislikePostCommentList = new ArrayList<>();
+    @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<PostComment> likePostCommentList = new ArrayList<>();
 }
