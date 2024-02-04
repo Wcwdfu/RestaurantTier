@@ -82,8 +82,8 @@
         <div class="comment-bar"></div>
         <div class="comment-write">
             <div>
-                <form id="comment-form" action="/api/community/comment/create" method="post">
-                <textarea name="content" id="comment-content" maxlength="1000"
+                <form class="comment-form" action="/api/community/comment/create" method="post">
+                <textarea name="content" class="comment-content" maxlength="1000"
                           placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
@@ -113,7 +113,7 @@
 
         <div class="comment-list">
             <ul class="comment-ul">
-                <li class="comment-li" th:each="comment,loop:${postCommentList}">
+                <li class="comment-li" th:each="comment,loop:${postCommentList}" th:data-id="${comment.commentId}">
                     <div>
                         <div class="comment-left">
                             <button class="comment-up" type="button" th:data-id="${comment.commentId}">
@@ -142,7 +142,7 @@
                                     <button class="comment-button">신고</button>
                                 </li>
                                 <li>
-                                    <button class="comment-button">답글 쓰기</button>
+                                    <button class="comment-button reply">답글 쓰기</button>
                                 </li>
                             </ul>
                         </div>
