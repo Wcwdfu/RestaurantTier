@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
-    
+
     // 게시글 좋아요
     document.getElementById("likeButton").addEventListener('click',
         function (event) {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
     )
-    
+
     // 게시글 싫어요
     document.getElementById("dislikeButton").addEventListener('click',
         function (event) {
@@ -188,10 +188,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 새로운 댓글 작성 창을 생성하고 삽입합니다.
                 var commentWriteForm = document.querySelector('.comment-write').cloneNode(true);
 
-                var commentId = this.closest('.comment-li').getAttribute('data-id');
+                var parentCommentId = this.closest('.comment-li').getAttribute('data-id');
 
                 // 폼에 data-comment-id 속성 추가
-                commentWriteForm.setAttribute('data-comment-id', commentId);
+                commentWriteForm.setAttribute('data-comment-id', parentCommentId);
 
                 parentComment.parentNode.insertBefore(commentWriteForm, parentComment.nextSibling);
                 commentWriteForm.querySelector('textarea').focus();
@@ -208,14 +208,14 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         // 현재 주소에서 postId 추출
         var postId = window.location.pathname.split('/').pop();
-
+        console.log(postId)
         var formData = new FormData(this);
         formData.append('postId', postId);
 
         // 폼에서 data-comment-id 속성 값을 가져와서 formData에 추가
-        var commentId = this.getAttribute('data-comment-id');
-        if (commentId) {
-            formData.append('commentId', commentId); // 대댓글이 속한 댓글의 ID를 formData에 추가
+        var parentCommentId = this.getAttribute('data-comment-id');
+        if (parentCommentId) {
+            formData.append('parentCommentId', parentCommentId); // 대댓글이 속한 댓글의 ID를 formData에 추가
         }
 
 

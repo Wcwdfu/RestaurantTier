@@ -54,7 +54,7 @@ public class CommunityController {
         }
 
         List<String> timeAgoList = postService.getTimeAgoList(paging);
-        model.addAttribute("sort",sort);
+        model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
@@ -62,20 +62,20 @@ public class CommunityController {
 
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
-    public String post(Model model, @PathVariable Integer postId, Principal principal,@RequestParam(defaultValue = "popular") String sort) {
+    public String post(Model model, @PathVariable Integer postId, Principal principal, @RequestParam(defaultValue = "popular") String sort) {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
         String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
         List<PostComment> postCommentList = new ArrayList<>();
-        if(sort.equals("popular")){
+        if (sort.equals("popular")) {
             postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
-        }else if(sort.equals("recent")){
+        } else if (sort.equals("recent")) {
             postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
         }
         // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
         List<String> commentCreatedAtList = postCommentService.getCreatedAtList(postCommentList);
-        model.addAttribute("postCommentList",postCommentList);
+        model.addAttribute("postCommentList", postCommentList);
         model.addAttribute("post", post);
         model.addAttribute("commentCreatedAtList", commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
@@ -117,13 +117,19 @@ public class CommunityController {
     @PostMapping("/api/community/comment/create")
     public ResponseEntity<String> postCommentCreate(
             @RequestParam("content") String content,
-            @RequestParam("postId") String postId,
+            @RequestParam(name = "postId") String postId,
+            @RequestParam(name = "parentCommentId", defaultValue = "") String parentCommentId,
             Model model, Principal principal) {
         Integer postidInt = Integer.valueOf(postId);
+
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
         PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
+        if (!parentCommentId.isEmpty()) {
+            postComment.setParentCommentId(Integer.valueOf(parentCommentId));
+        }
         postCommentService.create(post, user, postComment);
+
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
     }
 
