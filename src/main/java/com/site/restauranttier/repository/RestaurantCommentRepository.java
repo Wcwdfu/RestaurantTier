@@ -2,50 +2,81 @@ package com.site.restauranttier.repository;
 
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.RestaurantComment;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.site.restauranttier.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class RestaurantCommentRepository {
+public interface RestaurantCommentRepository extends JpaRepository<RestaurantComment, Long> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Query("SELECT e, " +
+            "(SELECT COUNT(a) FROM e.restaurantCommentlikeList a) - (SELECT COUNT(d) FROM e.restaurantCommentdislikeList d) as likeDislikeDiff ," +
+            "false, false " +
+            "FROM RestaurantComment e " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "ORDER BY likeDislikeDiff DESC")
+    List<Object[]> findOrderPopular(@Param("restaurant") Restaurant restaurant);
 
-    @Transactional
-    public void save(RestaurantComment restaurantComment) {
-        entityManager.persist(restaurantComment);
-    }
+    @Query("SELECT e, " +
+            "(SELECT COUNT(a) FROM e.restaurantCommentlikeList a) - " +
+            "(SELECT COUNT(d) FROM e.restaurantCommentdislikeList d) as likeDislikeDiff, " +
+            "CASE WHEN EXISTS (" +
+            "  SELECT 1 FROM RestaurantCommentlike rcl " +
+            "  WHERE rcl.user = :user AND rcl.restaurantComment = e" +
+            ") THEN true ELSE false END, " +
+            "CASE WHEN EXISTS (" +
+            "  SELECT 1 FROM RestaurantCommentdislike rcl " +
+            "  WHERE rcl.user = :user AND rcl.restaurantComment = e" +
+            ") THEN true ELSE false END " +
+            "FROM RestaurantComment e " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "ORDER BY likeDislikeDiff DESC")
+    List<Object[]> findOrderPopular(
+            @Param("restaurant") Restaurant restaurant,
+            @Param("user") User user
+    );
 
-    public List<Object[]> findOrderPopular(Restaurant restaurant) {
-        return entityManager.createQuery(
-                        "SELECT e, COUNT(a) " +
-                                "FROM RestaurantComment e " +
-                                "LEFT JOIN e.restaurantCommentlikeList a " +
-                                "WHERE e.restaurant = :value1 " +
-                                "AND e.status = :value2 " +
-                                "GROUP BY e " +
-                                "ORDER BY COUNT(a) DESC", Object[].class)
-                .setParameter("value1", restaurant)
-                .setParameter("value2", "ACTIVE")
-                .getResultList();
-    }
+    @Query("SELECT e, COUNT(a) - COUNT(d), false, false " +
+            "FROM RestaurantComment e " +
+            "LEFT JOIN e.restaurantCommentlikeList a " +
+            "LEFT JOIN e.restaurantCommentdislikeList d " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "GROUP BY e " +
+            "ORDER BY e.createdAt DESC")
+    List<Object[]> findOrderLatest(@Param("restaurant") Restaurant restaurant);
 
-    public List<Object[]> findOrderLatest(Restaurant restaurant) {
-        return entityManager.createQuery(
-                        "SELECT e, COUNT(a) " +
-                                "FROM RestaurantComment e " +
-                                "LEFT JOIN e.restaurantCommentlikeList a " +
-                                "WHERE e.restaurant = :value1 " +
-                                "AND e.status = :value2 " +
-                                "GROUP BY e " +
-                                "ORDER BY e.createdAt DESC", Object[].class)
-                .setParameter("value1", restaurant)
-                .setParameter("value2", "ACTIVE")
-                .getResultList();
-    }
+    @Query("SELECT e, COUNT(a) - COUNT(d), " +
+            "CASE WHEN EXISTS (" +
+            "  SELECT 1 FROM RestaurantCommentlike rcl " +
+            "  WHERE rcl.user = :user AND rcl.restaurantComment = e" +
+            ") THEN true ELSE false END, " +
+            "CASE WHEN EXISTS (" +
+            "  SELECT 1 FROM RestaurantCommentdislike rcl " +
+            "  WHERE rcl.user = :user AND rcl.restaurantComment = e" +
+            ") THEN true ELSE false END " +
+            "FROM RestaurantComment e " +
+            "LEFT JOIN e.restaurantCommentlikeList a " +
+            "LEFT JOIN e.restaurantCommentdislikeList d " +
+            "WHERE e.restaurant = :restaurant " +
+            "AND e.status = 'ACTIVE' " +
+            "GROUP BY e " +
+            "ORDER BY e.createdAt DESC")
+    List<Object[]> findOrderLatest(
+            @Param("restaurant") Restaurant restaurant,
+            @Param("user") User user
+    );
+
+    @Query("SELECT (SELECT COUNT(a) FROM e.restaurantCommentlikeList a) - (SELECT COUNT(d) FROM e.restaurantCommentdislikeList d) " +
+            "FROM RestaurantComment e " +
+            "WHERE e.commentId = :commentId " +
+            "AND e.status = 'ACTIVE'")
+    Integer findLikeDislikeDiffByCommentId(@Param("commentId") Integer commentId);
+
+    Optional<RestaurantComment> findByCommentId(Integer commentId);
 }
