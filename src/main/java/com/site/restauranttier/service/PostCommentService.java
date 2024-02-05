@@ -26,11 +26,15 @@ public class PostCommentService {
     private final PostRepository postRepository;
 
     public void create(Post post, User user, PostComment postComment) {
-        PostComment savedPostComment = postCommentRepository.save(postComment);
-        user.getPostCommentList().add(savedPostComment);
-        post.getPostCommentList().add(savedPostComment);
+        user.getPostCommentList().add(postComment);
+        post.getPostCommentList().add(postComment);
         userRepository.save(user);
         postRepository.save(post);
+    }
+
+    public void replyCreate(User user, PostComment postComment) {
+        user.getPostCommentList().add(postComment);
+        userRepository.save(user);
     }
 
     public PostComment getPostCommentByCommentId(Integer commentId) {

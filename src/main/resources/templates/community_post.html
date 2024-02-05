@@ -18,7 +18,7 @@
 <main>
     <div class="post">
         <div class="post-top">
-            <h1 th:text="${post.postTitle}"></h1>
+            <h1 th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
             <div>
                 <div class="post-details">
                     <div class="post-detail">
@@ -82,8 +82,8 @@
         <div class="comment-bar"></div>
         <div class="comment-write">
             <div>
-                <form id="comment-form" action="/api/community/comment/create" method="post">
-                <textarea name="content" id="comment-content" maxlength="1000"
+                <form class="comment-form" action="/api/community/comment/create" method="post">
+                <textarea name="content" class="comment-content" maxlength="1000"
                           placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
@@ -113,7 +113,7 @@
 
         <div class="comment-list">
             <ul class="comment-ul">
-                <li class="comment-li" th:each="comment,loop:${postCommentList}">
+                <li class="comment-li" th:each="comment,loop:${postCommentList}" th:data-id="${comment.commentId}">
                     <div>
                         <div class="comment-left">
                             <button class="comment-up" type="button" th:data-id="${comment.commentId}">
@@ -122,8 +122,10 @@
                             </button>
                             <span th:text="${comment.likeCount}"></span>
                             <button class="comment-down" type="button" th:data-id="${comment.commentId}">
-                                <img th:if="${comment.dislikeUserList.contains(user)}" src="/img/community/down-red.png">
-                                <img th:unless="${comment.dislikeUserList.contains(user)}" src="/img/community/down.png">
+                                <img th:if="${comment.dislikeUserList.contains(user)}"
+                                     src="/img/community/down-red.png">
+                                <img th:unless="${comment.dislikeUserList.contains(user)}"
+                                     src="/img/community/down.png">
                             </button>
                         </div>
                         <div class="comment-content">
@@ -142,11 +144,60 @@
                                     <button class="comment-button">신고</button>
                                 </li>
                                 <li>
-                                    <button class="comment-button">답글 쓰기</button>
+                                    <button class="comment-button reply">답글 쓰기</button>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <!-- 대댓글 리스트 -->
+
+
+                    <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
+                        <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
+                            <div>
+                                <div class="reply-mark">
+                                    <img class= "reply-image" src="/img/community/reply.png">
+                                </div>
+                                <div class="comment-left">
+                                    <button class="comment-up" type="button" th:data-id="${reply.commentId}">
+                                        <img th:if="${reply.likeUserList.contains(user)}"
+                                             src="/img/community/up-green.png">
+                                        <img th:unless="${reply.likeUserList.contains(user)}"
+                                             src="/img/community/up.png">
+                                    </button>
+                                    <span th:text="${reply.likeCount}"></span>
+                                    <button class="comment-down" type="button" th:data-id="${reply.commentId}">
+                                        <img th:if="${reply.dislikeUserList.contains(user)}"
+                                             src="/img/community/down-red.png">
+                                        <img th:unless="${reply.dislikeUserList.contains(user)}"
+                                             src="/img/community/down.png">
+                                    </button>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-name">
+                                        <img src="/img/community/crown.png">
+                                        <span class="user-name" th:text="${reply.user.userNickname}"></span>
+                                        <span th:text="${reply.createdAt}"></span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <div>
+                                            <p th:text="${reply.commentBody}"></p>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <button class="comment-button">신고</button>
+                                        </li>
+<!--                  대댓글의 대댓글 기능은 일단 보류                     -->
+<!--                                        <li>-->
+<!--                                            <button class="comment-button reply">답글 쓰기</button>-->
+<!--                                        </li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
                 </li>
             </ul>
         </div>

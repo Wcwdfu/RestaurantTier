@@ -5,13 +5,11 @@ import com.site.restauranttier.entity.PostComment;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
-import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,13 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -38,6 +33,7 @@ public class CommunityController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
+    private final PostCommentRepository postCommentRepository;
     private final PostScrapService postScrapService;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -54,7 +50,7 @@ public class CommunityController {
         }
 
         List<String> timeAgoList = postService.getTimeAgoList(paging);
-        model.addAttribute("sort",sort);
+        model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
         return "community";
@@ -62,20 +58,20 @@ public class CommunityController {
 
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
-    public String post(Model model, @PathVariable Integer postId, Principal principal,@RequestParam(defaultValue = "popular") String sort) {
+    public String post(Model model, @PathVariable Integer postId, Principal principal, @RequestParam(defaultValue = "popular") String sort) {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
         String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
         List<PostComment> postCommentList = new ArrayList<>();
-        if(sort.equals("popular")){
+        if (sort.equals("popular")) {
             postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
-        }else if(sort.equals("recent")){
+        } else if (sort.equals("recent")) {
             postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
         }
         // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
         List<String> commentCreatedAtList = postCommentService.getCreatedAtList(postCommentList);
-        model.addAttribute("postCommentList",postCommentList);
+        model.addAttribute("postCommentList", postCommentList);
         model.addAttribute("post", post);
         model.addAttribute("commentCreatedAtList", commentCreatedAtList);
         model.addAttribute("timeAgoData", timeAgoData);
@@ -112,18 +108,34 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    // 댓글 생성
+    // 댓글 or 대댓글 생성
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/comment/create")
     public ResponseEntity<String> postCommentCreate(
-            @RequestParam("content") String content,
-            @RequestParam("postId") String postId,
+            @RequestParam(name= "content", defaultValue = "") String content,
+            @RequestParam(name = "postId") String postId,
+            @RequestParam(name = "parentCommentId", defaultValue = "") String parentCommentId,
             Model model, Principal principal) {
-        Integer postidInt = Integer.valueOf(postId);
+
+        Integer postIdInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
-        Post post = postService.getPost(postidInt);
+        Post post = postService.getPost(postIdInt);
         PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
-        postCommentService.create(post, user, postComment);
+        PostComment savedPostComment = postCommentRepository.save(postComment);
+
+        // 대댓글이면 부모 관계 매핑하기
+        if (!parentCommentId.isEmpty()) {
+            PostComment parentComment = postCommentService.getPostCommentByCommentId(Integer.valueOf(parentCommentId));
+            savedPostComment.setParentComment(parentComment);
+            parentComment.getRepliesList().add(postComment);
+            postCommentService.replyCreate(user,savedPostComment);
+            postCommentRepository.save(parentComment);
+        }
+        // 댓글이면 post와 연결하면서 저장
+        else{
+            postCommentService.create(post, user, savedPostComment);
+        }
+        postCommentRepository.save(savedPostComment);
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
     }
 
