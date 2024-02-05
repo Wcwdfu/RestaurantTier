@@ -19,7 +19,6 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -49,22 +48,26 @@ public class RestaurantController {
         model.addAttribute("menus", restaurantMenus);
         // 메뉴 펼치기 이전에 몇개의 메뉴를 보여줄 것인가
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
-        // 식당 댓글
-        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
-        model.addAttribute("restaurantComments", restaurantComments);
 
         // 평가하기 버튼
         // 로그인 안되어있을 경우
         if (principal == null) {
+            // 식당 댓글
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
+            model.addAttribute("restaurantComments", restaurantComments);
+            //
             model.addAttribute("evaluationButton", " 평가하기");
             return "restaurant";
         } else {
             // 유저
-            model.addAttribute("user", customOAuth2UserService.getUser(principal.getName()));
+            User user = customOAuth2UserService.getUser(principal.getName());
+            model.addAttribute("user", user);
+            // 식당 댓글
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR, user);
+            model.addAttribute("restaurantComments", restaurantComments);
             // 즐겨찾기 여부
             model.addAttribute("isFavoriteExist", restaurantFavoriteService.isFavoriteExist(principal.getName(), restaurantId));
-            String name = principal.getName();
-            User user = customOAuth2UserService.getUser(name);
+            //
             Evaluation evaluation = evaluatioanService.getByUserAndRestaurant(user, restaurant);
             if (evaluation!=null) {
                 model.addAttribute("evaluationButton", "다시 평가하기");
@@ -119,15 +122,54 @@ public class RestaurantController {
         }
     }
 
-    // 식당 댓글 로드
+    // 식당 댓글 목록 html 로드
     @GetMapping("/api/restaurants/{restaurantId}/comments")
-    public ResponseEntity<List<Object[]>> getRestaurantCommentByRestaurantId(
+    public String getRestaurantCommentByRestaurantId(
             @PathVariable Integer restaurantId,
-            @RequestParam(value = "sort", defaultValue = "POPULAR") String sort
+            @RequestParam(value = "sort", defaultValue = "POPULAR") String sort,
+            Principal principal,
+            Model model
     ) {
         SortComment sortComment = SortComment.valueOf(sort);
-        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);
-        return new ResponseEntity<>(restaurantComments, HttpStatus.OK);
+
+        if (principal == null) {
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);
+            model.addAttribute("restaurantComments", restaurantComments);
+        } else {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment, user);
+
+            model.addAttribute("restaurantComments", restaurantComments);
+        }
+
+        return "restaurantComments";
+    }
+
+    // 식당 댓글 하나 html 로드
+    @GetMapping("/api/restaurants/comments/{commentId}")
+    public String getARenderedRestaurantCommentHtml(
+            Model model,
+            @PathVariable Integer commentId,
+            Principal principal
+    ) {
+        RestaurantComment restaurantComment = restaurantCommentService.getComment(commentId);
+        model.addAttribute("comment", restaurantComment);
+
+        Integer restaurantCommentLikeScore = restaurantCommentService.getCommentLikeScore(commentId);
+        model.addAttribute("commentLikeScore", restaurantCommentLikeScore);
+
+
+        if (principal != null) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+
+            boolean isUserLikedComment = restaurantCommentService.isUserLikedComment(user, restaurantComment);
+            model.addAttribute("isLiked", isUserLikedComment);
+
+            boolean isUserDislikedComment = restaurantCommentService.isUserHatedComment(user, restaurantComment);
+            model.addAttribute("isHated", isUserDislikedComment);
+        }
+
+        return "restaurantComment";
     }
 
     // 식당 댓글 좋아요

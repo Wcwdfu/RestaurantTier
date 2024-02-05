@@ -220,6 +220,7 @@ function resize(width, height){
 let activeButton = document.getElementById('button1');
 // 댓글 인기순, 최신순 토글 함수
 function toggleButton(buttonNumber) {
+    const commentsUl = document.getElementById('commentList');
     const currentButton = document.getElementById(`button${buttonNumber}`);
     const queryParameter = buttonNumber === 1 ? 'POPULAR' : 'LATEST';
     const apiUrl = "/api" + window.location.pathname + "/comments?sort=" + queryParameter;
@@ -228,11 +229,10 @@ function toggleButton(buttonNumber) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+            return response.text();
         })
-        .then(data => {
-            // 성공적으로 데이터를 받아왔을 때
-            fillCommentInfo(data);
+        .then(html => {
+            commentsUl.innerHTML = html;
         })
         .catch(error => {
             // 오류 처리
@@ -250,95 +250,6 @@ function toggleButton(buttonNumber) {
     activeButton = currentButton;
     }
 }
-
-// 댓글생성
-function fillCommentInfo(data) {
-    const commentList = document.getElementById('commentList');
-    commentList.innerHTML = '';
-    for (var i = 0; i < data.length; i++) {
-        const li = document.createElement('li');
-
-        appendLikeDiv(li);
-
-        const bodyDiv = document.createElement('div');
-        bodyDiv.classList.add('body-div');
-
-        const nickDateDiv = document.createElement('div');
-        nickDateDiv.classList.add('nick-date-div');
-        const nickSpan = document.createElement('span');
-        nickSpan.classList.add('nick-span');
-        nickSpan.textContent = data[i][0].user.userNickname;
-        const dateSpan = document.createElement('span');
-        dateSpan.classList.add('date-span');
-        dateSpan.textContent = data[i][0].createdAt;
-        nickDateDiv.appendChild(nickSpan);
-        nickDateDiv.appendChild(dateSpan);
-        bodyDiv.appendChild(nickDateDiv);
-
-        const realCommentContainer = document.createElement('div');
-        realCommentContainer.classList.add('real-comment-container');
-        const realComment = document.createElement('span');
-        realComment.textContent = data[i][0].commentBody;
-        realCommentContainer.appendChild(realComment);
-        bodyDiv.appendChild(realCommentContainer);
-
-        li.appendChild(bodyDiv);
-
-        commentList.appendChild(li);
-    }
-}
-function appendLikeDiv(li) {
-    const likeDiv = document.createElement('div');
-    likeDiv.classList.add('like-div');
-    // 첫 번째 버튼 생성
-    var upButton = document.createElement("button");
-    upButton.className = "comment-up";
-    upButton.type = "button";
-    upButton.setAttribute("data-id", "78"); // data-id 속성 설정
-
-    var upImg = document.createElement("img");
-    upImg.src = "/img/community/up.png";
-
-    upButton.appendChild(upImg);
-
-    // 숫자를 보여주는 span 요소 생성
-    var countSpan = document.createElement("span");
-    countSpan.innerText = "0"; // 초기값으로 0 설정
-
-    // 두 번째 버튼 생성
-    var downButton = document.createElement("button");
-    downButton.className = "comment-down";
-    downButton.type = "button";
-    downButton.setAttribute("data-id", "78"); // data-id 속성 설정
-
-    var downImg = document.createElement("img");
-    downImg.src = "/img/community/down.png";
-
-    downButton.appendChild(downImg);
-
-    // 각각의 요소를 부모 요소에 추가
-    likeDiv.appendChild(upButton);
-    likeDiv.appendChild(countSpan);
-    likeDiv.appendChild(downButton);
-
-    // 부모 요소에 생성한 div를 추가
-    li.appendChild(likeDiv);
-}
-
-// 댓글 눌렀을 때 로그인 여부 체크
-/*function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    console.log(value);
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-document.getElementById('commentInput').addEventListener('focus', function() {
-    const token = getCookie('JSESSIONID');
-
-    if (!token) {
-        window.location.href = '/user/login';
-    }
-})*/
 
 // 댓글 달기 요청
 function sendComment() {
@@ -384,5 +295,68 @@ function sendComment() {
         })
         .catch(error => {
             //console.error("Error adding comment:", error);
+        });
+}
+
+// 댓글 좋아요 요청
+function commentLike(button) {
+    const commentId = button.getAttribute("data-id");
+    const apiUrl = `/api/restaurants/comments/${commentId}/like`;
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            let data = response.json();
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (!response.ok) {
+                throw new Error(`${data.status}: ${data.message}`);
+            } else {
+                changeCommentHtml(commentId, button.closest('li'));
+            }
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+}
+// 댓글 싫어요 요청
+function commentDislike(button) {
+    const commentId = button.getAttribute("data-id");
+    const apiUrl = `/api/restaurants/comments/${commentId}/dislike`;
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            let data = response.json();
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (!response.ok) {
+                throw new Error(`${data.status}: ${data.message}`);
+            } else {
+                changeCommentHtml(commentId, button.closest('li'));
+            }
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+}
+// 댓글 하나 html 교체
+function changeCommentHtml(commentId, commentLi) {
+    const apiUrl = `/api/restaurants/comments/${commentId}`;
+    fetch(apiUrl, {
+        method: "GET",
+    })
+        .then(response => response.text())
+        .then(html => {
+            commentLi.innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
         });
 }

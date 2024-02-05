@@ -6,7 +6,9 @@ import com.site.restauranttier.etc.SortComment;
 import com.site.restauranttier.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +56,27 @@ public class RestaurantCommentService {
         }
     }
 
+    public Integer getCommentLikeScore(int commentId) {
+        return restaurantCommentRepository.findLikeDislikeDiffByCommentId(commentId);
+    }
+
     public List<Object[]> getCommentList(int restaurantId, SortComment sortComment) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         if (sortComment == SortComment.POPULAR) {
             return restaurantCommentRepository.findOrderPopular(restaurant);
         } else if (sortComment == SortComment.LATEST) {
             return restaurantCommentRepository.findOrderLatest(restaurant);
+        } else {
+            return null;
+        }
+    }
+
+    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment, User user) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        if (sortComment == SortComment.POPULAR) {
+            return restaurantCommentRepository.findOrderPopular(restaurant, user);
+        } else if (sortComment == SortComment.LATEST) {
+            return restaurantCommentRepository.findOrderLatest(restaurant, user);
         } else {
             return null;
         }
@@ -86,6 +103,16 @@ public class RestaurantCommentService {
         }
         userRepository.save(user);
     }*/
+
+    public boolean isUserLikedComment(User user, RestaurantComment restaurantComment) {
+        Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+        return restaurantCommentlikeOptional.isPresent();
+    }
+
+    public boolean isUserHatedComment(User user, RestaurantComment restaurantComment) {
+        Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
+        return restaurantCommentdislikeOptional.isPresent();
+    }
 
     public void likeComment(User user, RestaurantComment restaurantComment, Map<String, String> responseMap) {
         Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);

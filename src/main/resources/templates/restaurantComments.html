@@ -1,0 +1,22 @@
+<li th:each="restaurantComment : ${restaurantComments}">
+    <div class="like-div">
+        <button class="comment-up" type="button" onclick="commentLike(this)" th:data-id="${restaurantComment[0].commentId}">
+            <img th:if="${restaurantComment[2]}" src="/img/community/up-green.png">
+            <img th:unless="${restaurantComment[2]}" src="/img/community/up.png">
+        </button>
+        <span th:text="${restaurantComment[1]}"></span>
+        <button class="comment-down" type="button" onclick="commentDislike(this)" th:data-id="${restaurantComment[0].commentId}">
+            <img th:if="${restaurantComment[3]}" src="/img/community/down-red.png">
+            <img th:unless="${restaurantComment[3]}" src="/img/community/down.png">
+        </button>
+    </div>
+    <div class="body-div">
+        <div class="nick-date-div">
+            <span class="nick-span" th:text="${restaurantComment[0].getUser.getUserNickname()}"></span>
+            <span class="date-span" th:text="${restaurantComment[0].getCreatedAt()}"></span>
+        </div>
+        <div class="real-comment-container">
+            <span th:text="${restaurantComment[0].getCommentBody()}"></span>
+        </div>
+    </div>
+</li>
