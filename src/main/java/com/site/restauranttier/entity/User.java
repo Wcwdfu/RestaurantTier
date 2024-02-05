@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.site.restauranttier.user.UserRole;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -60,6 +62,10 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<RestaurantCommentlike> restaurantCommentlikeList = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<RestaurantCommentdislike> restaurantCommentdislikeList = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -69,6 +75,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PostComment> postCommentList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<PostScrap> scrapList = new ArrayList<>();
 
@@ -93,14 +100,37 @@ public class User {
         return this.userRole.getValue();
     }
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "dislikeUserList")
     private List<Post> dislikePostList = new ArrayList<>();
+    @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<Post> likePostList = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "dislikeUserList")
     private List<PostComment> dislikePostCommentList = new ArrayList<>();
+    @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<PostComment> likePostCommentList = new ArrayList<>();
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User that = (User) o;
+
+        return Objects.equals(userId, that.userId) &&
+                Objects.equals(userTokenId, that.userTokenId)&&
+                Objects.equals(userPassword, that.userPassword)&&
+                Objects.equals(userEmail, that.userEmail)&&
+                Objects.equals(userNickname, that.userNickname)&&
+                Objects.equals(status, that.status)&&
+                Objects.equals(userRole, that.userRole)&&
+                Objects.equals(loginApi, that.loginApi)&&
+                Objects.equals(createdAt, that.createdAt)&&
+                Objects.equals(updatedAt, that.updatedAt);
+    }*/
 }
 

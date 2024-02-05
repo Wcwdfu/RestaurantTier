@@ -12,9 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "restaurant_comment_likes_tbl")
-public class RestaurantCommentlike {
-
+@Table(name = "restaurant_comment_dislikes_tbl")
+public class RestaurantCommentdislike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer likeId;
@@ -28,7 +27,7 @@ public class RestaurantCommentlike {
     @JoinColumn(name="comment_id")
     private RestaurantComment restaurantComment;
 
-    public RestaurantCommentlike(User user, RestaurantComment restaurantComment) {
+    public RestaurantCommentdislike(User user, RestaurantComment restaurantComment) {
         this.restaurantComment = restaurantComment;
         this.user = user;
         this.createdAt = LocalDateTime.now();

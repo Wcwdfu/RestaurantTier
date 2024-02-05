@@ -39,7 +39,6 @@ const favoriteImg = document.getElementById('favoriteImg');
 // favorite 버튼 이벤트리스너 등록
 document.getElementById('favoriteImg').addEventListener('click', function() {
     toggleFavoriteRequest();
-    toggleFavoriteHTML(favoriteImg);
 });
 // 식당 Favorite 토글 요청
 function toggleFavoriteRequest() {
@@ -54,6 +53,7 @@ function toggleFavoriteRequest() {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                toggleFavoriteHTML(favoriteImg);
                 return response;
             }
         })
@@ -177,7 +177,6 @@ if (unfoldButton) {
             this.textContent = '접기';
             let maxHeight
                 = windowHeight * 0.55 > initialMenusHeight + 70 ? windowHeight * 0.55 : initialMenusHeight + 70;
-            console.log(initialMenusHeight);
             menuUL.style.maxHeight = maxHeight + 'px';
             menuUL.style.overflowY = 'scroll';
         } else {
@@ -221,6 +220,7 @@ function resize(width, height){
 let activeButton = document.getElementById('button1');
 // 댓글 인기순, 최신순 토글 함수
 function toggleButton(buttonNumber) {
+    const commentsUl = document.getElementById('commentList');
     const currentButton = document.getElementById(`button${buttonNumber}`);
     const queryParameter = buttonNumber === 1 ? 'POPULAR' : 'LATEST';
     const apiUrl = "/api" + window.location.pathname + "/comments?sort=" + queryParameter;
@@ -229,11 +229,10 @@ function toggleButton(buttonNumber) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+            return response.text();
         })
-        .then(data => {
-            // 성공적으로 데이터를 받아왔을 때
-            fillCommentInfo(data);
+        .then(html => {
+            commentsUl.innerHTML = html;
         })
         .catch(error => {
             // 오류 처리
@@ -251,61 +250,6 @@ function toggleButton(buttonNumber) {
     activeButton = currentButton;
     }
 }
-
-// 댓글생성
-function fillCommentInfo(data) {
-    const commentList = document.getElementById('commentList');
-    commentList.innerHTML = '';
-    for (var i = 0; i < data.length; i++) {
-      const li = document.createElement('li');
-
-      const likeDiv = document.createElement('div');
-      likeDiv.classList.add('like-div');
-      likeDiv.textContent = data[i][1];
-      li.appendChild(likeDiv);
-
-      const bodyDiv = document.createElement('div');
-      bodyDiv.classList.add('body-div');
-
-      const nickDateDiv = document.createElement('div');
-      nickDateDiv.classList.add('nick-date-div');
-      const nickSpan = document.createElement('span');
-      nickSpan.classList.add('nick-span');
-      nickSpan.textContent = data[i][0].user.userNickname;
-      const dateSpan = document.createElement('span');
-      dateSpan.classList.add('date-span');
-      dateSpan.textContent = data[i][0].createdAt;
-      nickDateDiv.appendChild(nickSpan);
-      nickDateDiv.appendChild(dateSpan);
-      bodyDiv.appendChild(nickDateDiv);
-
-      const realCommentContainer = document.createElement('div');
-      realCommentContainer.classList.add('real-comment-container');
-      const realComment = document.createElement('span');
-      realComment.textContent = data[i][0].commentBody;
-      realCommentContainer.appendChild(realComment);
-      bodyDiv.appendChild(realCommentContainer);
-
-      li.appendChild(bodyDiv);
-
-      commentList.appendChild(li);
-    }
-}
-
-// 댓글 눌렀을 때 로그인 여부 체크
-/*function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    console.log(value);
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-document.getElementById('commentInput').addEventListener('focus', function() {
-    const token = getCookie('JSESSIONID');
-
-    if (!token) {
-        window.location.href = '/user/login';
-    }
-})*/
 
 // 댓글 달기 요청
 function sendComment() {
@@ -351,5 +295,68 @@ function sendComment() {
         })
         .catch(error => {
             //console.error("Error adding comment:", error);
+        });
+}
+
+// 댓글 좋아요 요청
+function commentLike(button) {
+    const commentId = button.getAttribute("data-id");
+    const apiUrl = `/api/restaurants/comments/${commentId}/like`;
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            let data = response.json();
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (!response.ok) {
+                throw new Error(`${data.status}: ${data.message}`);
+            } else {
+                changeCommentHtml(commentId, button.closest('li'));
+            }
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+}
+// 댓글 싫어요 요청
+function commentDislike(button) {
+    const commentId = button.getAttribute("data-id");
+    const apiUrl = `/api/restaurants/comments/${commentId}/dislike`;
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            let data = response.json();
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (!response.ok) {
+                throw new Error(`${data.status}: ${data.message}`);
+            } else {
+                changeCommentHtml(commentId, button.closest('li'));
+            }
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+}
+// 댓글 하나 html 교체
+function changeCommentHtml(commentId, commentLi) {
+    const apiUrl = `/api/restaurants/comments/${commentId}`;
+    fetch(apiUrl, {
+        method: "GET",
+    })
+        .then(response => response.text())
+        .then(html => {
+            commentLi.innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
         });
 }

@@ -1,5 +1,6 @@
 package com.site.restauranttier.controller;
 
+import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.SortComment;
 import com.site.restauranttier.service.*;
@@ -11,11 +12,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,6 +28,8 @@ public class RestaurantController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final RestaurantService restaurantService;
     private final RestaurantFavoriteService restaurantFavoriteService;
+
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
     
     @Value("${restaurant.initialDisplayMenuCount}")
     private int initialDisplayMenuCount;
@@ -43,25 +48,31 @@ public class RestaurantController {
         model.addAttribute("menus", restaurantMenus);
         // 메뉴 펼치기 이전에 몇개의 메뉴를 보여줄 것인가
         model.addAttribute("initialDisplayMenuCount", initialDisplayMenuCount);
-        // 즐겨찾기 여부
-        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
-        model.addAttribute("restaurantComments", restaurantComments);
 
         // 평가하기 버튼
         // 로그인 안되어있을 경우
         if (principal == null) {
+            // 식당 댓글
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
+            model.addAttribute("restaurantComments", restaurantComments);
+            //
             model.addAttribute("evaluationButton", " 평가하기");
             return "restaurant";
         } else {
+            // 유저
+            User user = customOAuth2UserService.getUser(principal.getName());
+            model.addAttribute("user", user);
+            // 식당 댓글
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR, user);
+            model.addAttribute("restaurantComments", restaurantComments);
+            // 즐겨찾기 여부
             model.addAttribute("isFavoriteExist", restaurantFavoriteService.isFavoriteExist(principal.getName(), restaurantId));
-            String name = principal.getName();
-            User user = customOAuth2UserService.getUser(name);
+            //
             Evaluation evaluation = evaluatioanService.getByUserAndRestaurant(user, restaurant);
             if (evaluation!=null) {
                 model.addAttribute("evaluationButton", "다시 평가하기");
             } else {
                 model.addAttribute("evaluationButton", " 평가하기");
-
             }
             return "restaurant";
         }
@@ -111,15 +122,108 @@ public class RestaurantController {
         }
     }
 
-    // 식당 댓글 로드
+    // 식당 댓글 목록 html 로드
     @GetMapping("/api/restaurants/{restaurantId}/comments")
-    public ResponseEntity<List<Object[]>> getRestaurantCommentByRestaurantId(
+    public String getRestaurantCommentByRestaurantId(
             @PathVariable Integer restaurantId,
-            @RequestParam(value = "sort", defaultValue = "POPULAR") String sort
+            @RequestParam(value = "sort", defaultValue = "POPULAR") String sort,
+            Principal principal,
+            Model model
     ) {
         SortComment sortComment = SortComment.valueOf(sort);
-        List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);
-        return new ResponseEntity<>(restaurantComments, HttpStatus.OK);
+
+        if (principal == null) {
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);
+            model.addAttribute("restaurantComments", restaurantComments);
+        } else {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment, user);
+
+            model.addAttribute("restaurantComments", restaurantComments);
+        }
+
+        return "restaurantComments";
+    }
+
+    // 식당 댓글 하나 html 로드
+    @GetMapping("/api/restaurants/comments/{commentId}")
+    public String getARenderedRestaurantCommentHtml(
+            Model model,
+            @PathVariable Integer commentId,
+            Principal principal
+    ) {
+        RestaurantComment restaurantComment = restaurantCommentService.getComment(commentId);
+        model.addAttribute("comment", restaurantComment);
+
+        Integer restaurantCommentLikeScore = restaurantCommentService.getCommentLikeScore(commentId);
+        model.addAttribute("commentLikeScore", restaurantCommentLikeScore);
+
+
+        if (principal != null) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+
+            boolean isUserLikedComment = restaurantCommentService.isUserLikedComment(user, restaurantComment);
+            model.addAttribute("isLiked", isUserLikedComment);
+
+            boolean isUserDislikedComment = restaurantCommentService.isUserHatedComment(user, restaurantComment);
+            model.addAttribute("isHated", isUserDislikedComment);
+        }
+
+        return "restaurantComment";
+    }
+
+    // 식당 댓글 좋아요
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/restaurants/comments/{commentId}/like")
+    public ResponseEntity<Map<String, String>> likeRestaurantComment(
+            @PathVariable Integer commentId,
+            Principal principal
+    ) {
+        Map<String, String> responseMap = new HashMap<>();
+        try {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            RestaurantComment restaurantComment = restaurantCommentService.getComment(commentId);
+
+            restaurantCommentService.likeComment(user, restaurantComment, responseMap);
+        } catch (DataNotFoundException e) {
+            logger.error("RestaurantCommentLikeError", e);
+            responseMap.put("status", "error");
+            responseMap.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseMap);
+        } catch (IllegalStateException e) {
+            logger.error("RestaurantCommentLikeError", e);
+            responseMap.put("status", "error");
+            responseMap.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
+        }
+        return ResponseEntity.ok(responseMap);
+    }
+
+    // 식당 댓글 싫어요
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/restaurants/comments/{commentId}/dislike")
+    public ResponseEntity<Map<String, String>> dislikeRestaurantComment(
+            @PathVariable Integer commentId,
+            Principal principal
+    ) {
+        Map<String, String> responseMap = new HashMap<>();
+        try {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            RestaurantComment restaurantComment = restaurantCommentService.getComment(commentId);
+
+            restaurantCommentService.dislikeComment(user, restaurantComment, responseMap);
+        } catch (DataNotFoundException e) {
+            logger.error("RestaurantCommentDislikeError", e);
+            responseMap.put("status", "error");
+            responseMap.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseMap);
+        } catch (IllegalStateException e) {
+            logger.error("RestaurantCommentDislikeError", e);
+            responseMap.put("status", "error");
+            responseMap.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
+        }
+        return ResponseEntity.ok(responseMap);
     }
 
     // 식당 즐겨찾기
