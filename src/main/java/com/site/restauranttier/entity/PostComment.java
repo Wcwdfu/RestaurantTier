@@ -18,9 +18,13 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer commentId;
     String commentBody;
-    // 대댓글일 경우 부모 댓글 id
-    Integer parentCommentId;
     String status;
+    @ManyToOne
+    @JoinColumn(name="parent_comment_id")
+    PostComment parentComment;
+
+    @OneToMany(mappedBy = "parentComment")
+    List<PostComment> repliesList = new ArrayList<>();
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     Integer likeCount=0;

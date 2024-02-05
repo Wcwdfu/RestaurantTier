@@ -174,8 +174,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.post-footer .comment-form').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         // 현재 주소에서 postId 추출
-        var postId = window.location.pathname.split('/').pop();
 
+        var postId = window.location.pathname.split('/').pop();
+        console.log(postId)
         var formData = new FormData(this);
         formData.append('postId', postId);
 
@@ -230,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.redirected) {
                         window.location.href = "/user/login";
                     } else {
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 }
             })

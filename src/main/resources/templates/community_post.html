@@ -122,8 +122,10 @@
                             </button>
                             <span th:text="${comment.likeCount}"></span>
                             <button class="comment-down" type="button" th:data-id="${comment.commentId}">
-                                <img th:if="${comment.dislikeUserList.contains(user)}" src="/img/community/down-red.png">
-                                <img th:unless="${comment.dislikeUserList.contains(user)}" src="/img/community/down.png">
+                                <img th:if="${comment.dislikeUserList.contains(user)}"
+                                     src="/img/community/down-red.png">
+                                <img th:unless="${comment.dislikeUserList.contains(user)}"
+                                     src="/img/community/down.png">
                             </button>
                         </div>
                         <div class="comment-content">
@@ -147,6 +149,55 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- 대댓글 리스트 -->
+
+
+                    <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
+                        <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
+                            <div>
+                                <div class="reply-mark">
+                                    <img class= "reply-image" src="/img/community/reply.png">
+                                </div>
+                                <div class="comment-left">
+                                    <button class="comment-up" type="button" th:data-id="${reply.commentId}">
+                                        <img th:if="${reply.likeUserList.contains(user)}"
+                                             src="/img/community/up-green.png">
+                                        <img th:unless="${reply.likeUserList.contains(user)}"
+                                             src="/img/community/up.png">
+                                    </button>
+                                    <span th:text="${reply.likeCount}"></span>
+                                    <button class="comment-down" type="button" th:data-id="${reply.commentId}">
+                                        <img th:if="${reply.dislikeUserList.contains(user)}"
+                                             src="/img/community/down-red.png">
+                                        <img th:unless="${reply.dislikeUserList.contains(user)}"
+                                             src="/img/community/down.png">
+                                    </button>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-name">
+                                        <img src="/img/community/crown.png">
+                                        <span class="user-name" th:text="${reply.user.userNickname}"></span>
+                                        <span th:text="${reply.createdAt}"></span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <div>
+                                            <p th:text="${reply.commentBody}"></p>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <button class="comment-button">신고</button>
+                                        </li>
+<!--                  대댓글의 대댓글 기능은 일단 보류                     -->
+<!--                                        <li>-->
+<!--                                            <button class="comment-button reply">답글 쓰기</button>-->
+<!--                                        </li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
                 </li>
             </ul>
         </div>

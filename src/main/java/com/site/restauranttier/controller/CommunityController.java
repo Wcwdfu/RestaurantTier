@@ -5,13 +5,11 @@ import com.site.restauranttier.entity.PostComment;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
-import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,13 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -38,6 +33,7 @@ public class CommunityController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
+    private final PostCommentRepository postCommentRepository;
     private final PostScrapService postScrapService;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -125,12 +121,21 @@ public class CommunityController {
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postIdInt);
         PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
-        // 대댓글이면 부모 댓글 설정
-        if (!parentCommentId.isEmpty()) {
-            postComment.setParentCommentId(Integer.valueOf(parentCommentId));
-        }
-        postCommentService.create(post, user, postComment);
+        PostComment savedPostComment = postCommentRepository.save(postComment);
 
+        // 대댓글이면 부모 관계 매핑하기
+        if (!parentCommentId.isEmpty()) {
+            PostComment parentComment = postCommentService.getPostCommentByCommentId(Integer.valueOf(parentCommentId));
+            savedPostComment.setParentComment(parentComment);
+            parentComment.getRepliesList().add(postComment);
+            postCommentService.replyCreate(user,savedPostComment);
+            postCommentRepository.save(parentComment);
+        }
+        // 댓글이면 post와 연결하면서 저장
+        else{
+            postCommentService.create(post, user, savedPostComment);
+        }
+        postCommentRepository.save(savedPostComment);
         return ResponseEntity.ok("댓글이 성공적으로 저장되었습니다.");
     }
 
