@@ -83,5 +83,9 @@ public class EvaluationService {
 
 
     }
+
+    public Integer getEvaluationCountByRestaurantId(Restaurant restaurant) {
+        return evaluationRepository.countByRestaurant(restaurant);
+    }
 }
 
