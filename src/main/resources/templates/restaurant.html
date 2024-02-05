@@ -46,11 +46,11 @@
         <div class="stats-info">
             <div class="stat-data" style="margin-right: 10px;">
                 <div class="stat-name">페이지 방문 횟수</div>
-                <div id="statVisitors" class="stat-value">1231회 (상위 12.2%)</div>
+                <div id="statVisitors" class="stat-value" th:text="${visitCountData}"></div>
             </div>
             <div class="stat-data">
                 <div class="stat-name">평가 데이터 개수</div>
-                <div id="statDatas" class="stat-value">132개 (상위 24.0%)</div>
+                <div id="statDatas" class="stat-value" th:text="${evaluationCountData}"></div>
             </div>
         </div>
     </div>

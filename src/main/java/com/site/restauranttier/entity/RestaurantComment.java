@@ -38,20 +38,4 @@ public class RestaurantComment {
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RestaurantComment that = (RestaurantComment) o;
-
-        return Objects.equals(user, that.user) &&
-                Objects.equals(commentId, that.commentId)&&
-                Objects.equals(restaurant, that.restaurant)&&
-                Objects.equals(commentBody, that.commentBody)&&
-                Objects.equals(status, that.status)&&
-                Objects.equals(createdAt, that.createdAt)&&
-                Objects.equals(updatedAt, that.updatedAt);
-    }*/
 }

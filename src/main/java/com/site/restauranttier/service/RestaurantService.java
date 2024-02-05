@@ -90,4 +90,13 @@ public class RestaurantService {
             return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
         }
     }
+
+    public Float getPercentOrderByVisitCount(Restaurant restaurant) {
+        return restaurantRepository.getPercentOrderByVisitCount(restaurant);
+    }
+
+    public void plusVisitCount(Restaurant restaurant) {
+        restaurant.setVisitCount(restaurant.getVisitCount() + 1);
+        restaurantRepository.save(restaurant);
+    }
 }

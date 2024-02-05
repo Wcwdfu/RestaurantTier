@@ -43,6 +43,12 @@ public class RestaurantController {
         // 식당 정보
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
+        String visitCountData = restaurant.getVisitCount() +
+                "회 (상위 " +
+                Math.round(restaurantService.getPercentOrderByVisitCount(restaurant) * 100.0) / 100.0 +
+                "%)";
+        model.addAttribute("visitCountData", visitCountData);
+        model.addAttribute("evaluationCountData", evaluatioanService.getEvaluationCountByRestaurantId(restaurant));
         // 메뉴
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);
@@ -74,6 +80,7 @@ public class RestaurantController {
             } else {
                 model.addAttribute("evaluationButton", " 평가하기");
             }
+            restaurantService.plusVisitCount(restaurant);
             return "restaurant";
         }
 

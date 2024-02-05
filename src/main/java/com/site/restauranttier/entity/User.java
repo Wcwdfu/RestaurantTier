@@ -31,10 +31,8 @@ public class User {
     @Column(unique = true, nullable = false)
     private String userEmail;
     @Column(unique = true, nullable = false)
-
     private String userNickname;
     @Column(nullable = false)
-
     private String status;
 
     @Column(nullable = false)
@@ -113,24 +111,5 @@ public class User {
     @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<PostComment> likePostCommentList = new ArrayList<>();
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User that = (User) o;
-
-        return Objects.equals(userId, that.userId) &&
-                Objects.equals(userTokenId, that.userTokenId)&&
-                Objects.equals(userPassword, that.userPassword)&&
-                Objects.equals(userEmail, that.userEmail)&&
-                Objects.equals(userNickname, that.userNickname)&&
-                Objects.equals(status, that.status)&&
-                Objects.equals(userRole, that.userRole)&&
-                Objects.equals(loginApi, that.loginApi)&&
-                Objects.equals(createdAt, that.createdAt)&&
-                Objects.equals(updatedAt, that.updatedAt);
-    }*/
 }
 

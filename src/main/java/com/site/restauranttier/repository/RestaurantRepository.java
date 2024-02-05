@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -24,4 +26,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     // 검색결과 페이징
     Page<Restaurant> findAll(Specification<Restaurant> spec, Pageable pageable);
 
+    @Query("SELECT 100.0 * COUNT(r) / (SELECT COUNT(e) FROM Restaurant e) " +
+            "FROM Restaurant r " +
+            "WHERE r.visitCount >= :#{#restaurant.visitCount}")
+    Float getPercentOrderByVisitCount(Restaurant restaurant);
 }
