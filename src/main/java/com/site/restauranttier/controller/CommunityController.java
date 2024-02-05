@@ -42,12 +42,13 @@ public class CommunityController {
     @GetMapping("/community")
     public String community(Model model, @RequestParam(name = "category", defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "popular") String sort) {
         Page<Post> paging;
+        // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
             paging = postService.getList(page, sort);
         } else {
-            paging = postService.getListByPostCategory(postCategory, page);
-            model.addAttribute("category", postCategory);
+            paging = postService.getListByPostCategory(postCategory, page,sort);
         }
+        model.addAttribute("category", postCategory);
 
         List<String> timeAgoList = postService.getTimeAgoList(paging);
         model.addAttribute("sort", sort);

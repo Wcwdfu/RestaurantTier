@@ -56,9 +56,15 @@ public class PostService {
     }
 
     //    드롭다운에서 카테고리 설정
-    public Page<Post> getListByPostCategory(String postCategory, int page) {
+    public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createdAt"));
+
+        if(sort.equals("popular")){
+            sorts.add(Sort.Order.desc("likeCount"));
+        }
+        else if(sort.equals("recent")) {
+            sorts.add(Sort.Order.desc("createdAt"));
+        }
         Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
         return this.postRepository.findByPostCategory(postCategory, pageable);
     }

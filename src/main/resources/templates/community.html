@@ -21,11 +21,11 @@
         <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                <span th:text="${category != null ? category : '전체'}"></span>
+                <span th:text="${category}"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" th:href="@{/community}"
-                       th:classappend="${category == null ? 'active' : ''}">전체</a></li>
+                       th:classappend="${category == '전체' ? 'active' : ''}">전체</a></li>
                 <li><a class="dropdown-item" th:href="@{/community(category='자유게시판')}"
                        th:classappend="${category == '자유게시판' ? 'active' : ''}">자유 게시판</a></li>
                 <li><a class="dropdown-item" th:href="@{/community(category='칼럼게시판')}"
@@ -40,12 +40,16 @@
     </div>
     <div>
 
-        <a class="filter firstFilter" href="/community?sort=recent">
+        <a class="filter firstFilter"
+           th:href="${category != null ? '/community?sort=recent&category=' + category : '/community?sort=recent'}">
+
             <img src="/img/community/recent-green.png" th:if="${sort.equals('recent')}"><img
                 src="/img/community/recent.png" th:if="${sort.equals('popular')}">최신</a>
-        <a class="filter" href="/community?sort=popular">
-        <img src="/img/community/fire-green.png" th:if="${sort.equals('popular')}"><img
-            src="/img/community/fire.png" th:if="${sort.equals('recent')}">인기</a>
+        <a class="filter"
+           th:href="${category != null ? '/community?sort=popular&category=' + category : '/community?sort=popular'}">
+
+            <img src="/img/community/fire-green.png" th:if="${sort.equals('popular')}"><img
+                src="/img/community/fire.png" th:if="${sort.equals('recent')}">인기</a>
     </div>
     <ul id="postul">
         <li th:each="post,iterStat: ${paging}" class="postli">

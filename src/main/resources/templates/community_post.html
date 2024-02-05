@@ -106,7 +106,7 @@
 
         </div>
         <div class="comment-filter">
-            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter">인기순</a>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter selected">인기순</a>
             <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}" class="latest filter">최신순</a>
 
         </div>
@@ -156,7 +156,7 @@
                         <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
                             <div>
                                 <div class="reply-mark">
-                                    <img class= "reply-image" src="/img/community/reply.png">
+                                    <img class= "reply-image" src="/img/community/rep   ly.png">
                                 </div>
                                 <div class="comment-left">
                                     <button class="comment-up" type="button" th:data-id="${reply.commentId}">
