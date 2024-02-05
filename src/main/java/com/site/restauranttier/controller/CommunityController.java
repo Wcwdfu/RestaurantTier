@@ -112,19 +112,20 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    // 댓글 생성
+    // 댓글 or 대댓글 생성
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/comment/create")
     public ResponseEntity<String> postCommentCreate(
-            @RequestParam("content") String content,
+            @RequestParam(name= "content", defaultValue = "") String content,
             @RequestParam(name = "postId") String postId,
             @RequestParam(name = "parentCommentId", defaultValue = "") String parentCommentId,
             Model model, Principal principal) {
-        Integer postidInt = Integer.valueOf(postId);
 
+        Integer postIdInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
-        Post post = postService.getPost(postidInt);
+        Post post = postService.getPost(postIdInt);
         PostComment postComment = new PostComment(content, "ACTIVE", LocalDateTime.now(), post, user);
+        // 대댓글이면 부모 댓글 설정
         if (!parentCommentId.isEmpty()) {
             postComment.setParentCommentId(Integer.valueOf(parentCommentId));
         }

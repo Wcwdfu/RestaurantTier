@@ -1,37 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // 댓글 작성
-    document.querySelector('.post-footer .comment-form').addEventListener('submit', function (event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        // 현재 주소에서 postId 추출
-        var postId = window.location.pathname.split('/').pop();
-
-        var formData = new FormData(this);
-        formData.append('postId', postId);
-
-        fetch(this.action, {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => {
-                console.log(response)
-                if (response.ok) {
-                    if (response.redirected) {
-                        window.location.href = "/user/login";
-                    } else {
-                        window.location.reload();
-
-                    }
-
-
-                }
-            })
-            .catch(error => {
-                alert(error.message)
-                console.error('Error:', error);
-            });
-    });
-
     // 게시글 좋아요
     document.getElementById("likeButton").addEventListener('click',
         function (event) {
@@ -202,22 +170,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     });
-
-    // 대댓글 작성 완료 버튼 리스너
-    document.querySelector('.comment-ul .comment-form').addEventListener('submit', function (event) {
+    // 댓글 작성
+    document.querySelector('.post-footer .comment-form').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         // 현재 주소에서 postId 추출
         var postId = window.location.pathname.split('/').pop();
-        console.log(postId)
+
         var formData = new FormData(this);
         formData.append('postId', postId);
-
-        // 폼에서 data-comment-id 속성 값을 가져와서 formData에 추가
-        var parentCommentId = this.getAttribute('data-comment-id');
-        if (parentCommentId) {
-            formData.append('parentCommentId', parentCommentId); // 대댓글이 속한 댓글의 ID를 formData에 추가
-        }
-
 
         fetch(this.action, {
             method: 'POST',
@@ -230,6 +190,47 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.href = "/user/login";
                     } else {
                         window.location.reload();
+
+                    }
+
+
+                }
+            })
+            .catch(error => {
+                alert(error.message)
+                console.error('Error:', error);
+            });
+    });
+    // 대댓글 작성 완료 버튼 리스너
+    document.querySelector('.comment-ul').addEventListener('submit', function (event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 방지
+        if(!event.target.matches(" .comment-form")){
+            return
+        }
+        // 현재 주소에서 postId 추출
+        var postId = window.location.pathname.split('/').pop();
+        var form = document.querySelector(".comment-ul .comment-form")
+        var formData = new FormData(form);
+        formData.append('postId', postId);
+
+        // 폼에서 data-comment-id 속성 값을 가져와서 formData에 추가
+        var parentCommentId = document.querySelector('.comment-ul .comment-write').getAttribute('data-comment-id');
+        if (parentCommentId) {
+            formData.append('parentCommentId', parentCommentId); // 대댓글이 속한 댓글의 ID를 formData에 추가
+        }
+
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    if (response.redirected) {
+                        window.location.href = "/user/login";
+                    } else {
+                        // window.location.reload();
                     }
                 }
             })

@@ -18,6 +18,7 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer commentId;
     String commentBody;
+    // 대댓글일 경우 부모 댓글 id
     Integer parentCommentId;
     String status;
     LocalDateTime createdAt;
