@@ -42,6 +42,7 @@ public class RestaurantController {
     ) {
         // 식당 정보
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+        restaurantService.plusVisitCount(restaurant);
         model.addAttribute("restaurant", restaurant);
         String visitCountData = restaurant.getVisitCount() +
                 "회 (상위 " +
@@ -63,7 +64,6 @@ public class RestaurantController {
             model.addAttribute("restaurantComments", restaurantComments);
             //
             model.addAttribute("evaluationButton", " 평가하기");
-            return "restaurant";
         } else {
             // 유저
             User user = customOAuth2UserService.getUser(principal.getName());
@@ -80,10 +80,8 @@ public class RestaurantController {
             } else {
                 model.addAttribute("evaluationButton", " 평가하기");
             }
-            restaurantService.plusVisitCount(restaurant);
-            return "restaurant";
         }
-
+        return "restaurant";
     }
 
     // 해당 cuisine에 맞는 식당 목록 반환
