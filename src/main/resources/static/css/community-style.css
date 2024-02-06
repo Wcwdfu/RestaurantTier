@@ -177,8 +177,10 @@ body {
 }
 
 .page-controller{
-    margin: 20px 0;
-}
+    border-top: 1px solid #ebeef1;
+    background: #f8f9fa;
+    text-align: center;
+    padding: 12px 16px;}
 .filter img{
     width: 20px;
     height: 20px;
@@ -188,6 +190,45 @@ body {
     text-decoration: none;
     color:inherit;
 }
+
+/*페이지 컨트롤러*/
+.pagination a{
+    text-decoration: none;
+    color:inherit;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+.pagination span{
+    display: inline-flex;
+    border-color: #98a0a7;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.075,0.82,0.165,1);
+    vertical-align: middle;
+    border-color: #dddfe4;
+    color: #7b858e;
+    background-color: #FFF;
+    padding: 7px 10px 7px 10px;
+    line-height: initial;
+}
+
+.pagination span img{
+    width: 16px;
+    height: 16px;
+    padding:2px;
+}
+
+
+
 
 @media only screen and (min-width: 1025px) {
 

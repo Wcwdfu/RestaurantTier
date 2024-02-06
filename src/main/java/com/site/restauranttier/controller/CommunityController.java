@@ -40,16 +40,17 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model, @RequestParam(name = "category", defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "popular") String sort) {
+    public String community(Model model, @RequestParam(defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "popular") String sort) {
         Page<Post> paging;
+        // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
             paging = postService.getList(page, sort);
         } else {
-            paging = postService.getListByPostCategory(postCategory, page);
-            model.addAttribute("category", postCategory);
+            paging = postService.getListByPostCategory(postCategory, page,sort);
         }
-
+        model.addAttribute("postCategory", postCategory);
         List<String> timeAgoList = postService.getTimeAgoList(paging);
+
         model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
@@ -98,11 +99,10 @@ public class CommunityController {
 
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
-            @RequestParam("title") String title,
-            @RequestParam("category") String category,
+            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
             @RequestParam("content") String content,
             Model model, Principal principal) {
-        Post post = new Post(title, content, category, "ACTIVE", LocalDateTime.now());
+        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
         User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
@@ -172,13 +172,15 @@ public class CommunityController {
 
     // 글 검색 화면
     @GetMapping("/community/search")
-    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(defaultValue = "recent") String sort) {
+    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(defaultValue = "recent") String sort, @RequestParam(defaultValue = "전체") String postCategory) {
 
-        Page<Post> paging = this.postService.getList(page, sort, kw);
+        Page<Post> paging = this.postService.getList(page, sort, kw, postCategory);
         List<String> timeAgoList = postService.getTimeAgoList(paging);
         model.addAttribute("timeAgoList", timeAgoList);
         model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
+        model.addAttribute("postSearchKw", kw);
+        model.addAttribute("sort",sort);
+        model.addAttribute("postCategory",postCategory);
         return "community";
     }
 
