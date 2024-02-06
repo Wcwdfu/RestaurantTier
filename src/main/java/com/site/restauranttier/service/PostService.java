@@ -32,16 +32,7 @@ public class PostService {
     private final PostScrapRepository postScrapRepository;
 
 
-    // 검색
-    public Page<Post> getList(int page, String sort, String kw) {
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createdAt"));
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
-        Specification<Post> spec = search(kw);
-        return this.postRepository.findAll(spec, pageable);
-    }
-
-    // 메인 로딩
+    // 메인 화면 로딩
     public Page<Post> getList(int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
         if (sort.isEmpty() || sort.equals("recent")) {
@@ -49,11 +40,28 @@ public class PostService {
         } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 5, Sort.by(sorts));
 
 
         return this.postRepository.findAll(pageable);
     }
+
+    // 검색 결과 반환
+    public Page<Post> getList(int page, String sort, String kw, String postCategory) {
+        List<Sort.Order> sorts = new ArrayList<>();
+
+        if(sort.equals("recent")){
+            sorts.add(Sort.Order.desc("createdAt"));
+        }
+        else if(sort.equals("popular")){
+            sorts.add(Sort.Order.desc("likeCount"));
+        }
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
+        Specification<Post> spec = search(kw, postCategory);
+        return this.postRepository.findAll(spec, pageable);
+    }
+
+
 
     //    드롭다운에서 카테고리 설정
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
@@ -184,7 +192,7 @@ public class PostService {
         userRepository.save(user);
     }
 
-    private Specification<Post> search(String kw) {
+    private Specification<Post> search(String kw, String postCategory) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -198,14 +206,28 @@ public class PostService {
                 Join<PostComment, User> u2 = c.join("user", JoinType.LEFT);
                 // 액티브 조건 추가
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
+                Predicate categoryPredicate;
 
+                // 검색 조건 결합 (카테고리 설정이 되어있을때는 검색 시 카테고리 안에서 검색을 한다).
+                if(!postCategory.equals("전체")){
+                    categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
+                    return cb.and(statusPredicate, categoryPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
+                            cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용
+                            cb.like(u1.get("userNickname"), "%" + kw + "%")    // 글 작성자
+//                            ,cb.like(c.get("commentBody"), "%" + kw + "%"),      // 댓글 내용
+//                            cb.like(u2.get("userNickname"), "%" + kw + "%") // 댓글 작성자
+                    ));
+                }
                 // 검색 조건 결합
                 return cb.and(statusPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
                         cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용
-                        cb.like(u1.get("userNickname"), "%" + kw + "%"),    // 질문 작성자
-                        cb.like(c.get("commentBody"), "%" + kw + "%"),      // 답변 내용
-                        cb.like(u2.get("userNickname"), "%" + kw + "%")));   // 답변 작성자
+                        cb.like(u1.get("userNickname"), "%" + kw + "%")    // 글 작성자
+//                        ,cb.like(c.get("commentBody"), "%" + kw + "%"),      // 댓글 내용
+//                        cb.like(u2.get("userNickname"), "%" + kw + "%") // 댓글 작성자
+                ));
             }
         };
     }
+
+
 }

@@ -156,7 +156,7 @@
                         <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
                             <div>
                                 <div class="reply-mark">
-                                    <img class= "reply-image" src="/img/community/rep   ly.png">
+                                    <img class= "reply-image" src="/img/community/reply.png">
                                 </div>
                                 <div class="comment-left">
                                     <button class="comment-up" type="button" th:data-id="${reply.commentId}">
@@ -188,10 +188,9 @@
                                         <li>
                                             <button class="comment-button">신고</button>
                                         </li>
-<!--                  대댓글의 대댓글 기능은 일단 보류                     -->
-<!--                                        <li>-->
-<!--                                            <button class="comment-button reply">답글 쓰기</button>-->
-<!--                                        </li>-->
+                                        <li>
+                                            <button class="comment-button reply">답글 쓰기</button>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

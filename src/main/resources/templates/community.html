@@ -21,17 +21,17 @@
         <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                <span th:text="${category}"></span>
+                <span th:text="${postCategory}"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" th:href="@{/community}"
-                       th:classappend="${category == '전체' ? 'active' : ''}">전체</a></li>
-                <li><a class="dropdown-item" th:href="@{/community(category='자유게시판')}"
-                       th:classappend="${category == '자유게시판' ? 'active' : ''}">자유 게시판</a></li>
-                <li><a class="dropdown-item" th:href="@{/community(category='칼럼게시판')}"
-                       th:classappend="${category == '칼럼게시판' ? 'active' : ''}">칼럼 게시판</a></li>
-                <li><a class="dropdown-item" th:href="@{/community(category='건의게시판')}"
-                       th:classappend="${category == '건의게시판' ? 'active' : ''}">건의 게시판</a></li>
+                       th:classappend="${postCategory == '전체' ? 'active' : ''}">전체</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(postCategory='자유게시판')}"
+                       th:classappend="${postCategory == '자유게시판' ? 'active' : ''}">자유 게시판</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(postCategory='칼럼게시판')}"
+                       th:classappend="${postCategory == '칼럼게시판' ? 'active' : ''}">칼럼 게시판</a></li>
+                <li><a class="dropdown-item" th:href="@{/community(postCategory='건의게시판')}"
+                       th:classappend="${postCategory == '건의게시판' ? 'active' : ''}">건의 게시판</a></li>
             </ul>
         </div>
         <div class="right-Icon">
@@ -41,12 +41,12 @@
     <div>
 
         <a class="filter firstFilter"
-           th:href="${category != null ? '/community?sort=recent&category=' + category : '/community?sort=recent'}">
+           th:href="${'/community?sort=recent&postCategory=' + postCategory}">
 
             <img src="/img/community/recent-green.png" th:if="${sort.equals('recent')}"><img
                 src="/img/community/recent.png" th:if="${sort.equals('popular')}">최신</a>
         <a class="filter"
-           th:href="${category != null ? '/community?sort=popular&category=' + category : '/community?sort=popular'}">
+           th:href="${'/community?sort=popular&postCategory=' + postCategory}">
 
             <img src="/img/community/fire-green.png" th:if="${sort.equals('popular')}"><img
                 src="/img/community/fire.png" th:if="${sort.equals('recent')}">인기</a>
@@ -84,37 +84,57 @@
 
 
 <div class="input-group">
-    <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+    <input type="text" id="search_kw" class="form-control" th:value="${postSearchKw}">
     <button class="btn btn-outline-secondary" type="button" id="postSearch">찾기</button>
 </div>
 
 <!-- 페이징처리 시작 -->
 <div class="page-controller" th:if="${!paging.isEmpty()}">
     <ul class="pagination justify-content-center">
-        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
-
-                <span>이전</span>
+        <li th:if="${paging.hasPrevious}">
+            <a class="move-link" th:href="@{'/community'(sort=${sort}, postCategory=${postCategory}, page=${paging.number-1})}">
+                <span type="button"><img src="/img/community/left-arrow-gray.png">이전</span>
             </a>
         </li>
-        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-            th:if="${page >= paging.number-5 and page <= paging.number+5}"
-            th:classappend="${page == paging.number} ? 'active'"
-            class="page-item">
-            <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
-        </li>
-        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
-                <span>다음</span>
+        <li th:if="${paging.hasNext}">
+            <a class="move-link" th:href="@{'/community'(sort=${sort}, postCategory=${postCategory}, page=${paging.number+1})}">
+                <span type="button">다음<img src="/img/community/right-arrow-gray.png"></span>
             </a>
         </li>
     </ul>
 </div>
+
+<!-- 페이징처리 끝 -->
+
+<!-- 페이징처리 시작 -->
+<!--<div class="page-controller" th:if="${!paging.isEmpty()}">-->
+<!--    <ul class="pagination justify-content-center">-->
+<!--        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">-->
+
+<!--                <span>이전</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
+<!--            th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+<!--            th:classappend="${page == paging.number} ? 'active'"-->
+<!--            class="page-item">-->
+<!--            <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>-->
+<!--        </li>-->
+<!--        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">-->
+<!--                <span>다음</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 <!-- 페이징처리 끝 -->
 
 <form th:action="@{/community/search}" method="get" id="searchForm">
-    <input type="hidden" id="kw" name="kw" th:value="${kw}">
+    <input type="hidden" id="kw" name="kw" th:value="${postSearchKw}">
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
+    <input type="hidden" id="sort" name="sort" th:value="${sort}">
+    <input type="hidden" id="postCategory" name="postCategory" th:value="${postCategory}">
 </form>
 
 </html>
