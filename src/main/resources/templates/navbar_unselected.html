@@ -21,7 +21,7 @@
                     <form class="search-form" action="/search">
                         <div class="search-wrapper">
                             <!-- 입력 부분 -->
-                            <input id="search" name="kw" autocomplete="off" type="text" value>
+                            <input id="search" name="kw" autocomplete="off" type="text" th:value="${kw}">
                         </div>
                         <!-- 검색 버튼 -->
                         <button class="search-btn" type="submit">

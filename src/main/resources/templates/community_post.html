@@ -106,7 +106,7 @@
 
         </div>
         <div class="comment-filter">
-            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter">인기순</a>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter selected">인기순</a>
             <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}" class="latest filter">최신순</a>
 
         </div>
@@ -188,10 +188,9 @@
                                         <li>
                                             <button class="comment-button">신고</button>
                                         </li>
-<!--                  대댓글의 대댓글 기능은 일단 보류                     -->
-<!--                                        <li>-->
-<!--                                            <button class="comment-button reply">답글 쓰기</button>-->
-<!--                                        </li>-->
+                                        <li>
+                                            <button class="comment-button reply">답글 쓰기</button>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
