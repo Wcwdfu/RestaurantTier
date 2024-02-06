@@ -1,5 +1,8 @@
 package com.site.restauranttier.etc;
 
+import lombok.Getter;
+
+@Getter
 public enum SortComment {
     POPULAR("popular"), LATEST("latest");
 
@@ -9,7 +12,4 @@ public enum SortComment {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }
