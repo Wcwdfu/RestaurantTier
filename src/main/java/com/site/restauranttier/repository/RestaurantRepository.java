@@ -1,5 +1,6 @@
 package com.site.restauranttier.repository;
 
+import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
 import com.site.restauranttier.entity.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,4 +31,22 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "FROM Restaurant r " +
             "WHERE r.visitCount >= :#{#restaurant.visitCount}")
     Float getPercentOrderByVisitCount(Restaurant restaurant);
+
+    @Query("SELECT new com.site.restauranttier.dto.RestaurantEverageScoreDTO(r, AVG(e.evaluationScore)) " +
+            "FROM Restaurant r JOIN r.evaluationList e " +
+            "GROUP BY r.restaurantId " +
+            "HAVING COUNT(e) >= :dataNum " +
+            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+    List<RestaurantEverageScoreDTO> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
+
+    @Query("SELECT new com.site.restauranttier.dto.RestaurantEverageScoreDTO(r, AVG(e.evaluationScore)) " +
+            "FROM Restaurant r JOIN r.evaluationList e " +
+            "WHERE r.restaurantCuisine = :cuisine  " +
+            "GROUP BY r.restaurantId " +
+            "HAVING COUNT(e) >= :dataNum " +
+            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+    List<RestaurantEverageScoreDTO> getCuisineRestaurantsOrderedByAvgScore(
+            @Param("cuisine") String cuisine,
+            @Param("dataNum") Integer dataNum
+    );
 }

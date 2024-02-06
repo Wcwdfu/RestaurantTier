@@ -74,30 +74,6 @@ function toggleFavoriteHTML(favoriteImg) {
     }
 }
 
-
-// 티어 element 동적 생성
-const tierData = [
-    ['한식', '2티어'],
-    ['친구', '3티어'],
-    ['3~4인', '1티어']
-]
-fillTierInfo(tierData);
-function fillTierInfo(data) {
-    const tierInfoContainer = document.getElementById('tierInfoContainer');
-
-    for (let i = 0; i < data.length; i++) {
-        const tierOuterSpan = document.createElement('span');
-        const tierInnterSpan = document.createElement('span');
-
-        tierInnterSpan.innerText = data[i][0] + ' ' + data[i][1];
-        tierOuterSpan.appendChild(tierInnterSpan);
-
-        tierOuterSpan.classList.add('tier');
-
-        tierInfoContainer.appendChild(tierOuterSpan);
-    }
-}
-
 // 메뉴
 function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -1일 경우 모든 메뉴 표시
   const menuInfoContainer = document.getElementById('menuInfoContainer');
