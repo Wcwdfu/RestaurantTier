@@ -120,8 +120,6 @@ public class RestaurantCommentService {
         Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
         Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
 
-        calculateTimeAgo(LocalDateTime.now(), restaurantComment.getCreatedAt());
-
         if (restaurantCommentlikeOptional.isPresent() && restaurantCommentdislikeOptional.isPresent()) {
             throw new IllegalStateException("Both like and dislike exist for the same comment.");
         } else if (restaurantCommentlikeOptional.isPresent()) { // 좋아요를 눌렀었던 경우
@@ -171,38 +169,5 @@ public class RestaurantCommentService {
         } else {
             return false;
         }
-    }
-
-    public String calculateTimeAgo(LocalDateTime now, LocalDateTime past) {
-        System.out.println(past);
-        System.out.println(now);
-        // 초 차이 계산
-        long secondsDifference = ChronoUnit.SECONDS.between(past, now);
-        System.out.println("Minutes Difference: " + secondsDifference);
-
-        // 분 차이 계산
-        long minutesDifference = ChronoUnit.MINUTES.between(past, now);
-        System.out.println("Minutes Difference: " + minutesDifference);
-
-        // 시간 차이 계산
-        long hoursDifference = ChronoUnit.HOURS.between(past, now);
-        System.out.println("Hours Difference: " + hoursDifference);
-
-        // 일 차이 계산
-        long daysDifference = ChronoUnit.DAYS.between(past, now);
-        System.out.println("Days Difference: " + daysDifference);
-
-        // 월 차이 계산
-        long monthsDifference = ChronoUnit.MONTHS.between(past, now);
-        System.out.println("Months Difference: " + monthsDifference);
-
-        // 연 차이 계산
-        long yearsDifference = ChronoUnit.YEARS.between(past, now);
-        System.out.println("Years Difference: " + yearsDifference);
-
-        // Duration 클래스를 사용하여 시간 차이 계산
-        Duration duration = Duration.between(past, now);
-        System.out.println("Duration Difference: " + duration);
-        return "";
     }
 }
