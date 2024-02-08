@@ -35,7 +35,7 @@ public class PostService {
         // 최신순 정렬
         if (sort.isEmpty() || sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
-            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             return this.postRepository.findAll(pageable);
 
         }
@@ -43,7 +43,7 @@ public class PostService {
         else {
             sorts.add(Sort.Order.desc("likeCount"));
             Specification<Post> spec = getByPopularOver5();
-            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             return this.postRepository.findAll(spec, pageable);
         }
 
@@ -59,7 +59,7 @@ public class PostService {
         } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
         Specification<Post> spec = search(kw, postCategory);
         return this.postRepository.findAll(spec, pageable);
     }
@@ -71,7 +71,7 @@ public class PostService {
         // 인기순
         if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
-            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             Specification<Post> spec = getByCategoryAndPopularOver5(postCategory);
             return this.postRepository.findAll(spec, pageable);
 
@@ -79,7 +79,7 @@ public class PostService {
         // 최신순
         else  {
             sorts.add(Sort.Order.desc("createdAt"));
-            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             return this.postRepository.findByPostCategory(postCategory, pageable);
         }
 

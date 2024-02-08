@@ -86,3 +86,10 @@ div.header-bottom ul.menu-list > li > a > div.home {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
+@media (max-width: 1600px){
+    section {
+        padding-top: 60px;
+        padding-bottom: 90px;
+    }
+}
