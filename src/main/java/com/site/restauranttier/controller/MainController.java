@@ -52,13 +52,6 @@ public class MainController {
         return "home";
     }
 
-    // 메뉴추천 화면
-    @GetMapping("/recommend")
-    public String recommend(Model model){
-        model.addAttribute("cuisines",cuisines);
-        return "recommend";
-    }
-
 
     // 랭킹 화면
     @GetMapping("/ranking")

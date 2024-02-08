@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
     const drawingButton = $('#drawingButton');
     const drawingResult = $('#drawingResult');
     const stopButton = $('#stopButton');
@@ -83,7 +83,7 @@ $(document).ready(function () {
         }
         return array;
     }
-});
+});*/
 
 function getSelectedOption() {
     var selectElement = document.getElementById("cuisineSelect");
@@ -91,3 +91,25 @@ function getSelectedOption() {
 
     return selectedValue;
 }
+
+document.getElementById('recommendBtn').addEventListener('click', function() {
+    const apiUrl = "/api/recommend?cuisine=분식-술집";
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`${data.status}: ${data.message}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+})
