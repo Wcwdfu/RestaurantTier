@@ -155,4 +155,17 @@ public class RestaurantCommentService {
             responseMap.put("status", "hated");
         }
     }
+
+    public boolean deleteComment(Integer commentId, User user) {
+        Optional<RestaurantComment> restaurantCommentOptional = restaurantCommentRepository.findByCommentId(commentId);
+
+        if (restaurantCommentOptional.isPresent()) {
+            RestaurantComment restaurantComment = restaurantCommentOptional.get();
+            restaurantComment.setStatus("DELETED");
+            restaurantCommentRepository.save(restaurantComment);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

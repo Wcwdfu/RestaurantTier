@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>맛집텨 티어표</title>
+    <title th:text="${'건메추 : ' + restaurant.getRestaurantName()}"></title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/restaurant-style.css"/>
     <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
@@ -55,7 +55,7 @@
             </div>
             <div class="stat-data">
                 <div class="stat-name">평가 데이터 개수</div>
-                <div id="statDatas" class="stat-value" th:text="${evaluationCountData}"></div>
+                <div id="statDatas" class="stat-value" th:text="${evaluationCountData} + '개'"></div>
             </div>
         </div>
     </div>
@@ -113,8 +113,9 @@
                 </div>
                 <div class="body-div">
                     <div class="nick-date-div">
-                        <span class="nick-span" th:text="${restaurantComment[0].getUser.getUserNickname()}"></span>
+                        <span class="nick-span" th:text="${restaurantComment[0].getUser().getUserNickname()}"></span>
                         <span class="date-span" th:text="${restaurantComment[0].getCreatedAt()}"></span>
+                        <button class="delete-button" onclick="deleteComment(this)" th:if="${restaurantComment[0].getUser() == user}" th:data-id="${restaurantComment[0].commentId}">삭제</button>
                     </div>
                     <div class="real-comment-container">
                         <span th:text="${restaurantComment[0].getCommentBody()}"></span>
@@ -122,6 +123,18 @@
                 </div>
             </li>
         </ul>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div>
+                <p>정말 댓글을 삭제하시겠습니까?</p>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-buttons">
+                <button class="delete-button" id="confirmButton">확인</button>
+                <button class="delete-button" id="cancelButton">취소</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>

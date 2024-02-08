@@ -14,6 +14,7 @@
         <div class="nick-date-div">
             <span class="nick-span" th:text="${restaurantComment[0].getUser.getUserNickname()}"></span>
             <span class="date-span" th:text="${restaurantComment[0].getCreatedAt()}"></span>
+            <button class="delete-button" onclick="deleteComment(this)" th:if="${restaurantComment[0].getUser() == user}" th:data-id="${restaurantComment[0].commentId}">삭제</button>
         </div>
         <div class="real-comment-container">
             <span th:text="${restaurantComment[0].getCommentBody()}"></span>
