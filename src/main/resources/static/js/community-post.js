@@ -12,15 +12,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         if (response.redirected) {
                             window.location.href = "/user/login";
-                        } else {
-                            window.location.reload();
-
+                            return;
                         }
-
+                        return response.json()
+                    }
+                })
+                .then(data => {
+                    if (data.dislikeCount === 0) {
+                        document.querySelector("#dislikeButton > span").textContent = 0
+                    } else {
+                        document.querySelector("#dislikeButton > span").textContent = "-" + data.dislikeCount;
 
                     }
-                }).catch(error =>
-                alert("Network error or problem with the request"))
+                    document.querySelector("#likeButton > span").textContent = data.likeCount;
+
+                    const likeButtonImage = document.querySelector('#likeButton img');
+                    const dislikeButtonImage = document.querySelector('#dislikeButton img');
+                    // 버튼 누르기 전 상태에 따라 이미지 설정 다르게 해줌 (좋아요가 이미 눌러져있을때, 싫어요가 눌러져있을때, 둘다 없었을떄)
+                    if (data.likeDelete) {
+                        likeButtonImage.src = '/img/community/up.png';
+
+                    } else if (data.likeChanged) {
+                        likeButtonImage.src = '/img/community/up-green.png';
+                        dislikeButtonImage.src = '/img/community/down.png';
+                    } else if (data.likeCreated) {
+                        likeButtonImage.src = '/img/community/up-green.png';
+                    }
+                }).catch(error => console.error('Error:', error));
 
         }
     )
@@ -38,18 +56,37 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         if (response.redirected) {
                             window.location.href = "/user/login";
-                        } else {
-                            window.location.reload();
-
+                            return;
                         }
-
+                        return response.json()
+                    }
+                })
+                .then(data => {
+                    if (data.dislikeCount === 0) {
+                        document.querySelector("#dislikeButton > span").textContent = 0
+                    } else {
+                        document.querySelector("#dislikeButton > span").textContent = "-" + data.dislikeCount;
 
                     }
-                }).catch(error =>
-                alert("Network error or problem with the request"))
+                    document.querySelector("#likeButton > span").textContent = data.likeCount;
 
+                    const likeButtonImage = document.querySelector('#likeButton img');
+                    const dislikeButtonImage = document.querySelector('#dislikeButton img');
+                    // 버튼 누르기 전 상태에 따라 이미지 설정 다르게 해줌 (싫어요가 이미 눌러져있을때, 좋아요가 눌러져있을때, 둘다 없었을떄)
+                    if (data.dislikeDelete) {
+                        dislikeButtonImage.src = '/img/community/down.png';
+
+                    } else if (data.dislikeChanged) {
+                        likeButtonImage.src = '/img/community/up.png';
+                        dislikeButtonImage.src = '/img/community/down-red.png';
+                    } else if (data.dislikeCreated) {
+                        dislikeButtonImage.src = '/img/community/down-red.png';
+                    }
+                }).catch(error => console.error('Error:', error));
         }
     )
+
+    //게시글 스크랩 버튼 리스너
     document.getElementById("scrap").addEventListener('click',
 
         function (event) {
@@ -62,15 +99,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         if (response.redirected) {
                             window.location.href = "/user/login";
-                        } else {
-                            window.location.reload();
-
+                            return;
                         }
-
+                        return response.json()
+                    }
+                })
+                .then(data => {
+                    const scrapImage = document.querySelector('#scrap img');
+                    // 스크랩 되어있던 거 였으면 일반 이미지로 변환
+                    if (data.scrapDelete) {
+                        scrapImage.src = '/img/community/scrap.png';
 
                     }
-                }).catch(error =>
-                alert("Network error or problem with the request"))
+                    // 스크랩 안되어 있었으면 녹색 스크랩 이미지로 변환
+                    else if (data.scrapCreated) {
+                        scrapImage.src = '/img/community/scrap-green.png';
+                    }
+                }).catch(error => console.error('Error:', error));
 
         }
     )
@@ -89,16 +134,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         if (response.redirected) {
                             window.location.href = "/user/login";
-                        } else {
-                            window.location.reload();
-
+                            return;
                         }
-
-
+                        return response.json()
                     }
-
                 })
-                .catch(error => console.error('Error:', error));
+                .then(data => {
+                    console.log(data)
+                    console.log(data.totalLikeCount)
+                    this.parentNode.querySelector(".totalLikeCount").textContent = data.totalLikeCount
+
+                    const likeButtonImage = this.querySelector('img');
+                    const dislikeButtonImage = this.parentNode.querySelector('.comment-down img');
+                    console.log(dislikeButtonImage);
+
+                    // 버튼 누르기 전 상태에 따라 이미지 설정 다르게 해줌 (싫어요가 이미 눌러져있을때, 좋아요가 눌러져있을때, 둘다 없었을떄)
+                    if (data.likeDelete) {
+                        likeButtonImage.src = '/img/community/up.png';
+
+                    } else if (data.changeToLike) {
+                        likeButtonImage.src = '/img/community/up-green.png';
+                        dislikeButtonImage.src = '/img/community/down.png';
+                    } else if (data.likeCreated) {
+                        likeButtonImage.src = '/img/community/up-green.png';
+                    }
+                }).catch(error => console.error('Error:', error));
         });
     });
 
@@ -114,14 +174,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         if (response.redirected) {
                             window.location.href = "/user/login";
-                        } else {
-                            window.location.reload();
-
+                            return;
                         }
-
+                        return response.json()
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .then(data => {
+                    this.parentNode.querySelector(".totalLikeCount").textContent = data.totalLikeCount
+
+                    const dislikeButtonImage = this.querySelector('img');
+                    const likeButtonImage = this.parentNode.querySelector('.comment-up img');
+                    // 버튼 누르기 전 상태에 따라 이미지 설정 다르게 해줌 (싫어요가 이미 눌러져있을때, 좋아요가 눌러져있을때, 둘다 없었을떄)
+                    if (data.dislikeDelete) {
+                        dislikeButtonImage.src = '/img/community/down.png';
+
+                    } else if (data.changeToDislike) {
+                        likeButtonImage.src = '/img/community/up.png';
+                        dislikeButtonImage.src = '/img/community/down-red.png';
+                    } else if (data.dislikeCreated) {
+                        dislikeButtonImage.src = '/img/community/down-red.png';
+                    }
+                }).catch(error => console.error('Error:', error));
         });
     });
     // 대댓글 달기 버튼 리스너
@@ -205,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 대댓글 작성 완료 버튼 리스너
     document.querySelector('.comment-ul').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        if(!event.target.matches(" .comment-form")){
+        if (!event.target.matches(" .comment-form")) {
             return
         }
         // 현재 주소에서 postId 추출

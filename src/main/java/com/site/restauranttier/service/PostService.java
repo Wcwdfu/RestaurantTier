@@ -3,7 +3,6 @@ package com.site.restauranttier.service;
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.Post;
 import com.site.restauranttier.entity.PostComment;
-import com.site.restauranttier.entity.PostScrap;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.PostScrapRepository;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,10 +47,9 @@ public class PostService {
     public Page<Post> getList(int page, String sort, String kw, String postCategory) {
         List<Sort.Order> sorts = new ArrayList<>();
 
-        if(sort.equals("recent")){
+        if (sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
-        }
-        else if(sort.equals("popular")){
+        } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
@@ -62,15 +58,13 @@ public class PostService {
     }
 
 
-
     //    드롭다운에서 카테고리 설정
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
 
-        if(sort.equals("popular")){
+        if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
-        }
-        else if(sort.equals("recent")) {
+        } else if (sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
         }
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
@@ -129,17 +123,20 @@ public class PostService {
         postRepository.save(post);
     }
 
-    // 글 좋아요
-    public void likeCreateOrDelete(Post post, User user) {
+    // 게시글 좋아요
+    public Map<String, Object> likeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
         List<Post> likePostList = user.getLikePostList();
         List<Post> dislikePostList = user.getDislikePostList();
+        Map<String, Object> status = new HashMap<>();
+
         //해당 post 를 이미 like 한 경우 - 제거
         if (likeUserList.contains(user)) {
             post.setLikeCount(post.getLikeCount() - 1);
             likePostList.remove(post);
             likeUserList.remove(user);
+            status.put("likeDelete", true);
         }
         //해당 post를 이미 dislike 한 경우 - 제거하고 추가
         else if (dislikeUserList.contains(user)) {
@@ -148,29 +145,37 @@ public class PostService {
             dislikePostList.remove(post);
             likeUserList.add(user);
             likePostList.add(post);
+            status.put("likeChanged", true);
+
         }
         // 처음 like 하는 경우-추가
         else {
+            status.put("likeCreated", true);
+
             post.setLikeCount(post.getLikeCount() + 1);
             likeUserList.add(user);
             likePostList.add(post);
         }
+        // 상태 반환
+
         postRepository.save(post);
         userRepository.save(user);
+        return status;
     }
 
-    // 글 싫어요
-    public void dislikeCreateOrDelete(Post post, User user) {
+    // 게시글 싫어요
+    public Map<String, Object> dislikeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
         List<Post> likePostList = user.getLikePostList();
         List<Post> dislikePostList = user.getDislikePostList();
+        Map<String, Object> status = new HashMap<>();
         //해당 post를 이미 dislike 한 경우 - 제거
         if (dislikeUserList.contains(user)) {
             post.setLikeCount(post.getLikeCount() + 1);
-
             dislikePostList.remove(post);
             dislikeUserList.remove(user);
+            status.put("dislikeDelete", true);
         }
         //해당 post를 이미 like 한 경우 - 제거하고 추가
         else if (likeUserList.contains(user)) {
@@ -180,17 +185,20 @@ public class PostService {
             likePostList.remove(post);
             dislikeUserList.add(user);
             dislikePostList.add(post);
+            status.put("dislikeChanged", true);
         }
         // 처음 dislike 하는 경우-추가
         else {
             post.setLikeCount(post.getLikeCount() - 1);
-
             dislikeUserList.add(user);
             dislikePostList.add(post);
+            status.put("dislikeCreated", true);
         }
         postRepository.save(post);
         userRepository.save(user);
+        return status;
     }
+
 
     private Specification<Post> search(String kw, String postCategory) {
         return new Specification<>() {
@@ -209,7 +217,7 @@ public class PostService {
                 Predicate categoryPredicate;
 
                 // 검색 조건 결합 (카테고리 설정이 되어있을때는 검색 시 카테고리 안에서 검색을 한다).
-                if(!postCategory.equals("전체")){
+                if (!postCategory.equals("전체")) {
                     categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
                     return cb.and(statusPredicate, categoryPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
                             cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용

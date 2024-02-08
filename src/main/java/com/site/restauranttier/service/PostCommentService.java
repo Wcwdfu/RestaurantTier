@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -60,49 +62,56 @@ public class PostCommentService {
         return dateTime.format(formatter);
     }
 
-    public void likeCreateOrDelete(PostComment postcomment, User user) {
+    public Map<String,Object> likeCreateOrDelete(PostComment postcomment, User user) {
         List<User> likeUserList = postcomment.getLikeUserList();
         List<User> dislikeUserList = postcomment.getDislikeUserList();
         List<PostComment> likePostCommentList = user.getLikePostCommentList();
         List<PostComment> dislikePostCommentList = user.getDislikePostCommentList();
+        Map<String,Object> status = new HashMap<>();
         //해당 postcomment를 like 한 경우 - 제거
         if (likeUserList.contains(user)) {
             postcomment.setLikeCount(postcomment.getLikeCount() - 1);
-
             likePostCommentList.remove(postcomment);
             likeUserList.remove(user);
+            status.put("likeDelete",true);
         }
-        //해당 postcomment를 이미 dislike 한 경우 - 제거하고 추가
+        //해당 postcomment를 이미 dislike 한 경우 - 제거하고  like 추가
         else if (dislikeUserList.contains(user)) {
             postcomment.setLikeCount(postcomment.getLikeCount() + 2);
-
             dislikeUserList.remove(user);
             dislikePostCommentList.remove(postcomment);
             likeUserList.add(user);
             likePostCommentList.add(postcomment);
+            status.put("changeToLike",true);
+
         }
         // 처음 dislike 하는 경우-추가
         else {
             postcomment.setLikeCount(postcomment.getLikeCount() + 1);
-
             likeUserList.add(user);
             likePostCommentList.add(postcomment);
+            status.put("likeCreated",true);
+
         }
         postCommentRepository.save(postcomment);
         userRepository.save(user);
+        return status;
     }
 
-    public void dislikeCreateOrDelete(PostComment postcomment, User user) {
+    public Map<String,Object> dislikeCreateOrDelete(PostComment postcomment, User user) {
         List<User> likeUserList = postcomment.getLikeUserList();
         List<User> dislikeUserList = postcomment.getDislikeUserList();
         List<PostComment> likePostCommentList = user.getLikePostCommentList();
         List<PostComment> dislikePostCommentList = user.getDislikePostCommentList();
+        Map<String,Object> status = new HashMap<>();
+
         //해당 post를 이미 dislike 한 경우 - 제거
         if (dislikeUserList.contains(user)) {
             postcomment.setLikeCount(postcomment.getLikeCount() + 1);
 
             dislikePostCommentList.remove(postcomment);
             dislikeUserList.remove(user);
+            status.put("dislikeDelete",true);
         }
         //해당 post를 이미 like 한 경우 - 제거하고 추가
         else if (likeUserList.contains(user)) {
@@ -112,6 +121,7 @@ public class PostCommentService {
             likePostCommentList.remove(postcomment);
             dislikeUserList.add(user);
             dislikePostCommentList.add(postcomment);
+            status.put("changeToDislike",true);
         }
         // 처음 dislike 하는 경우-추가
         else {
@@ -119,9 +129,11 @@ public class PostCommentService {
 
             dislikeUserList.add(user);
             dislikePostCommentList.add(postcomment);
+            status.put("dislikeCreated",true);
         }
         postCommentRepository.save(postcomment);
         userRepository.save(user);
+        return status;
     }
 
 

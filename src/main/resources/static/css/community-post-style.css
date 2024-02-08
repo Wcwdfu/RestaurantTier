@@ -201,7 +201,7 @@ main {
 }
 
 .post-footer > .comment-filter {
-    height:50px;
+    height: 50px;
     padding: 0px 16px;
     border-bottom: 1px solid #ebeef1;
     display: flex;
@@ -213,11 +213,11 @@ main {
     line-height: 1;
     border: none;
     background: none;
-    padding:0 10px;
+    padding: 0 10px;
     height: auto;
     position: relative;
     text-decoration: none;
-    color:inherit;
+    color: inherit;
 }
 
 .comment-content {
@@ -225,11 +225,13 @@ main {
     /*padding: 0px 16px 16px;*/
     border: none;
     outline: none;
-    resize: none;
+    /*resize: none;*/
     font-size: 14px;
     line-height: 20px;
     color: black;
     background: none;
+
+    resize: vertical; /* 수직 크기 조절 허용 */
 }
 
 .under-content > div {
@@ -270,7 +272,7 @@ main {
     vertical-align: middle;
 }
 
-.under-content> div > span {
+.under-content > div > span {
     text-align: center;
     border-radius: 4px;
     transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
@@ -286,32 +288,39 @@ main {
     cursor: pointer;
     color: #7b858e
 }
-.under-content > div >span> img+span{
+
+.under-content > div > span > img + span {
     margin-left: 4px;
 }
-.comment-write > div{
+
+.comment-write > div {
     background: white;
     padding-top: 16px;
     border: 1px solid #dddfe4;
 }
-.comment-list{
+
+.comment-list {
     display: flex;
     flex-direction: column;
 }
-.comment-ul{
+
+.comment-ul {
     list-style: none;
 }
-.comment-li{
+
+.comment-li {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-.comment-li > div{
+
+.comment-li > div {
     width: 100%;
     display: flex;
     padding: 12px 12px 12px 0px;
 }
-.comment-left{
+
+.comment-left {
     padding-top: 4px;
     display: flex;
     flex-direction: column;
@@ -322,11 +331,13 @@ main {
     gap: 4px;
     text-align: center;
 }
-.comment-content{
+
+.comment-content {
     width: 100%;
     overflow: hidden;
 }
-.comment-left > button{
+
+.comment-left > button {
 
     display: flex;
     -webkit-box-pack: center;
@@ -343,13 +354,13 @@ main {
     font-size: 14px;
     line-height: 38px;
     border-radius: 4px;
-    transition: all 0.3s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     vertical-align: middle;
     color: #7b858e;
 
 }
 
-.comment-name{
+.comment-name {
     width: auto;
     max-width: 100%;
     margin-top: 0px;
@@ -363,47 +374,57 @@ main {
     white-space: nowrap;
     height: 24px;
 }
-.comment-body{
-    padding-top:2px ;
-    height:30px;
+
+.comment-body {
+    padding-top: 2px;
     font-size: 14px;
     color: black;
 }
 
-.comment-content >ul{
+.comment-content > ul {
     margin-top: 8px;
     display: flex;
     align-items: center;
     gap: 24px;
 }
-.user-name{
+
+.user-name {
     flex: 1 1 0%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 1;
 }
-.comment-name > span{
+
+.comment-name > span {
     float: left;
     padding-left: 8px;
     line-height: 24px;
     white-space: nowrap;
 }
+
 .comment-body > div {
-    margin-top:5px;
+    margin-top: 5px;
 }
-.comment-name img{
+
+.comment-body > div > p {
+    white-space: pre-line;
+}
+
+.comment-name img {
     width: 16px;
     height: 16px;
 }
-ol,ul{
+
+ol, ul {
     list-style: none;
 
 }
-.comment-button{
+
+.comment-button {
     text-align: center;
     font-size: 14px;
-    transition: all 0.3s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     vertical-align: middle;
 
     display: flex;
@@ -419,7 +440,8 @@ ol,ul{
     cursor: pointer;
     color: #7b858e;
 }
-.reply-ul{
+
+.reply-ul {
     width: 100%;
     display: flex;
     padding: 12px 12px 12px 0px;
@@ -429,15 +451,18 @@ ol,ul{
 
 }
 
-.reply-mark >.reply-image{
+.reply-mark > .reply-image {
     width: 16px;
     height: 16px;
 }
-.reply-mark{
+
+.reply-mark {
     margin-left: 50px;
 }
-textarea{
-    padding:5px 10px;
+
+textarea {
+    padding: 5px 10px;
 }
+
 
 
