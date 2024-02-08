@@ -66,12 +66,6 @@ public class MainController {
         return "ranking";
     }
 
-    // 추천 화면
-//    @GetMapping("/recommend")
-//    public String recommend() {
-//        return "recommend";
-//    }
-
 
     // 검색 결과 화면
     @GetMapping("/search")
