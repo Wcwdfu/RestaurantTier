@@ -64,4 +64,8 @@ public class RestaurantFavoriteService {
             return false;
         }
     }
+
+    public Integer getFavoriteCountByRestaurant(Restaurant restaurant) {
+        return restaurantFavoriteRepository.countByRestaurantAndStatus(restaurant, "ACTIVE");
+    }
 }

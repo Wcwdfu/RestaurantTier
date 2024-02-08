@@ -3,47 +3,24 @@ $(document).ready(function () {
         // 현재 URL에서 쿼리 스트링 추출
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const cuisineParam = urlParams.get('cuisine');
+    let cuisineParam = urlParams.get('cuisine');
+    if (!cuisineParam) cuisineParam = '전체';
+    let situationParam = urlParams.get('situation');
+    if (!situationParam) situationParam = '전체';
 
-        // 모든 버튼 클래스 초기화
-    document.querySelectorAll('.button').forEach(btn => {
-        btn.classList.remove('selected');
-        btn.classList.add('unselected');
+    document.querySelectorAll('.category').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (btn.dataset.cuisine) {
+                var apiUrl = `/tier?cuisine=${btn.dataset.cuisine}&situation=${situationParam}`;
+                console.log(apiUrl);
+                window.location.href = apiUrl;
+            } else if (btn.dataset.situation) {
+                var apiUrl = `/tier?cuisine=${cuisineParam}&situation=${btn.dataset.situation}`;
+                console.log(apiUrl);
+                window.location.href = apiUrl;
+            }
+        })
     });
-
-        // 해당하는 cuisine의 a 태그 찾기
-    document.querySelectorAll('.cuisine-link').forEach(link => {
-        if (link.textContent.trim() === cuisineParam) {
-            // a 태그의 부모 span 태그에 클래스 변경
-            link.parentElement.classList.add('selected');
-            link.parentElement.classList.remove('unselected');
-        }
-    });
-
-
-
-// 데이터 위치
-    const imagePaths = {
-        person: '/tier-images/person.png',
-        people: '/tier-images/people.png',
-        crowd: '/tier-images/crowd.png',
-        date: '/tier-images/date.png',
-        friend: '/tier-images/friend.png',
-        blindDate: '/tier-images/blind-date.png',
-        meeting: '/tier-images/meeting.png'
-    };
-// 임시 데이터의 텍스트를 매핑해줄 map
-    const imageMappings = {
-        '혼밥': 'person',
-        '소규모 회식': 'people',
-        '단체 회식': 'people',
-        '데이트': 'date',
-        '친구 초대': 'friend',
-        '소개팅': 'blindDate',
-        '미팅': 'meeting',
-    };
-// table에 내용을 채우는 함수 실행(정의는 아래쪽에 있음)
-//     fillTableWithData(data)
 
 // 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
     document.getElementById('categoryCheckBtn').addEventListener('change', function () {
@@ -103,7 +80,7 @@ $(document).ready(function () {
             if (!isMouseDown) return;
             e.preventDefault();
             var x = e.pageX - scrollableElement.offsetLeft;
-            var walk = (x - startX) * 2; // 스크롤 속도 조절을 위한 계수
+            var walk = (x - startX) * 1.5; // 스크롤 속도 조절을 위한 계수
             scrollableElement.scrollLeft = scrollLeft - walk;
         });
     });
@@ -119,48 +96,5 @@ $(document).ready(function () {
             category.classList.remove('fixed-category');
         }
     });
-
-//표 데이터 채우기
-    function createImage(imageKey) { // 일단 이미지 태그 생성해서 리턴 하는 함수
-        const imageName = imageMappings[imageKey];
-        const imagePath = imagePaths[imageName];
-
-        const img = document.createElement('img');
-        img.src = imagePath;
-        return img;
-    }
-
-    function fillTableWithData(data) { // 표 채우는 함수
-        const tableBody = document.getElementById('tierTableBody');
-
-        data.forEach(rowData => {
-            const tr = document.createElement('tr');
-
-            for (let i = 0; i < rowData.length - 1; i++) {
-                const cellData = rowData[i];
-                const td = document.createElement('td');
-                if (i == 1) {
-                    td.classList.add('left-align');
-                } else {
-                    td.classList.add('middle-align');
-                }
-                td.textContent = cellData;
-                tr.appendChild(td);
-            }
-
-            const td = document.createElement('td');
-            const div = document.createElement('div');
-            td.appendChild(div);
-            const cellData = rowData[rowData.length - 1];
-            const categories = cellData.split(',');
-
-            categories.forEach(item => {
-                div.appendChild(createImage(item.trim()));
-                tr.appendChild(td);
-            });
-
-            tableBody.appendChild(tr);
-        });
-    }
 
 });

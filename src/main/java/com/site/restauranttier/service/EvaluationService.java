@@ -4,7 +4,7 @@ import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
 import com.site.restauranttier.dto.RestaurantTierDTO;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
-import com.site.restauranttier.etc.Tier;
+import com.site.restauranttier.etc.EnumTier;
 import com.site.restauranttier.repository.EvaluationItemScoreRepository;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.SituationRepository;
@@ -91,7 +91,7 @@ public class EvaluationService {
 
     public RestaurantTierDTO getTierOfRestaurantInCuisine(Restaurant restaurant) {
         List<RestaurantEverageScoreDTO> restaurantEverageScoreDTOList = restaurantService.getCuisineRestaurantEverageScoreDTOList(restaurant);
-        Tier tier = Tier.calculateTierOfRestaurant(restaurantEverageScoreDTOList, restaurant);
+        EnumTier tier = EnumTier.calculateTierOfRestaurant(restaurantEverageScoreDTOList, restaurant);
 
         return new RestaurantTierDTO(restaurant.getRestaurantCuisine(), tier);
     }

@@ -2,16 +2,12 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.*;
-import com.site.restauranttier.etc.SortComment;
+import com.site.restauranttier.etc.EnumSortComment;
 import com.site.restauranttier.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import java.security.Principal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,22 +58,22 @@ public class RestaurantCommentService {
         return restaurantCommentRepository.findLikeDislikeDiffByCommentId(commentId);
     }
 
-    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment) {
+    public List<Object[]> getCommentList(int restaurantId, EnumSortComment sortComment) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        if (sortComment == SortComment.POPULAR) {
+        if (sortComment == EnumSortComment.POPULAR) {
             return restaurantCommentRepository.findOrderPopular(restaurant);
-        } else if (sortComment == SortComment.LATEST) {
+        } else if (sortComment == EnumSortComment.LATEST) {
             return restaurantCommentRepository.findOrderLatest(restaurant);
         } else {
             return null;
         }
     }
 
-    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment, User user) {
+    public List<Object[]> getCommentList(int restaurantId, EnumSortComment sortComment, User user) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        if (sortComment == SortComment.POPULAR) {
+        if (sortComment == EnumSortComment.POPULAR) {
             return restaurantCommentRepository.findOrderPopular(restaurant, user);
-        } else if (sortComment == SortComment.LATEST) {
+        } else if (sortComment == EnumSortComment.LATEST) {
             return restaurantCommentRepository.findOrderLatest(restaurant, user);
         } else {
             return null;
@@ -119,8 +115,6 @@ public class RestaurantCommentService {
     public void likeComment(User user, RestaurantComment restaurantComment, Map<String, String> responseMap) {
         Optional<RestaurantCommentlike> restaurantCommentlikeOptional = restaurantCommentLikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
         Optional<RestaurantCommentdislike> restaurantCommentdislikeOptional = restaurantCommentDislikeRepository.findByUserAndRestaurantComment(user, restaurantComment);
-
-        calculateTimeAgo(LocalDateTime.now(), restaurantComment.getCreatedAt());
 
         if (restaurantCommentlikeOptional.isPresent() && restaurantCommentdislikeOptional.isPresent()) {
             throw new IllegalStateException("Both like and dislike exist for the same comment.");
@@ -171,38 +165,5 @@ public class RestaurantCommentService {
         } else {
             return false;
         }
-    }
-
-    public String calculateTimeAgo(LocalDateTime now, LocalDateTime past) {
-        System.out.println(past);
-        System.out.println(now);
-        // 초 차이 계산
-        long secondsDifference = ChronoUnit.SECONDS.between(past, now);
-        System.out.println("Minutes Difference: " + secondsDifference);
-
-        // 분 차이 계산
-        long minutesDifference = ChronoUnit.MINUTES.between(past, now);
-        System.out.println("Minutes Difference: " + minutesDifference);
-
-        // 시간 차이 계산
-        long hoursDifference = ChronoUnit.HOURS.between(past, now);
-        System.out.println("Hours Difference: " + hoursDifference);
-
-        // 일 차이 계산
-        long daysDifference = ChronoUnit.DAYS.between(past, now);
-        System.out.println("Days Difference: " + daysDifference);
-
-        // 월 차이 계산
-        long monthsDifference = ChronoUnit.MONTHS.between(past, now);
-        System.out.println("Months Difference: " + monthsDifference);
-
-        // 연 차이 계산
-        long yearsDifference = ChronoUnit.YEARS.between(past, now);
-        System.out.println("Years Difference: " + yearsDifference);
-
-        // Duration 클래스를 사용하여 시간 차이 계산
-        Duration duration = Duration.between(past, now);
-        System.out.println("Duration Difference: " + duration);
-        return "";
     }
 }

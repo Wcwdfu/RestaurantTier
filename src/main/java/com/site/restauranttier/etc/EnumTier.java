@@ -7,33 +7,33 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public enum Tier {
+public enum EnumTier {
     ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), NONE(-1);
 
     private final Integer value;
 
-    Tier(Integer value) { this.value = value; }
+    EnumTier(Integer value) { this.value = value; }
 
-    public static Tier calculateTierOfRestaurant(List<RestaurantEverageScoreDTO> restaurantEverageScoreDTOList, Restaurant restaurant) {
+    public static EnumTier calculateTierOfRestaurant(List<RestaurantEverageScoreDTO> restaurantEverageScoreDTOList, Restaurant restaurant) {
         int numberOfData = restaurantEverageScoreDTOList.size();
         int indexOfRestaurant = getIndex(restaurantEverageScoreDTOList, restaurant);
 
         if (indexOfRestaurant == -1) {
-            return Tier.NONE;
+            return EnumTier.NONE;
         }
 
         // 티어 계산 로직
         double averageScore = restaurantEverageScoreDTOList.get(indexOfRestaurant).getAverageScore();
         if (averageScore >= 6.0) {
-            return Tier.ONE;
+            return EnumTier.ONE;
         } else if (averageScore >= 5.0) {
-            return Tier.TWO;
+            return EnumTier.TWO;
         } else if (averageScore >= 3.5) {
-            return Tier.THREE;
+            return EnumTier.THREE;
         } else if (averageScore >= 2.0) {
-            return Tier.FOUR;
+            return EnumTier.FOUR;
         } else {
-            return Tier.FIVE;
+            return EnumTier.FIVE;
         }
 
         // 티어 계산 로직
