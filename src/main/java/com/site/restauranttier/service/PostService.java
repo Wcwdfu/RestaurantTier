@@ -40,7 +40,7 @@ public class PostService {
         } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 5, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
 
         return this.postRepository.findAll(pageable);
@@ -56,7 +56,7 @@ public class PostService {
         else if(sort.equals("popular")){
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Post> spec = search(kw, postCategory);
         return this.postRepository.findAll(spec, pageable);
     }
@@ -73,7 +73,7 @@ public class PostService {
         else if(sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
         }
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.postRepository.findByPostCategory(postCategory, pageable);
     }
 

@@ -106,98 +106,102 @@
 
         </div>
         <div class="comment-filter">
-            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}" class="popularity filter selected">인기순</a>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}"
+               class="popularity filter selected">인기순</a>
             <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}" class="latest filter">최신순</a>
 
         </div>
 
         <div class="comment-list">
             <ul class="comment-ul">
-                <li class="comment-li" th:each="comment,loop:${postCommentList}" th:data-id="${comment.commentId}">
-                    <div>
-                        <div class="comment-left">
-                            <button class="comment-up" type="button" th:data-id="${comment.commentId}">
-                                <img th:if="${comment.likeUserList.contains(user)}" src="/img/community/up-green.png">
-                                <img th:unless="${comment.likeUserList.contains(user)}" src="/img/community/up.png">
-                            </button>
-                            <span th:text="${comment.likeCount}"></span>
-                            <button class="comment-down" type="button" th:data-id="${comment.commentId}">
-                                <img th:if="${comment.dislikeUserList.contains(user)}"
-                                     src="/img/community/down-red.png">
-                                <img th:unless="${comment.dislikeUserList.contains(user)}"
-                                     src="/img/community/down.png">
-                            </button>
-                        </div>
-                        <div class="comment-content">
-                            <div class="comment-name">
-                                <img src="/img/community/crown.png">
-                                <span class="user-name" th:text="${comment.user.userNickname}"></span>
-                                <span th:text="${commentCreatedAtList.get(loop.index)}"></span>
+                <div th:each="comment,loop:${postCommentList}">
+                    <li class="comment-li" th:if="${comment.parentComment==null}" th:data-id="${comment.commentId}">
+                        <div>
+                            <div class="comment-left">
+                                <button class="comment-up" type="button" th:data-id="${comment.commentId}">
+                                    <img th:if="${comment.likeUserList.contains(user)}"
+                                         src="/img/community/up-green.png">
+                                    <img th:unless="${comment.likeUserList.contains(user)}" src="/img/community/up.png">
+                                </button>
+                                <span th:text="${comment.likeCount}"></span>
+                                <button class="comment-down" type="button" th:data-id="${comment.commentId}">
+                                    <img th:if="${comment.dislikeUserList.contains(user)}"
+                                         src="/img/community/down-red.png">
+                                    <img th:unless="${comment.dislikeUserList.contains(user)}"
+                                         src="/img/community/down.png">
+                                </button>
                             </div>
-                            <div class="comment-body">
+                            <div class="comment-content">
+                                <div class="comment-name">
+                                    <img src="/img/community/crown.png">
+                                    <span class="user-name" th:text="${comment.user.userNickname}"></span>
+                                    <span th:text="${commentCreatedAtList.get(loop.index)}"></span>
+                                </div>
+                                <div class="comment-body">
+                                    <div>
+                                        <p th:text="${comment.commentBody}"></p>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <button class="comment-button">신고</button>
+                                    </li>
+                                    <li>
+                                        <button class="comment-button reply">답글 쓰기</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 대댓글 리스트 -->
+
+
+                        <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
+                            <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
                                 <div>
-                                    <p th:text="${comment.commentBody}"></p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <button class="comment-button">신고</button>
-                                </li>
-                                <li>
-                                    <button class="comment-button reply">답글 쓰기</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 대댓글 리스트 -->
-
-
-                    <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
-                        <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
-                            <div>
-                                <div class="reply-mark">
-                                    <img class= "reply-image" src="/img/community/reply.png">
-                                </div>
-                                <div class="comment-left">
-                                    <button class="comment-up" type="button" th:data-id="${reply.commentId}">
-                                        <img th:if="${reply.likeUserList.contains(user)}"
-                                             src="/img/community/up-green.png">
-                                        <img th:unless="${reply.likeUserList.contains(user)}"
-                                             src="/img/community/up.png">
-                                    </button>
-                                    <span th:text="${reply.likeCount}"></span>
-                                    <button class="comment-down" type="button" th:data-id="${reply.commentId}">
-                                        <img th:if="${reply.dislikeUserList.contains(user)}"
-                                             src="/img/community/down-red.png">
-                                        <img th:unless="${reply.dislikeUserList.contains(user)}"
-                                             src="/img/community/down.png">
-                                    </button>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-name">
-                                        <img src="/img/community/crown.png">
-                                        <span class="user-name" th:text="${reply.user.userNickname}"></span>
-                                        <span th:text="${reply.createdAt}"></span>
+                                    <div class="reply-mark">
+                                        <img class="reply-image" src="/img/community/reply.png">
                                     </div>
-                                    <div class="comment-body">
-                                        <div>
-                                            <p th:text="${reply.commentBody}"></p>
+                                    <div class="comment-left">
+                                        <button class="comment-up" type="button" th:data-id="${reply.commentId}">
+                                            <img th:if="${reply.likeUserList.contains(user)}"
+                                                 src="/img/community/up-green.png">
+                                            <img th:unless="${reply.likeUserList.contains(user)}"
+                                                 src="/img/community/up.png">
+                                        </button>
+                                        <span th:text="${reply.likeCount}"></span>
+                                        <button class="comment-down" type="button" th:data-id="${reply.commentId}">
+                                            <img th:if="${reply.dislikeUserList.contains(user)}"
+                                                 src="/img/community/down-red.png">
+                                            <img th:unless="${reply.dislikeUserList.contains(user)}"
+                                                 src="/img/community/down.png">
+                                        </button>
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-name">
+                                            <img src="/img/community/crown.png">
+                                            <span class="user-name" th:text="${reply.user.userNickname}"></span>
+                                            <span th:text="${reply.createdAt}"></span>
                                         </div>
+                                        <div class="comment-body">
+                                            <div>
+                                                <p th:text="${reply.commentBody}"></p>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <button class="comment-button">신고</button>
+                                            </li>
+                                            <li>
+                                                <button class="comment-button reply">답글 쓰기</button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul>
-                                        <li>
-                                            <button class="comment-button">신고</button>
-                                        </li>
-                                        <li>
-                                            <button class="comment-button reply">답글 쓰기</button>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
 
-                </li>
+                    </li>
+                </div>
             </ul>
         </div>
     </div>

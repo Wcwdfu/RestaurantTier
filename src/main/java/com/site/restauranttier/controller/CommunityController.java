@@ -96,7 +96,7 @@ public class CommunityController {
     }
 
     // 게시글 생성
-
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
             @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
@@ -149,7 +149,7 @@ public class CommunityController {
         postService.likeCreateOrDelete(post, user);
         return ResponseEntity.ok("게시글 좋아요가 처리 완료되었습니다");
     }
-
+    // 싫어요 생성
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/dislike")
     public ResponseEntity<String> postDislikeCreate(@RequestParam("postId") String postId, Model model, Principal principal) {
@@ -159,7 +159,7 @@ public class CommunityController {
         postService.dislikeCreateOrDelete(post, user);
         return ResponseEntity.ok("게시글 싫어요가 처리 완료되었습니다");
     }
-
+    // 즐겨찾기
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
     public ResponseEntity<String> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {

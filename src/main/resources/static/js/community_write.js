@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {3
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        var category = form.querySelector('select[name="category"]').value;
+        var category = form.querySelector('select[name="postCategory"]').value;
         if (!category) {
             alert('카테고리를 선택해주세요.');
             return;
@@ -28,13 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {3
             method: 'POST',
             body: formData
         }).then(response => {
-            if (!response.ok) {
-                throw new Error("로그인이 되지 않았습니다");
-            }
+            if(response.redirected)
+                window.location.href = "/user/login";
             return response;
         })
             .then(data => {
-                console.log(data);
                 window.location.href="/community"
             }).catch(error => {
             alert(error.message)
