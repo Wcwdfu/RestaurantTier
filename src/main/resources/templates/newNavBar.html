@@ -1,0 +1,115 @@
+<header th:fragment="navbarFragment">
+    <!-- 로고와 로그인 버튼 부분 -->
+<!--    <div class="header-top">-->
+<!--        <a class="logo" href="/home">-->
+<!--            <img src="/img/tier/logo.png" alt="건메추">-->
+<!--        </a>-->
+<!--        <div class="login">-->
+<!--            <a class="link" href="/user/myPage">-->
+<!--                <img id="myPage" src="/img/mypage/account.png">-->
+<!--            </a>-->
+<!--            <a class="login-button" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+<!--            <a class="login-button" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; 검색창 부분 &ndash;&gt;-->
+<!--    <div class="header-middle">-->
+<!--        <div class="search-outer">-->
+<!--            <div class="search-box">-->
+<!--                <div>-->
+<!--                    <form class="search-form" action="/search">-->
+<!--                        <div class="search-wrapper">-->
+<!--                            &lt;!&ndash; 입력 부분 &ndash;&gt;-->
+<!--                            <input id="search" name="kw" type="text" th:value="${kw}">-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; 검색 버튼 &ndash;&gt;-->
+<!--                        <button id="btn_search" class="search-btn" type="submit">-->
+<!--                            <img id=searchIcon src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" style="width: 21px; height: 21px; filter: invert(100%)grayscale(100%)">-->
+<!--                        </button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; 상단 메뉴바 부분 &ndash;&gt;-->
+<!--    <div class="header-bottom">-->
+<!--        <div class="menu-outer">-->
+<!--            <nav class="menu">-->
+<!--                <ul class="menu-list">-->
+<!--                    <li class="menu-item-first">-->
+<!--                        <a href="/home">-->
+<!--                            <div class="home">홈</div>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="menu-item">-->
+<!--                        <a href="/recommend">-->
+<!--                            <div class="recommend">메뉴추천</div>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="menu-item">-->
+<!--                        <a href="/tier">-->
+<!--                            <div class="tier">티어표</div>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    &lt;!&ndash;                    <li class="menu-item">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <a href="/ranking">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <div class="rank">순위</div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                    <li class="menu-item">-->
+<!--                        <a href="/community">-->
+<!--                            <div class="community">커뮤니티</div>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </div>-->
+        <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse" data-header-hover="light">
+            <div class="container-fluid">
+                <div class="col-auto col-lg-2 me-lg-0 me-auto">
+                    <a class="navbar-brand" href="/home">
+                        <script type="text/javascript" style="display:none">
+                            //<![CDATA[
+                            window.__mirage2 = {petok:"E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
+                            //]]>
+                        </script>
+                        <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
+                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="default-logo" src="/img/home/main-logo.png" width="159" height="49">
+<!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+<!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+                    </a>
+                </div>
+                <div class="col-auto menu-order position-static">
+                    <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation" data-target="#navbarNav-clone" aria-expanded="false">
+                        <span class="navbar-toggler-line"></span>
+                        <span class="navbar-toggler-line"></span>
+                        <span class="navbar-toggler-line"></span>
+                        <span class="navbar-toggler-line"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav alt-font ls-1px">
+                            <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="/recommend" class="nav-link">menu Recommend</a></li>
+                            <li class="nav-item"><a href="/tier" class="nav-link">Tier</a></li>
+                            <li class="nav-item"><a href="/community" class="nav-link">community</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
+                    <div class="header-icon">
+                        <div class="header-button">
+                            <a href="/login" class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+<span>
+<span class="btn-double-text" data-text="Login">Login</span>
+</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+</header>
