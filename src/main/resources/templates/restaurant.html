@@ -57,6 +57,10 @@
                 <div class="stat-name">평가 데이터 개수</div>
                 <div id="statDatas" class="stat-value" th:text="${evaluationCountData} + '개'"></div>
             </div>
+            <div class="stat-data">
+                <div class="stat-name">즐겨찾기 수</div>
+                <div id="favoriteCount" class="stat-value" th:text="${favoriteCount} + '개'"></div>
+            </div>
         </div>
     </div>
     <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 1 || menus[0].menuName != 'no_menu'}">
@@ -114,7 +118,7 @@
                 <div class="body-div">
                     <div class="nick-date-div">
                         <span class="nick-span" th:text="${restaurantComment[0].getUser().getUserNickname()}"></span>
-                        <span class="date-span" th:text="${restaurantComment[0].getCreatedAt()}"></span>
+                        <span class="date-span" th:text="${restaurantComment[0].calculateTimeAgo()}"></span>
                         <button class="delete-button" onclick="deleteComment(this)" th:if="${restaurantComment[0].getUser() == user}" th:data-id="${restaurantComment[0].commentId}">삭제</button>
                     </div>
                     <div class="real-comment-container">

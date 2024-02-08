@@ -15,9 +15,17 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
 
     Restaurant findByRestaurantId(Integer id);
     Page<Restaurant> findByStatus(String status, Pageable pageable);
-
-
     Page<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status, Pageable pageable);
+    @Query("SELECT r " +
+            "FROM Restaurant r " +
+            "JOIN r.situationList s " +
+            "WHERE r.status = :status AND s.situationName = :situation")
+    Page<Restaurant> findActiveRestaurantsBySituation(String situation, String status, Pageable pageable);
+    @Query("SELECT r " +
+            "FROM Restaurant r " +
+            "JOIN r.situationList s " +
+            "WHERE r.status = :status AND s.situationName = :situation AND r.restaurantCuisine = :cuisine")
+    Page<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status, Pageable pageable);
 
     List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
     List<Restaurant> findByStatus(String status);
