@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>건메추</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
 <!--    <link rel="stylesheet" type="text/css" href="/css/home-style.css">-->
 <!--    <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">-->
@@ -12,29 +11,26 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/homeScript.js"></script>
-</head>
-
-<head>
-    <title>Crafto - The Multipurpose HTML5 Template</title>
-    <meta charset="utf-8">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 
     <link rel="stylesheet" href="/css/test/vendors.min.css">
     <link rel="stylesheet" href="/css/test/icon.min.css">
     <link rel="stylesheet" href="/css/test/style.min.css">
     <link rel="stylesheet" href="/css/test/responsive.min.css">
     <link rel="stylesheet" href="/css/test/restaurant.css">
+    <link rel="stylesheet" href="/css/home-style.css">
+</head>
+
+
+
 <body>
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{newNavBar :: navbarFragment}"></header>
 
 <!-- 하단 메인 컨텐츠 -->
-<main class="container-fluid pt-4 m-0">
+<main class="container-fluid">
 
     <section>
-        <div class="container fluid">
+        <div class="container fluid icon-grid">
 
 
             <!--     이미지 버튼 모아둔 그리드      -->
@@ -43,7 +39,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/bibimbap.png">
-                        <div class="label position-absolute top-0 start-0">한식
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -51,7 +47,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">
                         <img class="img col-12" src="/img/home/tonkatsu.png">
-                        <div class="label position-absolute top-0 start-0">일식
+                        <div class="label position-absolute top-0 start-0">
                         </div>
 
                     </a>
@@ -59,7 +55,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/jajangmyeon.png">
-                        <div class="label position-absolute top-0 start-0">중식
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -67,7 +63,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=양식" class="cell-button col-12 p-0 "><img class="img col-12"
                                                                                     src="/img/home/spaguetti.png">
-                        <div class="label position-absolute top-0 start-0">양식
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -75,7 +71,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                     src="/img/home/ricenoodles.png">
-                        <div class="label position-absolute top-0 start-0">아시안
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -83,7 +79,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/meat.png">
-                        <div class="label position-absolute top-0 start-0">고기
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -91,7 +87,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/fried-chicken.png">
-                        <div class="label position-absolute top-0 start-0">치킨
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -99,7 +95,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                     src="/img/home/shrimp.png">
-                        <div class="label position-absolute top-0 start-0">해산물
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -107,7 +103,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"
                                                                                         src="/img/home/fast-food.png">
-                        <div class="label position-absolute top-0 start-0">햄버거/피자
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -115,7 +111,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/tteokbokki.png">
-                        <div class="label position-absolute top-0 start-0">분식
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -125,7 +121,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                    src="/img/home/beer.png">
-                        <div class="label position-absolute top-0 start-0">술집
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -134,7 +130,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"
                                                                                        src="/img/home/coffee.png">
-                        <div class="label position-absolute top-0 start-0">카페/디저트
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -142,7 +138,7 @@
                 <div class="cell col  position-relative">
                     <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"
                                                                                       src="/img/home/bakery.png">
-                        <div class="label position-absolute top-0 start-0">베이커리
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -150,7 +146,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"
                                                                                     src="/img/home/hot-dog.png">
-                        <div class="label position-absolute top-0 start-0">기타
+                        <div class="label position-absolute top-0 start-0">
                         </div>
                     </a>
 
@@ -163,9 +159,10 @@
 
 
 </main>
-
 <footer>
+
 </footer>
+
 
 
 </body>
