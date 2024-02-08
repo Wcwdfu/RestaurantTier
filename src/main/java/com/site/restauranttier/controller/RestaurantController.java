@@ -1,6 +1,7 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.DataNotFoundException;
+import com.site.restauranttier.dto.RestaurantTierDTO;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.SortComment;
 import com.site.restauranttier.service.*;
@@ -42,6 +43,7 @@ public class RestaurantController {
     ) {
         // 식당 정보
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+        restaurantService.plusVisitCount(restaurant);
         model.addAttribute("restaurant", restaurant);
         String visitCountData = restaurant.getVisitCount() +
                 "회 (상위 " +
@@ -49,6 +51,11 @@ public class RestaurantController {
                 "%)";
         model.addAttribute("visitCountData", visitCountData);
         model.addAttribute("evaluationCountData", evaluatioanService.getEvaluationCountByRestaurantId(restaurant));
+        // 티어 정보
+        RestaurantTierDTO restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
+        model.addAttribute("cuisineTier", restaurantTierDTOList);
+        /*List restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
+        model.addAttribute("tierList", restaurantTierDTOList);*/
         // 메뉴
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);
@@ -63,7 +70,6 @@ public class RestaurantController {
             model.addAttribute("restaurantComments", restaurantComments);
             //
             model.addAttribute("evaluationButton", " 평가하기");
-            return "restaurant";
         } else {
             // 유저
             User user = customOAuth2UserService.getUser(principal.getName());
@@ -80,10 +86,8 @@ public class RestaurantController {
             } else {
                 model.addAttribute("evaluationButton", " 평가하기");
             }
-            restaurantService.plusVisitCount(restaurant);
-            return "restaurant";
         }
-
+        return "restaurant";
     }
 
     // 해당 cuisine에 맞는 식당 목록 반환

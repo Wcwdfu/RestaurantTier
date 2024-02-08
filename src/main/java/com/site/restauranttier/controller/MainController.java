@@ -73,26 +73,6 @@ public class MainController {
 //    }
 
 
-    // 티어표 화면
-    @GetMapping("/tier")
-    public String tier(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "cuisine", required = false) String cuisine) {
-        // 메인에서 이미지로 티어표로 이동할 때
-        Pageable pageable = PageRequest.of(page, 30);
-        if (cuisine != null && !cuisine.isEmpty() && !"null".equals(cuisine)) {
-            Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE", pageable);
-            model.addAttribute("paging", paging);
-            model.addAttribute("cuisine", cuisine);
-            return "tier";
-        } else {
-            // 상단 탭을 통해 티어표로 이동할 때
-            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
-            model.addAttribute("paging", paging);
-            return "tier";
-        }
-
-    }
-
-
     // 검색 결과 화면
     @GetMapping("/search")
     public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {

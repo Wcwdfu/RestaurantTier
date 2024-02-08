@@ -1,6 +1,7 @@
 package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
+import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.repository.RestaurantMenuRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
@@ -11,6 +12,7 @@ import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,9 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMenuRepository restaurantmenuRepository;
+
+    @Value("${tier.min.evaluation}")
+    private int minNumberOfEvaluations;
 
     private Specification<Restaurant> search(String kw) {
         return new Specification<>() {
@@ -98,5 +103,9 @@ public class RestaurantService {
     public void plusVisitCount(Restaurant restaurant) {
         restaurant.setVisitCount(restaurant.getVisitCount() + 1);
         restaurantRepository.save(restaurant);
+    }
+
+    public List<RestaurantEverageScoreDTO> getCuisineRestaurantEverageScoreDTOList(Restaurant restaurant) {
+        return restaurantRepository.getCuisineRestaurantsOrderedByAvgScore(restaurant.getRestaurantCuisine(), minNumberOfEvaluations);
     }
 }

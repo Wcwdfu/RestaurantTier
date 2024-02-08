@@ -1,13 +1,14 @@
 package com.site.restauranttier.service;
 
+import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
+import com.site.restauranttier.dto.RestaurantTierDTO;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
+import com.site.restauranttier.etc.Tier;
 import com.site.restauranttier.repository.EvaluationItemScoreRepository;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.SituationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -87,5 +88,18 @@ public class EvaluationService {
     public Integer getEvaluationCountByRestaurantId(Restaurant restaurant) {
         return evaluationRepository.countByRestaurant(restaurant);
     }
+
+    public RestaurantTierDTO getTierOfRestaurantInCuisine(Restaurant restaurant) {
+        List<RestaurantEverageScoreDTO> restaurantEverageScoreDTOList = restaurantService.getCuisineRestaurantEverageScoreDTOList(restaurant);
+        Tier tier = Tier.calculateTierOfRestaurant(restaurantEverageScoreDTOList, restaurant);
+
+        return new RestaurantTierDTO(restaurant.getRestaurantCuisine(), tier);
+    }
+
+    /*public List<RestaurantTierDTO> getAllTierListByRestaurant(Restaurant restaurant) {
+        List<RestaurantTierDTO> tierDTOList = List.of(getTierOfRestaurantInCuisine(restaurant));
+
+        return tierDTOList;
+    }*/
 }
 
