@@ -32,15 +32,22 @@ public class PostService {
     // 메인 화면 로딩
     public Page<Post> getList(int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
+        // 최신순 정렬
         if (sort.isEmpty() || sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
-        } else if (sort.equals("popular")) {
-            sorts.add(Sort.Order.desc("likeCount"));
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            return this.postRepository.findAll(pageable);
+
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        // 인기순 정렬
+        else {
+            sorts.add(Sort.Order.desc("likeCount"));
+            Specification<Post> spec = getByPopularOver5();
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            return this.postRepository.findAll(spec, pageable);
+        }
 
 
-        return this.postRepository.findAll(pageable);
     }
 
     // 검색 결과 반환
@@ -61,14 +68,21 @@ public class PostService {
     //    드롭다운에서 카테고리 설정
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-
+        // 인기순
         if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
-        } else if (sort.equals("recent")) {
-            sorts.add(Sort.Order.desc("createdAt"));
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            Specification<Post> spec = getByCategoryAndPopularOver5(postCategory);
+            return this.postRepository.findAll(spec, pageable);
+
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.postRepository.findByPostCategory(postCategory, pageable);
+        // 최신순
+        else  {
+            sorts.add(Sort.Order.desc("createdAt"));
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+            return this.postRepository.findByPostCategory(postCategory, pageable);
+        }
+
     }
 
     public Post getPost(Integer id) {
@@ -234,6 +248,43 @@ public class PostService {
 //                        cb.like(u2.get("userNickname"), "%" + kw + "%") // 댓글 작성자
                 ));
             }
+        };
+    }
+
+    private Specification<Post> getByCategoryAndPopularOver5(String postCategory) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                // 조건 추가
+
+                Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), 1);
+                Predicate categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
+                return cb.and(statusPredicate, likeCountPredicate, categoryPredicate     // 글 작성자
+                );
+            }
+
+
+        };
+    }
+
+    private Specification<Post> getByPopularOver5() {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), 1);
+                return cb.and(statusPredicate, likeCountPredicate     // 글 작성자
+                );
+            }
+
+
         };
     }
 

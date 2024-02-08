@@ -140,13 +140,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 })
                 .then(data => {
-                    console.log(data)
-                    console.log(data.totalLikeCount)
+
                     this.parentNode.querySelector(".totalLikeCount").textContent = data.totalLikeCount
 
                     const likeButtonImage = this.querySelector('img');
                     const dislikeButtonImage = this.parentNode.querySelector('.comment-down img');
-                    console.log(dislikeButtonImage);
 
                     // 버튼 누르기 전 상태에 따라 이미지 설정 다르게 해줌 (싫어요가 이미 눌러져있을때, 좋아요가 눌러져있을때, 둘다 없었을떄)
                     if (data.likeDelete) {
