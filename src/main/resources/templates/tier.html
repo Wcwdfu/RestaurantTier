@@ -184,10 +184,10 @@
 </body>
 
 <!--  페이지 컨트롤러   -->
-<!--<footer>
+<footer>
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
-            &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;
+            <!-- 이전 페이지 링크 -->
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
                 <a class="page-link"
                    th:href="@{|?page=${paging.number-1}&cuisine=${cuisine}|}">
@@ -195,7 +195,7 @@
                 </a>
             </li>
 
-            &lt;!&ndash; 페이지 번호 &ndash;&gt;
+            <!-- 페이지 번호 -->
             <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
                 th:if="${page >= paging.number-2 and page <= paging.number+4}"
                 th:classappend="${page == paging.number + 1} ? 'active'"
@@ -213,5 +213,5 @@
             </li>
         </ul>
     </div>
-</footer>-->
+</footer>
 </html>
