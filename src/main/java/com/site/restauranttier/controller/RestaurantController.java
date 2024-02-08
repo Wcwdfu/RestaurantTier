@@ -148,6 +148,9 @@ public class RestaurantController {
             model.addAttribute("restaurantComments", restaurantComments);
         } else {
             User user = customOAuth2UserService.getUser(principal.getName());
+
+            model.addAttribute("user", user);
+
             List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment, user);
 
             model.addAttribute("restaurantComments", restaurantComments);
@@ -169,15 +172,19 @@ public class RestaurantController {
         Integer restaurantCommentLikeScore = restaurantCommentService.getCommentLikeScore(commentId);
         model.addAttribute("commentLikeScore", restaurantCommentLikeScore);
 
-
         if (principal != null) {
             User user = customOAuth2UserService.getUser(principal.getName());
+
+            model.addAttribute("user", user);
 
             boolean isUserLikedComment = restaurantCommentService.isUserLikedComment(user, restaurantComment);
             model.addAttribute("isLiked", isUserLikedComment);
 
             boolean isUserDislikedComment = restaurantCommentService.isUserHatedComment(user, restaurantComment);
             model.addAttribute("isHated", isUserDislikedComment);
+        } else {
+            model.addAttribute("isLiked", false);
+            model.addAttribute("isHated", false);
         }
 
         return "restaurantComment";
@@ -235,6 +242,27 @@ public class RestaurantController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
         }
         return ResponseEntity.ok(responseMap);
+    }
+
+    // 식당 댓글 삭제
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @DeleteMapping("/api/restaurants/comments/{commentId}")
+    public ResponseEntity<String> deleteRestaurantComment(
+            @PathVariable Integer commentId,
+            Principal principal
+            ) {
+        User user = customOAuth2UserService.getUser(principal.getName());
+        RestaurantComment restaurantComment = restaurantCommentService.getComment(commentId);
+        // 삭제 요청한 user가 댓글을 단 user가 아닌 경우
+        if (restaurantComment.getUser() != user) {
+            return ResponseEntity.badRequest().build();
+        }
+        boolean result = restaurantCommentService.deleteComment(commentId, user);
+        if (result) {
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 식당 즐겨찾기

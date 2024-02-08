@@ -192,6 +192,19 @@ function resize(width, height){
     map.setSize(Size);
 }
 
+// 댓글 입력 창 글자 제한
+const commentTextArea = document.getElementById('commentInput');
+const maxLength = 300;
+commentTextArea.addEventListener("input", function() {
+    var remainingCharacters = maxLength - commentTextArea.value.length;
+    //document.getElementById("remainingCharacters").textContent = remainingCharacters;
+
+    // 최대 길이 초과 시 잘라냄
+    if (commentTextArea.value.length > maxLength) {
+        commentTextArea.value = commentTextArea.value.substring(0, maxLength);
+    }
+});
+
 // 댓글 인기순, 최신순 토글 초기화
 let activeButton = document.getElementById('button1');
 // 댓글 인기순, 최신순 토글 함수
@@ -335,4 +348,47 @@ function changeCommentHtml(commentId, commentLi) {
         .catch(error => {
             console.error("Error adding comment:", error);
         });
+}
+//댓글 삭제
+function deleteComment(deleteButton) {
+    const commentId = deleteButton.getAttribute('data-id');
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    var yesButton = document.getElementById('confirmButton');
+    var noButton = document.getElementById('cancelButton');
+
+    modal.style.display = "block";
+
+    // 모달 닫기 버튼을 클릭하면 모달을 숨깁니다.
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    noButton.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // 모달 외부를 클릭하면 모달을 숨깁니다.
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    yesButton.onclick = function() {
+        const apiUrl = `/api/restaurants/comments/${commentId}`;
+        fetch(apiUrl, {
+            method: "DELETE",
+        })
+            .then(response => {
+                modal.style.display = "none";
+                if (!response.ok) {
+                    throw new Error(`${data.status}: ${data.message}`);
+                } else {
+                    deleteButton.closest('li').remove();
+                }
+            })
+            .catch(error => {
+                console.error("Error adding comment:", error);
+            });
+    }
 }

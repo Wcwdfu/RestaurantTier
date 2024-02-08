@@ -320,6 +320,7 @@ div.basic-info > div.texts > span {
 }
 
 #commentInput {
+    line-height: 20px;
     resize: none;
     width: 100%;
     height: 100%;
@@ -357,7 +358,7 @@ div.basic-info > div.texts > span {
     display: flex;
     background-color: #F9F9F9;
     margin-top: 2px;
-    padding: 12px;
+    padding: 6px 12px;
 }
 #commentList > li > .body-div {
     flex: 1;
@@ -384,6 +385,8 @@ div.basic-info > div.texts > span {
 .nick-date-div {
     display: flex;
     font-size: 13px;
+    justify-content: space-between;
+    align-items: center;
 }
 .nick-span {
     font-weight: 550;
@@ -391,15 +394,91 @@ div.basic-info > div.texts > span {
 }
 .date-span {
     color: #5A5A5A;
+    margin-right: auto;
+}
+.delete-button {
+    background-color: #00000000;
+    color: #777;
+    border: none;
+    padding: 5px;
 }
 .real-comment-container {
     display: flex;
     align-items: center;
-    font-size: 13px;
-    margin-top: 7px;
+    margin-top: 5px;
     padding-right: 10px;
+    padding-bottom: 12px;
     white-space: pre;
+    width: 100%;
 }
 .real-comment-container span {
+    font-size: 13px;
+    line-height: 20px;
     text-align: left;
+    white-space: pre-wrap;
+    width: 100%;
+}
+/* 모달 스타일 */
+.modal {
+    display: none; /* 초기에 숨깁니다. */
+    position: fixed; /* 화면 위에 고정됩니다. */
+    z-index: 101; /* 다른 요소들보다 위에 표시됩니다. */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 모달 내용이 넘칠 경우 스크롤이 가능합니다. */
+    background-color: rgba(0,0,0,0.4); /* 배경을 반투명하게 만듭니다. */
+}
+
+/* 모달 내용 스타일 */
+@media only screen and (max-width: 1024px) {
+    .modal-content {
+        background-color: #fefefe;
+        margin: 80% auto; /* 모달을 화면 중앙에 위치시킵니다. */
+        padding: 10px 20px 20px 20px;
+        border: 1px solid #888;
+        width: fit-content;
+        border-radius: 10px;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    .modal-content {
+        background-color: #fefefe;
+        margin: 20% auto; /* 모달을 화면 중앙에 위치시킵니다. */
+        padding: 10px 20px 20px 20px;
+        border: 1px solid #888;
+        width: 300px;
+        border-radius: 10px;
+    }
+}
+.modal-content > div {
+    display: flex;
+    align-items: center;
+}
+.modal-content p {
+    flex: 1;
+    font-size: 16px;
+    text-align: left;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 10px;
+    padding-bottom: 6px;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-buttons {
+    margin-top: 10px;
+    justify-content: right;
+}
+.modal-buttons > button {
+    margin-right: 10px;
 }
