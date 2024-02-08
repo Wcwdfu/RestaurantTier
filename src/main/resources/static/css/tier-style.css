@@ -146,7 +146,7 @@ div.category div.category-list > div > div.buttons > span > span {
     vertical-align: middle;
 }
 
-div.category div.category-list span.selected {
+div.category div.category-list a.selected {
     display: inline-block;
     margin: 4px 7px;
     padding: 5px 10px;
@@ -157,7 +157,7 @@ div.category div.category-list span.selected {
     font-weight: 570;
 }
 
-div.category div.category-list span.unselected {
+div.category div.category-list a.unselected {
     display: inline-block;
     margin: 4px 7px;
     padding: 5px 10px;
@@ -167,13 +167,13 @@ div.category div.category-list span.unselected {
     font-weight: 500;
 }
 
-div.category div.category-list span.unselected:hover {
+div.category div.category-list a.unselected:hover {
     background-color: #EEE;
 }
 
-div.category div.category-list span > img {
-    height: 20px;
-    width: 20px;
+div.category div.category-list img {
+    height: 23px;
+    width: 23px;
 }
 
 /* 티어표 */

@@ -3,7 +3,7 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.dto.RestaurantTierDTO;
 import com.site.restauranttier.entity.*;
-import com.site.restauranttier.etc.SortComment;
+import com.site.restauranttier.etc.EnumSortComment;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,6 +51,7 @@ public class RestaurantController {
                 "%)";
         model.addAttribute("visitCountData", visitCountData);
         model.addAttribute("evaluationCountData", evaluatioanService.getEvaluationCountByRestaurantId(restaurant));
+        model.addAttribute("favoriteCount", restaurantFavoriteService.getFavoriteCountByRestaurant(restaurant));
         // 티어 정보
         RestaurantTierDTO restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
         model.addAttribute("cuisineTier", restaurantTierDTOList);
@@ -66,7 +67,7 @@ public class RestaurantController {
         // 로그인 안되어있을 경우
         if (principal == null) {
             // 식당 댓글
-            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR);
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, EnumSortComment.POPULAR);
             model.addAttribute("restaurantComments", restaurantComments);
             //
             model.addAttribute("evaluationButton", " 평가하기");
@@ -75,7 +76,7 @@ public class RestaurantController {
             User user = customOAuth2UserService.getUser(principal.getName());
             model.addAttribute("user", user);
             // 식당 댓글
-            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, SortComment.POPULAR, user);
+            List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, EnumSortComment.POPULAR, user);
             model.addAttribute("restaurantComments", restaurantComments);
             // 즐겨찾기 여부
             model.addAttribute("isFavoriteExist", restaurantFavoriteService.isFavoriteExist(principal.getName(), restaurantId));
@@ -141,7 +142,7 @@ public class RestaurantController {
             Principal principal,
             Model model
     ) {
-        SortComment sortComment = SortComment.valueOf(sort);
+        EnumSortComment sortComment = EnumSortComment.valueOf(sort);
 
         if (principal == null) {
             List<Object[]> restaurantComments = restaurantCommentService.getCommentList(restaurantId, sortComment);

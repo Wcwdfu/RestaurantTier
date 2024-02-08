@@ -1,15 +1,14 @@
 package com.site.restauranttier.dto;
 
-import com.site.restauranttier.entity.Restaurant;
-import com.site.restauranttier.etc.Tier;
+import com.site.restauranttier.etc.EnumTier;
 import lombok.Getter;
 
 @Getter
 public class RestaurantTierDTO {
     private String tierCategoryName;
-    private Tier tier;
+    private EnumTier tier;
 
-    public RestaurantTierDTO(String tierCategoryName, Tier tier) {
+    public RestaurantTierDTO(String tierCategoryName, EnumTier tier) {
         this.tierCategoryName = tierCategoryName;
         this.tier = tier;
     }

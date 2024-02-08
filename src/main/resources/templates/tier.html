@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:data-cuisine="http://www.w3.org/1999/xhtml">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>건메추</title>
@@ -32,98 +32,112 @@
             <div class="cuisine">
                 <span class="text">종류</span>
                 <div class="buttons scrollable">
-                            <span class="unselected button">
-                                <a class="cuisine-link" href="/tier">전체</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=한식">한식</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=일식">일식</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=중식">중식</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=양식">양식</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=아시안">아시안</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=고기">고기</a>
-                            </span>
-                    </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=치킨">치킨</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=해산물">해산물</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=햄버거/피자">햄버거/피자</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=분식">분식</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=술집">술집</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=카페/디저트">카페/디저트</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=베이커리">베이커리</a>
-                            </span>
-                    <span class="unselected button">
-                                <a class="cuisine-link" href="/tier?cuisine=기타">기타</a>
-                            </span>
+                    <a th:class="${cuisine == '전체' ? 'selected button category' : 'unselected button category'}" data-cuisine="전체">
+                        <img src="/img/tier/all.png">
+                        <span class="cuisine-link">전체</span>
+                    </a>
+                    <a th:class="${cuisine == '한식' ? 'selected button category' : 'unselected button category'}" data-cuisine="한식">
+                        <img src="/img/tier/cuisine/bibimbap.png">
+                        <span class="cuisine-link">한식</span>
+                    </a>
+                    <a th:class="${cuisine == '일식' ? 'selected button category' : 'unselected button category'}" data-cuisine="일식">
+                        <img src="/img/tier/cuisine/tonkatsu.png">
+                        <span class="cuisine-link">일식</span>
+                    </a>
+                    <a th:class="${cuisine == '중식' ? 'selected button category' : 'unselected button category'}" data-cuisine="중식">
+                        <img src="/img/tier/cuisine/jajangmyeon.png">
+                        <span class="cuisine-link">중식</span>
+                    </a>
+                    <a th:class="${cuisine == '양식' ? 'selected button category' : 'unselected button category'}" data-cuisine="양식">
+                        <img src="/img/tier/cuisine/spaguetti.png">
+                        <span class="cuisine-link">양식</span>
+                    </a>
+                    <a th:class="${cuisine == '아시안' ? 'selected button category' : 'unselected button category'}" data-cuisine="아시안">
+                        <img src="/img/tier/cuisine/ricenoodles.png">
+                        <span class="cuisine-link">아시안</span>
+                    </a>
+                    <a th:class="${cuisine == '고기' ? 'selected button category' : 'unselected button category'}" data-cuisine="고기">
+                        <img src="/img/tier/cuisine/meat.png">
+                        <span class="cuisine-link">고기</span>
+                    </a>
+                    <a th:class="${cuisine == '치킨' ? 'selected button category' : 'unselected button category'}" data-cuisine="치킨">
+                        <img src="/img/tier/cuisine/fried-chicken.png">
+                        <span class="cuisine-link">치킨</span>
+                    </a>
+                    <a th:class="${cuisine == '해산물' ? 'selected button category' : 'unselected button category'}" data-cuisine="해산물">
+                        <img src="/img/tier/cuisine/shrimp.png">
+                        <span class="cuisine-link">해산물</span>
+                    </a>
+                    <a th:class="${cuisine == '햄버거/피자' ? 'selected button category' : 'unselected button category'}" data-cuisine="햄버거/피자">
+                        <img src="/img/tier/cuisine/fast-food.png">
+                        <span class="cuisine-link">햄버거/피자</span>
+                    </a>
+                    <a th:class="${cuisine == '분식' ? 'selected button category' : 'unselected button category'}" data-cuisine="분식">
+                        <img src="/img/tier/cuisine/tteokbokki.png">
+                        <span class="cuisine-link">분식</span>
+                    </a>
+                    <a th:class="${cuisine == '술집' ? 'selected button category' : 'unselected button category'}" data-cuisine="술집">
+                        <img src="/img/tier/cuisine/beer.png">
+                        <span class="cuisine-link">술집</span>
+                    </a>
+                    <a th:class="${cuisine == '카페/디저트' ? 'selected button category' : 'unselected button category'}" data-cuisine="카페/디저트">
+                        <img src="/img/tier/cuisine/coffee.png">
+                        <span class="cuisine-link">카페/디저트</span>
+                    </a>
+                    <a th:class="${cuisine == '베이커리' ? 'selected button category' : 'unselected button category'}" data-cuisine="베이커리">
+                        <img src="/img/tier/cuisine/bakery.png">
+                        <span class="cuisine-link">베이커리</span>
+                    </a>
+                    <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
+                        <img src="/img/tier/cuisine/hot-dog.png">
+                        <span class="cuisine-link">기타</span>
+                    </a>
                 </div>
             </div>
 
             <div class="situation">
                 <span class="text">상황</span>
                 <div class="buttons scrollable">
-                            <span class="unselected button">
-                                <img src="/img/tier/person.png">
-                                <span>전체</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/person.png">
-                                <span>혼밥</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/people.png">
-                                <span>3~4인</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/crowd.png">
-                                <span>5인 이상</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/crowd.png">
-                                <span>단체 회식</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/friend.png">
-                                <span>배달</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/friend.png">
-                                <span>야식</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/friend.png">
-                                <span>친구 초대</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/date.png">
-                                <span>데이트</span>
-                            </span>
-                    <span class="unselected button">
-                                <img src="/img/tier/blind-date.png">
-                                <span>소개팅</span>
-                            </span>
+                    <a th:class="${situation == '전체' ? 'selected button category' : 'unselected button category'}" data-situation="전체">
+                        <img src="/img/tier/all.png">
+                        <span>전체</span>
+                    </a>
+                    <a th:class="${situation == '혼밥' ? 'selected button category' : 'unselected button category'}" data-situation="ONE">
+                        <img src="/img/tier/person.png">
+                        <span>혼밥</span>
+                    </a>
+                    <a th:class="${situation == '2~4인' ? 'selected button category' : 'unselected button category'}" data-situation="TWO">
+                        <img src="/img/tier/people.png">
+                        <span>2~4인</span>
+                    </a>
+                    <a th:class="${situation == '5인 이상' ? 'selected button category' : 'unselected button category'}" data-situation="THREE">
+                        <img src="/img/tier/5more.png">
+                        <span>5인 이상</span>
+                    </a>
+                    <a th:class="${situation == '단체 회식' ? 'selected button category' : 'unselected button category'}" data-situation="FOUR">
+                        <img src="/img/tier/crowd.png">
+                        <span>단체 회식</span>
+                    </a>
+                    <a th:class="${situation == '배달' ? 'selected button category' : 'unselected button category'}" data-situation="FIVE">
+                        <img src="/img/tier/delivery.png">
+                        <span>배달</span>
+                    </a>
+                    <a th:class="${situation == '야식' ? 'selected button category' : 'unselected button category'}" data-situation="SIX">
+                        <img src="/img/tier/night.png">
+                        <span>야식</span>
+                    </a>
+                    <a th:class="${situation == '친구 초대' ? 'selected button category' : 'unselected button category'}" data-situation="SEVEN">
+                        <img src="/img/tier/friend.png">
+                        <span>친구 초대</span>
+                    </a>
+                    <a th:class="${situation == '데이트' ? 'selected button category' : 'unselected button category'}" data-situation="EIGHT">
+                        <img src="/img/tier/dating.png">
+                        <span>데이트</span>
+                    </a>
+                    <a th:class="${situation == '소개팅' ? 'selected button category' : 'unselected button category'}" data-situation="NINE">
+                        <img src="/img/tier/blind-date.png">
+                        <span>소개팅</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -170,10 +184,10 @@
 </body>
 
 <!--  페이지 컨트롤러   -->
-<footer>
+<!--<footer>
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
-            <!-- 이전 페이지 링크 -->
+            &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
                 <a class="page-link"
                    th:href="@{|?page=${paging.number-1}&cuisine=${cuisine}|}">
@@ -181,7 +195,7 @@
                 </a>
             </li>
 
-            <!-- 페이지 번호 -->
+            &lt;!&ndash; 페이지 번호 &ndash;&gt;
             <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
                 th:if="${page >= paging.number-2 and page <= paging.number+4}"
                 th:classappend="${page == paging.number + 1} ? 'active'"
@@ -190,7 +204,7 @@
                    th:href="@{|?page=${page-1}&cuisine=${cuisine}|}"></a>
             </li>
 
-            <!-- 다음 페이지 링크 -->
+             다음 페이지 링크
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
                 <a class="page-link"
                    th:href="@{|?page=${paging.number+1}&cuisine=${cuisine}|}">
@@ -199,5 +213,5 @@
             </li>
         </ul>
     </div>
-</footer>
+</footer>-->
 </html>

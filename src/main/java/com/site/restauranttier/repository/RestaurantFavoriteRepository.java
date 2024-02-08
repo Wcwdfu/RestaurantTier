@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface RestaurantFavoriteRepository extends JpaRepository<RestaurantFavorite, Integer> {
     Optional<RestaurantFavorite> findByUserAndRestaurant(User user, Restaurant restaurant);
+
+    Integer countByRestaurantAndStatus(Restaurant restaurant, String status);
 }

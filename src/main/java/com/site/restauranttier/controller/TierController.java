@@ -1,6 +1,7 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,22 +22,30 @@ public class TierController {
     public String tier(
             Model model,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "cuisine", required = false) String cuisine
+            @RequestParam(value = "cuisine", required = false, defaultValue = "전체") String cuisine,
+            @RequestParam(value = "situation", required = false, defaultValue = "전체") String situation
     ) {
-        // 메인에서 이미지로 티어표로 이동할 때
-        Pageable pageable = PageRequest.of(page, 30);
-        if (cuisine != null && !cuisine.isEmpty() && !"null".equals(cuisine)) {
+        Pageable pageable = PageRequest.of(page, 40);
+        if (situation.equals("전체") && cuisine.equals("전체")) {
+            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
+            model.addAttribute("situation", "전체");
+            model.addAttribute("paging", paging);
+        } else if (cuisine.equals("전체")) {
+            EnumSituation enumSituation = EnumSituation.valueOf(situation);
+            Page<Restaurant> paging = this.restaurantRepository.findActiveRestaurantsBySituation(enumSituation.getValue(), "ACTIVE", pageable);
+            model.addAttribute("situation", enumSituation.getValue());
+            model.addAttribute("paging", paging);
+        } else if (situation.equals("전체")) {
             Page<Restaurant> paging = restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE", pageable);
             model.addAttribute("paging", paging);
-            model.addAttribute("cuisine", cuisine);
-            return "tier";
+            model.addAttribute("situation", "전체");
         } else {
-            // 상단 탭을 통해 티어표로 이동할 때
-            Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
+            EnumSituation enumSituation = EnumSituation.valueOf(situation);
+            Page<Restaurant> paging = this.restaurantRepository.findActiveRestaurantsByCuisineAndSituation(cuisine, enumSituation.getValue(), "ACTIVE", pageable);
+            model.addAttribute("situation", enumSituation.getValue());
             model.addAttribute("paging", paging);
-            return "tier";
         }
+        model.addAttribute("cuisine", cuisine);
+        return "tier";
     }
-
-
 }

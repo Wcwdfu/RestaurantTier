@@ -57,6 +57,10 @@
                 <div class="stat-name">평가 데이터 개수</div>
                 <div id="statDatas" class="stat-value" th:text="${evaluationCountData} + '개'"></div>
             </div>
+            <div class="stat-data">
+                <div class="stat-name">즐겨찾기 수</div>
+                <div id="favoriteCount" class="stat-value" th:text="${favoriteCount} + '개'"></div>
+            </div>
         </div>
     </div>
     <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 1 || menus[0].menuName != 'no_menu'}">

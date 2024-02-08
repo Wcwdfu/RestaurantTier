@@ -2,16 +2,12 @@ package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.*;
-import com.site.restauranttier.etc.SortComment;
+import com.site.restauranttier.etc.EnumSortComment;
 import com.site.restauranttier.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import java.security.Principal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,22 +58,22 @@ public class RestaurantCommentService {
         return restaurantCommentRepository.findLikeDislikeDiffByCommentId(commentId);
     }
 
-    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment) {
+    public List<Object[]> getCommentList(int restaurantId, EnumSortComment sortComment) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        if (sortComment == SortComment.POPULAR) {
+        if (sortComment == EnumSortComment.POPULAR) {
             return restaurantCommentRepository.findOrderPopular(restaurant);
-        } else if (sortComment == SortComment.LATEST) {
+        } else if (sortComment == EnumSortComment.LATEST) {
             return restaurantCommentRepository.findOrderLatest(restaurant);
         } else {
             return null;
         }
     }
 
-    public List<Object[]> getCommentList(int restaurantId, SortComment sortComment, User user) {
+    public List<Object[]> getCommentList(int restaurantId, EnumSortComment sortComment, User user) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
-        if (sortComment == SortComment.POPULAR) {
+        if (sortComment == EnumSortComment.POPULAR) {
             return restaurantCommentRepository.findOrderPopular(restaurant, user);
-        } else if (sortComment == SortComment.LATEST) {
+        } else if (sortComment == EnumSortComment.LATEST) {
             return restaurantCommentRepository.findOrderLatest(restaurant, user);
         } else {
             return null;
