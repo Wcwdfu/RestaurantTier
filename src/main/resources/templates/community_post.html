@@ -18,7 +18,7 @@
 <main>
     <div class="post">
         <div class="post-top">
-            <h1 th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
+            <h1 class="post-title" th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
             <div>
                 <div class="post-details">
                     <div class="post-detail">
@@ -40,12 +40,15 @@
 
                         </span>
                         <span th:text="'추천 '+ ${post.likeCount}"
-                              class="third-detail">
+                              class="third-de tail">
 
                         </span>
                     </div>
                 </div>
             </div>
+            <button th:if="${post.user==user}" class="post-delete" type="button">
+                삭제
+            </button>
         </div>
         <div class="post-body">
             <div>
@@ -143,7 +146,7 @@
                                     </div>
                                 </div>
                                 <ul>
-                                    <li>
+                                    <li th:if="${comment.user==user}">
                                         <button class="comment-button">삭제</button>
                                     </li>
                                     <li>

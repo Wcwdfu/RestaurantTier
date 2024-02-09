@@ -312,5 +312,40 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
+    document.querySelector(".post-delete").addEventListener("click", function (event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 방지
+        var postId = document.querySelector(".post-title").dataset.id ;
+        console.log(postId);
+        fetch("/api/post/delete?postId=" + postId, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("게시물이 삭제되었습니다.")
+                    window.location.href = "/community";
+                    return response.json()
+                }
+            })
+            .then(data => {
+                console.log(data)
+            }).catch(error => console.error('Error:', error));
+    })
 
+    document.querySelector(".comment-delete").addEventListener("click", function (event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 방지
+        this.
+        fetch("/api/post/delete?postId=" + postId, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("게시물이 삭제되었습니다.")
+                    window.location.href = "/community";
+                    return response.json()
+                }
+            })
+            .then(data => {
+                console.log(data)
+            }).catch(error => console.error('Error:', error));
+    })
 })

@@ -45,7 +45,9 @@ public class CommunityController {
         // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
             paging = postService.getList(page, sort);
-        } else {
+        } 
+        // 카테고리 값이 있을 때
+        else {
             paging = postService.getListByPostCategory(postCategory, page, sort);
         }
         model.addAttribute("postCategory", postCategory);
@@ -88,24 +90,12 @@ public class CommunityController {
         return "community_post";
     }
 
-    // 커뮤니티 게시글 작성 화면
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
-    @GetMapping("/community/write")
-    public String write() {
-        return "community_write";
-    }
-
-    // 게시글 생성
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
-    @PostMapping("/api/community/post/create")
-    public ResponseEntity<String> postCreate(
-            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
-            @RequestParam("content") String content,
-            Model model, Principal principal) {
-        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
-        User user = customOAuth2UserService.getUser(principal.getName());
-        postService.create(post, user);
-        return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
+    @GetMapping("/api/post/delete")
+    public ResponseEntity<String> postDelete(@RequestParam String postId) {
+        Post post =  postService.getPost(Integer.valueOf(postId));
+        post.setStatus("DELETED");
+        postRepository.save(post);
+        return ResponseEntity.ok("delete complete");
     }
 
     // 댓글 or 대댓글 생성
@@ -214,4 +204,28 @@ public class CommunityController {
         response.put("totalLikeCount",postComment.getLikeCount());
         return ResponseEntity.ok(response);
     }
+
+
+// 게시글 작성 화면 관련
+
+    // 커뮤니티 게시글 작성 화면
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/community/write")
+    public String write() {
+        return "community_write";
+    }
+
+    // 게시글 생성
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PostMapping("/api/community/post/create")
+    public ResponseEntity<String> postCreate(
+            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
+            @RequestParam("content") String content,
+            Model model, Principal principal) {
+        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
+        User user = customOAuth2UserService.getUser(principal.getName());
+        postService.create(post, user);
+        return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
+    }
+
 }

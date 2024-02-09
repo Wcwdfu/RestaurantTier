@@ -29,20 +29,20 @@ public class PostService {
     private final PostScrapRepository postScrapRepository;
 
 
-    // 메인 화면 로딩
+    // 메인 화면 로딩하기
     public Page<Post> getList(int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
         // 최신순 정렬
         if (sort.isEmpty() || sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
             Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
-            return this.postRepository.findAll(pageable);
+            return this.postRepository.findByStatus("ACTIVE", pageable);
 
         }
-        // 인기순 정렬
+        // 인기순 정렬하기
         else {
             sorts.add(Sort.Order.desc("likeCount"));
-            Specification<Post> spec = getByPopularOver5();
+            Specification<Post> spec = getPopularOver5();
             Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             return this.postRepository.findAll(spec, pageable);
         }
@@ -50,7 +50,7 @@ public class PostService {
 
     }
 
-    // 검색 결과 반환
+    // 검색 결과 반환하기
     public Page<Post> getList(int page, String sort, String kw, String postCategory) {
         List<Sort.Order> sorts = new ArrayList<>();
 
@@ -65,23 +65,20 @@ public class PostService {
     }
 
 
-    //    드롭다운에서 카테고리 설정
+    //  드롭다운에서 카테고리가 설정된 상태에서 게시물 반환하기
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
         // 인기순
         if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
-            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
-            Specification<Post> spec = getByCategoryAndPopularOver5(postCategory);
-            return this.postRepository.findAll(spec, pageable);
-
         }
         // 최신순
-        else  {
+        else {
             sorts.add(Sort.Order.desc("createdAt"));
-            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
-            return this.postRepository.findByPostCategory(postCategory, pageable);
         }
+        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+        Specification<Post> spec = getByCategoryAndPopularOver5(postCategory);
+        return this.postRepository.findAll(spec, pageable);
 
     }
 
@@ -100,7 +97,7 @@ public class PostService {
         user.getPostList().add(savedpost);
         userRepository.save(user);
     }
-
+    // 게시물 리스트에 대한 시간 경과 리스트로 반환하는 함수.
     public List<String> getTimeAgoList(Page<Post> postList) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -271,7 +268,7 @@ public class PostService {
         };
     }
 
-    private Specification<Post> getByPopularOver5() {
+    private Specification<Post> getPopularOver5() {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -282,6 +279,8 @@ public class PostService {
                 Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), 1);
                 return cb.and(statusPredicate, likeCountPredicate     // 글 작성자
                 );
+
+
             }
 
 
