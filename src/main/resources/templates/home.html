@@ -25,11 +25,11 @@
 
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{newNavBar :: navbarFragment}"></header>
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid">
-    <section th:replace="~{newBody::bodyFragment}"></section>
+    <section th:replace="~{fragment::home-firstbodyFragment}"></section>
     <section class="pt-0">
         <div class="container fluid icon-grid">
 
@@ -156,13 +156,13 @@
             </div>
         </div>
     </section>
-    <section th:replace="~{secondBody::bodyFragment}"></section>
+    <section th:replace="~{fragment::home-secondbodyFragment}"></section>
+    <footer th:replace="~{fragment::footerFragment}">
 
+    </footer>
 
 </main>
-<footer>
 
-</footer>
 
 
 

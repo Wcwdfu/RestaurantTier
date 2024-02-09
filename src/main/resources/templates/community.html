@@ -24,8 +24,10 @@
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{newNavBar :: navbarFragment}"></header>
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
+
 <div id="content">
+    <section th:replace="~{fragment::communityFragment}"></section>
     <div id="filterDiv">
         <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
