@@ -29,10 +29,9 @@
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid">
-
-    <section>
+    <section th:replace="~{newBody::bodyFragment}"></section>
+    <section class="pt-0">
         <div class="container fluid icon-grid">
-
 
             <!--     이미지 버튼 모아둔 그리드      -->
             <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 mt-2 p-2">
@@ -157,6 +156,7 @@
             </div>
         </div>
     </section>
+    <section th:replace="~{secondBody::bodyFragment}"></section>
 
 
 </main>
