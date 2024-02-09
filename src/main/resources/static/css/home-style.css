@@ -1,10 +1,15 @@
 /* 전체 페이지에 대한 기본 스타일 */
 body {
-    background-color: #5383E8;
     color: #FFFFFF;
+    display: flex;
+
 }
-
-
+html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh; /* 화면의 전체 높이 */
+}
 
 .row .col .position-absolute {
     font-weight: bold;
@@ -16,15 +21,10 @@ body {
     border-radius: 15px;
 }
 
-/*배경색 */
 main {
-    background-color: #EBEEF1;
+    flex: 1; /* main 태그가 가능한 많은 공간을 차지하도록 함 */
+    background-color: white;
 }
-
-#header {
-    background-color: #5383E8;
-}
-
 
 .cell {
     padding: 0.5rem;
@@ -85,3 +85,5 @@ div.header-bottom ul.menu-list > li > a > div.home {
     line-height: 22px;
     padding: 6px 0 5px;
 }
+
+

@@ -3,7 +3,6 @@ package com.site.restauranttier.service;
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.Post;
 import com.site.restauranttier.entity.PostComment;
-import com.site.restauranttier.entity.PostScrap;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.PostScrapRepository;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,51 +27,61 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostScrapRepository postScrapRepository;
+    // 인기순 제한 기준 숫자
+    public static  final int POPULARCOUNT = 1;
 
 
-    // 메인 화면 로딩
+    // 메인 화면 로딩하기
     public Page<Post> getList(int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
+        // 최신순 정렬
         if (sort.isEmpty() || sort.equals("recent")) {
+            sorts.add(Sort.Order.desc("createdAt"));
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+            return this.postRepository.findByStatus("ACTIVE", pageable);
+
+        }
+        // 인기순 정렬하기
+        else {
+            sorts.add(Sort.Order.desc("likeCount"));
+            Specification<Post> spec = getSpecByPopularOver5();
+            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+            return this.postRepository.findAll(spec, pageable);
+        }
+
+
+    }
+
+    // 검색 결과 반환하기
+    public Page<Post> getList(int page, String sort, String kw, String postCategory) {
+        List<Sort.Order> sorts = new ArrayList<>();
+
+        if (sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
         } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-
-
-        return this.postRepository.findAll(pageable);
-    }
-
-    // 검색 결과 반환
-    public Page<Post> getList(int page, String sort, String kw, String postCategory) {
-        List<Sort.Order> sorts = new ArrayList<>();
-
-        if(sort.equals("recent")){
-            sorts.add(Sort.Order.desc("createdAt"));
-        }
-        else if(sort.equals("popular")){
-            sorts.add(Sort.Order.desc("likeCount"));
-        }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
         Specification<Post> spec = search(kw, postCategory);
         return this.postRepository.findAll(spec, pageable);
     }
 
 
-
-    //    드롭다운에서 카테고리 설정
+    //  드롭다운에서 카테고리가 설정된 상태에서 게시물 반환하기
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-
-        if(sort.equals("popular")){
+        // 인기순
+        if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        else if(sort.equals("recent")) {
+        // 최신순
+        else {
             sorts.add(Sort.Order.desc("createdAt"));
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.postRepository.findByPostCategory(postCategory, pageable);
+        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+        Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory);
+        return this.postRepository.findAll(spec, pageable);
+
     }
 
     public Post getPost(Integer id) {
@@ -92,7 +99,7 @@ public class PostService {
         user.getPostList().add(savedpost);
         userRepository.save(user);
     }
-
+    // 게시물 리스트에 대한 시간 경과 리스트로 반환하는 함수.
     public List<String> getTimeAgoList(Page<Post> postList) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -129,17 +136,20 @@ public class PostService {
         postRepository.save(post);
     }
 
-    // 글 좋아요
-    public void likeCreateOrDelete(Post post, User user) {
+    // 게시글 좋아요
+    public Map<String, Object> likeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
         List<Post> likePostList = user.getLikePostList();
         List<Post> dislikePostList = user.getDislikePostList();
+        Map<String, Object> status = new HashMap<>();
+
         //해당 post 를 이미 like 한 경우 - 제거
         if (likeUserList.contains(user)) {
             post.setLikeCount(post.getLikeCount() - 1);
             likePostList.remove(post);
             likeUserList.remove(user);
+            status.put("likeDelete", true);
         }
         //해당 post를 이미 dislike 한 경우 - 제거하고 추가
         else if (dislikeUserList.contains(user)) {
@@ -148,29 +158,37 @@ public class PostService {
             dislikePostList.remove(post);
             likeUserList.add(user);
             likePostList.add(post);
+            status.put("likeChanged", true);
+
         }
         // 처음 like 하는 경우-추가
         else {
+            status.put("likeCreated", true);
+
             post.setLikeCount(post.getLikeCount() + 1);
             likeUserList.add(user);
             likePostList.add(post);
         }
+        // 상태 반환
+
         postRepository.save(post);
         userRepository.save(user);
+        return status;
     }
 
-    // 글 싫어요
-    public void dislikeCreateOrDelete(Post post, User user) {
+    // 게시글 싫어요
+    public Map<String, Object> dislikeCreateOrDelete(Post post, User user) {
         List<User> likeUserList = post.getLikeUserList();
         List<User> dislikeUserList = post.getDislikeUserList();
         List<Post> likePostList = user.getLikePostList();
         List<Post> dislikePostList = user.getDislikePostList();
+        Map<String, Object> status = new HashMap<>();
         //해당 post를 이미 dislike 한 경우 - 제거
         if (dislikeUserList.contains(user)) {
             post.setLikeCount(post.getLikeCount() + 1);
-
             dislikePostList.remove(post);
             dislikeUserList.remove(user);
+            status.put("dislikeDelete", true);
         }
         //해당 post를 이미 like 한 경우 - 제거하고 추가
         else if (likeUserList.contains(user)) {
@@ -180,17 +198,20 @@ public class PostService {
             likePostList.remove(post);
             dislikeUserList.add(user);
             dislikePostList.add(post);
+            status.put("dislikeChanged", true);
         }
         // 처음 dislike 하는 경우-추가
         else {
             post.setLikeCount(post.getLikeCount() - 1);
-
             dislikeUserList.add(user);
             dislikePostList.add(post);
+            status.put("dislikeCreated", true);
         }
         postRepository.save(post);
         userRepository.save(user);
+        return status;
     }
+
 
     private Specification<Post> search(String kw, String postCategory) {
         return new Specification<>() {
@@ -209,7 +230,7 @@ public class PostService {
                 Predicate categoryPredicate;
 
                 // 검색 조건 결합 (카테고리 설정이 되어있을때는 검색 시 카테고리 안에서 검색을 한다).
-                if(!postCategory.equals("전체")){
+                if (!postCategory.equals("전체")) {
                     categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
                     return cb.and(statusPredicate, categoryPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
                             cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용
@@ -226,6 +247,45 @@ public class PostService {
 //                        cb.like(u2.get("userNickname"), "%" + kw + "%") // 댓글 작성자
                 ));
             }
+        };
+    }
+
+    private Specification<Post> getSpecByCategoryAndPopularOver5(String postCategory) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                // 조건 추가
+
+                Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
+                Predicate categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
+                return cb.and(statusPredicate, likeCountPredicate, categoryPredicate     // 글 작성자
+                );
+            }
+
+
+        };
+    }
+
+    private Specification<Post> getSpecByPopularOver5() {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
+                return cb.and(statusPredicate, likeCountPredicate     // 글 작성자
+                );
+
+
+            }
+
+
         };
     }
 

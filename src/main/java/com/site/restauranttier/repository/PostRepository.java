@@ -19,6 +19,6 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 
     Page<Post> findAll(Specification<Post> spec, Pageable pageable);
     Page<Post> findAll(Pageable pageable);
-
+    Page<Post> findByStatus(String status, Pageable pageable);
 
 }

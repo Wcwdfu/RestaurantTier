@@ -18,7 +18,7 @@
 <main>
     <div class="post">
         <div class="post-top">
-            <h1 th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
+            <h1 class="post-title" th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
             <div>
                 <div class="post-details">
                     <div class="post-detail">
@@ -40,12 +40,15 @@
 
                         </span>
                         <span th:text="'추천 '+ ${post.likeCount}"
-                              class="third-detail">
+                              class="third-de tail">
 
                         </span>
                     </div>
                 </div>
             </div>
+            <button th:if="${post.user==user}" class="post-delete" type="button">
+                삭제
+            </button>
         </div>
         <div class="post-body">
             <div>
@@ -116,14 +119,14 @@
             <ul class="comment-ul">
                 <div th:each="comment,loop:${postCommentList}">
                     <li class="comment-li" th:if="${comment.parentComment==null}" th:data-id="${comment.commentId}">
-                        <div>
+                        <div class="comment-div">
                             <div class="comment-left">
                                 <button class="comment-up" type="button" th:data-id="${comment.commentId}">
                                     <img th:if="${comment.likeUserList.contains(user)}"
                                          src="/img/community/up-green.png">
                                     <img th:unless="${comment.likeUserList.contains(user)}" src="/img/community/up.png">
                                 </button>
-                                <span th:text="${comment.likeCount}"></span>
+                                <span class="totalLikeCount" th:text="${comment.likeCount}"></span>
                                 <button class="comment-down" type="button" th:data-id="${comment.commentId}">
                                     <img th:if="${comment.dislikeUserList.contains(user)}"
                                          src="/img/community/down-red.png">
@@ -143,8 +146,8 @@
                                     </div>
                                 </div>
                                 <ul>
-                                    <li>
-                                        <button class="comment-button">신고</button>
+                                    <li th:if="${comment.user==user}">
+                                        <button class="comment-button comment-delete">삭제</button>
                                     </li>
                                     <li>
                                         <button class="comment-button reply">답글 쓰기</button>
@@ -156,8 +159,10 @@
 
 
                         <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
-                            <li class="comment-li" th:each="reply, loop:${comment.repliesList}">
-                                <div>
+                            <li class="comment-li" th:each="reply, loop:${comment.repliesList}" th:data-id="${reply.commentId}">
+                                <div th:if="${reply.status.equals('ACTIVE')}">
+
+                                <div class="comment-div">
                                     <div class="reply-mark">
                                         <img class="reply-image" src="/img/community/reply.png">
                                     </div>
@@ -189,14 +194,12 @@
                                         </div>
                                         <ul>
                                             <li>
-                                                <button class="comment-button">신고</button>
-                                            </li>
-                                            <li>
-                                                <button class="comment-button reply">답글 쓰기</button>
+                                                <button class="comment-button comment-delete">삭제</button>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
+                                    </div>
                             </li>
                         </ul>
 

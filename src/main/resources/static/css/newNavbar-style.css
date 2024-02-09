@@ -1,0 +1,16 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh; /* 화면의 전체 높이 */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* 컨텐츠를 세로로 정렬 */
+}
+
+main {
+    flex: 1; /* main 태그가 가능한 많은 공간을 차지하도록 함 */
+    background-color: white;
+}
