@@ -86,7 +86,7 @@
         <div class="comment-write">
             <div>
                 <form class="comment-form" action="/api/community/comment/create" method="post">
-                <textarea name="content" class="comment-content" maxlength="1000"
+                <textarea name="content" class="comment-content" maxlength="300"
                           placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
@@ -138,7 +138,7 @@
                                 <div class="comment-name">
                                     <img src="/img/community/crown.png">
                                     <span class="user-name" th:text="${comment.user.userNickname}"></span>
-                                    <span th:text="${commentCreatedAtList.get(loop.index)}"></span>
+                                    <span th:text="${comment.calculateTimeAgo()}"></span>
                                 </div>
                                 <div class="comment-body">
                                     <div>
@@ -185,7 +185,7 @@
                                         <div class="comment-name">
                                             <img src="/img/community/crown.png">
                                             <span class="user-name" th:text="${reply.user.userNickname}"></span>
-                                            <span th:text="${reply.createdAt}"></span>
+                                            <span th:text="${reply.calculateTimeAgo()}"></span>
                                         </div>
                                         <div class="comment-body">
                                             <div>

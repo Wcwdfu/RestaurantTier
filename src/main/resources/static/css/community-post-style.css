@@ -113,6 +113,9 @@ div.header-bottom ul.menu-list > li > a > div.community {
 .post-body > div {
     padding: 24px 16px;
 }
+.post-body > div > article > p {
+    white-space: pre-wrap; /* 또는 'pre'를 사용해도 됩니다. */
+}
 
 div > div > article {
     box-sizing: border-box;
@@ -484,4 +487,5 @@ textarea {
         background-color: #FFFFFF;
 
 }
+
 

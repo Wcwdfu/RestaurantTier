@@ -29,7 +29,8 @@ public class PostCommentService {
     private final PostRepository postRepository;
     private final PostService postService;
     // 인기순 기준 숫자
-    public static  final int POPULARCOUNT = 1;
+    public static final int POPULARCOUNT = 1;
+
     // 댓글 생성
     public void create(Post post, User user, PostComment postComment) {
         user.getPostCommentList().add(postComment);
@@ -54,20 +55,20 @@ public class PostCommentService {
         }
     }
 
-    // 작성 시간 반환
-    public List<String> getCreatedAtList(List<PostComment> postCommentList) {
-        // Comment의 createdAt을 문자열로 변환하여 저장할 리스트
-        List<String> commentCreatedAtList = postCommentList.stream()
-                .map(comment -> formatDateTime(comment.getCreatedAt()))
-                .collect(Collectors.toList());
-        return commentCreatedAtList;
-    }
-
-    // datetime 타입의 시간을 특정 형식으로 formatting하는 함수
-    private String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dateTime.format(formatter);
-    }
+//    // 작성 시간 반환
+//    public List<String> getCreatedAtList(List<PostComment> postCommentList) {
+//        // Comment의 createdAt을 문자열로 변환하여 저장할 리스트
+//        List<String> commentCreatedAtList = postCommentList.stream()
+//                .map(comment -> formatDateTime(comment.getCreatedAt()))
+//                .collect(Collectors.toList());
+//        return commentCreatedAtList;
+//    }
+//
+//    // datetime 타입의 시간을 특정 형식으로 formatting하는 함수
+//    private String formatDateTime(LocalDateTime dateTime) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        return dateTime.format(formatter);
+//    }
 
     // 댓글 좋아요 (세가지 경우)
     public Map<String, Object> likeCreateOrDelete(PostComment postcomment, User user) {
@@ -148,18 +149,18 @@ public class PostCommentService {
 
     public List<PostComment> getList(Integer postId, String sort) {
         Post post = postService.getPost(postId);
-        Specification<PostComment> spec = getSpecByPostIdAndSort(post, sort);
-        List<PostComment> postCommentList =  postCommentRepository.findAll(spec);
-        if(sort.equals("popular")){
+        Specification<PostComment> spec = getSpecByPostId(post);
+        List<PostComment> postCommentList = postCommentRepository.findAll(spec);
+        if (sort.equals("popular")) {
             postCommentList.sort(Comparator.comparingInt(PostComment::getLikeCount).reversed());
-        }else{
+        } else {
             postCommentList.sort(Comparator.comparing(PostComment::getCreatedAt).reversed());
 
         }
-        return postCommentRepository.findAll(spec);
+        return postCommentList;
     }
 
-    private Specification<PostComment> getSpecByPostIdAndSort(Post post, String sort) {
+    private Specification<PostComment> getSpecByPostId(Post post) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -168,15 +169,9 @@ public class PostCommentService {
                 query.distinct(true);  // 중복을 제거
                 Predicate postIdPredicate = cb.equal(p.get("post"), post);
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
-                if (sort.equals("popular")) {
-                    Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
-                    return cb.and(statusPredicate, likeCountPredicate,postIdPredicate);
 
-                } else {
 
-                    return cb.and(statusPredicate,postIdPredicate);
-
-                }
+                return cb.and(statusPredicate, postIdPredicate);
 
 
             }

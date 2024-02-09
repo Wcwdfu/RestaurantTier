@@ -51,12 +51,8 @@ public class CommunityController {
             paging = postService.getListByPostCategory(postCategory, page, sort);
         }
         model.addAttribute("postCategory", postCategory);
-        List<String> timeAgoList = postService.getTimeAgoList(paging);
-
-
         model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
-        model.addAttribute("timeAgoList", timeAgoList);
         return "community";
     }
 
@@ -66,20 +62,9 @@ public class CommunityController {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
-        String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
         List<PostComment> postCommentList = postCommentService.getList(postId,sort);
-        logger.info(postCommentList.toString());
-//        if (sort.equals("popular")) {
-//            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
-//        } else if (sort.equals("recent")) {
-//            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
-//        }
-        // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
-        List<String> commentCreatedAtList = postCommentService.getCreatedAtList(postCommentList);
         model.addAttribute("postCommentList", postCommentList);
         model.addAttribute("post", post);
-        model.addAttribute("commentCreatedAtList", commentCreatedAtList);
-        model.addAttribute("timeAgoData", timeAgoData);
         boolean isPostScrappedByUser = false;
         if (principal != null) {
             User user = customOAuth2UserService.getUser(principal.getName());
