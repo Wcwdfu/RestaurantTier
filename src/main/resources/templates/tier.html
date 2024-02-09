@@ -21,7 +21,7 @@
 </head>
 <body>
 <header th:replace="~{newNavBar :: navbarFragment}"></header>
-
+<button id="scrollTopBtn" style="display: none;"><img src="/img/up-arrow.png"></button>
 <div class="category" id="categoryWindow">
     <div class="category-background" id="categoryBackground">
         <div class="category-top">
@@ -43,59 +43,59 @@
                         <span class="cuisine-link">전체</span>
                     </a>
                     <a th:class="${cuisine == '한식' ? 'selected button category' : 'unselected button category'}" data-cuisine="한식">
-                        <img src="/img/tier/cuisine/bibimbap.png">
+                        <img src="/img/tier/cuisine/한식.png">
                         <span class="cuisine-link">한식</span>
                     </a>
                     <a th:class="${cuisine == '일식' ? 'selected button category' : 'unselected button category'}" data-cuisine="일식">
-                        <img src="/img/tier/cuisine/tonkatsu.png">
+                        <img src="/img/tier/cuisine/일식.png">
                         <span class="cuisine-link">일식</span>
                     </a>
                     <a th:class="${cuisine == '중식' ? 'selected button category' : 'unselected button category'}" data-cuisine="중식">
-                        <img src="/img/tier/cuisine/jajangmyeon.png">
+                        <img src="/img/tier/cuisine/중식.png">
                         <span class="cuisine-link">중식</span>
                     </a>
                     <a th:class="${cuisine == '양식' ? 'selected button category' : 'unselected button category'}" data-cuisine="양식">
-                        <img src="/img/tier/cuisine/spaguetti.png">
+                        <img src="/img/tier/cuisine/양식.png">
                         <span class="cuisine-link">양식</span>
                     </a>
                     <a th:class="${cuisine == '아시안' ? 'selected button category' : 'unselected button category'}" data-cuisine="아시안">
-                        <img src="/img/tier/cuisine/ricenoodles.png">
+                        <img src="/img/tier/cuisine/아시안.png">
                         <span class="cuisine-link">아시안</span>
                     </a>
                     <a th:class="${cuisine == '고기' ? 'selected button category' : 'unselected button category'}" data-cuisine="고기">
-                        <img src="/img/tier/cuisine/meat.png">
+                        <img src="/img/tier/cuisine/고기.png">
                         <span class="cuisine-link">고기</span>
                     </a>
                     <a th:class="${cuisine == '치킨' ? 'selected button category' : 'unselected button category'}" data-cuisine="치킨">
-                        <img src="/img/tier/cuisine/fried-chicken.png">
+                        <img src="/img/tier/cuisine/치킨.png">
                         <span class="cuisine-link">치킨</span>
                     </a>
                     <a th:class="${cuisine == '해산물' ? 'selected button category' : 'unselected button category'}" data-cuisine="해산물">
-                        <img src="/img/tier/cuisine/shrimp.png">
+                        <img src="/img/tier/cuisine/해산물.png">
                         <span class="cuisine-link">해산물</span>
                     </a>
                     <a th:class="${cuisine == '햄버거/피자' ? 'selected button category' : 'unselected button category'}" data-cuisine="햄버거/피자">
-                        <img src="/img/tier/cuisine/fast-food.png">
+                        <img src="/img/tier/cuisine/햄버거.png">
                         <span class="cuisine-link">햄버거/피자</span>
                     </a>
                     <a th:class="${cuisine == '분식' ? 'selected button category' : 'unselected button category'}" data-cuisine="분식">
-                        <img src="/img/tier/cuisine/tteokbokki.png">
+                        <img src="/img/tier/cuisine/분식.png">
                         <span class="cuisine-link">분식</span>
                     </a>
                     <a th:class="${cuisine == '술집' ? 'selected button category' : 'unselected button category'}" data-cuisine="술집">
-                        <img src="/img/tier/cuisine/beer.png">
+                        <img src="/img/tier/cuisine/술집.png">
                         <span class="cuisine-link">술집</span>
                     </a>
                     <a th:class="${cuisine == '카페/디저트' ? 'selected button category' : 'unselected button category'}" data-cuisine="카페/디저트">
-                        <img src="/img/tier/cuisine/coffee.png">
+                        <img src="/img/tier/cuisine/카페.png">
                         <span class="cuisine-link">카페/디저트</span>
                     </a>
                     <a th:class="${cuisine == '베이커리' ? 'selected button category' : 'unselected button category'}" data-cuisine="베이커리">
-                        <img src="/img/tier/cuisine/bakery.png">
+                        <img src="/img/tier/cuisine/베이커리.png">
                         <span class="cuisine-link">베이커리</span>
                     </a>
                     <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
-                        <img src="/img/tier/cuisine/hot-dog.png">
+                        <img src="/img/tier/cuisine/기타.png">
                         <span class="cuisine-link">기타</span>
                     </a>
                 </div>
@@ -161,27 +161,33 @@
             <thead>
             <tr>
                 <th scope="col">순위</th>
-                <th scope="col">이름</th>
+                <th scope="col"></th>
+                <th scope="col">식당</th>
                 <th scope="col">티어</th>
                 <th scope="col">종류</th>
                 <th scope="col">상황</th>
-                <th scope="col">카테고리</th>
             </tr>
             </thead>
             <tbody id="tierTableBody">
-            <tr th:each="restaurant,loop :${paging}">
-                <td th:text="0"></td>
-                <td>
-                    <a class="restaurant-link"
-                       th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}"
-                       th:text="${restaurant.restaurantName}"></a>
-
-                </td>
-                <td th:text="0"></td>
-                <td th:text="${restaurant.restaurantCuisine}"></td>
-                <td th:text="0"></td>
-                <td th:text="${restaurant.restaurantType}"></td>
-            </tr>
+                <tr th:each="restaurant,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})} + '\''">
+                    <td class="td-rank" th:text="${loop.index + 1}"></td>
+                    <td>
+                        <img th:if="${restaurant.restaurantImgUrl != 'no_img'}" class="td-main-img" th:src="${restaurant.getRestaurantImgUrl()}">
+                        <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+                    </td>
+                    <td class="td-name-outer">
+                        <span class="td-name" th:text="${restaurant.getRestaurantName()}"></span>
+                        <span class="td-type" th:text="${restaurant.getRestaurantType()}"></span>
+                    </td>
+                    <td>
+                        <img class="td-tier-img" th:src="${restaurant.getTierImgUrl(3)}">
+                    </td>
+                    <td class="td-cuisine-outer">
+                        <img class="td-cuisine-img" th:src="${restaurant.getCuisineImgUrl(restaurant.getRestaurantCuisine())}">
+                        <span class="td-cuisine-span" th:text="${restaurant.getRestaurantCuisine()}"></span>
+                    </td>
+                    <td th:text="${restaurant.restaurantType}"></td>
+                </tr>
             </tbody>
         </table>
 

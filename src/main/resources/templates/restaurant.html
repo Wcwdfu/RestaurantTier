@@ -22,7 +22,8 @@
 <div class="outer-container" id="outerContainer">
     <div class="inner-container">
         <div class="basic-info left-justified">
-            <img id="mainImg" th:src="${restaurant.restaurantImgUrl}">
+            <img th:if="${restaurant.restaurantImgUrl != 'no_img'}" th:id="mainImg" th:src="${restaurant.restaurantImgUrl}">
+            <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" th:id="mainImg" src="/img/restaurant/no_img.png">
             <div class="texts left-justified">
                 <div id="restaurantNameOuter">
                     <div id="restaurantName" th:text="${restaurant.restaurantName}">
@@ -63,7 +64,7 @@
             </div>
         </div>
     </div>
-    <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 1 || menus[0].menuName != 'no_menu'}">
+    <div id="menuContainer" class="inner-container" th:if="${#lists.size(menus) > 1 && menus[0].menuName != 'no_menu'}">
         <div class="section-title">메뉴</div>
         <div id="menuInfoContainer">
             <ul class="menu-ul" id="menuUL">
