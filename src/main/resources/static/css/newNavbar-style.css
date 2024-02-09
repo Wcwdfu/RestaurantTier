@@ -13,5 +13,5 @@ body {
 main {
     flex: 1; /* main 태그가 가능한 많은 공간을 차지하도록 함 */
     background-color: #EBEEF1;
-    margin-top: 100px;
+    margin-top:120px;
 }
