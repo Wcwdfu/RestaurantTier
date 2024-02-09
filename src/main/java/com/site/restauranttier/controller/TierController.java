@@ -25,7 +25,7 @@ public class TierController {
             @RequestParam(value = "cuisine", required = false, defaultValue = "전체") String cuisine,
             @RequestParam(value = "situation", required = false, defaultValue = "전체") String situation
     ) {
-        Pageable pageable = PageRequest.of(page, 40);
+        Pageable pageable = PageRequest.of(page, 100);
         if (situation.equals("전체") && cuisine.equals("전체")) {
             Page<Restaurant> paging = this.restaurantRepository.findByStatus("ACTIVE", pageable);
             model.addAttribute("situation", "전체");
