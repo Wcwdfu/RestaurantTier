@@ -40,7 +40,7 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model, @RequestParam(defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "popular") String sort) {
+    public String community(Model model, @RequestParam(defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "recent") String sort) {
         Page<Post> paging;
         // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
@@ -53,6 +53,7 @@ public class CommunityController {
         model.addAttribute("postCategory", postCategory);
         List<String> timeAgoList = postService.getTimeAgoList(paging);
 
+
         model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
         model.addAttribute("timeAgoList", timeAgoList);
@@ -61,17 +62,18 @@ public class CommunityController {
 
     // 커뮤니티 게시글 상세 화면
     @GetMapping("/community/{postId}")
-    public String post(Model model, @PathVariable Integer postId, Principal principal, @RequestParam(defaultValue = "popular") String sort) {
+    public String post(Model model, @PathVariable Integer postId, Principal principal, @RequestParam(defaultValue = "recent") String sort) {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
         String timeAgoData = postService.timeAgo(LocalDateTime.now(), post.getCreatedAt());
-        List<PostComment> postCommentList = new ArrayList<>();
-        if (sort.equals("popular")) {
-            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
-        } else if (sort.equals("recent")) {
-            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
-        }
+        List<PostComment> postCommentList = postCommentService.getList(postId,sort);
+        logger.info(postCommentList.toString());
+//        if (sort.equals("popular")) {
+//            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getLikeCount).reversed()).collect(Collectors.toList());
+//        } else if (sort.equals("recent")) {
+//            postCommentList = post.getPostCommentList().stream().sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()).collect(Collectors.toList());
+//        }
         // Comment의 createdAt을 문자열로 변환하여 저장한 리스트
         List<String> commentCreatedAtList = postCommentService.getCreatedAtList(postCommentList);
         model.addAttribute("postCommentList", postCommentList);
@@ -89,13 +91,21 @@ public class CommunityController {
         model.addAttribute("isPostScrappedByUser", isPostScrappedByUser);
         return "community_post";
     }
-
+    // 게시물 삭제
     @GetMapping("/api/post/delete")
     public ResponseEntity<String> postDelete(@RequestParam String postId) {
         Post post =  postService.getPost(Integer.valueOf(postId));
         post.setStatus("DELETED");
         postRepository.save(post);
-        return ResponseEntity.ok("delete complete");
+        return ResponseEntity.ok("post delete complete");
+    }
+    // 댓글 삭제
+    @GetMapping("/api/comment/delete")
+    public ResponseEntity<String> commentDelete(@RequestParam Integer commentId) {
+        PostComment postComment =  postCommentService.getPostCommentByCommentId(commentId);
+        postComment.setStatus("DELETED");
+        postCommentRepository.save(postComment);
+        return ResponseEntity.ok("comment delete complete");
     }
 
     // 댓글 or 대댓글 생성

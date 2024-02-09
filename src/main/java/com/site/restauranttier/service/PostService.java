@@ -27,6 +27,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostScrapRepository postScrapRepository;
+    // 인기순 제한 기준 숫자
+    public static  final int POPULARCOUNT = 1;
 
 
     // 메인 화면 로딩하기
@@ -42,7 +44,7 @@ public class PostService {
         // 인기순 정렬하기
         else {
             sorts.add(Sort.Order.desc("likeCount"));
-            Specification<Post> spec = getPopularOver5();
+            Specification<Post> spec = getSpecByPopularOver5();
             Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
             return this.postRepository.findAll(spec, pageable);
         }
@@ -77,7 +79,7 @@ public class PostService {
             sorts.add(Sort.Order.desc("createdAt"));
         }
         Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
-        Specification<Post> spec = getByCategoryAndPopularOver5(postCategory);
+        Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory);
         return this.postRepository.findAll(spec, pageable);
 
     }
@@ -248,7 +250,7 @@ public class PostService {
         };
     }
 
-    private Specification<Post> getByCategoryAndPopularOver5(String postCategory) {
+    private Specification<Post> getSpecByCategoryAndPopularOver5(String postCategory) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -258,7 +260,7 @@ public class PostService {
                 // 조건 추가
 
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
-                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), 1);
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
                 Predicate categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
                 return cb.and(statusPredicate, likeCountPredicate, categoryPredicate     // 글 작성자
                 );
@@ -268,7 +270,7 @@ public class PostService {
         };
     }
 
-    private Specification<Post> getPopularOver5() {
+    private Specification<Post> getSpecByPopularOver5() {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -276,7 +278,7 @@ public class PostService {
             public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
-                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), 1);
+                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
                 return cb.and(statusPredicate, likeCountPredicate     // 글 작성자
                 );
 

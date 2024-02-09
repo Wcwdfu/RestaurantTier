@@ -313,8 +313,11 @@ main {
     display: flex;
     flex-wrap: wrap;
 }
+.comment-li > div{
+    width: 100%;
+}
 
-.comment-li > div {
+.comment-div{
     width: 100%;
     display: flex;
     padding: 12px 12px 12px 0px;
@@ -444,9 +447,7 @@ ol, ul {
 .reply-ul {
     width: 100%;
     display: flex;
-    padding: 12px 12px 12px 0px;
     flex-wrap: wrap;
-    background-color: #f8f9fa;
     list-style: none;
 
 }

@@ -312,40 +312,84 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    document.querySelector(".post-delete").addEventListener("click", function (event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        var postId = document.querySelector(".post-title").dataset.id ;
-        console.log(postId);
-        fetch("/api/post/delete?postId=" + postId, {
-            method: 'GET'
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("게시물이 삭제되었습니다.")
-                    window.location.href = "/community";
-                    return response.json()
-                }
+    if (document.querySelector(".post-delete")) {
+        document.querySelector(".post-delete").addEventListener("click", function (event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 방지
+            var postId = document.querySelector(".post-title").dataset.id;
+            console.log(postId);
+            fetch("/api/post/delete?postId=" + postId, {
+                method: 'GET'
             })
-            .then(data => {
-                console.log(data)
-            }).catch(error => console.error('Error:', error));
-    })
+                .then(response => {
+                    if (response.ok) {
+                        alert("게시물이 삭제되었습니다.")
+                        window.location.href = "/community";
+                        return response.json()
+                    }
+                })
+                .then(data => {
+                    console.log(data)
+                }).catch(error => console.error('Error:', error));
+        })
+    }
 
-    document.querySelector(".comment-delete").addEventListener("click", function (event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        this.
-        fetch("/api/post/delete?postId=" + postId, {
-            method: 'GET'
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("게시물이 삭제되었습니다.")
-                    window.location.href = "/community";
-                    return response.json()
-                }
+
+    document.querySelectorAll(".comment-delete").forEach(
+        button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault(); // 폼의 기본 제출 동작을 방지
+                const commentLi = this.closest('.comment-li');
+                const commentId = commentLi.getAttribute('data-id');
+                fetch("/api/comment/delete?commentId=" + commentId, {
+                    method: 'GET'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("댓글이 삭제되었습니다.")
+                            commentLi.remove();
+
+                            return response.json()
+                        }
+                    })
+                    .then(data => {
+                        console.log(data)
+                    }).catch(error => console.error('Error:', error));
             })
-            .then(data => {
-                console.log(data)
-            }).catch(error => console.error('Error:', error));
-    })
+        }
+    )
+    // document.querySelectorAll(".reply-delete").forEach(
+    //     button => {
+    //         button.addEventListener("click", function (event) {
+    //             event.preventDefault(); // 폼의 기본 제출 동작을 방지
+    //             const commentLi = this.closest('.comment-li');
+    //             console.log(commentLi)
+    //             const commentId = commentLi.getAttribute('data-id');
+    //             console.log(commentId)
+    //
+    //             fetch("/api/comment/delete?commentId=" + commentId, {
+    //                 method: 'GET'
+    //             })
+    //                 .then(response => {
+    //                     if (response.ok) {
+    //                         alert("댓글이 삭제되었습니다.")
+    //                         commentLi.remove();
+    //
+    //                         const replyUl = commentLi.closest('ul');
+    //                         // 부모 ul 내에 다른 li 요소가 있는지 검사
+    //                         if (replyUl && replyUl.children.length === 0) {
+    //                             // 다른 li 요소가 없으면 ul 삭제
+    //                             replyUl.remove();
+    //                         }
+    //                         return response.json()
+    //                     }
+    //                 })
+    //                 .then(data => {
+    //                     console.log(data)
+    //                 }).catch(error => console.error('Error:', error));
+    //         })
+    //     }
+    // )
+
+
+
 })
