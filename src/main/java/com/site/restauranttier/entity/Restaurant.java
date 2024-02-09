@@ -3,6 +3,7 @@ package com.site.restauranttier.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.site.restauranttier.etc.EnumTier;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -82,4 +83,19 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
     private List<RestaurantMenu> restaurantMenuList = new ArrayList<>();
+
+    public String getTierImgUrl(Integer tier) {
+        String url = "/img/tier/" + tier.toString() + "tier.png";
+        return url;
+    }
+    public String getCuisineImgUrl(String cuisine) {
+        return "/img/tier/cuisine/" + getSubstringBefore(cuisine, '/') + ".png";
+    }
+    public String getSubstringBefore(String input, char delimiter) {
+        int index = input.indexOf(delimiter);
+        if (index != -1) {
+            return input.substring(0, index);
+        }
+        return input; // delimiter가 없는 경우에는 원본 문자열 그대로 반환
+    }
 }

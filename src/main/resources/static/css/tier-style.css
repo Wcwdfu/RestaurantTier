@@ -1,25 +1,18 @@
 @media only screen and (max-width: 1024px) {
-    #categoryBackground, #tierChartmain {
-        margin: 0 10px;
-        min-width: 260px;
-        width: 100%;
-    }
-
-    header {
+    #categoryBackground, main {
+        padding: 0 10px;
         min-width: 260px;
         width: 100%;
     }
 }
 
 @media only screen and (min-width: 1025px) {
-    #categoryBackground, #tierChartMain {
+    #categoryBackground, main {
         width: 70%;
         min-width: 450px;
         max-width: 900px;
-    }
-
-    header {
-        min-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -57,13 +50,29 @@ div.header-bottom ul.menu-list > li > a > div.tier {
     padding: 6px 0 5px;
 }
 
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    /*left: 50%;
+    transform: translateX(-50%);*/
+    border-radius: 50%;
+    border: none;
+    background-color: #f3e1c7;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+}
+
 
 /* category 고르기 창 */
 div.category {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 7px 0;
+    margin-top: 109px;
+    margin-bottom: 5px;
 }
 
 div.fixed-category{
@@ -71,9 +80,6 @@ div.fixed-category{
     top: 0;
     width: 100%;
     z-index: 100;
-}
-#categoryWindow{
-    margin-top: 120px;
 }
 
 div.category > div.category-background {
@@ -90,24 +96,29 @@ div.category > div.category-background > div.category-top {
 div.category > div.category-background > div.category-top > span.category-text {
     top: 0;
     left: 0;
-    padding: 10px 0;
     padding-left: 10px;
     align-items: center;
     font-weight: 550;
 }
 
+div.category > div.category-background > div.category-top > input {
+    flex: 1;
+    cursor: pointer;
+    appearance: none;
+    border: none;
+}
+
 div.category > div.category-background > div.category-top > label.category-check-btn {
     display: flex;
-    flex: 1;
-    padding: 10px 0;
+    padding: 5px 0;
     padding-right: 10px;
     justify-content: flex-end;
     align-items: center;
+    cursor: pointer;
 }
 
 div.category > div.category-background > div.category-top > label.category-check-btn > span.category-check-btn-text {
     font-size: 13px;
-
 }
 
 div.category div.category-list {
@@ -133,11 +144,11 @@ div.category div.category-list > div > span.text {
 }
 
 div.category div.category-list > div > div.buttons {
-    display: flex;
-    align-items: center;
     flex: 1;
-    overflow-x: scroll;
-    white-space: nowrap;
+    background-color: #fafafa;
+    border-radius: 10px;
+    /*overflow-x: scroll;
+    white-space: nowrap;*/
     margin-left: 10px;
 }
 
@@ -158,6 +169,7 @@ div.category div.category-list a.selected {
     color: #5383E8;
     font-size: 15px;
     font-weight: 570;
+    cursor: pointer;
 }
 
 div.category div.category-list a.unselected {
@@ -168,10 +180,11 @@ div.category div.category-list a.unselected {
     color: #222;
     font-size: 15px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 div.category div.category-list a.unselected:hover {
-    background-color: #EEE;
+    background-color: #DDD;
 }
 
 div.category div.category-list img {
@@ -182,13 +195,13 @@ div.category div.category-list img {
 /* 티어표 */
 main {
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 350px;
+}
+
+main > div.tier-chart {
+    width: 100%;
 }
 
 main > div.tier-chart > table.tier-table {
-    table-layout: auto;
     width: 100%;
     border-radius: 4px;
 }
@@ -225,7 +238,7 @@ th {
     position: relative;
     user-select: none;
     background-color: #f7f8fa;
-    color: gray;
+    color: #808080FF;
     font-size: 12px;
     line-height: 17px;
     border-bottom: 1px solid #EBEEF1;
@@ -252,6 +265,7 @@ td {
 
 tbody > tr {
     border-bottom: 1.5px solid #EBEEF1;
+    cursor: pointer;
 }
 
 tbody > tr > td.middle-align {
@@ -273,6 +287,51 @@ tbody > tr > td > div{
     overflow-x: scroll;
     white-space: nowrap;
     padding: 10px;
+}
+
+.td-rank {
+    color: black;
+    font-size: 14px;
+}
+.td-main-img {
+    width: 50px;
+    height: 50px;
+    margin: 5px 0;
+    object-fit: cover;
+    border-radius: 7px;
+}
+.td-name-outer {
+    display: flex;
+}
+.td-name {
+    color: black;
+    font-size: 15px;
+    margin-right: 5px;
+    text-align: center;
+}
+.td-type {
+    color: #656565;
+    font-size: 12px;
+    text-align: center;
+}
+.td-tier-img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+.td-cuisine-outer {
+    display: flex;
+}
+.td-cuisine-img {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    text-align: center;
+}
+.td-cuisine-span {
+    color: black;
+    font-size: 14px;
+    text-align: center;
 }
 
 /* 티어표 이미지 */
