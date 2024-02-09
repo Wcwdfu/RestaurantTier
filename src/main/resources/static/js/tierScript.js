@@ -22,30 +22,28 @@ $(document).ready(function () {
         })
     });
 
+    // 맨위로 올라가는 버튼
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    scrollTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 0) {
+            scrollTopBtn.style.display = 'inline';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    })
+
 // 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
     document.getElementById('categoryCheckBtn').addEventListener('change', function () {
         const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
         const categoryCheckBtnText = document.getElementById('categoryCheckBtnText');
         const categoryList = document.getElementById('categoryList');
         if (this.checked) {
-            categoryList.style.display = 'block';
-            categoryCheckBtnText.textContent = '접기　';
-            categoryCheckBtnArrow.textContent = '▼'
-        } else {
-            categoryList.style.display = 'none';
-            categoryCheckBtnText.textContent = '펼치기　';
-            categoryCheckBtnArrow.textContent = '◀'
-        }
-    });
-// 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
-// 두 개인 이유는 텍스트 부분을 누를때는 적용이 안돼서 따로 적용시키기 위함
-    document.getElementById('categoryText').addEventListener('touchstart', function () {
-        var categoryCheckBtn = document.getElementById('categoryCheckBtn');
-        const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
-        const categoryCheckBtnText = document.getElementById('categoryCheckBtnText');
-        var categoryList = document.getElementById('categoryList');
-        categoryCheckBtn.checked = !categoryCheckBtn.checked;
-        if (categoryCheckBtn.checked) {
             categoryList.style.display = 'block';
             categoryCheckBtnText.textContent = '접기　';
             categoryCheckBtnArrow.textContent = '▼'
@@ -85,16 +83,35 @@ $(document).ready(function () {
         });
     });
 
+    // 표 위에 마우스 올렸을 때 색상 변경
+    document.querySelectorAll("#tierTableBody tr").forEach(function(tr) {
+        // 마우스를 올렸을 때
+        tr.addEventListener("mouseenter", function() {
+            this.style.backgroundColor = "#eee";
+            this.querySelectorAll("*").forEach(function(child) {
+                child.style.backgroundColor = "#eee";
+            });
+        });
+        // 마우스를 빼앗았을 때
+        tr.addEventListener("mouseleave", function() {
+            this.style.backgroundColor = "";
+            this.querySelectorAll("*").forEach(function(child) {
+                child.style.backgroundColor = "";
+            });
+        });
+    });
+
 // 아래로 스크롤 시 카테고리 창 상단 고정해주는 부분
-    window.addEventListener('scroll', function () {
+    /*window.addEventListener('scroll', function () {
         var category = document.getElementById('categoryWindow');
-        var headerHeight = document.querySelector('header').offsetHeight;
+        var headerHeight = parseFloat(window.getComputedStyle(category).marginTop);
+        console.log(headerHeight);
 
         if (window.scrollY >= headerHeight) {
             category.classList.add('fixed-category');
         } else {
             category.classList.remove('fixed-category');
         }
-    });
+    });*/
 
 });
