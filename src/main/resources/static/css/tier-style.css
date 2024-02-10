@@ -3,6 +3,20 @@
         padding: 0 10px;
         min-width: 260px;
         width: 100%;
+        line-height: normal;
+    }
+    #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        z-index: 100;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        border: none;
+        background-color: #f3e1c7;
+        width: 45px;
+        height: 45px;
+        padding: 0;
     }
 }
 
@@ -13,6 +27,19 @@
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
+        line-height: normal;
+    }
+    #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 100;
+        border-radius: 50%;
+        border: none;
+        background-color: #f3e1c7;
+        width: 45px;
+        height: 45px;
+        padding: 0;
     }
 }
 
@@ -50,28 +77,12 @@ div.header-bottom ul.menu-list > li > a > div.tier {
     padding: 6px 0 5px;
 }
 
-#scrollTopBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 100;
-    /*left: 50%;
-    transform: translateX(-50%);*/
-    border-radius: 50%;
-    border: none;
-    background-color: #f3e1c7;
-    width: 45px;
-    height: 45px;
-    padding: 0;
-}
-
 
 /* category 고르기 창 */
 div.category {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 110px;
     margin-bottom: 5px;
 }
 
@@ -228,12 +239,6 @@ thead {
     border-color: inherit;
 }
 
-tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
 th {
     position: relative;
     user-select: none;
@@ -260,12 +265,14 @@ td {
     margin: 0;
     display: table-cell;
     background-color: #FFF;
-    text-align: center;
+    vertical-align: middle;
 }
 
 tbody > tr {
+    display: table-row;
     border-bottom: 1.5px solid #EBEEF1;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 tbody > tr > td.middle-align {
@@ -284,14 +291,17 @@ tbody > tr > td > div{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: scroll;
     white-space: nowrap;
-    padding: 10px;
+    padding: 10px 0;
 }
 
+.td-center {
+    text-align: center;
+}
 .td-rank {
     color: black;
     font-size: 14px;
+    text-align: center;
 }
 .td-main-img {
     width: 50px;
@@ -302,12 +312,12 @@ tbody > tr > td > div{
 }
 .td-name-outer {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .td-name {
     color: black;
     font-size: 15px;
-    margin-right: 5px;
-    text-align: center;
 }
 .td-type {
     color: #656565;
@@ -318,20 +328,32 @@ tbody > tr > td > div{
     width: 30px;
     height: 30px;
     object-fit: cover;
+    margin-right: 5px;
 }
 .td-cuisine-outer {
     display: flex;
+    justify-content: left;
 }
 .td-cuisine-img {
     width: 34px;
     height: 34px;
     object-fit: cover;
-    text-align: center;
+    margin-right: 5px;
 }
-.td-cuisine-span {
-    color: black;
-    font-size: 14px;
-    text-align: center;
+@media only screen and (max-width: 1024px) {
+    .td-cuisine-span {
+        display: none;
+        color: black;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .td-cuisine-span {
+        display: inline;
+        color: black;
+        font-size: 14px;
+    }
 }
 
 /* 티어표 이미지 */
