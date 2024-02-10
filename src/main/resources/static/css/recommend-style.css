@@ -255,3 +255,7 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
     font-weight: bold;
     letter-spacing: 2px;
 }
+
+#mainContents{
+    margin-top: 120px;
+}
