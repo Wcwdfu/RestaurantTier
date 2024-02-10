@@ -142,8 +142,8 @@
     </div>
 </footer>
 <!--페이지 컨트롤러-->
-<div th:fragment= "page-controller" class="row" th:if="${!paging.isEmpty()}">
-    <div class="col-12 mt-2 mb-2 d-flex justify-content-center">
+<div th:fragment= "page-controller" class="row" th:if="${!paging.isEmpty()}" style="margin: 0;">
+    <div class="col-12 mt-2 mb-2 d-flex justify-content-center" style="padding: 0;">
 
         <ul class="pagination pagination-style-01 fs-13 mb-0">
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'"><a class="page-link"
