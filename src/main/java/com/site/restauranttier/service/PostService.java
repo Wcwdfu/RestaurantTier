@@ -29,7 +29,8 @@ public class PostService {
     private final PostScrapRepository postScrapRepository;
     // 인기순 제한 기준 숫자
     public static  final int POPULARCOUNT = 1;
-
+    // 페이지 숫자
+    public static  final int PAGESIZE=10;
 
     // 메인 화면 로딩하기
     public Page<Post> getList(int page, String sort) {
@@ -37,7 +38,7 @@ public class PostService {
         // 최신순 정렬
         if (sort.isEmpty() || sort.equals("recent")) {
             sorts.add(Sort.Order.desc("createdAt"));
-            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
             return this.postRepository.findByStatus("ACTIVE", pageable);
 
         }
@@ -45,7 +46,7 @@ public class PostService {
         else {
             sorts.add(Sort.Order.desc("likeCount"));
             Specification<Post> spec = getSpecByPopularOver5();
-            Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+            Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
             return this.postRepository.findAll(spec, pageable);
         }
 
@@ -61,7 +62,7 @@ public class PostService {
         } else if (sort.equals("popular")) {
             sorts.add(Sort.Order.desc("likeCount"));
         }
-        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
         Specification<Post> spec = search(kw, postCategory);
         return this.postRepository.findAll(spec, pageable);
     }
@@ -78,7 +79,7 @@ public class PostService {
         else {
             sorts.add(Sort.Order.desc("createdAt"));
         }
-        Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
         Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory);
         return this.postRepository.findAll(spec, pageable);
 

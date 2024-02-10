@@ -1,36 +1,59 @@
-<section th:fragment="home-firstbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="background-image: url('/img/home/background.jpg'); margin-top: inherit; height: 300px;">
-    <div class="container">
-        <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Select Cusine!</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+<!--상단 탭-->
+<header th:fragment="navbarFragment">
+    <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse" data-header-hover="light">
+        <div class="container-fluid">
+            <div class="col-auto col-lg-2 me-lg-0 me-auto">
+                <a class="navbar-brand" href="/home">
+                    <script type="text/javascript" style="display:none">
+                        //<![CDATA[
+                        window.__mirage2 = {petok:"E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
+                        //]]>
+                    </script>
+                    <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
+                    <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="default-logo" src="/img/home/restaurant-logo.webp" width="159" height="49">
+                    <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="mobile-logo" src="/img/home/restaurant-logo.webp" width="0" height="0">
+                    <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+                    <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+                </a>
+            </div>
+            <div class="col-auto menu-order position-static">
+                <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation" data-target="#navbarNav-clone" aria-expanded="false">
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav alt-font ls-1px pb-0">
+                        <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="/recommend" class="nav-link">Menu Recommend</a></li>
+                        <li class="nav-item"><a href="/tier" class="nav-link">Tier</a></li>
+                        <li class="nav-item"><a href="/community" class="nav-link">Community</a></li>
+                    </ul >
+                    <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
+                    <ul class="navbar-nav pt-0">
+                        <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
+                            <a href="/user/login" class="nav-link">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
+                <div class="header-icon">
+                    <div class="header-button">
+                        <a href="/user/login" class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+<span>
+<span class="btn-double-text" data-text="Login">Login</span>
+</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<section th:fragment="home-secondbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">
-    <div class="container">
-        <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Check your favorite Restaurant!</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section th:fragment="communityFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">
-    <div class="container">
-        <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Community</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>STORIES FROM RESTAURANT<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
-            </div>
-        </div>
-    </div>
-</section>
-
+</header>
+<!--하단 푸터-->
 <footer th:fragment="footerFragment" class="pb-0 bg-very-light-gray cover-background background-position-center-top sm-background-image-none" style="background-image: url('/img/home/footer.jpg')">
     <div class="container">
         <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center mt-13 md-mt-15 sm-mt-0 mb-5 sm-mb-50px">
@@ -117,3 +140,61 @@
         </div>
     </div>
 </footer>
+<!--페이지 컨트롤러-->
+<div th:fragment= "page-controller" class="row" th:if="${!paging.isEmpty()}">
+    <div class="col-12 mt-2 mb-2 d-flex justify-content-center">
+
+        <ul class="pagination pagination-style-01 fs-13 mb-0">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'"><a class="page-link"
+                                                                                          th:href="@{|?page=${paging.number-1}|}"
+                                                                                          th:data-page="${paging.number-1}"><img
+                    src="/img/community/back.png" class="fs-18 d-xs-none page-arrow"></a></li>
+            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:if="${page >= paging.number-2 and page <= paging.number+2}"
+                th:classappend="${page == paging.number+1} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}" th:data-page="${page}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'"><a class="page-link"
+                                                                                      th:href="@{|?page=${paging.number+1}|}"
+                                                                                      th:data-page="${paging.number+1}"><img
+                    src="/img/community/next.png" class="fs-18 d-xs-none page-arrow"></a></li>
+        </ul>
+
+    </div>
+</div>
+<!--홈화면 첫번째 body-->
+<section th:fragment="home-firstbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="background-image: url('/img/home/background.jpg'); margin-top: inherit; height: 300px;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center small-screen">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Select Cusine!</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!--홈화면 두번째 body-->
+<section th:fragment="home-secondbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center small-screen">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Check your favorite Restaurant!</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!--커뮤니티 첫번쨰 body-->
+<section th:fragment="communityFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center small-screen">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase" >Community</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>STORIES FROM RESTAURANT<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+

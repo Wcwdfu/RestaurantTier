@@ -341,10 +341,7 @@ tbody > tr > td > div > img {
     margin-right: 14px;
 }
 
-/* footer 스타일 */
-footer{
-    margin-top: 1rem;
-}
+
 /* 식당 이름에 링크 스타일 제거*/
 .restaurant-link {
     color: inherit; /* 상위 요소의 글자 색상을 상속받습니다 */
@@ -356,3 +353,17 @@ footer{
     text-decoration: none;
 }
 
+.page-footer{
+    margin-top: 1rem;
+}
+
+/*페이지 컨트롤러 */
+
+.page-arrow{
+    width: 16px;
+    height: 16px;
+    padding-bottom: 6px;
+}
+.page-item.disabled > .page-link {
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+}

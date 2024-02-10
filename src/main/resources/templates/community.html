@@ -10,21 +10,23 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     <script src="/js/community.js"></script>
+    <!-- 아이콘 관련 라이브러리 -->
+    <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
+    <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
     <link rel="stylesheet" href="/css/test/vendors.min.css">
     <link rel="stylesheet" href="/css/test/icon.min.css">
     <link rel="stylesheet" href="/css/test/style.min.css">
     <link rel="stylesheet" href="/css/test/responsive.min.css">
     <link rel="stylesheet" href="/css/test/restaurant.css">
-    <link rel="stylesheet" type="text/css" href="/css/newNavbar-style.css">
     <link rel="stylesheet" type="text/css" href="/css/community-style.css">
-
 
 
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{navbar-new :: navbarFragment}"></header>
+<header th:replace="~{fragment :: navbarFragment}"></header>
 
 <div id="content">
     <section th:replace="~{fragment::communityFragment}"></section>
@@ -97,49 +99,11 @@
     <input type="text" id="search_kw" class="form-control" th:value="${postSearchKw}">
     <button class="btn btn-secondary" type="button" id="postSearch" style="font-family: 'Arial', sans-serif">찾기</button>
 </div>
-
-<!-- 페이징처리 시작 -->
-<div class="page-controller" th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-        <li th:if="${paging.hasPrevious}">
-            <a class="move-link" th:href="@{'/community'(sort=${sort}, postCategory=${postCategory}, page=${paging.number-1})}">
-                <span type="button"><img src="/img/community/left-arrow-gray.png">이전</span>
-            </a>
-        </li>
-        <li th:if="${paging.hasNext}">
-            <a class="move-link" th:href="@{'/community'(sort=${sort}, postCategory=${postCategory}, page=${paging.number+1})}">
-                <span type="button">다음<img src="/img/community/right-arrow-gray.png"></span>
-            </a>
-        </li>
-    </ul>
-</div>
-
-<!-- 페이징처리 끝 -->
-
-<!-- 페이징처리 시작 -->
-<!--<div class="page-controller" th:if="${!paging.isEmpty()}">-->
-<!--    <ul class="pagination justify-content-center">-->
-<!--        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-<!--            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">-->
-
-<!--                <span>이전</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
-<!--            th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
-<!--            th:classappend="${page == paging.number} ? 'active'"-->
-<!--            class="page-item">-->
-<!--            <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>-->
-<!--        </li>-->
-<!--        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-<!--            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">-->
-<!--                <span>다음</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</div>-->
-<!-- 페이징처리 끝 -->
-
+<!--페이지 컨트롤러-->
+<div th:replace="fragment::page-controller"></div>
+<!--footer-->
+<footer th:replace="~{fragment::footerFragment}">
+</footer>
 <form th:action="@{/community/search}" method="get" id="searchForm">
     <input type="hidden" id="kw" name="kw" th:value="${postSearchKw}">
     <input type="hidden" id="page" name="page" th:value="${paging.number}">

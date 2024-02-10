@@ -172,7 +172,7 @@ body {
 
 
 .input-group{
-    margin:0 auto 20px;
+    margin:20px auto 0;
     padding-right:3rem;
     padding-left:3rem;
 
@@ -194,48 +194,25 @@ body {
     color:inherit;
 }
 
-/*페이지 컨트롤러*/
-.pagination a{
-    text-decoration: none;
-    color:inherit;
-}
 
-.pagination{
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-}
-.pagination span{
-    display: inline-flex;
-    border-color: #98a0a7;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 40px;
-    font-size: 14px;
-    border: 1px solid;
-    border-radius: 4px;
-    transition: all 0.3s cubic-bezier(0.075,0.82,0.165,1);
-    vertical-align: middle;
-    border-color: #dddfe4;
-    color: #7b858e;
-    background-color: #FFF;
-    padding: 7px 10px 7px 10px;
-    line-height: initial;
-}
-
-.pagination span img{
-    width: 16px;
-    height: 16px;
-    padding:2px;
-}
 
 #search_kw{
     padding:5px;
 }
 
 
-@media only screen and (min-width: 1025px) {
+/*페이지 컨트롤러 */
 
+.page-arrow{
+    width: 16px;
+    height: 16px;
+    padding-bottom: 6px;
+}
+.page-item.disabled > .page-link {
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
+
+
+@media only screen and (min-width: 1025px) {
 
 }
