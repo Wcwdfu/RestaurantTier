@@ -162,7 +162,7 @@ if (unfoldButton) {
             menuUL.style.maxHeight = 'none';
             menuUL.style.overflowY = 'visible';
         }
-        menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('menuTopDiv').scrollIntoView({ behavior: 'smooth', block: 'start' });
     })
 }
 
@@ -181,7 +181,8 @@ document.getElementById('mapUnfoldButton').addEventListener('click', function() 
         }
         resize(width, newHeight);
         // 지도가 가장 위로 오도록 화면 스크롤
-        mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('mapTopDiv').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        //window.scrollBy(0, -110);
     } else {
         this.textContent = '펼치기';
         resize(width, 150);
