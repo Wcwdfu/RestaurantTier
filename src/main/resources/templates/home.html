@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>건메추</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--  폰트 라이브러리 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--    <link href="//cdn.jsdelivr.net/gh/snz-hayden/toolo/fonts/black_han_sans/black_han_sans.css" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">-->
     <!-- 아이콘 라이브러리-->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -160,7 +166,7 @@
         </div>
         <div class="container">
             <div class="row align-items-center mb-4 lg-mb-6 lg-mt-5">
-                <div class="plate col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+                <div id="plate" class="col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
                     <img src="/img/home/demo-restaurant-home-04.webp" alt="" data-no-retina="">
                 </div>
                 <div class="col-xl-5 col-lg-6 appear anime-child anime-complete " data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
@@ -170,7 +176,7 @@
                     <div class="d-inline-block mt-10px xs-mt-0" style="">
                         <a href="/tier" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
 <span>
-<span class="btn-double-text" data-text="About restaurant">About restaurant</span>
+<span class="btn-double-text" data-text="Restauarant Tier">Restauarant Tier</span>
 </span>
                         </a>
                         <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a href="tel:1800222000">010-5374-8485</a></div>
@@ -185,8 +191,8 @@
                             <i class="bi bi-box-seam d-inline-block icon-medium text-dark-gray"></i>
                         </div>
                         <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">fast delivery</span>
-                            <p class="lh-22">Within 30 minutes</p>
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">Tier</span>
+                            <p class="lh-22">Reliable Restaurant Tier</p>
                         </div>
                     </div>
                 </div>
@@ -198,8 +204,8 @@
                             <i class="bi bi-award d-inline-block icon-medium text-dark-gray"></i>
                         </div>
                         <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">absolute dining</span>
-                            <p class="lh-22">Best buffet restaurant</p>
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">User</span>
+                            <p class="lh-22">User's vivid reviews</p>
                         </div>
                     </div>
                 </div>
@@ -211,12 +217,84 @@
                             <i class="bi bi-bag-check d-inline-block icon-medium text-dark-gray"></i>
                         </div>
                         <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">pickup delivery</span>
-                            <p class="lh-22">Grab your food order</p>
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">Information</span>
+                            <p class="lh-22">Maps, menus, etc</p>
                         </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+<!-- 두번쨰 body 화면   -->
+
+    <section class="bg-very-light-gray">
+        <div id="phrase" class="container-fluid overlap-section" style="margin-top: inherit;">
+            <div class="row position-relative mb-6 appear anime-complete" data-anime="{ &quot;translateY&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+                <div class="col swiper swiper-width-auto text-center swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: &quot;auto&quot;, &quot;spaceBetween&quot;:50, &quot;speed&quot;: 10000, &quot;loop&quot;: true, &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-2&quot;, &quot;clickable&quot;: false }, &quot;allowTouchMove&quot;: false, &quot;autoplay&quot;: { &quot;delay&quot;:0, &quot;disableOnInteraction&quot;: false }, &quot;navigation&quot;: { &quot;nextEl&quot;: &quot;.slider-four-slide-next-2&quot;, &quot;prevEl&quot;: &quot;.slider-four-slide-prev-2&quot; }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;effect&quot;: &quot;slide&quot; }">
+                    <div class="swiper-wrapper marquee-slide" id="swiper-wrapper-fd511885addd9a5d" aria-live="off" style="transition-duration: 10000ms; transform: translate3d(-1187.78px, 0px, 0px);">
+
+                        <div class="swiper-slide" role="group" aria-label="1 / 8" style="margin-right: 50px;" data-swiper-slide-index="0">
+                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Konkuk</div>
+                        </div>
+
+
+                        <div class="swiper-slide" role="group" aria-label="2 / 8" style="margin-right: 50px;" data-swiper-slide-index="1">
+                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Restaurant</div>
+                        </div>
+
+
+                        <div class="swiper-slide swiper-slide-prev" role="group" aria-label="3 / 8" style="margin-right: 50px;" data-swiper-slide-index="2">
+                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Awesome</div>
+                        </div>
+
+
+                        <div class="swiper-slide swiper-slide-active" role="group" aria-label="4 / 8" style="margin-right: 50px;" data-swiper-slide-index="3">
+                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Experience</div>
+                        </div>
+
+
+                        <div class="swiper-slide swiper-slide-next" role="group" aria-label="5 / 8" style="margin-right: 50px;" data-swiper-slide-index="4">
+                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Konkuk</div>
+                        </div>
+
+
+                        <div class="swiper-slide" role="group" aria-label="6 / 8" style="margin-right: 50px;" data-swiper-slide-index="5">
+                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Restaurant</div>
+                        </div>
+
+
+                        <div class="swiper-slide" role="group" aria-label="7 / 8" style="margin-right: 50px;" data-swiper-slide-index="6">
+                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Awesome</div>
+                        </div>
+
+
+                        <div class="swiper-slide" role="group" aria-label="8 / 8" style="margin-right: 50px;" data-swiper-slide-index="7">
+                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Experience</div>
+                        </div>
+
+                    </div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-6 md-mb-50px sm-mb-30px appear anime-complete" data-anime="{ &quot;translateX&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+                    <img id="community" src="/img/home/community.jpg" alt="" class="border-radius-6px w-100" data-no-retina="">
+                </div>
+                <div class="col-lg-5 offset-lg-1 appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 200, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                    <span id="firstComment" class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px xs-w-50px h-2px bg-red d-inline-block align-middle me-15px"></span>since 1988 restaurant</span>
+                    <h1 id="secondComment" class="alt-font text-dark-gray mb-20px" style="">커뮤니티</h1>
+                    <p id="thirdComment" class="w-90 lg-w-100" style="">당신의 소중한 맛집 경험을 사람들과 나누세요.</p>
+                    <div id="transferButton" class="d-inline-block mt-10px xs-mt-0" style="">
+                        <a href="/community" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
+<span>
+<span class="btn-double-text" data-text="Community">Community</span>
+</span>
+                        </a>
+                        <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a href="tel:1800222000">010-5374-8485</a></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -227,7 +305,11 @@
 </main>
 
 
-
+<div class="scroll-progress d-none d-xxl-block visible">
+    <a href="#" class="scroll-top" aria-label="scroll">
+        <span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point" style="height: 51.5567%;"></span></span>
+    </a>
+</div>
 <script type="text/javascript" src="/js/library/jquery.js"></script>
 <script type="text/javascript" src="/js/library/vendors.min.js"></script>
 <script type="text/javascript" src="/js/library/main.js"></script>
