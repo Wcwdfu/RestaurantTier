@@ -16,6 +16,10 @@
 
 body {
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .icon {
@@ -143,15 +147,12 @@ body {
 }
 
 #content{
-    margin: 0 auto 0; /* 상 20px, 우 auto, 하 30px, 좌 auto */
 
     position: relative;
     overflow: visible;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-top: 1%;
-    max-width: 900px;
 
 }
 #filterDiv{
