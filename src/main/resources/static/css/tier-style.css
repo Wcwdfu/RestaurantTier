@@ -15,8 +15,8 @@
         border-radius: 50%;
         border: none;
         background-color: #f3e1c7;
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         padding: 0;
     }
 }
@@ -294,22 +294,6 @@ tbody > tr > td > div{
     padding: 10px 0;
 }
 
-@media only screen and (max-width: 700px) {
-    #th-situation {
-        display: none;
-    }
-    .td-situation {
-        display: none;
-    }
-}
-@media only screen and (min-width: 701px) {
-    #th-situation {
-        display: table-cell;
-    }
-    .td-situation {
-        display: table-row;
-    }
-}
 .td-center {
     text-align: center;
 }
@@ -406,21 +390,47 @@ tbody > tr > td > div{
     object-fit: cover;
     margin-right: 5px;
 }
-@media only screen and (max-width: 700px) {
-    .td-cuisine-span {
-        display: none;
-        color: black;
-        font-size: 14px;
-    }
-}
-
 @media only screen and (min-width: 701px) {
     .td-cuisine-span {
         display: inline;
         color: black;
-        font-size: 14px;
+        font-size: 13px;
     }
 }
+@media only screen and (max-width: 700px) {
+    .td-cuisine-span {
+        display: none;
+    }
+}
+.td-situations-outer {
+    overflow-x: scroll;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.td-situations-outer img {
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+@media only screen and (max-width: 550px) {
+    #th-situation {
+        display: none;
+    }
+    .td-situation {
+        display: none;
+    }
+}
+@media only screen and (min-width: 551px) {
+    #th-situation {
+        display: table-cell;
+    }
+    .td-situation {
+        display: table-row;
+    }
+}
+
 
 /* 티어표 이미지 */
 tbody > tr > td > div > img {
