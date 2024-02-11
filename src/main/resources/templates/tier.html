@@ -46,7 +46,7 @@
                 <span class="text">종류</span>
                 <div class="buttons scrollable">
                     <a th:class="${cuisine == '전체' ? 'selected button category' : 'unselected button category'}" data-cuisine="전체">
-                        <img src="/img/tier/all.png">
+                        <img src="/img/tier/전체.png">
                         <span class="cuisine-link">전체</span>
                     </a>
                     <a th:class="${cuisine == '한식' ? 'selected button category' : 'unselected button category'}" data-cuisine="한식">
@@ -112,43 +112,43 @@
                 <span class="text">상황</span>
                 <div class="buttons scrollable">
                     <a th:class="${situation == '전체' ? 'selected button category' : 'unselected button category'}" data-situation="전체">
-                        <img src="/img/tier/all.png">
+                        <img src="/img/tier/전체.png">
                         <span>전체</span>
                     </a>
                     <a th:class="${situation == '혼밥' ? 'selected button category' : 'unselected button category'}" data-situation="ONE">
-                        <img src="/img/tier/person.png">
+                        <img src="/img/tier/혼밥.png">
                         <span>혼밥</span>
                     </a>
                     <a th:class="${situation == '2~4인' ? 'selected button category' : 'unselected button category'}" data-situation="TWO">
-                        <img src="/img/tier/people.png">
+                        <img src="/img/tier/2~4인.png">
                         <span>2~4인</span>
                     </a>
                     <a th:class="${situation == '5인 이상' ? 'selected button category' : 'unselected button category'}" data-situation="THREE">
-                        <img src="/img/tier/5more.png">
+                        <img src="/img/tier/5인%20이상.png">
                         <span>5인 이상</span>
                     </a>
                     <a th:class="${situation == '단체 회식' ? 'selected button category' : 'unselected button category'}" data-situation="FOUR">
-                        <img src="/img/tier/crowd.png">
+                        <img src="/img/tier/단체%20회식.png">
                         <span>단체 회식</span>
                     </a>
                     <a th:class="${situation == '배달' ? 'selected button category' : 'unselected button category'}" data-situation="FIVE">
-                        <img src="/img/tier/delivery.png">
+                        <img src="/img/tier/배달.png">
                         <span>배달</span>
                     </a>
                     <a th:class="${situation == '야식' ? 'selected button category' : 'unselected button category'}" data-situation="SIX">
-                        <img src="/img/tier/night.png">
+                        <img src="/img/tier/야식.png">
                         <span>야식</span>
                     </a>
                     <a th:class="${situation == '친구 초대' ? 'selected button category' : 'unselected button category'}" data-situation="SEVEN">
-                        <img src="/img/tier/friend.png">
+                        <img src="/img/tier/친구%20초대.png">
                         <span>친구 초대</span>
                     </a>
                     <a th:class="${situation == '데이트' ? 'selected button category' : 'unselected button category'}" data-situation="EIGHT">
-                        <img src="/img/tier/dating.png">
+                        <img src="/img/tier/데이트.png">
                         <span>데이트</span>
                     </a>
                     <a th:class="${situation == '소개팅' ? 'selected button category' : 'unselected button category'}" data-situation="NINE">
-                        <img src="/img/tier/blind-date.png">
+                        <img src="/img/tier/소개팅.png">
                         <span>소개팅</span>
                     </a>
                 </div>
@@ -175,28 +175,32 @@
         </tr>
         </thead>
         <tbody id="tierTableBody">
-        <tr th:each="restaurant,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})} + '\''">
+        <tr th:each="restaurantTierBundle,loop :${restaurantTierBundleList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierBundle.getRestaurant().restaurantId})} + '\''">
             <td class="td-rank" th:text="${loop.index + 1}" style="min-width: 32px"></td>
             <td class="td-center" style="min-width: 58px">
-                <img th:if="${restaurant.restaurantImgUrl != 'no_img'}" class="td-main-img" th:src="${restaurant.getRestaurantImgUrl()}">
-                <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl()}">
+                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
             </td>
             <td class="td-name">
                 <div class="td-name-outer">
-                    <span class="td-inner-name" th:text="${restaurant.getRestaurantName()}"></span>
-                    <span class="td-inner-type" th:text="${restaurant.getRestaurantType()}"></span>
+                    <span class="td-inner-name" th:text="${restaurantTierBundle.getRestaurant().getRestaurantName()}"></span>
+                    <span class="td-inner-type" th:text="${restaurantTierBundle.getRestaurant().getRestaurantType()}"></span>
                 </div>
             </td>
             <td class="td-center" style="min-width: 42px">
-                <img class="td-tier-img" th:src="${restaurant.getTierImgUrl(3)}">
+                <img class="td-tier-img" th:src="${restaurantTierBundle.getRestaurant().getTierImgUrl(restaurantTierBundle.getTier().getValue())}">
             </td>
             <td style="min-width: 46px">
                 <div class="td-cuisine-outer">
-                    <img class="td-cuisine-img" th:src="${restaurant.getCuisineImgUrl(restaurant.getRestaurantCuisine())}">
-                    <span class="td-cuisine-span" th:text="${restaurant.getRestaurantCuisine()}"></span>
+                    <img class="td-cuisine-img" th:src="${restaurantTierBundle.getRestaurant().getCuisineImgUrl(restaurantTierBundle.getRestaurant().getRestaurantCuisine())}">
+                    <span class="td-cuisine-span" th:text="${restaurantTierBundle.getRestaurant().getRestaurantCuisine()}"></span>
                 </div>
             </td>
-            <td class="td-situation" th:text="${restaurant.restaurantType}"></td>
+            <td class="td-situation">
+                <div class="td-situations-outer">
+                    <img th:each="imgUrl :${restaurantTierBundle.getRestaurant().getSituationImgUrlList()}" th:src="${imgUrl}">
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -205,7 +209,7 @@
 </body>
 
 <!--페이지 컨트롤러-->
-<div th:replace="fragment::page-controller"></div>
+<!--<div th:replace="fragment::page-controller"></div>-->
 <!--footer-->
 <footer th:replace="~{fragment::footerFragment}">
 </footer>

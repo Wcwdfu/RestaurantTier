@@ -1,6 +1,6 @@
 package com.site.restauranttier.repository;
 
-import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
+import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +30,12 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
     List<Restaurant> findByStatus(String status);
 
+    @Query("SELECT r " +
+            "FROM Restaurant r " +
+            "JOIN r.situationList s " +
+            "WHERE r.status = :status AND s.situationName = :situation AND r.restaurantCuisine = :cuisine")
+    List<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status);
+
     // 페이징
     Page<Restaurant> findAll(Pageable pageable);
     // 검색결과 페이징
@@ -40,21 +46,31 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "WHERE r.visitCount >= :#{#restaurant.visitCount}")
     Float getPercentOrderByVisitCount(Restaurant restaurant);
 
-    @Query("SELECT new com.site.restauranttier.dto.RestaurantEverageScoreDTO(r, AVG(e.evaluationScore)) " +
-            "FROM Restaurant r JOIN r.evaluationList e " +
+    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0.0 END) " +
+            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
+            "WHERE r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +
-            "HAVING COUNT(e) >= :dataNum " +
             "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
-    List<RestaurantEverageScoreDTO> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
-
-    @Query("SELECT new com.site.restauranttier.dto.RestaurantEverageScoreDTO(r, AVG(e.evaluationScore)) " +
-            "FROM Restaurant r JOIN r.evaluationList e " +
-            "WHERE r.restaurantCuisine = :cuisine  " +
+    List<RestaurantAverageScoreBundle> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
+    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0 END) " +
+            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
+            "WHERE r.restaurantCuisine = :cuisine AND r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +
-            "HAVING COUNT(e) >= :dataNum " +
             "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
-    List<RestaurantEverageScoreDTO> getCuisineRestaurantsOrderedByAvgScore(
+    List<RestaurantAverageScoreBundle> getRestaurantsByCuisineOrderedByAvgScore(
             @Param("cuisine") String cuisine,
             @Param("dataNum") Integer dataNum
     );
+    /*@Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0 END) " +
+            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
+            "WHERE r.situationList = :situation AND r.status = 'ACTIVE' " +
+            "GROUP BY r.restaurantId " +
+            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+    List<RestaurantAverageScoreBundle> getRestaurantsBySituationOrderedByAvgScore(
+            @Param("situation") String situation,
+            @Param("dataNum") Integer dataNum
+    );*/
 }
