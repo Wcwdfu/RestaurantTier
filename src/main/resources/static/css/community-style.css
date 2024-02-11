@@ -147,14 +147,29 @@ body {
 }
 
 #content{
-
+    margin:0 auto 0;
     position: relative;
     overflow: visible;
     display: flex;
     flex-direction: column;
-    width: 100%;
 
 }
+@media only screen and (min-width: 1025px) {
+    #content {
+        width: 70%;
+        min-width: 450px;
+        max-width: 900px;
+    }
+    
+}
+@media only screen and (max-width: 1024px){
+    #content{
+        min-width: 260px;
+        width: 100%;
+    }
+}
+
+
 #filterDiv{
     display:flex;
     justify-content: space-between;
