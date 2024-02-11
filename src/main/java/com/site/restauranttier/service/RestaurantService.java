@@ -1,7 +1,7 @@
 package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
-import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
+import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.repository.RestaurantMenuRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
@@ -105,7 +105,10 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
     }
 
-    public List<RestaurantEverageScoreDTO> getCuisineRestaurantEverageScoreDTOList(Restaurant restaurant) {
-        return restaurantRepository.getCuisineRestaurantsOrderedByAvgScore(restaurant.getRestaurantCuisine(), minNumberOfEvaluations);
+    public List<RestaurantAverageScoreBundle> getAllRestaurantAverageScoreBundleList() {
+        return restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
+    }
+    public List<RestaurantAverageScoreBundle> getCuisineRestaurantAverageScoreBundleList(String cuisine) {
+        return restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
     }
 }

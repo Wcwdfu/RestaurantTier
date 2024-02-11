@@ -1,7 +1,7 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.DataNotFoundException;
-import com.site.restauranttier.dto.RestaurantTierDTO;
+import com.site.restauranttier.dataBundle.CategoryTierBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.EnumSortComment;
 import com.site.restauranttier.service.*;
@@ -53,8 +53,8 @@ public class RestaurantController {
         model.addAttribute("evaluationCountData", evaluatioanService.getEvaluationCountByRestaurantId(restaurant));
         model.addAttribute("favoriteCount", restaurantFavoriteService.getFavoriteCountByRestaurant(restaurant));
         // 티어 정보
-        RestaurantTierDTO restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
-        model.addAttribute("cuisineTier", restaurantTierDTOList);
+        CategoryTierBundle restaurantTierDTOBundle = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
+        model.addAttribute("cuisineTier", restaurantTierDTOBundle);
         /*List restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
         model.addAttribute("tierList", restaurantTierDTOList);*/
         // 메뉴
