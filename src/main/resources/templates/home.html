@@ -5,28 +5,20 @@
     <title>건메추</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--  폰트 라이브러리 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!--    <link href="//cdn.jsdelivr.net/gh/snz-hayden/toolo/fonts/black_han_sans/black_han_sans.css" rel="stylesheet">-->
-<!--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">-->
+
     <!-- 아이콘 라이브러리-->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
-    <link rel="stylesheet" href="/css/library/vendors.min.css">
 <!--    <link rel="stylesheet" href="/css/library/icon.min.css">-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
     <link rel="stylesheet" href="/css/library/style.min.css">
     <link rel="stylesheet" href="/css/library/responsive.min.css">
     <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" href="/css/home-style.css">
 
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 
 
@@ -36,271 +28,362 @@
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid">
-<!--    <section th:replace="~{fragment::home-firstbodyFragment}"></section>-->
-<!--    <section class="pt-0">-->
-<!--        <div class="container fluid icon-grid">-->
+    <section th:replace="~{fragment::home-firstbodyFragment}"></section>
+    <section class="pt-0">
+        <div class="container fluid icon-grid">
 
-<!--            &lt;!&ndash;     이미지 버튼 모아둔 그리드      &ndash;&gt;-->
-<!--            <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 mt-2 p-2">-->
+            <!--     이미지 버튼 모아둔 그리드      -->
+            <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 mt-2 p-2">
 
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/bibimbap.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">-->
-<!--                        <img class="img col-12" src="/img/home/tonkatsu.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-
-<!--                    </a>-->
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/jajangmyeon.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=양식" class="cell-button col-12 p-0 "><img class="img col-12"-->
-<!--                                                                                    src="/img/home/spaguetti.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                    src="/img/home/ricenoodles.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/meat.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/fried-chicken.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                    src="/img/home/shrimp.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"-->
-<!--                                                                                        src="/img/home/fast-food.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/tteokbokki.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-
-
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                   src="/img/home/beer.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"-->
-<!--                                                                                       src="/img/home/coffee.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col  position-relative">-->
-<!--                    <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"-->
-<!--                                                                                      src="/img/home/bakery.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--                <div class="cell col position-relative">-->
-<!--                    <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"-->
-<!--                                                                                    src="/img/home/hot-dog.png">-->
-<!--                        <div class="label position-absolute top-0 start-0">-->
-<!--                        </div>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-    <section th:fragment="home-secondbodyFragment" class="position-relative overflow-hidden z-index-0">
-        <div class="position-absolute left-0px w-100 text-center top-minus-90px lg-top-minus-60px xs-top-minus-20px opacity-2 ls-minus-10px lg-ls-minus-1px fs-350 lg-fs-250 xs-fs-200 text-nowrap alt-font text-uppercase">experience</div>
-        <div class="position-absolute left-minus-50px mt-15 d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="top" style="transform: translateY(95.4784px) scale(1);">
-            <img src="/img/home/demo-restaurant-home-02.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-8.34232deg);" data-no-retina="">
-        </div>
-        <div class="position-absolute z-index-minus-1 right-minus-50px xxl-right-minus-100px xl-right-minus-50px xl-w-220px d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="bottom" style="transform: translateY(68.4416px) scale(1);">
-            <img src="/img/home/demo-restaurant-home-03.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-2.03799deg);" data-no-retina="">
-        </div>
-        <div class="container">
-            <div class="row align-items-center mb-4 lg-mb-6 lg-mt-5">
-                <div id="plate" class="col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
-                    <img src="/img/home/demo-restaurant-home-04.webp" alt="" data-no-retina="">
-                </div>
-                <div class="col-xl-5 col-lg-6 appear anime-child anime-complete " data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    <span class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px h-2px bg-red d-inline-block align-middle me-15px"></span>Konkuk Univ.</span>
-                    <h1 class="alt-font text-dark-gray mb-15px" style="">건대 맛집</h1>
-                    <p class="w-90" style="">건국대 주변 맛집 평가를 확인하세요. <br>식당에 대한 완벽한 정보와 생생한 후기가 당신을 기다리고 있습니다.</p>
-                    <div class="d-inline-block mt-10px xs-mt-0" style="">
-                        <a href="/tier" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
-<span>
-<span class="btn-double-text" data-text="Restauarant Tier">Restauarant Tier</span>
-</span>
-                        </a>
-                        <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i> <!--<a href="tel:1800222000">010-5374-8485</a> !--></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 justify-content-center appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-
-                <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
-                    <div class="feature-box feature-box-left-icon-middle">
-                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
-                            <i class="bi bi-box-seam d-inline-block icon-medium text-dark-gray"></i>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/bibimbap.png">
+                        <div class="label position-absolute top-0 start-0">
                         </div>
-                        <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">Tier</span>
-                            <p class="lh-22">Reliable Restaurant Tier</p>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">
+                        <img class="img col-12" src="/img/home/tonkatsu.png">
+                        <div class="label position-absolute top-0 start-0">
                         </div>
-                    </div>
+
+                    </a>
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/jajangmyeon.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=양식" class="cell-button col-12 p-0 "><img class="img col-12"
+                                                                                    src="/img/home/spaguetti.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                    src="/img/home/ricenoodles.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/meat.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/fried-chicken.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                    src="/img/home/shrimp.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"
+                                                                                        src="/img/home/fast-food.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/tteokbokki.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
                 </div>
 
 
-                <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
-                    <div class="feature-box feature-box-left-icon-middle">
-                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
-                            <i class="bi bi-award d-inline-block icon-medium text-dark-gray"></i>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                   src="/img/home/beer.png">
+                        <div class="label position-absolute top-0 start-0">
                         </div>
-                        <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">User</span>
-                            <p class="lh-22">User's vivid reviews</p>
-                        </div>
-                    </div>
+                    </a>
+
                 </div>
 
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"
+                                                                                       src="/img/home/coffee.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
 
-                <div class="col icon-with-text-style-08" style="">
-                    <div class="feature-box feature-box-left-icon-middle">
-                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
-                            <i class="bi bi-bag-check d-inline-block icon-medium text-dark-gray"></i>
-                        </div>
-                        <div class="feature-box-content last-paragraph-no-margin">
-                            <span class="d-inline-block alt-font fs-26 text-dark-gray">Information</span>
-                            <p class="lh-22">Maps, menus, etc</p>
-                        </div>
-                    </div>
                 </div>
+                <div class="cell col  position-relative">
+                    <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"
+                                                                                      src="/img/home/bakery.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+                <div class="cell col position-relative">
+                    <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"
+                                                                                    src="/img/home/hot-dog.png">
+                        <div class="label position-absolute top-0 start-0">
+                        </div>
+                    </a>
+
+                </div>
+
 
             </div>
         </div>
     </section>
-<!-- 두번쨰 body 화면   -->
-
-    <section class="bg-very-light-gray">
-<!--        <div id="phrase" class="container-fluid overlap-section" style="margin-top: inherit;">-->
-<!--            <div class="row position-relative mb-6 appear anime-complete" data-anime="{ &quot;translateY&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">-->
-<!--                <div class="col swiper swiper-width-auto text-center swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: &quot;auto&quot;, &quot;spaceBetween&quot;:50, &quot;speed&quot;: 10000, &quot;loop&quot;: true, &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-2&quot;, &quot;clickable&quot;: false }, &quot;allowTouchMove&quot;: false, &quot;autoplay&quot;: { &quot;delay&quot;:0, &quot;disableOnInteraction&quot;: false }, &quot;navigation&quot;: { &quot;nextEl&quot;: &quot;.slider-four-slide-next-2&quot;, &quot;prevEl&quot;: &quot;.slider-four-slide-prev-2&quot; }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;effect&quot;: &quot;slide&quot; }">-->
-<!--                    <div class="swiper-wrapper marquee-slide" id="swiper-wrapper-fd511885addd9a5d" aria-live="off" style="transition-duration: 10000ms; transform: translate3d(-1187.78px, 0px, 0px);">-->
-
-<!--                        <div class="swiper-slide" role="group" aria-label="1 / 8" style="margin-right: 50px;" data-swiper-slide-index="0">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Konkuk</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide" role="group" aria-label="2 / 8" style="margin-right: 50px;" data-swiper-slide-index="1">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Restaurant</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide swiper-slide-prev" role="group" aria-label="3 / 8" style="margin-right: 50px;" data-swiper-slide-index="2">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Awesome</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide swiper-slide-active" role="group" aria-label="4 / 8" style="margin-right: 50px;" data-swiper-slide-index="3">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Experience</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide swiper-slide-next" role="group" aria-label="5 / 8" style="margin-right: 50px;" data-swiper-slide-index="4">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Konkuk</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide" role="group" aria-label="6 / 8" style="margin-right: 50px;" data-swiper-slide-index="5">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Restaurant</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide" role="group" aria-label="7 / 8" style="margin-right: 50px;" data-swiper-slide-index="6">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-outline text-outline-color-base-color">Awesome</div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="swiper-slide" role="group" aria-label="8 / 8" style="margin-right: 50px;" data-swiper-slide-index="7">-->
-<!--                            <div class="fs-150 ls-minus-2px alt-font text-dark-gray">Experience</div>-->
-<!--                        </div>-->
-
-<!--                    </div>-->
-<!--                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="container">
-            <div class="row align-items-center mb-4">
-                <div class="col-lg-6 md-mb-50px sm-mb-30px appear anime-complete" data-anime="{ &quot;translateX&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
-                    <img id="community" src="/img/home/community.jpg" alt="" class="border-radius-6px w-100" data-no-retina="">
+    <section class="overlap-height position-relative" style="height: 844.188px;">
+        <div class="container-fluid overlap-gap-section">
+            <div class="row justify-content-center mb-2">
+                <div class="col-lg-7 text-center">
+                    <span class="fs-15 fw-600 text-red text-uppercase mb-10px d-block"><span class="w-5px h-2px bg-red d-inline-block align-middle me-5px"></span>Specials choice<span class="w-5px h-2px bg-red d-inline-block align-middle ms-5px"></span></span>
+                    <h2 class="alt-font text-dark-gray">Top Restaurant</h2>
                 </div>
-                <div class="col-lg-5 offset-lg-1 appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 200, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    <span id="firstComment" class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px xs-w-50px h-2px bg-red d-inline-block align-middle me-15px"></span>since 1988 restaurant</span>
-                    <h1 id="secondComment" class="alt-font text-dark-gray mb-20px" style="">커뮤니티</h1>
-                    <p id="thirdComment" class="w-90 lg-w-100" style="">당신의 소중한 맛집 경험을 사람들과 나누세요.</p>
-                    <div id="transferButton" class="d-inline-block mt-10px xs-mt-0" style="">
-                        <a href="/community" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
-<span>
-<span class="btn-double-text" data-text="Community">Community</span>
-</span>
-                        </a>
-                        <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><!-- <a href="tel:1800222000">010-5374-8485</a> !--></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 position-relative feather-shadow sm-feather-shadow-none">
+                    <div class="outside-box-right-15 outside-box-left-15 sm-outside-box-right-0 sm-outside-box-left-0">
+                        <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 30, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 2500, &quot;disableOnInteraction&quot;: false },  &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-1&quot;, &quot;clickable&quot;: true }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 5 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
+                            <div class="swiper-wrapper" id="swiper-wrapper-5940de677510ccacb" aria-live="off" style="transition-duration: 300ms; transform: translate3d(-1988px, 0px, 0px);">
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="1 / 10" data-swiper-slide-index="0">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100 border-radius-6px" data-cfsrc="images/demo-restaurant-slider-01.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-01.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">긴자료코</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">일식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">돈까스</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">혼밥</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="2 / 10" data-swiper-slide-index="1">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-02.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-02.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">양분식</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">분식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">제육덮밥</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">혼밥</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="3 / 10" data-swiper-slide-index="2">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-03.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-03.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">카토카츠</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">일식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">돈까스</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">데이트</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide swiper-slide-prev" style="width: 467px; margin-right: 30px;" role="group" aria-label="4 / 10" data-swiper-slide-index="3">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-04.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-04.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">헬로우낙곱새</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">한식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">낙지</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">3~4인</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide swiper-slide-active" style="width: 467px; margin-right: 30px;" role="group" aria-label="5 / 10" data-swiper-slide-index="4">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-05.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-05.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">용궁찜닭</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">한식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">찜닭</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">3~4인</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide swiper-slide-next" style="width: 467px; margin-right: 30px;" role="group" aria-label="6 / 10" data-swiper-slide-index="5">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100 border-radius-6px" data-cfsrc="images/demo-restaurant-slider-01.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-01.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">밀플랜비</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">양식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">또띠아</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">혼밥</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="7 / 10" data-swiper-slide-index="6">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-02.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-02.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">알촌</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">한식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">알밥</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">혼밥</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="8 / 10" data-swiper-slide-index="7">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-03.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-03.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">겐로쿠우동</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">일식</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">우동,소바</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">혼밥</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" style="width: 467px; margin-right: 30px;" role="group" aria-label="9 / 10" data-swiper-slide-index="8">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-04.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-04.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">킹스커피</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">카페/디저트</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">커피</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">데이트</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide" role="group" aria-label="10 / 10" data-swiper-slide-index="9" style="width: 467px; margin-right: 30px;">
+                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">
+                                        <div class="position-relative box-image border-radius-6px">
+                                            <img class="w-100" data-cfsrc="images/demo-restaurant-slider-05.jpg" alt="" src="https://craftohtml.themezaa.com/images/demo-restaurant-slider-05.jpg" data-no-retina="">
+                                            <div class="box-overlay bg-dark-gray"></div>
+<!--                                            <span class="d-flex justify-content-center align-items-center mx-auto icon-box absolute-middle-center z-index-1 w-130px h-130px rounded-circle bg-white box-shadow-extra-large text-uppercase alt-font fs-30 lh-28 text-red ps-15px pe-15px text-center">Just $35.00</span>-->
+                                        </div>
+                                        <div class="pt-30px bg-white text-center">
+                                            <span class="d-inline-block text-dark-gray fs-19 fw-600">부엉이포차</span>
+                                            <div class="w-100">
+                                                <span class="d-inline-block align-middle">술집</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">포장마차</span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                                                <span class="d-inline-block align-middle">2~4인</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                     </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -317,9 +400,11 @@
         <span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point" style="height: 51.5567%;"></span></span>
     </a>
 </div>
+
+</body>
+
 <script type="text/javascript" src="/js/library/jquery.js"></script>
 <script type="text/javascript" src="/js/library/vendors.min.js"></script>
 <script type="text/javascript" src="/js/library/main.js"></script>
 <script type="text/javascript" src="/js/homeScript.js"></script>
-</body>
 </html>
