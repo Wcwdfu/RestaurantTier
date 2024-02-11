@@ -157,52 +157,50 @@
     </div>
 </div>
 <main id="tierChartMain">
-    <div class="tier-chart">
-        <table class="tier-table">
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th scope="col">순위</th>
-                <th scope="col" style="min-width: 50px"></th>
-                <th scope="col" style="text-align: left;">식당</th>
-                <th scope="col">티어</th>
-                <th scope="col" style="text-align: left;">종류</th>
-                <th scope="col" style="text-align: left;">상황</th>
-            </tr>
-            </thead>
-            <tbody id="tierTableBody">
-                <tr th:each="restaurant,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})} + '\''">
-                    <td class="td-rank" th:text="${loop.index + 1}"></td>
-                    <td class="td-center">
-                        <img th:if="${restaurant.restaurantImgUrl != 'no_img'}" class="td-main-img" th:src="${restaurant.getRestaurantImgUrl()}">
-                        <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
-                    </td>
-                    <td>
-                        <div class="td-name-outer">
-                            <span class="td-name" th:text="${restaurant.getRestaurantName()}"></span>
-                            <span class="td-type" th:text="${restaurant.getRestaurantType()}"></span>
-                        </div>
-                    </td>
-                    <td class="td-center">
-                        <img class="td-tier-img" th:src="${restaurant.getTierImgUrl(3)}">
-                    </td>
-                    <td>
-                        <div class="td-cuisine-outer">
-                            <img class="td-cuisine-img" th:src="${restaurant.getCuisineImgUrl(restaurant.getRestaurantCuisine())}">
-                            <span class="td-cuisine-span" th:text="${restaurant.getRestaurantCuisine()}"></span>
-                        </div>
-                    </td>
-                    <td th:text="${restaurant.restaurantType}"></td>
-                </tr>
-            </tbody>
-        </table>
+    <table class="tier-table">
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th scope="col">순위</th>
+            <th scope="col" style="min-width: 50px"></th>
+            <th scope="col" style="text-align: left;">식당</th>
+            <th scope="col">티어</th>
+            <th scope="col" style="text-align: left;">종류</th>
+            <th scope="col" style="text-align: left;" id="th-situation">상황</th>
+        </tr>
+        </thead>
+        <tbody id="tierTableBody">
+        <tr th:each="restaurant,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})} + '\''">
+            <td class="td-rank" th:text="${loop.index + 1}" style="min-width: 32px"></td>
+            <td class="td-center" style="min-width: 58px">
+                <img th:if="${restaurant.restaurantImgUrl != 'no_img'}" class="td-main-img" th:src="${restaurant.getRestaurantImgUrl()}">
+                <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+            </td>
+            <td class="td-name">
+                <div class="td-name-outer">
+                    <span class="td-inner-name" th:text="${restaurant.getRestaurantName()}"></span>
+                    <span class="td-inner-type" th:text="${restaurant.getRestaurantType()}"></span>
+                </div>
+            </td>
+            <td class="td-center" style="min-width: 42px">
+                <img class="td-tier-img" th:src="${restaurant.getTierImgUrl(3)}">
+            </td>
+            <td style="min-width: 46px">
+                <div class="td-cuisine-outer">
+                    <img class="td-cuisine-img" th:src="${restaurant.getCuisineImgUrl(restaurant.getRestaurantCuisine())}">
+                    <span class="td-cuisine-span" th:text="${restaurant.getRestaurantCuisine()}"></span>
+                </div>
+            </td>
+            <td class="td-situation" th:text="${restaurant.restaurantType}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-    </div>
 </main>
 </body>
 
