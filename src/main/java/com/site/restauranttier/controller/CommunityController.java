@@ -50,6 +50,7 @@ public class CommunityController {
         else {
             paging = postService.getListByPostCategory(postCategory, page, sort);
         }
+        model.addAttribute("currentPage","community");
         model.addAttribute("postCategory", postCategory);
         model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);

@@ -45,6 +45,7 @@ public class TierController {
             model.addAttribute("situation", enumSituation.getValue());
             model.addAttribute("paging", paging);
         }
+        model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);
         return "tier";
     }

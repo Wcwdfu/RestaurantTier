@@ -48,7 +48,8 @@ public class MainController {
 
     // 홈 화면
     @GetMapping("/home")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("currentPage","home");
         return "home";
     }
 

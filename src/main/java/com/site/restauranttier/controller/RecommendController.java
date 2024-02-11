@@ -23,6 +23,8 @@ public class RecommendController {
     // 메뉴추천 화면
     @GetMapping("/recommend")
     public String recommend(Model model){
+        model.addAttribute("currentPage","recommend");
+
         return "recommend";
     }
 

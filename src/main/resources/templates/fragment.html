@@ -10,8 +10,9 @@
                         //]]>
                     </script>
                     <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
-                    <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="default-logo" src="/img/home/restaurant-logo.webp" width="159" height="49">
-                    <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="mobile-logo" src="/img/home/restaurant-logo.webp" width="0" height="0">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="default-logo" >
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="alt-logo">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="mobile-logo" >
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                 </a>
@@ -25,11 +26,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav alt-font ls-1px pb-0">
-                        <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="/recommend" class="nav-link">Menu Recommend</a></li>
-                        <li class="nav-item"><a href="/tier" class="nav-link">Tier</a></li>
-                        <li class="nav-item"><a href="/community" class="nav-link">Community</a></li>
-                    </ul >
+                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home" class="nav-link">Home</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a href="/recommend" class="nav-link">Menu Recommend</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier" class="nav-link">Tier</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a href="/community" class="nav-link">Community</a></li>
+                    </ul>
+
                     <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
                     <ul class="navbar-nav pt-0">
                         <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
