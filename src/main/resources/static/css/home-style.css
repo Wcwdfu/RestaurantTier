@@ -23,6 +23,7 @@ html{
 main {
     flex: 1; /* main 태그가 가능한 많은 공간을 차지하도록 함 */
     background-color: white;
+    margin-top:110px
 }
 
 .cell {
@@ -84,5 +85,43 @@ div.header-bottom ul.menu-list > li > a > div.home {
     line-height: 22px;
     padding: 6px 0 5px;
 }
-
-
+/*접시 이미지 나타나는 효과*/
+.plate {
+    display: inline-block;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

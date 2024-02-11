@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <title>건메추</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="/js/homeScript.js"></script>
     <!-- 아이콘 라이브러리-->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/test/vendors.min.css">
-    <link rel="stylesheet" href="/css/test/icon.min.css">
-    <link rel="stylesheet" href="/css/test/style.min.css">
-    <link rel="stylesheet" href="/css/test/responsive.min.css">
-    <link rel="stylesheet" href="/css/test/restaurant.css">
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
+<!--    <link rel="stylesheet" href="/css/library/icon.min.css">-->
+    <link rel="stylesheet" href="/css/library/style.min.css">
+    <link rel="stylesheet" href="/css/library/responsive.min.css">
+    <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" href="/css/home-style.css">
 </head>
-
 
 
 <body>
@@ -28,134 +23,203 @@
 
 <!-- 하단 메인 컨텐츠 -->
 <main class="container-fluid">
-    <section th:replace="~{fragment::home-firstbodyFragment}"></section>
-    <section class="pt-0">
-        <div class="container fluid icon-grid">
+<!--    <section th:replace="~{fragment::home-firstbodyFragment}"></section>-->
+<!--    <section class="pt-0">-->
+<!--        <div class="container fluid icon-grid">-->
 
-            <!--     이미지 버튼 모아둔 그리드      -->
-            <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 mt-2 p-2">
+<!--            &lt;!&ndash;     이미지 버튼 모아둔 그리드      &ndash;&gt;-->
+<!--            <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 mt-2 p-2">-->
 
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/bibimbap.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=한식" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/bibimbap.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
 
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">-->
+<!--                        <img class="img col-12" src="/img/home/tonkatsu.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/jajangmyeon.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=양식" class="cell-button col-12 p-0 "><img class="img col-12"-->
+<!--                                                                                    src="/img/home/spaguetti.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                    src="/img/home/ricenoodles.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/meat.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/fried-chicken.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                    src="/img/home/shrimp.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"-->
+<!--                                                                                        src="/img/home/fast-food.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/tteokbokki.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+
+
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                   src="/img/home/beer.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"-->
+<!--                                                                                       src="/img/home/coffee.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col  position-relative">-->
+<!--                    <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"-->
+<!--                                                                                      src="/img/home/bakery.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--                <div class="cell col position-relative">-->
+<!--                    <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"-->
+<!--                                                                                    src="/img/home/hot-dog.png">-->
+<!--                        <div class="label position-absolute top-0 start-0">-->
+<!--                        </div>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+    <section th:fragment="home-secondbodyFragment" class="position-relative overflow-hidden z-index-0">
+        <div class="position-absolute left-0px w-100 text-center top-minus-90px lg-top-minus-60px xs-top-minus-20px opacity-2 ls-minus-10px lg-ls-minus-1px fs-350 lg-fs-250 xs-fs-200 text-nowrap alt-font text-uppercase">experience</div>
+        <div class="position-absolute left-minus-50px mt-15 d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="top" style="transform: translateY(95.4784px) scale(1);">
+            <img src="/img/home/demo-restaurant-home-02.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-8.34232deg);" data-no-retina="">
+        </div>
+        <div class="position-absolute z-index-minus-1 right-minus-50px xxl-right-minus-100px xl-right-minus-50px xl-w-220px d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="bottom" style="transform: translateY(68.4416px) scale(1);">
+            <img src="/img/home/demo-restaurant-home-03.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-2.03799deg);" data-no-retina="">
+        </div>
+        <div class="container">
+            <div class="row align-items-center mb-4 lg-mb-6 lg-mt-5">
+                <div class="plate col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+                    <img src="/img/home/demo-restaurant-home-04.webp" alt="" data-no-retina="">
                 </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">
-                        <img class="img col-12" src="/img/home/tonkatsu.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-
-                    </a>
+                <div class="col-xl-5 col-lg-6 appear anime-child anime-complete " data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                    <span class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px h-2px bg-red d-inline-block align-middle me-15px"></span>Konkuk Univ.</span>
+                    <h1 class="alt-font text-dark-gray mb-15px" style="">건대 맛집</h1>
+                    <p class="w-90" style="">건국대 주변 맛집 평가를 확인하세요. <br>식당에 대한 완벽한 정보와 상세한 후기가 당신을 기다리고 있습니다.</p>
+                    <div class="d-inline-block mt-10px xs-mt-0" style="">
+                        <a href="/tier" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
+<span>
+<span class="btn-double-text" data-text="About restaurant">맛집 평가</span>
+</span>
+                        </a>
+                        <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a href="tel:1800222000">010-5374-8485</a></div>
+                    </div>
                 </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/jajangmyeon.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
+            </div>
+            <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 justify-content-center appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
 
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=양식" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                    src="/img/home/spaguetti.png">
-                        <div class="label position-absolute top-0 start-0">
+                <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
+                    <div class="feature-box feature-box-left-icon-middle">
+                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                            <i class="bi bi-box-seam d-inline-block icon-medium text-dark-gray"></i>
                         </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                    src="/img/home/ricenoodles.png">
-                        <div class="label position-absolute top-0 start-0">
+                        <div class="feature-box-content last-paragraph-no-margin">
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">fast delivery</span>
+                            <p class="lh-22">Within 30 minutes</p>
                         </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/meat.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/fried-chicken.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                    src="/img/home/shrimp.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                        src="/img/home/fast-food.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
-                </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/tteokbokki.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
+                    </div>
                 </div>
 
 
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/beer.png">
-                        <div class="label position-absolute top-0 start-0">
+                <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
+                    <div class="feature-box feature-box-left-icon-middle">
+                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                            <i class="bi bi-award d-inline-block icon-medium text-dark-gray"></i>
                         </div>
-                    </a>
-
+                        <div class="feature-box-content last-paragraph-no-margin">
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">absolute dining</span>
+                            <p class="lh-22">Best buffet restaurant</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                       src="/img/home/coffee.png">
-                        <div class="label position-absolute top-0 start-0">
+
+                <div class="col icon-with-text-style-08" style="">
+                    <div class="feature-box feature-box-left-icon-middle">
+                        <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                            <i class="bi bi-bag-check d-inline-block icon-medium text-dark-gray"></i>
                         </div>
-                    </a>
-
-                </div>
-                <div class="cell col  position-relative">
-                    <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                      src="/img/home/bakery.png">
-                        <div class="label position-absolute top-0 start-0">
+                        <div class="feature-box-content last-paragraph-no-margin">
+                            <span class="d-inline-block alt-font fs-26 text-dark-gray">pickup delivery</span>
+                            <p class="lh-22">Grab your food order</p>
                         </div>
-                    </a>
-
+                    </div>
                 </div>
-                <div class="cell col position-relative">
-                    <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                    src="/img/home/hot-dog.png">
-                        <div class="label position-absolute top-0 start-0">
-                        </div>
-                    </a>
-
-                </div>
-
 
             </div>
         </div>
     </section>
-    <section th:replace="~{fragment::home-secondbodyFragment}"></section>
     <footer th:replace="~{fragment::footerFragment}">
 
     </footer>
@@ -164,6 +228,9 @@
 
 
 
-
+<script type="text/javascript" src="/js/library/jquery.js"></script>
+<script type="text/javascript" src="/js/library/vendors.min.js"></script>
+<script type="text/javascript" src="/js/library/main.js"></script>
+<script type="text/javascript" src="/js/homeScript.js"></script>
 </body>
 </html>

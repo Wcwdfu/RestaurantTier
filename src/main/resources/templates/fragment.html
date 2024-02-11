@@ -176,16 +176,86 @@
     </div>
 </section>
 <!--홈화면 두번째 body-->
-<section th:fragment="home-secondbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">
+<section th:fragment="home-secondbodyFragment" class="position-relative overflow-hidden z-index-0">
+    <div class="position-absolute left-0px w-100 text-center top-minus-90px lg-top-minus-60px xs-top-minus-20px opacity-2 ls-minus-10px lg-ls-minus-1px fs-350 lg-fs-250 xs-fs-200 text-nowrap alt-font text-uppercase">experience</div>
+    <div class="position-absolute left-minus-50px mt-15 d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="top" style="transform: translateY(95.4784px) scale(1);">
+        <img src="/img/home/demo-restaurant-home-02.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-8.34232deg);" data-no-retina="">
+    </div>
+    <div class="position-absolute z-index-minus-1 right-minus-50px xxl-right-minus-100px xl-right-minus-50px xl-w-220px d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="bottom" style="transform: translateY(68.4416px) scale(1);">
+        <img src="/img/home/demo-restaurant-home-03.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-2.03799deg);" data-no-retina="">
+    </div>
     <div class="container">
-        <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Check your favorite Restaurant!</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+        <div class="row align-items-center mb-4 lg-mb-6 lg-mt-5">
+            <div class="col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+                <img src="/img/home/demo-restaurant-home-04.webp" alt="" data-no-retina="">
             </div>
+            <div class="col-xl-5 col-lg-6 appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <span class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px h-2px bg-red d-inline-block align-middle me-15px"></span>since 1988</span>
+                <h1 class="alt-font text-dark-gray mb-15px" style="">Wonderful dining experience &amp; food.</h1>
+                <p class="w-90" style="">Lorem ipsum dolor sit amet consectetur adipiscing elit do eiusmod tempor incididunt ut labore et dolore magna minim veniam nostrud exercitation.</p>
+                <div class="d-inline-block mt-10px xs-mt-0" style="">
+                    <a href="/tier" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
+<span>
+<span class="btn-double-text" data-text="About restaurant">About restaurant</span>
+</span>
+                    </a>
+                    <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a href="tel:1800222000">1-800-222-000</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 justify-content-center appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+
+            <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
+                <div class="feature-box feature-box-left-icon-middle">
+                    <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                        <i class="bi bi-box-seam d-inline-block icon-medium text-dark-gray"></i>
+                    </div>
+                    <div class="feature-box-content last-paragraph-no-margin">
+                        <span class="d-inline-block alt-font fs-26 text-dark-gray">fast delivery</span>
+                        <p class="lh-22">Within 30 minutes</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
+                <div class="feature-box feature-box-left-icon-middle">
+                    <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                        <i class="bi bi-award d-inline-block icon-medium text-dark-gray"></i>
+                    </div>
+                    <div class="feature-box-content last-paragraph-no-margin">
+                        <span class="d-inline-block alt-font fs-26 text-dark-gray">absolute dining</span>
+                        <p class="lh-22">Best buffet restaurant</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col icon-with-text-style-08" style="">
+                <div class="feature-box feature-box-left-icon-middle">
+                    <div class="feature-box-icon feature-box-icon-rounded w-100px h-100px rounded-circle bg-white box-shadow-medium-bottom me-25px">
+                        <i class="bi bi-bag-check d-inline-block icon-medium text-dark-gray"></i>
+                    </div>
+                    <div class="feature-box-content last-paragraph-no-margin">
+                        <span class="d-inline-block alt-font fs-26 text-dark-gray">pickup delivery</span>
+                        <p class="lh-22">Grab your food order</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
+<!--<section th:fragment="home-secondbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px;">-->
+<!--    <div class="container">-->
+<!--        <div class="row align-items-center justify-content-center small-screen">-->
+<!--            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">-->
+<!--                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">Check your favorite Restaurant!</h1>-->
+<!--                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 <!--커뮤니티 첫번쨰 body-->
 <section th:fragment="communityFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit ; height: 300px; background-image: url('/img/home/background.jpg');">
     <div class="container">
