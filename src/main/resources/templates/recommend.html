@@ -30,27 +30,11 @@
 
 <div id="mainContents">
 
-    <!--    <section class="section-center">-->
-    <!--        <div class="random-drawing">-->
-    <!--            <div>-->
-    <!--                <span>메뉴 추천</span>-->
-    <!--                <select id="cuisineSelect">-->
-    <!--                    <option th:each="cuisine : ${cuisines}" th:value="${cuisine}" th:text="${cuisine}"></option>-->
-    <!--                </select>-->
-    <!--                <button id="drawingButton" class="drawing-button">시작</button>-->
-    <!--                <button id="stopButton" class="drawing-button" style="display: none;">정지</button>-->
-    <!--            </div>-->
-    <!--            <div id="drawingResult" class="drawing-result">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </section>-->
-
-
-    <div id="recommendArea">
+    <div id="recommendPage">
         <hr>
-        <p id="recommendTitle">
+        <p class="title">
             나 지금 뭐먹지
-            <img id="wonderingIcon" src="/img/recommend/wondering.png" alt="wondering_img">
+            <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">
         </p>
         <hr>
 
@@ -119,24 +103,53 @@
             </div>
 
         </div>
+
+    </div>
+
+    <div class="btn-area">
+        <button id="recommendBtn" class="btn-style">추천받기</button>
+    </div>
+
+    <div id="resultPage" class="hidden">
         <hr>
+        <p id="processingTitle" class="title">
+            메뉴를 고르는 중...
+            <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">
+        </p>
+        <hr>
+        <div class="result-img-slideBar">
+
+            <div class="result-animation-list result-animation">
+                <div class="result-img-list"></div>
+                <div class="result-img-list"></div>
+            </div>
+            <div id="SelectedBox"></div>
+            <hr>
+        </div>
+
     </div>
 
-    <div id="recommendBtnArea">
-        <button id="recommendBtn" onclick="a">추천받기</button>
+    <div id="resultInfoPage" class="hidden">
+        <div>
+            <a id="storeHref" href="">
+                <img id="resultImg" src="/" alt="이미지가 들어올 예정입니다">
+            </a>
+        </div>
+        <div id="storeInfo">
+
+        </div>
+
+
     </div>
 
-</div>
-
-<div id="resultPage" class="hidden">
-
-</div>
-
-<div id="test">
+    <div class="btn-area">
+        <button id="restartBtn" class="btn-style hidden">다시하기</button>
+    </div>
 
 </div>
 
 </body>
+
 <footer th:replace="~{fragment :: footerFragment}"></footer>
 
 </html>
