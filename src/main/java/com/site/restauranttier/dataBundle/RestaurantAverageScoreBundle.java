@@ -12,8 +12,4 @@ public class RestaurantAverageScoreBundle {
         this.restaurant = restaurant;
         this.averageScore = averageScore;
     }
-    public RestaurantAverageScoreBundle(Restaurant restaurant, Integer averageScore) {
-        this.restaurant = restaurant;
-        this.averageScore = averageScore + 0.0;
-    }
 }

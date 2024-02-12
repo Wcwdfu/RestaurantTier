@@ -65,11 +65,9 @@ public class Restaurant {
             inverseJoinColumns = @JoinColumn(name="hashtag_id"))
     List<RestaurantHashtag> restaurantHashtagList = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
-    @JoinTable(name = "restaurant_situation_relations_tbl", joinColumns = @JoinColumn(name = "restaurant_id"),
-            inverseJoinColumns = @JoinColumn(name="situation_id"))
-    List<Situation> situationList = new ArrayList<>();
+    List<RestaurantSituationRelation> restaurantSituationRelationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
@@ -104,8 +102,8 @@ public class Restaurant {
 
     public List<String> getSituationImgUrlList() {
         List<String> imgUrlList = new ArrayList<>();
-        for (Situation situation: this.getSituationList()) {
-            String situationUrl = "/img/tier/" + situation.getSituationName() + ".png";
+        for (RestaurantSituationRelation restaurantSituationRelation: this.getRestaurantSituationRelationList()) {
+            String situationUrl = "/img/tier/" + restaurantSituationRelation.getSituation().getSituationName() + ".png";
             imgUrlList.add(situationUrl);
         }
         return imgUrlList;

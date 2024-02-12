@@ -40,9 +40,7 @@ public class EvaluationController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
+        System.out.println(((Integer)jsonData.getRestaurantId()).toString()  + jsonData.getStarRating() + jsonData.getBarRatings());
         evaluationService.createOrUpdate(jsonData, principal);
         return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
 

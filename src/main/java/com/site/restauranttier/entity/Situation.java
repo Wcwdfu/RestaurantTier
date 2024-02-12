@@ -1,5 +1,6 @@
 package com.site.restauranttier.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name="situations_tbl")
 public class Situation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer situationId;
 
     private String situationName;
@@ -24,9 +26,11 @@ public class Situation {
     public Situation(){
 
     };
-    @ManyToMany(mappedBy = "situationList")
-    private List<Restaurant> restaurantList = new ArrayList<>();
+    @OneToMany(mappedBy = "situation")
+    @JsonIgnore
+    private List<RestaurantSituationRelation> restaurantSituationRelationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "situation")
+    @JsonIgnore
     private List<EvaluationItemScore> evaluationItemScoreList = new ArrayList<>();
 }
