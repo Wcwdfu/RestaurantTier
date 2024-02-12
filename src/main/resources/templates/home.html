@@ -175,10 +175,13 @@
                                 <!-- Dynamic restaurant slides -->
                                 <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide" style="width: 467px; margin-right: 60px;">
                                     <div class="services-box-style-01 hover-box last-paragraph-no-margin">
-                                        <div class="position-relative box-image border-radius-6px" id="restaurantImageContainer">
-                                            <img id="restaurantImage" class="border-radius-6px" th:src="${restaurant.restaurantImgUrl}" alt="">
-                                            <div class="box-overlay bg-dark-gray"></div>
-                                        </div>
+                                        <!-- 링크를 위한 <a> 태그 추가 -->
+                                        <a th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}">
+                                            <div class="position-relative box-image border-radius-6px" id="restaurantImageContainer">
+                                                <img id="restaurantImage" class="border-radius-6px" th:src="${restaurant.restaurantImgUrl}" alt="">
+                                                <div class="box-overlay bg-dark-gray"></div>
+                                            </div>
+                                        </a>
                                         <div class="pt-30px bg-white text-center">
                                             <span class="d-inline-block text-dark-gray fs-19 fw-600" th:text="${restaurant.restaurantName}">Restaurant Name</span>
                                             <div class="w-100">
@@ -191,6 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 <!--                            <div class="slider-four-slide-pagination-1 swiper-pagination-clickable swiper-pagination-bullets"></div>-->
                         </div>
