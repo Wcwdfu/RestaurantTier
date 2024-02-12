@@ -14,8 +14,7 @@ public enum EnumTier {
 
     EnumTier(Integer value) { this.value = value; }
 
-    public static EnumTier calculateTierOfRestaurant(RestaurantAverageScoreBundle restaurantAverageScoreBundle) {
-        double averageScore = restaurantAverageScoreBundle.getAverageScore();
+    public static EnumTier calculateTierOfRestaurant(Double averageScore) {
         if (averageScore >= 6.0) {
             return EnumTier.ONE;
         } else if (averageScore >= 5.0) {
@@ -61,5 +60,13 @@ public enum EnumTier {
             }
         }
         return -1;
+    }
+    public static EnumTier fromValue(Integer tier) {
+        for (EnumTier myEnum : EnumTier.values()) {
+            if (myEnum.value.equals(tier)) {
+                return myEnum;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value: " + tier);
     }
 }

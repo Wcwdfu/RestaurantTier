@@ -32,6 +32,8 @@ public class Restaurant {
     private String restaurantImgUrl;
     private Integer restaurantVisitCount;
     private Integer visitCount;
+    private Integer restaurantEvaluationCount;
+    private Double restaurantScoreSum;
 
     private String restaurantCuisine;
     private String restaurantLatitude;
