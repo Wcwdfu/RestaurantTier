@@ -44,6 +44,7 @@ main {
 
 .cell-button > .img {
     padding: 1.25rem;
+    background-color: #f9f6f3;
 }
 
 
@@ -168,6 +169,12 @@ div.header-bottom ul.menu-list > li > a > div.home {
     }
 }
 
+@media only screen and (min-width: 2000px) {
+    #restaurantImage{
+        width: 100%;
+        height: 28rem;
+    }
+}
 @media only screen and (max-width: 1024px) {
     #restaurantImage{
         width: 100%;
@@ -179,3 +186,4 @@ div.header-bottom ul.menu-list > li > a > div.home {
     display: flex;
     justify-content: center;
 }
+

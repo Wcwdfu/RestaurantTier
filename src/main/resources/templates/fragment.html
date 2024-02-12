@@ -1,24 +1,31 @@
 <!--상단 탭-->
-<header th:fragment="navbarFragment">
-    <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse" data-header-hover="light">
+<header th:fragment="navbarFragment" class="sticky-active">
+    <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse"
+         data-header-hover="light">
         <div class="container-fluid">
             <div class="col-auto col-lg-2 me-lg-0 me-auto">
                 <a class="navbar-brand" href="/home">
                     <script type="text/javascript" style="display:none">
                         //<![CDATA[
-                        window.__mirage2 = {petok:"E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
+                        window.__mirage2 = {petok: "E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
                         //]]>
                     </script>
-                    <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
-                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="default-logo" >
-                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="alt-logo">
-                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="mobile-logo" >
+                    <script type="text/javascript"
+                            src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="default-logo">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="alt-logo">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="mobile-logo">
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                 </a>
             </div>
             <div class="col-auto menu-order position-static">
-                <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation" data-target="#navbarNav-clone" aria-expanded="false">
+                <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation"
+                        data-target="#navbarNav-clone" aria-expanded="false">
                     <span class="navbar-toggler-line"></span>
                     <span class="navbar-toggler-line"></span>
                     <span class="navbar-toggler-line"></span>
@@ -26,26 +33,43 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav alt-font ls-1px pb-0">
-                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home" class="nav-link">Home</a></li>
-                        <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a href="/recommend" class="nav-link">Menu Recommend</a></li>
-                        <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier" class="nav-link">Tier</a></li>
-                        <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a href="/community" class="nav-link">Community</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home"
+                                                                                                          class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a
+                                href="/recommend" class="nav-link">Menu Recommend</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier"
+                                                                                                          class="nav-link">Tier</a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a
+                                href="/community" class="nav-link">Community</a></li>
                     </ul>
 
                     <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
                     <ul class="navbar-nav pt-0">
                         <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
-                            <a href="/user/login" class="nav-link">Login</a>
+                            <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">Login</a>
+                            <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">Logout</a>
                         </li>
                     </ul>
                 </div>
+                z
             </div>
             <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
                 <div class="header-icon">
                     <div class="header-button">
-                        <a href="/user/login" class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+                        <a href="/user/login" sec:authorize="isAnonymous()"
+                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
 <span>
 <span class="btn-double-text" data-text="Login">Login</span>
+
+</span>
+                        </a>
+                        <a href="/user/logout" sec:authorize="isAuthenticated()"
+                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+<span>
+<span class="btn-double-text" data-text="Logout">Logout</span>
+
 </span>
                         </a>
                     </div>
@@ -56,7 +80,8 @@
 
 </header>
 <!--하단 푸터-->
-<footer th:fragment="footerFragment" class="pt-2 mt-1 pb-0 bg-very-light-gray cover-background background-position-center-top sm-background-image-none">
+<footer th:fragment="footerFragment"
+        class="pt-2 mt-1 pb-0 bg-very-light-gray cover-background background-position-center-top sm-background-image-none">
     <div class="container">
         <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center mt-13 md-mt-15 sm-mt-0 mb-5 sm-mb-50px">
 
@@ -67,7 +92,8 @@
                     </div>
                     <div class="feature-box-content last-paragraph-no-margin">
                         <span class="fw-700 text-dark-gray fs-15 text-uppercase">About restaurant</span>
-                        <p class="w-90 md-w-70 sm-w-80 xs-w-70 mx-auto">Enjoy a wonderful konkuk restaurant experience</p>
+                        <p class="w-90 md-w-70 sm-w-80 xs-w-70 mx-auto">Enjoy a wonderful konkuk restaurant
+                            experience</p>
                     </div>
                 </div>
             </div>
@@ -124,19 +150,25 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-4 col-sm-6 fs-15 last-paragraph-no-margin text-center text-sm-start order-3 order-sm-2 order-md-1">
-                    <p>© Copyright 2024 <a href="#" target="_blank" class="text-decoration-line-bottom text-dark-gray fw-600">Konkuk</a></p>
+                    <p>© Copyright 2024 <a href="#" target="_blank"
+                                           class="text-decoration-line-bottom text-dark-gray fw-600">Konkuk</a></p>
                 </div>
                 <div class="col-md-4 text-center order-1 order-md-2 sm-mb-20px">
                     <a href="/home" class="footer-logo d-inline-block">
-                        <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt="" class="default-logo" src="/img/home/restaurant-logo2x.webp" width="159" height="49">
+                        <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp"
+                             alt="" class="default-logo" src="/img/home/restaurant-logo2x.webp" width="159" height="49">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 elements-social social-icon-style-08 xs-mb-15px text-center text-sm-end order-2 order-sm-3 order-md-3">
                     <ul class="small-icon dark d-inline-block">
-                        <li><a class="facebook" href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
-                        <li><a class="dribbble" href="http://www.dribbble.com" target="_blank"><i class="fa-brands fa-dribbble"></i></a></li>
-                        <li><a class="twitter" href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a></li>
-                        <li><a class="instagram" href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a class="facebook" href="https://www.facebook.com/" target="_blank"><i
+                                class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a class="dribbble" href="http://www.dribbble.com" target="_blank"><i
+                                class="fa-brands fa-dribbble"></i></a></li>
+                        <li><a class="twitter" href="https://www.twitter.com" target="_blank"><i
+                                class="fa-brands fa-twitter"></i></a></li>
+                        <li><a class="instagram" href="https://www.instagram.com" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -144,7 +176,7 @@
     </div>
 </footer>
 <!--페이지 컨트롤러-->
-<div th:fragment= "page-controller" class="row" th:if="${!paging.isEmpty()}" style="margin: 0;">
+<div th:fragment="page-controller" class="row" th:if="${!paging.isEmpty()}" style="margin: 0;">
     <div class="col-12 mt-2 mb-2 d-flex justify-content-center" style="padding: 0;">
 
         <ul class="pagination pagination-style-01 fs-13 mb-0">
@@ -167,45 +199,68 @@
     </div>
 </div>
 <!--홈화면 첫번째 body-->
-<section th:fragment="home-firstbodyFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="background-image: url('/img/home/background.jpg'); margin-top: inherit; height: 300px;">
+<section th:fragment="home-firstbodyFragment"
+         class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center"
+         style="background-image: url('/img/home/background.jpg'); margin-top: inherit; height: 300px;">
     <div class="container">
         <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="">SELECT CUSINE!</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>konkuk restaurant<span
+                        class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
             </div>
         </div>
     </div>
 </section>
 <!--홈화면 두번째 body-->
 <section th:fragment="home-secondbodyFragment" class="position-relative overflow-hidden z-index-0">
-    <div class="position-absolute left-0px w-100 text-center top-minus-90px lg-top-minus-60px xs-top-minus-20px opacity-2 ls-minus-10px lg-ls-minus-1px fs-350 lg-fs-250 xs-fs-200 text-nowrap alt-font text-uppercase">experience</div>
-    <div class="position-absolute left-minus-50px mt-15 d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="top" style="transform: translateY(95.4784px) scale(1);">
-        <img src="/img/home/demo-restaurant-home-02.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-8.34232deg);" data-no-retina="">
+    <div class="position-absolute left-0px w-100 text-center top-minus-90px lg-top-minus-60px xs-top-minus-20px opacity-2 ls-minus-10px lg-ls-minus-1px fs-350 lg-fs-250 xs-fs-200 text-nowrap alt-font text-uppercase">
+        experience
     </div>
-    <div class="position-absolute z-index-minus-1 right-minus-50px xxl-right-minus-100px xl-right-minus-50px xl-w-220px d-none d-xl-inline-block" data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="bottom" style="transform: translateY(68.4416px) scale(1);">
-        <img src="/img/home/demo-restaurant-home-03.jpg" alt="" data-bottom-top="transform: rotate(-30deg)" data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between" style="transform: rotate(-2.03799deg);" data-no-retina="">
+    <div class="position-absolute left-minus-50px mt-15 d-none d-xl-inline-block" data-parallax-liquid="true"
+         data-parallax-transition="2" data-parallax-position="top" style="transform: translateY(95.4784px) scale(1);">
+        <img src="/img/home/demo-restaurant-home-02.jpg" alt="" data-bottom-top="transform: rotate(-30deg)"
+             data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between"
+             style="transform: rotate(-8.34232deg);" data-no-retina="">
+    </div>
+    <div class="position-absolute z-index-minus-1 right-minus-50px xxl-right-minus-100px xl-right-minus-50px xl-w-220px d-none d-xl-inline-block"
+         data-parallax-liquid="true" data-parallax-transition="2" data-parallax-position="bottom"
+         style="transform: translateY(68.4416px) scale(1);">
+        <img src="/img/home/demo-restaurant-home-03.jpg" alt="" data-bottom-top="transform: rotate(-30deg)"
+             data-top-bottom="transform:rotate(10deg)" class="skrollable skrollable-between"
+             style="transform: rotate(-2.03799deg);" data-no-retina="">
     </div>
     <div class="container">
         <div class="row align-items-center mb-4 lg-mb-6 lg-mt-5">
-            <div class="col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete" data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" style="">
+            <div class="col-xl-7 col-lg-6 text-center position-relative md-mb-50px xs-mb-30px appear anime-complete"
+                 data-anime="{ &quot;rotateZ&quot;: [-15, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1500, &quot;delay&quot;: 300, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }"
+                 style="">
                 <img src="/img/home/demo-restaurant-home-04.webp" alt="" data-no-retina="">
             </div>
-            <div class="col-xl-5 col-lg-6 appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <span class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span class="w-70px h-2px bg-red d-inline-block align-middle me-15px"></span>since 1988</span>
+            <div class="col-xl-5 col-lg-6 appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <span class="fs-15 fw-600 text-red text-uppercase mb-25px d-block" style=""><span
+                        class="w-70px h-2px bg-red d-inline-block align-middle me-15px"></span>since 1988</span>
                 <h1 class="alt-font text-dark-gray mb-15px" style="">Wonderful dining experience &amp; food.</h1>
-                <p class="w-90" style="">Lorem ipsum dolor sit amet consectetur adipiscing elit do eiusmod tempor incididunt ut labore et dolore magna minim veniam nostrud exercitation.</p>
+                <p class="w-90" style="">Lorem ipsum dolor sit amet consectetur adipiscing elit do eiusmod tempor
+                    incididunt ut labore et dolore magna minim veniam nostrud exercitation.</p>
                 <div class="d-inline-block mt-10px xs-mt-0" style="">
-                    <a href="/tier" class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
+                    <a href="/tier"
+                       class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow me-30px xs-me-15px xs-mb-10px">
 <span>
 <span class="btn-double-text" data-text="About restaurant">About restaurant</span>
 </span>
                     </a>
-                    <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a href="tel:1800222000">1-800-222-000</a></div>
+                    <div class="alt-font fs-24 d-inline-block align-middle lh-0 text-dark-gray xs-mb-10px"><i
+                            class="feather icon-feather-phone-outgoing me-10px text-base-color"></i><a
+                            href="tel:1800222000">1-800-222-000</a></div>
                 </div>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 justify-content-center appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+        <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 justify-content-center appear anime-child anime-complete"
+             data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
 
             <div class="col icon-with-text-style-08 md-mb-50px sm-mb-30px" style="">
                 <div class="feature-box feature-box-left-icon-middle">
@@ -259,23 +314,33 @@
 <!--    </div>-->
 <!--</section>-->
 <!--커뮤니티 첫번쨰 body-->
-<section th:fragment="communityFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit ; height: 300px; background-image: url('/img/home/background.jpg');">
+<section th:fragment="communityFragment"
+         class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center"
+         style="margin-top: inherit ; height: 300px; background-image: url('/img/home/background.jpg');">
     <div class="container">
         <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase" >Community</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>STORIES FROM RESTAURANT<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">Community</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>STORIES FROM
+                    RESTAURANT<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
             </div>
         </div>
     </div>
 </section>
 <!--티어표 첫번쨰 body-->
-<section th:fragment="tierFragment" class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center" style="margin-top: inherit; height: 300px; background-image: url('/img/home/background.jpg');">
+<section th:fragment="tierFragment"
+         class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center"
+         style="margin-top: inherit; height: 300px; background-image: url('/img/home/background.jpg');">
     <div class="container">
         <div class="row align-items-center justify-content-center small-screen">
-            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase" >Tier Chart</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>VARIOUS CATEGORY<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">Tier Chart</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>VARIOUS CATEGORY<span
+                        class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
             </div>
         </div>
     </div>

@@ -1748,35 +1748,35 @@
             miniHeaderHeight = $('.header-top-bar').outerHeight();
         }
         var headerHeight = navHeight + miniHeaderHeight;
-        if (!$('header').hasClass('no-sticky')) {
-            if (scrollPos >= headerHeight) {
-                $('header').addClass('sticky');
-                if (!$('.header-top-bar').is(':hidden')) {
-                    $('.header-top-bar').css({'top': '-' + (miniHeaderHeight) + 'px'});
-                    $('.header-top-bar + .navbar').css({'top': '0px'});
-                } else {
-                    $('.header-top-bar, .header-top-bar + .navbar').css({'top': ''});
-                }
-            } else if (scrollPos <= headerHeight) {
-                $('header').removeClass('sticky');
-                if (!$('.header-top-bar').is(':hidden')) {
-                    $('.header-top-bar').css({'top': '0px'});
-                    $('.header-top-bar + .navbar').css({'top': (miniHeaderHeight) + 'px'});
-                } else {
-                    $('.header-top-bar, .header-top-bar + .navbar').css({'top': ''});
-                }
-            }
-        }
-        if (scrollPos > (headerHeight + 150)) {
-            setTimeout(function () {
-                $('header').addClass('sticky-active');
-            }, headerTransition);
-        }
-        if (scrollPos < headerHeight) {
-            setTimeout(function () {
-                $('header').removeClass('sticky-active');
-            }, headerTransition);
-        }
+        // if (!$('header').hasClass('no-sticky')) {
+        //     if (scrollPos >= headerHeight) {
+        //         $('header').addClass('sticky');
+        //         if (!$('.header-top-bar').is(':hidden')) {
+        //             $('.header-top-bar').css({'top': '-' + (miniHeaderHeight) + 'px'});
+        //             $('.header-top-bar + .navbar').css({'top': '0px'});
+        //         } else {
+        //             $('.header-top-bar, .header-top-bar + .navbar').css({'top': ''});
+        //         }
+        //     } else if (scrollPos <= headerHeight) {
+        //         $('header').removeClass('sticky');
+        //         if (!$('.header-top-bar').is(':hidden')) {
+        //             $('.header-top-bar').css({'top': '0px'});
+        //             $('.header-top-bar + .navbar').css({'top': (miniHeaderHeight) + 'px'});
+        //         } else {
+        //             $('.header-top-bar, .header-top-bar + .navbar').css({'top': ''});
+        //         }
+        //     }
+        // }
+        // if (scrollPos > (headerHeight + 150)) {
+        //     setTimeout(function () {
+        //         $('header').addClass('sticky-active');
+        //     }, headerTransition);
+        // }
+        // if (scrollPos < headerHeight) {
+        //     setTimeout(function () {
+        //         $('header').removeClass('sticky-active');
+        //     }, headerTransition);
+        // }
         if (scrollPos >= 200 && getWindowWidth() > menuBreakPoint) {
             $('.dropdown').trigger('mouseleave');
         }
