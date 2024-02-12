@@ -6,7 +6,7 @@ import com.site.restauranttier.etc.EnumTier;
 import lombok.Getter;
 
 @Getter
-public class  RestaurantAverageScoreBundle {
+public class RestaurantAverageScoreBundle {
     private Restaurant restaurant;
     private Double averageScore;
 
