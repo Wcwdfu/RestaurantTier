@@ -1,10 +1,12 @@
 package com.site.restauranttier.dataBundle;
 
 import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.etc.EnumSituation;
+import com.site.restauranttier.etc.EnumTier;
 import lombok.Getter;
 
 @Getter
-public class RestaurantAverageScoreBundle {
+public class  RestaurantAverageScoreBundle {
     private Restaurant restaurant;
     private Double averageScore;
 
