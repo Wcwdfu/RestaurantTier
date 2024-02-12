@@ -98,4 +98,15 @@ public class Restaurant {
         }
         return input; // delimiter가 없는 경우에는 원본 문자열 그대로 반환
     }
+    // 평균 평가 점수 계산
+    public double calculateAverageScore() {
+        if (evaluationList.isEmpty()) {
+            return 0.0; // 평가가 없는 경우 0 반환
+        }
+
+        return evaluationList.stream()
+                .mapToDouble(Evaluation::getEvaluationScore) // 평가 점수로 변환
+                .average() // 평균 계산
+                .orElse(0.0); // 평가가 없는 경우 0 반환
+    }
 }

@@ -49,6 +49,8 @@ public class MainController {
     // 홈 화면
     @GetMapping("/home")
     public String home(Model model) {
+        List<Restaurant> restaurants = restaurantService.getTopRestaurantsByCuisine();
+        model.addAttribute("restaurants",restaurants);
         model.addAttribute("currentPage","home");
         return "home";
     }
