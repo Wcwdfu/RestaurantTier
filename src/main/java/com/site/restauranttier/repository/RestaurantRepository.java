@@ -16,7 +16,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     Restaurant findByRestaurantId(Integer id);
     Page<Restaurant> findByStatus(String status, Pageable pageable);
     Page<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status, Pageable pageable);
-    @Query("SELECT r " +
+    /*@Query("SELECT r " +
             "FROM Restaurant r " +
             "JOIN r.situationList s " +
             "WHERE r.status = :status AND s.situationName = :situation")
@@ -25,16 +25,16 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "FROM Restaurant r " +
             "JOIN r.situationList s " +
             "WHERE r.status = :status AND s.situationName = :situation AND r.restaurantCuisine = :cuisine")
-    Page<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status, Pageable pageable);
+    Page<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status, Pageable pageable);*/
 
     List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
     List<Restaurant> findByStatus(String status);
 
-    @Query("SELECT r " +
+    /*@Query("SELECT r " +
             "FROM Restaurant r " +
             "JOIN r.situationList s " +
             "WHERE r.status = :status AND s.situationName = :situation AND r.restaurantCuisine = :cuisine")
-    List<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status);
+    List<Restaurant> findActiveRestaurantsByCuisineAndSituation(String cuisine, String situation, String status);*/
 
     // 페이징
     Page<Restaurant> findAll(Pageable pageable);
@@ -47,14 +47,14 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     Float getPercentOrderByVisitCount(Restaurant restaurant);
 
     @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0.0 END) " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END) " +
             "FROM Restaurant r LEFT JOIN r.evaluationList e " +
             "WHERE r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +
             "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
     List<RestaurantAverageScoreBundle> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
     @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0 END) " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END) " +
             "FROM Restaurant r LEFT JOIN r.evaluationList e " +
             "WHERE r.restaurantCuisine = :cuisine AND r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +

@@ -36,19 +36,19 @@ public class TierController {
             model.addAttribute("situation", "전체");
             model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
         } else if (cuisine.equals("전체")) {
-            EnumSituation enumSituation = EnumSituation.valueOf(situation);
-            /*List<Restaurant> paging = this.restaurantRepository.findActiveRestaurantsBySituation(enumSituation.getValue(), "ACTIVE");
+            /*EnumSituation enumSituation = EnumSituation.valueOf(situation);
+            List<RestaurantTierBundle> restaurantTierBundleList = this.restaurantRepository.findActiveRestaurantsBySituation(enumSituation.getValue(), "ACTIVE");
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("paging", paging);*/
+            model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);*/
         } else if (situation.equals("전체")) {
             List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getCuisineRestaurantTierBundleList(cuisine);
             model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
             model.addAttribute("situation", "전체");
         } else {
-            EnumSituation enumSituation = EnumSituation.valueOf(situation);
+            /*EnumSituation enumSituation = EnumSituation.valueOf(situation);
             List<Restaurant> paging = this.restaurantRepository.findActiveRestaurantsByCuisineAndSituation(cuisine, enumSituation.getValue(), "ACTIVE");
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("paging", paging);
+            model.addAttribute("paging", paging);*/
         }
         model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);
