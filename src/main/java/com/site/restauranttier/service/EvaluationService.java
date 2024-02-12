@@ -1,7 +1,8 @@
 package com.site.restauranttier.service;
 
-import com.site.restauranttier.dto.RestaurantEverageScoreDTO;
-import com.site.restauranttier.dto.RestaurantTierDTO;
+import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
+import com.site.restauranttier.dataBundle.CategoryTierBundle;
+import com.site.restauranttier.dataBundle.RestaurantTierBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.etc.EnumTier;
@@ -89,17 +90,36 @@ public class EvaluationService {
         return evaluationRepository.countByRestaurant(restaurant);
     }
 
-    public RestaurantTierDTO getTierOfRestaurantInCuisine(Restaurant restaurant) {
-        List<RestaurantEverageScoreDTO> restaurantEverageScoreDTOList = restaurantService.getCuisineRestaurantEverageScoreDTOList(restaurant);
-        EnumTier tier = EnumTier.calculateTierOfRestaurant(restaurantEverageScoreDTOList, restaurant);
+    public CategoryTierBundle getTierOfRestaurantInCuisine(Restaurant restaurant) {
+        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getCuisineRestaurantAverageScoreBundleList(restaurant.getRestaurantCuisine());
+        EnumTier tier = EnumTier.calculateTierOfRestaurantInList(restaurantAverageScoreBundleList, restaurant);
 
-        return new RestaurantTierDTO(restaurant.getRestaurantCuisine(), tier);
+        return new CategoryTierBundle(restaurant.getRestaurantCuisine(), tier);
     }
 
-    /*public List<RestaurantTierDTO> getAllTierListByRestaurant(Restaurant restaurant) {
-        List<RestaurantTierDTO> tierDTOList = List.of(getTierOfRestaurantInCuisine(restaurant));
-
-        return tierDTOList;
-    }*/
+    public List<RestaurantTierBundle> getAllRestaurantTierBundleList() {
+        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getAllRestaurantAverageScoreBundleList();
+        List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();
+        for (RestaurantAverageScoreBundle restaurantAverageScoreBundle : restaurantAverageScoreBundleList) {
+            RestaurantTierBundle restaurantTierBundle = new RestaurantTierBundle(
+                    restaurantAverageScoreBundle.getRestaurant(),
+                    EnumTier.calculateTierOfRestaurant(restaurantAverageScoreBundle)
+            );
+            restaurantTierBundleList.add(restaurantTierBundle);
+        }
+        return restaurantTierBundleList;
+    }
+    public List<RestaurantTierBundle> getCuisineRestaurantTierBundleList(String cuisine) {
+        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getCuisineRestaurantAverageScoreBundleList(cuisine);
+        List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();
+        for (RestaurantAverageScoreBundle restaurantAverageScoreBundle : restaurantAverageScoreBundleList) {
+            RestaurantTierBundle restaurantTierBundle = new RestaurantTierBundle(
+                    restaurantAverageScoreBundle.getRestaurant(),
+                    EnumTier.calculateTierOfRestaurant(restaurantAverageScoreBundle)
+            );
+            restaurantTierBundleList.add(restaurantTierBundle);
+        }
+        return restaurantTierBundleList;
+    }
 }
 

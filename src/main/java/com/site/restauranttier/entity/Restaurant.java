@@ -1,8 +1,11 @@
+
 package com.site.restauranttier.entity;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.etc.EnumTier;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -98,6 +101,16 @@ public class Restaurant {
         }
         return input; // delimiter가 없는 경우에는 원본 문자열 그대로 반환
     }
+
+    public List<String> getSituationImgUrlList() {
+        List<String> imgUrlList = new ArrayList<>();
+        for (Situation situation: this.getSituationList()) {
+            String situationUrl = "/img/tier/" + situation.getSituationName() + ".png";
+            imgUrlList.add(situationUrl);
+        }
+        return imgUrlList;
+    }
+
     // 평균 평가 점수 계산
     public double calculateAverageScore() {
         if (evaluationList.isEmpty()) {
@@ -110,3 +123,4 @@ public class Restaurant {
                 .orElse(0.0); // 평가가 없는 경우 0 반환
     }
 }
+
