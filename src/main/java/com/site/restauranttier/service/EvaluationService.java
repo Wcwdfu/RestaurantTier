@@ -109,6 +109,7 @@ public class EvaluationService {
         }
         return restaurantTierBundleList;
     }
+
     public List<RestaurantTierBundle> getCuisineRestaurantTierBundleList(String cuisine) {
         List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getCuisineRestaurantAverageScoreBundleList(cuisine);
         List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();

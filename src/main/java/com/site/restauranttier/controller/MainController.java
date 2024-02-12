@@ -1,11 +1,13 @@
 package com.site.restauranttier.controller;
 
+import com.site.restauranttier.dataBundle.RestaurantTierBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.EvaluationService;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
 import groovy.util.Eval;
@@ -31,6 +33,7 @@ import java.util.*;
 public class MainController {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantService restaurantService;
+    private final EvaluationService evaluationService;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     //@Value("#{'${restaurant.cuisines}'.split(',\\s*')}")
@@ -60,12 +63,18 @@ public class MainController {
 
     // 검색 결과 화면
     @GetMapping("/search")
-    public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Restaurant> paging = this.restaurantService.getList(page, kw);
-        model.addAttribute("paging", paging);
+    public String search(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleList();
+        model.addAttribute("situation", "전체");
+        model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
+        // 검색결과 메소드 만드는 것 대기중
+//        List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleListByKeyword(kw);
+//        model.addAttribute("getAllRestaurantTierBundleListByKeyword", getAllRestaurantTierBundleListByKeyword(kw));
         model.addAttribute("kw", kw);
         return "searchResult";
     }
+
+
 }
 
 

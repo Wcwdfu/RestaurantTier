@@ -4,82 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>검색 결과</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <!-- 아이콘 관련 라이브러리 -->
+    <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
-    <link rel="stylesheet" type="text/css" href="/css/searchResult-style.css">
+    <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
+    <link rel="stylesheet" href="/css/library/style.min.css">
+    <link rel="stylesheet" href="/css/library/responsive.min.css">
+    <link rel="stylesheet" href="/css/library/restaurant.css">
+    <link rel="stylesheet" type="text/css" href="/css/tier-style.css">
 
 </head>
 
 <body>
-<header th:replace="~{navbar_unselected-old :: navbarFragment}"></header>
-
-<div class="container-fluid">
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
+<section
+         class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center"
+         style="margin-top: inherit ; height: 300px; background-image: url('/img/home/background.jpg');">
+    <div class="container">
+        <div class="row align-items-center justify-content-center small-screen">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">Search Result</h1>
+                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>Konkuk Restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+<main id="tierChartMain">
     <table class="tier-table">
-
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
         <thead>
         <tr>
             <th scope="col">순위</th>
-            <th scope="col">이름</th>
+            <th scope="col" style="min-width: 50px"></th>
+            <th scope="col" style="text-align: left;">식당</th>
             <th scope="col">티어</th>
-            <th scope="col">종류</th>
-            <th scope="col">상황</th>
-            <th scope="col">카테고리</th>
+            <th scope="col" style="text-align: left;">종류</th>
+            <th scope="col" style="text-align: left;" id="th-situation">상황</th>
         </tr>
         </thead>
         <tbody id="tierTableBody">
-        <tr th:each="restaurant,loop :${paging}">
-            <td th:text="0"></td>
-            <td>
-                <a class="restaurant-link"
-                   th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}"
-                   th:text="${restaurant.restaurantName}"></a>
-
+        <tr th:each="restaurantTierBundle,loop :${restaurantTierBundleList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierBundle.getRestaurant().restaurantId})} + '\''">
+            <td class="td-rank" th:text="${loop.index + 1}" style="min-width: 32px"></td>
+            <td class="td-center" style="min-width: 58px">
+                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl()}">
+                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
             </td>
-            <td th:text="0"></td>
-            <td th:text="${restaurant.restaurantCuisine}"></td>
-            <td th:text="0"></td>
-            <td th:text="${restaurant.restaurantType}"></td>
+            <td class="td-name">
+                <div class="td-name-outer">
+                    <span class="td-inner-name" th:text="${restaurantTierBundle.getRestaurant().getRestaurantName()}"></span>
+                    <span class="td-inner-type" th:text="${restaurantTierBundle.getRestaurant().getRestaurantType()}"></span>
+                </div>
+            </td>
+            <td class="td-center" style="min-width: 42px">
+                <img class="td-tier-img" th:src="${restaurantTierBundle.getRestaurant().getTierImgUrl(restaurantTierBundle.getTier().getValue())}">
+            </td>
+            <td style="min-width: 46px">
+                <div class="td-cuisine-outer">
+                    <img class="td-cuisine-img" th:src="${restaurantTierBundle.getRestaurant().getCuisineImgUrl(restaurantTierBundle.getRestaurant().getRestaurantCuisine())}">
+                    <span class="td-cuisine-span" th:text="${restaurantTierBundle.getRestaurant().getRestaurantCuisine()}"></span>
+                </div>
+            </td>
+            <td class="td-situation">
+                <div class="td-situations-outer">
+                    <img th:each="imgUrl :${restaurantTierBundle.getRestaurant().getSituationImgUrlList()}" th:src="${imgUrl}">
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
-</div>
-<!--페이지 컨트롤러 -->
-<!-- 서버는 페이지에 대해 0 인덱싱 사용, html에서는 1 인덱싱 사용-->
-<div th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
-                <span>이전</span>
-            </a>
-        </li>
-        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-            th:if="${page >= paging.number-3 and page <= paging.number+3}"
-            th:classappend="${page == paging.number} ? 'active'" class="page-item">
-            <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
-        </li>
-        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
-                <span>다음</span>
-            </a>
-        </li>
-    </ul>
-</div>
-</body>k
 
-<!-- 페이징처리 끝 -->
+</main>
+
+</body>
+<footer th:replace="~{footer::footerFragment}"></footer>
+
 
 <!--서버에 검색 버튼을 눌러 요청할때 키워드 값과 페이지 값 넘기기-->
 <form th:action="@{/search}" method="get" id="searchForm">
     <input type="hidden" id="kw" name="kw" th:value="${kw}">
-    <input type="hidden" id="page" name="page" th:value="${paging.number}">
 </form>
 <script type='text/javascript'>
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function (element) {
         element.addEventListener('click', function () {
-            // 서버에서는 0 인덱싱 사용
-            document.getElementById('page').value =  parseInt(this.dataset.page)
             document.getElementById('searchForm').submit();
         });
     });
@@ -89,7 +106,6 @@
         console.log(document.getElementById('search').value)
         console.log(document.getElementById('kw').value)
 
-        document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
         document.getElementById('searchForm').submit();
     });
 </script>

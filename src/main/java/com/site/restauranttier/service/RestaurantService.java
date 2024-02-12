@@ -46,20 +46,20 @@ public class RestaurantService {
 
                 // 조인
                 Join<Restaurant, RestaurantHashtag> joinHashtag = root.join("restaurantHashtagList", JoinType.LEFT);
-                Join<Restaurant, Situation> joinSituation = root.join("situationList", JoinType.LEFT);
+               Join<Restaurant, Situation> joinSituation = root.join("restaurantSituationRelationList", JoinType.LEFT);
 
                 // 검색 조건
                 Predicate namePredicate = cb.like(root.get("restaurantName"), "%" + kw + "%");
                 Predicate typePredicate = cb.like(root.get("restaurantType"), "%" + kw + "%");
                 Predicate cuisinePredicate = cb.like(root.get("restaurantCuisine"), "%" + kw + "%");
                 Predicate hashtagPredicate = cb.like(joinHashtag.get("hashtagName"), "%" + kw + "%");
-                Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
+               Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
 
                 // 'ACTIVE' 상태 조건 추가
                 Predicate statusPredicate = cb.equal(root.get("status"), "ACTIVE");
 
                 // 모든 조건을 결합
-                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate, situationPredicate));
+                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate));
             }
         };
     }
@@ -112,6 +112,8 @@ public class RestaurantService {
     public List<RestaurantAverageScoreBundle> getAllRestaurantAverageScoreBundleList() {
         return restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
     }
+
+
     public List<RestaurantAverageScoreBundle> getCuisineRestaurantAverageScoreBundleList(String cuisine) {
         return restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
     }

@@ -1,54 +1,100 @@
-<header th:fragment="navbarFragment">
-        <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse" data-header-hover="light">
-            <div class="container-fluid">
-                <div class="col-auto col-lg-2 me-lg-0 me-auto">
-                    <a class="navbar-brand" href="/home">
-                        <script type="text/javascript" style="display:none">
-                            //<![CDATA[
-                            window.__mirage2 = {petok:"E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
-                            //]]>
-                        </script>
-                        <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
-                        <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="default-logo" src="/img/home/restaurant-logo.webp" width="159" height="49">
-                        <img data-cfsrc="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo.webp" alt="" class="mobile-logo" src="/img/home/restaurant-logo.webp" width="0" height="0">
-<!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
-<!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
-                    </a>
+<!--상단 탭-->
+<header th:fragment="navbarFragment" class="sticky-active">
+
+    <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse"
+         data-header-hover="light">
+        <div class="container-fluid">
+            <div class="col-auto col-lg-2 me-lg-0 me-auto">
+                <a class="navbar-brand" href="/home">
+                    <script type="text/javascript" style="display:none">
+                        //<![CDATA[
+                        window.__mirage2 = {petok: "E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
+                        //]]>
+                    </script>
+                    <script type="text/javascript"
+                            src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="default-logo">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="alt-logo">
+                    <img src="/img/home/restaurant-logo.webp" data-at2x="/img/home/restaurant-logo2x.webp" alt=""
+                         class="mobile-logo">
+                    <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="alt-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+                    <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
+                </a>
+            </div>
+            <div class="col-auto menu-order position-static">
+                <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation"
+                        data-target="#navbarNav-clone" aria-expanded="false">
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav alt-font ls-1px pb-0">
+                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home"
+                                                                                                          class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a
+                                href="/recommend" class="nav-link">Menu Recommend</a></li>
+                        <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier"
+                                                                                                          class="nav-link">Tier</a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a
+                                href="/community" class="nav-link">Community</a></li>
+                    </ul>
+
+                    <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
+                    <ul class="navbar-nav pt-0">
+                        <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
+                            <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">Login</a>
+                            <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-auto menu-order position-static">
-                    <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation" data-target="#navbarNav-clone" aria-expanded="false">
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav alt-font ls-1px pb-0">
-                            <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="/recommend" class="nav-link">Menu Recommend</a></li>
-                            <li class="nav-item"><a href="/tier" class="nav-link">Tier</a></li>
-                            <li class="nav-item"><a href="/community" class="nav-link">Community</a></li>
-                        </ul >
-                        <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
-                        <ul class="navbar-nav pt-0">
-                            <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
-                                <a href="/user/login" class="nav-link">Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
-                    <div class="header-icon">
-                        <div class="header-button">
-                            <a href="/user/login" class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+
+            </div>
+            <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
+                <!-- 우측 상단 아이콘 모음 !-->
+                <div class="header-icon">
+                    <div class="header-button" style="display: flex; gap: 15px;">
+                        <!--    검색 버튼      -->
+                        <form class="search-form" action="/search" style="display: flex">
+                            <input id="search" name="kw" type="text" th:value="${kw}">
+
+                            <button id="btn_search" class="search-btn" type="submit" style="width: 40px; height:40px">
+                                <img id=searchIcon
+                                     src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                                     style="width: 21px; height: 21px; filter: invert(100%)grayscale(100%)">
+                            </button>
+
+                        </form>
+                        <!--  마이 페이지 버튼   -->
+                        <a class="link" href="/user/myPage" style="width: 40px; height:40px">
+                            <img id="myPage" src="/img/mypage/account.png">
+                        </a>
+                        <!-- 로그인 버튼 !-->
+                        <a href="/user/login" sec:authorize="isAnonymous()"
+                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+
 <span>
 <span class="btn-double-text" data-text="Login">Login</span>
+
 </span>
-                            </a>
-                        </div>
+                        </a>
+                        <a href="/user/logout" sec:authorize="isAuthenticated()"
+                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
+<span>
+<span class="btn-double-text" data-text="Logout">Logout</span>
+
+</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
 </header>

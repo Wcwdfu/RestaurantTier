@@ -15,7 +15,6 @@
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/library/vendors.min.css">
-<!--    <link rel="stylesheet" href="/css/library/icon.min.css">-->
     <link rel="stylesheet" href="/css/library/style.min.css">
     <link rel="stylesheet" href="/css/library/responsive.min.css">
     <link rel="stylesheet" href="/css/library/restaurant.css">
@@ -25,7 +24,7 @@
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{fragment :: navbarFragment}"></header>
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
 <section th:replace="~{fragment::communityFragment}"></section>
 
 <div id="content">
@@ -96,12 +95,12 @@
 
 <div class="input-group">
     <input type="text" id="search_kw" class="form-control" th:value="${postSearchKw}">
-    <button class="btn btn-secondary" type="button" id="postSearch" style="font-family: 'Arial', sans-serif">찾기</button>
+    <button type="button" id="postSearch" style="font-family: 'Arial', sans-serif;background-color: #f9f6f3; border: none">검색</button>
 </div>
 <!--페이지 컨트롤러-->
-<div th:replace="~{fragment::page-controller}"></div>
+<div th:replace="~{page_controller::page-controller}"></div>
 <!--footer-->
-<footer th:replace="~{fragment::footerFragment}">
+<footer th:replace="~{footer::footerFragment}">
 </footer>
 <form th:action="@{/community/search}" method="get" id="searchForm">
     <input type="hidden" id="kw" name="kw" th:value="${postSearchKw}">

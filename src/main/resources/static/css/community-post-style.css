@@ -179,10 +179,7 @@ div > button > img {
     width: 60px;
 }
 
-main {
-    margin: auto;
-    max-width: 900px;
-}
+
 
 .post-footer {
     background: white;
@@ -228,13 +225,12 @@ main {
     /*padding: 0px 16px 16px;*/
     border: none;
     outline: none;
-    /*resize: none;*/
     font-size: 14px;
     line-height: 20px;
     color: black;
     background: none;
 
-    resize: vertical; /* 수직 크기 조절 허용 */
+    resize: none; /* 수직 크기 조절 허용 */
 }
 
 .under-content > div {
@@ -487,5 +483,36 @@ textarea {
         background-color: #FFFFFF;
 
 }
+#content {
+    margin: 0 auto 0;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
 
+@media only screen and (min-width: 1025px){
+    #content {
+        width: 80%;
+        min-width: 450px;
+        max-width: 900px;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    #content {
+        width: 100%;
+
+    }
+}
+
+
+p{
+    margin-bottom: 0;
+}
+.comment-content:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
 

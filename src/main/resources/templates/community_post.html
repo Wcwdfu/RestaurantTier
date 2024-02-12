@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${post.postTitle}"></title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/navbar-community-style.css">
-    <link rel="stylesheet" type="text/css" href="/css/community-post-style.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- 아이콘 관련 라이브러리 -->
+    <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
+    <link rel="stylesheet" href="/css/library/style.min.css">
+    <link rel="stylesheet" href="/css/library/responsive.min.css">
+    <link rel="stylesheet" href="/css/library/restaurant.css">
+    <link rel="stylesheet" type="text/css" href="/css/community-post-style.css">
     <script src="/js/communityPostScript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -14,8 +25,9 @@
 </head>
 <body>
 <!--상단 탭 fragment 붙여넣기-->
-<header th:replace="~{community_navbar :: navbarFragment}"></header>
-<main>
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
+<section th:replace="~{fragment::communityFragment}"></section>
+<main id="content">
     <div class="post">
         <div class="post-top">
             <h1 class="post-title" th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
@@ -145,7 +157,7 @@
                                         <p th:text="${comment.commentBody}"></p>
                                     </div>
                                 </div>
-                                <ul>
+                                    <ul style="padding-left: 0;">
                                     <li th:if="${comment.user==user}">
                                         <button class="comment-button comment-delete">삭제</button>
                                     </li>
@@ -192,7 +204,7 @@
                                                 <p th:text="${reply.commentBody}"></p>
                                             </div>
                                         </div>
-                                        <ul>
+                                        <ul style="padding-left: 0;">
                                             <li>
                                                 <button class="comment-button comment-delete">삭제</button>
                                             </li>
@@ -210,4 +222,6 @@
     </div>
 </main>
 </body>
+<section th:replace="~{footer::footerFragment}"></section>
+
 </html>

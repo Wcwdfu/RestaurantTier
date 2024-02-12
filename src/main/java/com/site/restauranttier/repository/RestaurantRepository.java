@@ -53,6 +53,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "GROUP BY r.restaurantId " +
             "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
     List<RestaurantAverageScoreBundle> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
+
     @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
             "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END) " +
             "FROM Restaurant r LEFT JOIN r.evaluationList e " +
