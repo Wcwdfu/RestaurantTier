@@ -57,12 +57,18 @@ document.addEventListener("DOMContentLoaded", function () {
             evaluationData.starRating = selectedIndex + 1
         });
 
-        if (selectedIndex < 5) {
-            comment.classList.remove("good");
-            //comment.style.opacity = 0.7;
+        if (selectedIndex > 5) {
+            comment.style.color = '#0F6341';
+            comment.style.fontWeight = 'bold';
+        } else if (selectedIndex > 4) {
+            comment.style.color = '#0F6341';
+            comment.style.fontWeight = 'normal';
+        } else if (selectedIndex > 2) {
+            comment.style.color = '#000';
+            comment.style.fontWeight = 'normal';
         } else {
-            comment.classList.add("good");
-            //comment.style.opacity = 1;
+            comment.style.color = '#555';
+            comment.style.fontWeight = 'normal';
         }
 
         if (selectedIndex == 0) {
@@ -78,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (selectedIndex == 5) {
             comment.textContent = "제법 괜찮아요. 무조건 재방문 합니다";
         } else {
-            comment.textContent = "당신을 행복하게 해줄 최고의 맛이에요";
+            comment.textContent = "정말 행복했습니다";
         }
 
     }
@@ -256,12 +262,9 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('모든 항목을 평가해주세요.');
             return;
         }
-        console.log(evaluationData.barRatings);
 
         var restaurantId = extractRestaurantIdFromUrl();
         evaluationData.restaurantId = restaurantId;
-        console.log(restaurantId)
-        console.log(evaluationData)
 
         fetch("/api/evaluation", {
             method: "POST",
@@ -277,13 +280,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response;
             })
             .then(data => {
-                console.log('Success', data);
                 window.location.href = "/restaurants/"+restaurantId
             }
         )
             .catch(error =>{
                 alert(error.message)
-                console.error('Error:',error)
                 window.location.href = "/restaurants/"+restaurantId
 
             })
