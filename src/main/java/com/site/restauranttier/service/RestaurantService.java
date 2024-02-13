@@ -1,9 +1,9 @@
-
 package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.*;
+import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.repository.RestaurantMenuRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -46,20 +46,20 @@ public class RestaurantService {
 
                 // 조인
                 Join<Restaurant, RestaurantHashtag> joinHashtag = root.join("restaurantHashtagList", JoinType.LEFT);
-               Join<Restaurant, Situation> joinSituation = root.join("restaurantSituationRelationList", JoinType.LEFT);
+                Join<Restaurant, Situation> joinSituation = root.join("situationList", JoinType.LEFT);
 
                 // 검색 조건
                 Predicate namePredicate = cb.like(root.get("restaurantName"), "%" + kw + "%");
                 Predicate typePredicate = cb.like(root.get("restaurantType"), "%" + kw + "%");
                 Predicate cuisinePredicate = cb.like(root.get("restaurantCuisine"), "%" + kw + "%");
                 Predicate hashtagPredicate = cb.like(joinHashtag.get("hashtagName"), "%" + kw + "%");
-               Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
+                Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
 
                 // 'ACTIVE' 상태 조건 추가
                 Predicate statusPredicate = cb.equal(root.get("status"), "ACTIVE");
 
                 // 모든 조건을 결합
-                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate));
+                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate, situationPredicate));
             }
         };
     }
@@ -112,11 +112,17 @@ public class RestaurantService {
     public List<RestaurantAverageScoreBundle> getAllRestaurantAverageScoreBundleList() {
         return restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
     }
-
-
-    public List<RestaurantAverageScoreBundle> getCuisineRestaurantAverageScoreBundleList(String cuisine) {
+    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListByCuisine(String cuisine) {
         return restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
     }
+    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListBySituation(Situation situationObject) {
+        return restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situationObject, minNumberOfEvaluations);
+    }
+
+    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListByCuisineAndSituation(String cuisine, Situation situationObject) {
+        return restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situationObject, minNumberOfEvaluations);
+    }
+
     // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘
     public List<Restaurant> getTopRestaurantsByCuisine() {
         // 모든 식당을 불러온다. 실제로는 repository에서 findAll()을 사용하거나,
@@ -142,4 +148,3 @@ public class RestaurantService {
                 .collect(Collectors.toList());
     }
 }
-

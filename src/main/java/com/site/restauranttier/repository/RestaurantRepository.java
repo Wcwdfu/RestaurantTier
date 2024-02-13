@@ -2,6 +2,7 @@ package com.site.restauranttier.repository;
 
 import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.Restaurant;
+import com.site.restauranttier.entity.Situation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -51,7 +52,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "FROM Restaurant r LEFT JOIN r.evaluationList e " +
             "WHERE r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +
-            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+            "ORDER BY " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END DESC")
     List<RestaurantAverageScoreBundle> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
 
     @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
@@ -59,19 +61,31 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
             "FROM Restaurant r LEFT JOIN r.evaluationList e " +
             "WHERE r.restaurantCuisine = :cuisine AND r.status = 'ACTIVE' " +
             "GROUP BY r.restaurantId " +
-            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+            "ORDER BY " +
+            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END DESC")
     List<RestaurantAverageScoreBundle> getRestaurantsByCuisineOrderedByAvgScore(
             @Param("cuisine") String cuisine,
             @Param("dataNum") Integer dataNum
     );
-    /*@Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE 0 END) " +
-            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
-            "WHERE r.situationList = :situation AND r.status = 'ACTIVE' " +
-            "GROUP BY r.restaurantId " +
-            "ORDER BY AVG(e.evaluationScore) DESC") // 내림차순 정렬
+
+    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
+            "CAST(e.scoreSum AS DOUBLE) / e.dataCount) " +
+            "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
+            "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum " +
+            "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount DESC")
     List<RestaurantAverageScoreBundle> getRestaurantsBySituationOrderedByAvgScore(
-            @Param("situation") String situation,
+            @Param("situation") Situation situation,
             @Param("dataNum") Integer dataNum
-    );*/
+    );
+
+    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
+            "CAST(e.scoreSum AS DOUBLE) / e.dataCount) " +
+            "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
+            "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum AND r.restaurantCuisine = :cuisine " +
+            "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount DESC")
+    List<RestaurantAverageScoreBundle> getRestaurantsByCuisineAndSituationOrderedByAvgScore(
+            @Param("cuisine") String cuisine,
+            @Param("situation") Situation situation,
+            @Param("dataNum") Integer dataNum
+    );
 }
