@@ -497,3 +497,7 @@ div.basic-info > div.texts > span {
 .modal-buttons > button {
     margin-right: 10px;
 }
+/* 텍스트 커서 깜빡임 없애기 */
+body{
+    caret-color: transparent;
+}

@@ -1,15 +1,17 @@
 <!--상단 탭-->
 <header th:fragment="navbarFragment" class="sticky-active">
     <style>
-        #myPage{
+        #myPage {
             width: 40px;
             height: 40px;
         }
+        /* 커서 없애기 */
+
     </style>
     <nav class="navbar navbar-expand-lg header-transparent header-light bg-transparent header-reverse"
          data-header-hover="light">
         <div class="container-fluid">
-            <div class="col-auto col-lg-2 me-lg-0 me-auto" style="width: 450px;">
+            <div class="col-auto col-lg-2 me-lg-0 me-auto">
                 <a class="navbar-brand" href="/home">
                     <script type="text/javascript" style="display:none">
                         //<![CDATA[
@@ -28,7 +30,7 @@
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                 </a>
             </div>
-            <div class="col-auto menu-order position-static" >
+            <div class="col-auto menu-order position-static">
                 <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation"
                         data-target="#navbarNav-clone" aria-expanded="false">
@@ -61,39 +63,42 @@
                 </div>
 
             </div>
-            <div class="col-auto col-lg-2 text-end d-none d-sm-flex" style="width: 450px;" >
+            <div class="col-auto col-lg-2 text-end d-none d-sm-flex">
                 <!-- 우측 상단 아이콘 모음 !-->
                 <div class="header-icon">
-                    <div class="header-button" style="display: flex; justify-content:center; gap: 15px;">
-                        <form class="search-form" action="/search" style="display: flex; gap:8px;">
-                            <input id="search" name="kw" type="text" th:value="${kw}" style="width: 150px; height:40px; display: none;">
-                            <!--    검색 버튼      -->
-                            <button id="btn_search" class="search-btn" type="button" style="width: 40px; height:40px;border: none;background-color: transparent;">
-                                <img id=searchIcon
-                                     src="/img/home/search.png">
-                            </button>
+                    <div class="header-button" style="display: flex; justify-content:center;">
+<!--                        <form class="search-form" action="/search" style="display: flex; gap:8px;">-->
+<!--                            <input id="search" name="kw" type="text" th:value="${kw}"-->
+<!--                                   style="display: none; caret-color: black;">-->
+<!--                            &lt;!&ndash;    검색 버튼      &ndash;&gt;-->
+<!--                            <button id="btn_search" class="search-btn" type="button"-->
+<!--                                    style="border: none;background-color: transparent;">-->
+<!--                                <img id=searchIcon-->
+<!--                                     src="/img/home/search.png">-->
+<!--                            </button>-->
 
-                        </form>
-                        <!--  마이 페이지 버튼   -->
-                        <a class="link" href="/user/myPage" style="width: 40px; height:40px">
-                            <img id="myPage" src="/img/mypage/account.png">
+<!--                        </form>-->
+                        <!--마이 페이지 버튼-->
+                        <a class="link" href="/user/myPage" sec:authorize="isAuthenticated()">
+                            <img id="myPage" src="/img/home/account.png">
                         </a>
                         <!-- 로그인 버튼 !-->
                         <a href="/user/login" sec:authorize="isAnonymous()"
-                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1" style="width: 80px; height: 40px;">
+                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1"
+                        >
 
 <span>
 <span class="btn-double-text" data-text="Login">Login</span>
 
 </span>
                         </a>
-                        <a href="/user/logout" sec:authorize="isAuthenticated()"
-                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">
-<span>
-<span class="btn-double-text" data-text="Logout">Logout</span>
+<!--                        <a href="/user/logout" sec:authorize="isAuthenticated()"-->
+<!--                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">-->
+<!--<span>-->
+<!--<span class="btn-double-text" data-text="Logout">Logout</span>-->
 
-</span>
-                        </a>
+<!--</span>-->
+<!--                        </a>-->
                     </div>
                 </div>
             </div>
@@ -102,12 +107,12 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var searchButton = document.getElementById('btn_search');
             var searchInput = document.getElementById('search'); // 입력 필드 ID를 "search"로 변경
             var searchForm = document.querySelector('.search-form'); // form 선택자를 class 기반으로 변경
 
-            searchButton.addEventListener('click', function(event) {
+            searchButton.addEventListener('click', function (event) {
                 event.preventDefault(); // 폼 제출 방지
                 // 검색 입력창이 이미 표시된 경우
                 if (searchInput.style.display === 'block' || searchInput.style.display === '') {
@@ -121,11 +126,11 @@
                 } else {
                     // 검색 입력창이 숨겨져 있는 경우 표시
                     searchInput.style.display = 'block';
-                    searchInput.focus(); // 사용자가 바로 입력할 수 있도록 포커스 설정
+                    // searchInput.focus(); // 사용자가 바로 입력할 수 있도록 포커스 설정
                 }
             });
             // 검색 입력창에 포커스가 맞춰질 때 실행되는 이벤트
-            searchInput.addEventListener('focus', function() {
+            searchInput.addEventListener('focus', function () {
                 this.value = ''; // 입력창의 값을 비움
             });
         });

@@ -224,3 +224,7 @@ hr{
 #submitBtn.pushed{
     background-color: #668fe6;
 }
+/* 텍스트 커서 깜빡임 없애기 */
+body{
+    caret-color: transparent;
+}

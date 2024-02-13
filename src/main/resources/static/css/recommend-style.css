@@ -284,3 +284,8 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
 
     margin-top: 20px;
 }
+
+/* 텍스트 커서 깜빡임 없애기 */
+body{
+    caret-color: transparent;
+}

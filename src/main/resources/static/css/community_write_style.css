@@ -68,7 +68,7 @@ form > select {
 }
 
 .post-body-inner {
-    height: 450px;
+    height: 70vh;
 }
 
 main div input {
@@ -105,6 +105,7 @@ main div input {
     height: 100%;
     border: none;
     padding: 10px;
+    resize: none;
 }
 
 .post-content:focus {
@@ -120,11 +121,19 @@ body {
     background-color: #f9f6f3;
 }
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1024px) {
     body {
-        width: 60%;
-        background-color: #f9f6f3;
+        width: 800px;
+
     }
+
+}
+
+@media only screen and (max-width: 1023px) {
+    body {
+        width: 100%;
+    }
+
 
 }
 

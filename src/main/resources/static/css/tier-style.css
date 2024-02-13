@@ -482,3 +482,8 @@ tbody > tr > td > div > img {
 .page-item.disabled > .page-link {
     pointer-events: none; /* 클릭 이벤트 비활성화 */
 }
+/* 텍스트 커서 깜빡임 없애기 */
+
+body{
+    caret-color: transparent;
+}
