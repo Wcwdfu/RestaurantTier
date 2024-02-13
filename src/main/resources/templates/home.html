@@ -155,7 +155,7 @@
             </div>
         </div>
     </section>
-    <section class="overflow-hidden overlap-height position-relative" style="height: 844.188px;">
+    <section class="overflow-hidden overlap-height position-relative">
         <div class="container-fluid overlap-gap-section">
             <div class="row justify-content-center mb-2">
                 <div class="col-lg-7 text-center">
@@ -173,12 +173,12 @@
                         <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 30, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 2500, &quot;disableOnInteraction&quot;: false },  &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-1&quot;, &quot;clickable&quot;: true }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 5 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
                             <div class="swiper-wrapper">
                                 <!-- Dynamic restaurant slides -->
-                                <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide" style="width: 467px; margin-right: 60px;">
+                                <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide">
                                     <div class="services-box-style-01 hover-box last-paragraph-no-margin">
                                         <!-- 링크를 위한 <a> 태그 추가 -->
                                         <a th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}">
                                             <div class="position-relative box-image border-radius-6px" id="restaurantImageContainer">
-                                                <img id="restaurantImage" class="border-radius-6px" th:src="${restaurant.restaurantImgUrl}" alt="">
+                                                <img id="restaurantImage" class="w-100 border-radius-6px" th:src="${restaurant.restaurantImgUrl}" alt="">
                                                 <div class="box-overlay bg-dark-gray"></div>
                                             </div>
                                         </a>
