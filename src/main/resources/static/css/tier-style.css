@@ -44,6 +44,12 @@
         padding: 0;
     }
 }
+img {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 /* 리스트의 아이템 중 클릭 상태인 것(티어표) */
 div.header-bottom ul.menu-list > li > a > div.tier {

@@ -41,6 +41,9 @@ public class EvaluationController {
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
         evaluationService.createOrUpdate(jsonData, principal);
+        System.out.println(jsonData.getRestaurantId());
+        System.out.println(jsonData.getStarRating());
+        System.out.println(jsonData.getBarRatings());
         return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
 
     }

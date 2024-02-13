@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>건메추 - 가게평가</title>
+    <title>건메추: 가게평가</title>
 
+    <!-- 아이콘  -->
+    <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
+    <link rel="stylesheet" href="/css/library/icon.min.css">
+    <link rel="stylesheet" href="/css/library/style.min.css">
+    <link rel="stylesheet" href="/css/library/responsive.min.css">
+    <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" href="/css/evaluation-style.css">
-    <link rel="stylesheet" type="text/css" href="/css/navbar-unselected-style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/evaluationScript.js"></script>
 </head>
 
 
 <body>
-
-<!--<header th:replace="~{navbar_unselected :: navbarFragment}"></header>-->
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
 
 <div id="evaluationWindow">
-<div id="header">
-    <div id="evaluateTitle">
-        <p id="restaurantName">'가게이름'</p>
-        <p>평가하기</p>
-    </div>
-
-    <img id="closeBtn" src="/img/evaluation/close-icon.png">
-
-</div>
-
-
 
 <div id="first" class="contents">
     <p>전체적으로 어떠셨나요?</p>
@@ -48,19 +47,46 @@
 <div id="second" class="contents">
     <div id="secondTitle">
         <p>해당되는 키워드를 선택해주세요</p>
-        <p>(티어반영 X)</p>
+        <!--<p>(티어반영 X)</p>-->
     </div>
     <hr>
     <div id="keywordList">
-        <button class="keywordBtn unselected">혼밥</button>
-        <button class="keywordBtn unselected">2~4인</button>
-        <button class="keywordBtn unselected">5인이상</button>
-        <button class="keywordBtn unselected">단체 회식</button>
-        <button class="keywordBtn unselected">배달</button>
-        <button class="keywordBtn unselected">야식</button>
-        <button class="keywordBtn unselected">친구초대</button>
-        <button class="keywordBtn unselected">데이트</button>
-        <button class="keywordBtn unselected">소개팅</button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/혼밥.png">
+            <span>혼밥</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/2~4인.png">
+            <span>2~4인</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/5인%20이상.png">
+            <span>5인 이상</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/단체%20회식.png">
+            <span>단체 회식</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/배달.png">
+            <span>배달</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/야식.png">
+            <span>야식</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/친구%20초대.png">
+            <span>친구 초대</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/데이트.png">
+            <span>데이트</span>
+        </button>
+        <button class="keywordBtn unselected">
+            <img src="/img/tier/소개팅.png">
+            <span>소개팅</span>
+        </button>
     </div>
 </div>
 
@@ -72,204 +98,519 @@
     <hr>
 
     <div id="keywordEvaluateSection">
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">혼밥</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+        <div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/혼밥.png">
+                    <p class="keyword-name">혼밥</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
-                </div>
-            </div>
-            <div class="margin"></div>
-        </div>
-
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">2~4인</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
-                </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
-                </div>
-            </div>
-            <div class="margin"></div>
-        </div>
-
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">5인이상</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
-                </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">단체회식</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/2~4인.png">
+                    <p class="keyword-name">2~4인</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">배달</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/5인%20이상.png">
+                    <p class="keyword-name">5인 이상</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">야식</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/단체%20회식.png">
+                    <p class="keyword-name">단체 회식</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">친구초대</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/배달.png">
+                    <p class="keyword-name">배달</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">데이트</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/야식.png">
+                    <p class="keyword-name">야식</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
-        </div>
 
-        <div class="keywordEvaluateArea hidden">
-            <p class="keyword-name">소개팅</p>
-            <div class="ratingbar-area">
-                <div class="bar">
-                    <div class="select-point lv1"></div>
-                    <div class="select-point lv2"></div>
-                    <div class="select-point lv3"></div>
-                    <div class="select-point lv4"></div>
-                    <div class="select-point lv5"></div>
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/친구%20초대.png">
+                    <p class="keyword-name">친구 초대</p>
                 </div>
-                <div class="bar-comment-area">
-                    <p>최악</p>
-                    <p>나쁨</p>
-                    <p>보통</p>
-                    <p>좋음</p>
-                    <p>최고</p>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="margin"></div>
+
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/데이트.png">
+                    <p class="keyword-name">데이트</p>
+                </div>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="keywordEvaluateArea hidden">
+                <div class="keyword-container">
+                    <img class="keyword-img" src="/img/tier/소개팅.png">
+                    <p class="keyword-name">소개팅</p>
+                </div>
+                <div class="ratingbar-area">
+                    <div class="lv-container">
+                        <div class="select-point lv1">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="left-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최악</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv2">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>나쁨</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv3">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>보통</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv4">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>좋음</p>
+                            </div>
+                        </div>
+                        <div class="select-point lv5">
+                            <div class="bar-outer">
+                                <div class="circle"></div>
+                                <div class="right-bar"></div>
+                            </div>
+                            <div class="bar-comment-area">
+                                <p>최고</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
     </div>
-
 </div>
 
 <div id="forth" class="contents">
     <button id="submitBtn">평가 제출</button>
 </div>
 </div>
+<footer th:replace="~{footer::footerFragment}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

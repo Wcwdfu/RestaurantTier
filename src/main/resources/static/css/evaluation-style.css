@@ -1,10 +1,11 @@
 @media only screen and (max-width: 1024px) {
-    #evaluationWindow{
+    #evaluationWindow {
+        padding: 0 10px;
         min-width: 260px;
         width: 100%;
-    }
-    header{
-        display: none;
+        color: black;
+        margin-top: 120px;
+        line-height: normal;
     }
 }
 
@@ -13,55 +14,35 @@
         width: 70%;
         min-width: 450px;
         max-width: 900px;
+        color: black;
+        margin-top: 120px;
+        margin-right: auto;
+        margin-left: auto;
+        line-height: normal;
     }
 }
 
 /* ------------------------------------ */
 
+* {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    margin: 0 0 10px 0;
+}
+
 body{
-    margin-top: 5px;
-    background-color: #EBEEF1;
+    background-color: #FFF;
 }
-p{
-    margin: 0;
-}
-hr{
-    margin: 0;
-}
-#evaluationWindow{
-    margin: 0 auto;
-}
-
-/* ------------------- header ----------------- */
-
-#header{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background-color: #5383E8;
-    margin-bottom: 10px;
-}
-#closeBtn{
-    width: 30px;
-    height: 30px;
-    margin-right: 15px;
-    opacity: 0.5;
-}
-#evaluateTitle{
-    display: flex;
-    font-size: 20px;
-    color: white;
-    gap: 10px;
-    margin-left: 30px;
-    align-items: center;
-}
-#closeBtn {
-    cursor: pointer;
-}
-
 
 /* ------------------- body ----------------- */
 /* ------------------- first(main) rating ----------------- */
@@ -73,26 +54,30 @@ hr{
 }
 #first p:first-child{
     padding-top: 20px;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 #first p:nth-child(2){
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 10px;
 }
 #starsArea{
+    margin: 0 auto;
+    width: fit-content;
     padding-bottom: 10px;
 }
 .stars{
     width: 40px;
 }
 #ratingComment{
-    padding-bottom: 20px;
-    opacity: 0.6;
+    color: #555;
+    margin-bottom: 24px;
+    font-size: 15px;
+    padding: 0;
 }
 .good{
-    color: green;
+    color: #0F6341;
 }
 
 /* ------------------- second(category) rating ----------------- */
@@ -100,13 +85,15 @@ hr{
 #secondTitle{
     display: flex;
     padding: 10px;
+    height: fit-content;
 }
 #secondTitle p:first-child{
     font-weight: bold;
+    font-size: 16px;
 }
-#secondTitle p:last-child{
+/*#secondTitle p:last-child{
     opacity: 0.5;
-}
+}*/
 /* ------------------- third(keyword) rating button/area ----------------- */
 
 #third{
@@ -117,91 +104,135 @@ hr{
     display: flex;
     padding: 10px;
     font-weight: bold;
+    font-size: 16px;
 }  
 #keywordList{
     display: flex;
     flex-wrap: wrap;
 }
+#keywordList img {
+    height: 22px;
+    width: 22px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
 .keywordBtn{
     border: none;
     margin: 5px;
-    padding: 5px 10px;
-    font-weight: bold;
-    border-radius: 3px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 .unselected{
-    color: #5383E8;
+    color: #0F6341;
+    font-weight: normal;
     
 }
 .selected{
-    background-color: #5383E8;
+    background-color: #0F6341;
+    font-weight: 550;
     color: white;
-
 }
 
 /* ------------------- third(category) rating bar ----------------- */
+#keywordEvaluateSection > div {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 550px;
+}
 .keywordEvaluateArea{
-    max-width: 600px;
+    width: 100%;
+    max-width: 550px;
     display: flex;
-    margin: auto;
+    margin: auto 0;
+    padding: 0 10px;
+}
+.keyword-container {
+    display: flex;
+    align-items: center;
+    width: 90px;
+    height: 80px;
+}
+.keyword-img {
+    height: 22px;
+    width: 22px;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 .keyword-name{
-    flex: 2;
-    margin: auto;
-
-    color: #5383E8;
-    font-weight: bold;
+    color: #0F6341;
+    font-size: 14px;
+    text-align: left;
 }
 .ratingbar-area{
-    flex: 7;
-    
+    flex: 1;
     height: 80px;
     display: flex;
     flex-direction: column;
     margin: 5px auto;
 }
-.margin{
-    flex: 1;
-}
-
-.bar{
-    width: 97% ;
-    height: 5px;
-    background-color: #EBEEF1;
-
-    border-radius: 5px;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
-
+.bar-outer {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    height: 50px;
 }
-.select-point{
+.left-bar {
+    width: 50%;
+    height: 3px;
+    background-color: #bbb;
+    margin-left: auto;
+}
+.right-bar {
+    width: 50%;
+    height: 3px;
+    background-color: #bbb;
+}
+.bar {
+    width: 100%;
+    height: 3px;
+    background-color: #bbb;
+}
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.lv-container {
+    display: flex;
+}
+.select-point {
+    flex: 1;
+    height: 70px;
+    cursor: pointer;
+}
+.picked {
+    background-color: #0F6341;
     width: 15px;
     height: 15px;
-    background-color: #EBEEF1;
-    border: 1px solid white;
-    border-radius: 50%;
-}
-.bar .picked{
-    background-color: #5383E8;
-    width: 20px;
-    height: 20px;
 }
 .bar-comment-area{
     width: 100%;
     display: flex;
-    justify-content: space-between;
     margin: 0 auto;
-    font-size: 14px;
+    font-size: 13px;
+}
+.bar-comment-area > p {
+    flex: 1;
+    text-align: center;
 }
 /* bar형 ui에서 해당ㅇ이 선택되면 글자색을 바꿈*/
 .bar-comment-area .bold{
     font-weight: bold;
-    color: #5383E8; 
+    color: #0F6341;
 }
 .hidden{
     display: none;
@@ -210,9 +241,10 @@ hr{
 /* ------------------- fourth Btn area ----------------- */
 
 #submitBtn{
-    background-color: #5383E8;
+    background-color: #0F6341;
     width: 100%;
-    height: 60px;
+    max-width: 550px;
+    height: 50px;
     border: none;
     border-radius: 5px;
     
@@ -221,6 +253,6 @@ hr{
 
 }
 
-#submitBtn.pushed{
-    background-color: #668fe6;
+#submitBtn:hover{
+    background-color: #06442b;
 }

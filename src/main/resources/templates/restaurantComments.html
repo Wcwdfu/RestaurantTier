@@ -1,4 +1,4 @@
-<li th:each="restaurantComment : ${restaurantComments}">
+<li th:each="restaurantComment, iterStat : ${restaurantComments}" th:style="${iterStat.last ? 'border-radius: 0 0 7px 7px;' : ''}">
     <div class="like-div">
         <button class="comment-up" type="button" onclick="commentLike(this)" th:data-id="${restaurantComment[0].commentId}">
             <img th:if="${restaurantComment[2]}" src="/img/community/up-green.png">

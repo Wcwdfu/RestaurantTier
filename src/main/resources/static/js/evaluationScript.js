@@ -3,13 +3,49 @@ document.addEventListener("DOMContentLoaded", function () {
     // ----------(first) 메인 평가 선택 로직---------- //
 
     var stars = document.querySelectorAll(".stars");
+    let isDragging = false;
     var comment = document.querySelector("#ratingComment");
 
     stars.forEach(function (star, index) {
+        // 클릭했을 경우
         star.addEventListener("click", function () {
             setMainRating(index);
         });
+        // 마우스를 클릭했을 경우 - 드래그 시작
+        star.addEventListener('mousedown', function() {
+            isDragging = true;
+            setMainRating(index);
+        });
+        // 마우스가 드래그 중일 때 별위로 마우스가 올라갔을 경우
+        star.addEventListener('mouseenter', function() {
+            if (isDragging) {
+                setMainRating(index);
+            }
+        });
+        // 모바일 환경 - 터치 시작
+        star.addEventListener('touchstart', (event) => {
+            isDragging = true;
+            setMainRating(index);
+        });
+        // 모바일 환경 - 터치 이동
+        star.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            const target = document.elementFromPoint(touch.clientX, touch.clientY);
+            const index = Array.from(stars).indexOf(target);
+            if (index !== -1) {
+                setMainRating(index);
+            }
+        });
+        // 모바일 환경 - 터치 종료
+        star.addEventListener('touchend', () => {
+            isDragging = false;
+        });
     });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    })
 
     function setMainRating(selectedIndex) {
         stars.forEach(function (star, index) {
@@ -19,16 +55,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 star.src = "/img/evaluation/star-empty.png";
             }
             evaluationData.starRating = selectedIndex + 1
-            console.log(evaluationData)
-
         });
 
         if (selectedIndex < 5) {
             comment.classList.remove("good");
-            comment.style.opacity = 0.7;
+            //comment.style.opacity = 0.7;
         } else {
             comment.classList.add("good");
-            comment.style.opacity = 1;
+            //comment.style.opacity = 1;
         }
 
         if (selectedIndex == 0) {
@@ -64,11 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
         button.classList.toggle("selected");
     }
 
-    // 상단 X 클릭시 뒤로가기
-    document.getElementById('closeBtn').addEventListener('click', function() {
-        window.history.back();
-    });
-
 
     // ---------- (third) 버튼 선택 효과 로직---------- //
 
@@ -96,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 키워드 평가 태그 두번 눌러서 숨겨질 때 데이터 초기화하기
     function resetRatingInArea(area) {
         // 모든 선택 포인트에서 'picked' 클래스 제거
-        var selectPoints = area.querySelectorAll('.select-point');
+        var selectPoints = area.querySelectorAll('.select-point .circle');
         selectPoints.forEach(function (point) {
             point.classList.remove('picked');
         });
@@ -109,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 평가 데이터에서 해당 키워드 평가 점수를 리셋
         var keywordIndex = Array.from(document.querySelectorAll('.keywordEvaluateArea')).indexOf(area);
-        evaluationData.barRatings[keywordIndex] = 0
+        evaluationData.barRatings[keywordIndex] = undefined;
     }
 
     // ---- 바형 ui에서 선택 효과 로직 ---- //
@@ -120,14 +149,51 @@ document.addEventListener("DOMContentLoaded", function () {
         var selectPoints = keyword.querySelectorAll('.select-point');
 
         selectPoints.forEach(function (point, index) {
-            point.addEventListener('click', function () {
+            // 클릭했을 경우
+            point.addEventListener("click", function () {
                 toggleSelectPoint(index + 1, keyword);
+            });
+            // 마우스를 클릭했을 경우 - 드래그 시작
+            point.addEventListener('mousedown', function() {
+                isDragging = true;
+                toggleSelectPoint(index + 1, keyword);
+            });
+            // 마우스가 드래그 중일 때 별위로 마우스가 올라갔을 경우
+            point.addEventListener('mouseenter', function() {
+                if (isDragging) {
+                    toggleSelectPoint(index + 1, keyword);
+                }
+            });
+            // 모바일 환경 - 터치 시작
+            point.addEventListener('touchstart', (event) => {
+                isDragging = true;
+                toggleSelectPoint(index + 1, keyword);
+            });
+            // 모바일 환경 - 터치 이동
+            point.addEventListener('touchmove', (event) => {
+                event.preventDefault();
+                const touch = event.touches[0];
+                selectPoints.forEach(function(element, elementIndex) {
+                    const rect = element.getBoundingClientRect();
+                    if (touch.clientX >= rect.left && touch.clientX <= rect.right - 1 &&
+                        touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                        toggleSelectPoint(elementIndex + 1, keyword);
+                        return;
+                    }
+                })
+            });
+            // 모바일 환경 - 터치 종료
+            point.addEventListener('touchend', () => {
+                isDragging = false;
             });
         });
     });
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    })
 
     function toggleSelectPoint(rating, keyword) {
-        var selectPoints = keyword.querySelectorAll('.select-point');
+        var selectPoints = keyword.querySelectorAll('.select-point .circle');
         var ratingParagraphs = keyword.querySelectorAll('.bar-comment-area p');
 
         // 해당 keyword 내에서 모든 select-point에서 picked 클래스 제거
@@ -136,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // 클릭된 select-point에 picked 클래스 추가
-        keyword.querySelector('.select-point.lv' + rating).classList.add('picked');
+        keyword.querySelector('.select-point.lv' + rating + ' .circle').classList.add('picked');
 
         // 각 p 태그에 bold 클래스를 toggle
         ratingParagraphs.forEach(function (p, index) {
@@ -151,20 +217,47 @@ document.addEventListener("DOMContentLoaded", function () {
         barRatings: [],
         restaurantId: 0
     }
+    // 데이터가 제대로 입력 됐는지 체크
+    function checkData() {
+        if (evaluationData.starRating === 0) {
+            return false;
+        }
+        let areas = document.querySelectorAll('.keywordEvaluateArea');
+        let dataIndex = [];
+        areas.forEach(function(area, index) {
+            if (!area.classList.contains('hidden')) {
+                dataIndex.push(index);
+            }
+        });
+        if (dataIndex.length === 0 && evaluationData.barRatings.length === 0)
+            return true;
+        for (let i = 0; i < evaluationData.barRatings.length; i++) {
+            if (dataIndex.length === 0 && evaluationData.barRatings[i]) {
+                return false;
+            }
+
+            if (dataIndex[0] === i && !evaluationData.barRatings[i]) {
+                return false;
+            } else if (dataIndex[0] !== i && evaluationData.barRatings[i]) {
+                return false;
+            } else if (dataIndex[0] === i) {
+                dataIndex.shift();
+            }
+        }
+        return dataIndex.length <= 0;
+    }
     // ----------제출 버튼 눌림효과 로직---------- //
     
     var submitBtn = document.getElementById('submitBtn');
-
-    submitBtn.addEventListener('mousedown', function () {
-        submitBtn.classList.add('pushed');
-    });
-
-    submitBtn.addEventListener('mouseup', function () {
-        submitBtn.classList.remove('pushed');
-    });
     
     // 평가하기 버튼 눌렀을 때
     submitBtn.addEventListener('click', function () {
+        if (!checkData()) {
+            alert('모든 항목을 평가해주세요.');
+            return;
+        }
+        console.log(evaluationData.barRatings);
+
         var restaurantId = extractRestaurantIdFromUrl();
         evaluationData.restaurantId = restaurantId;
         console.log(restaurantId)
@@ -194,7 +287,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "/restaurants/"+restaurantId
 
             })
-
 
     })
 
