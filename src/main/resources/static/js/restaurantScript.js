@@ -23,6 +23,9 @@ window.onresize = function() {
     mainImgResize();
 }
 
+// 평가하기 버튼
+const submitBtn = document.getElementById('evaluationButton');
+
 // 메인 이미지 정사각형으로 되게
 function mainImgResize() {
     const mainImg = document.getElementById('mainImg');
