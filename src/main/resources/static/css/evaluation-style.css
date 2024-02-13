@@ -77,6 +77,9 @@ body{
     font-size: 15px;
     padding: 0;
 }
+.normal {
+    color: #fff;
+}
 .good{
     color: #0F6341;
 }
@@ -127,7 +130,7 @@ body{
     align-items: center;
 }
 .unselected{
-    color: #0F6341;
+    color: #000;
     font-weight: normal;
     
 }
@@ -163,7 +166,7 @@ body{
     margin-right: 5px;
 }
 .keyword-name{
-    color: #0F6341;
+    color: #000;
     font-size: 14px;
     text-align: left;
 }
