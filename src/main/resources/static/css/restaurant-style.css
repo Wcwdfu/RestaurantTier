@@ -3,9 +3,15 @@
     margin: 0;
     padding: 0;
 }
+img {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 body {
-    background-color: #EBEEF1;
+    background-color: #FFF;
 }
 
 div {
@@ -93,6 +99,7 @@ div.outer-container {
 
 .inner-container {
     background-color: #fff;
+    border: #EBEEF1 solid 1px;
     border-radius: 5px;
     padding: 10px;
     margin-top: 6px;
@@ -192,7 +199,7 @@ div.basic-info > div.texts > span {
     padding: 5px 10px;
     border-radius: 4px;
     color: #fff;
-    background-color: #5383E8;
+    background-color: #0F6341;
     font-size: 15px;
     font-weight: 570;
 }
@@ -295,7 +302,7 @@ div.basic-info > div.texts > span {
     display: inline-block; /* 또는 display: block; */
     width: 100%; /* 또는 다른 너비 값 설정 */
     color: #fff;
-    background-color: #5383E8;
+    background-color: #0F6341;
     font-size: 15px;
     font-weight: 570;
 }
@@ -305,6 +312,7 @@ div.basic-info > div.texts > span {
 .comment-container {
     background-color: #fff;
     border-radius: 5px 5px 0 0;
+    border: #EBEEF1 solid 1px;
     padding: 10px;
     margin-top: 6px;
     width: 100%;
@@ -363,9 +371,9 @@ div.basic-info > div.texts > span {
 }
 
 .sort-toggle-buttons button.active {
-    background-color: #DCE8FF;
-    color: #5383E8;
-    font-weight: 550;
+    border: #0F6341 solid 1px;
+    color: #0F6341;
+    font-weight: bold;
 }
 
 /* 댓글 리스트 */
