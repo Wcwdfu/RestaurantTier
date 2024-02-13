@@ -165,7 +165,7 @@ div.header-bottom ul.menu-list > li > a > div.home {
 #restaurantImageContainer {
     position: relative;
     width: 100%; /* 컨테이너 너비를 부모 요소에 맞춤 */
-    padding-top: 100%; /* 너비와 동일한 높이 설정 */
+    padding-top: 75%; /* 너비와 동일한 높이 설정 */
     overflow: hidden; /* 이미지가 컨테이너를 벗어나지 않도록 함 */
 }
 
@@ -186,4 +186,29 @@ div.header-bottom ul.menu-list > li > a > div.home {
 /* 텍스트 커서 깜빡임 없애기 */
 body {
     caret-color: transparent;
+}
+
+h2 {
+    font-size: 3rem;
+    line-height: 5rem;
+}
+
+
+/*음식 버튼 이미지 hover*/
+.cell-button .label {
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+    color: white; /* 글자 색상 */
+    font-size: 20px; /* 글자 크기 */
+    opacity: 0; /* 기본적으로 숨김 */
+    transition: opacity 0.5s ease; /* 부드러운 효과 */
+    height: 100%; /* 부모 요소와 동일한 높이 */
+    width: 100%; /* 부모 요소와 동일한 너비 */
+}
+
+.cell-button:hover .label {
+    opacity: 1; /* 마우스 오버 시 보임 */
+}
+
+img:hover {
+    filter: brightness(50%); /* 마우스 오버 시 이미지 어둡게 */
 }

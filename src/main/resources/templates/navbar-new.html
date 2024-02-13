@@ -1,11 +1,17 @@
 <!--상단 탭-->
 <header th:fragment="navbarFragment" class="sticky-active">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         #myPage {
             width: 40px;
             height: 40px;
         }
-        /* 커서 없애기 */
+        body{
+
+        }
+
 
     </style>
     <nav class="navbar navbar-expand-lg header-light header-reverse"
@@ -39,18 +45,18 @@
                     <span class="navbar-toggler-line"></span>
                     <span class="navbar-toggler-line"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse alt-font" id="navbarNav">
                     <ul class="navbar-nav alt-font ls-1px pb-0" style="gap:10px;">
                         <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home"
-                                                                                                          class="nav-link">Home</a>
+                                                                                                          class="nav-link">홈</a>
                         </li>
                         <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a
-                                href="/recommend" class="nav-link">Menu Recommend</a></li>
+                                href="/recommend" class="nav-link">뽑기</a></li>
                         <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier"
-                                                                                                          class="nav-link">Tier</a>
+                                                                                                          class="nav-link">순위</a>
                         </li>
                         <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a
-                                href="/community" class="nav-link">Community</a></li>
+                                href="/community" class="nav-link">커뮤니티</a></li>
                     </ul>
 
                     <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
