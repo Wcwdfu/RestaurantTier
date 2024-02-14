@@ -31,8 +31,8 @@
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
 <!--뽑기 첫번쨰 body-->
 <section
-        class="ipad-top-space-margin page-title-big-typography cover-background p-0 md-background-position-left-center"
-        style="margin-top: inherit ; height: 300px; background-image: url('/img/home/background.jpg');">
+        class="top-banner mt-0 page-title-big-typography cover-background p-0 md-background-position-left-center"
+        style="margin-top: inherit ;background-image: url('/img/home/background.jpg');">
     <div class="container alt-font">
         <div class="row align-items-center justify-content-center small-screen">
             <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
@@ -92,7 +92,7 @@
         <hr>
 
         <div class="option-area">
-            <p>뽑기에서 제외할 카테고리를 골라주세요</p>
+<!--            <p>뽑기에서 제외할 카테고리를 골라주세요</p>-->
 
             <div class="option">
                 <button>한식</button>
@@ -110,7 +110,10 @@
                 <button class="selected">베이커리</button>
                 <button class="selected">기타</button>
             </div>
-
+            <div class="info">
+                <div class="colorbox"></div>
+                <p>: 뽑기에서 제외됨</p>
+            </div>
 
 
         </div>

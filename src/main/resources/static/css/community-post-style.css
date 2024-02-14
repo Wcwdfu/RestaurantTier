@@ -516,5 +516,27 @@ p{
     box-shadow: none;
 }
 
+@media only screen and (max-width: 767px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 200px;
+    }
 
+}
+
+@media only screen and (min-width: 768px) {
+    /* 태블릿 화면 */
+    .top-banner{
+        height: 250px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
+    }
+}
 
