@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/css/home-style.css">
 
 
+
+
 </head>
 
 
@@ -188,6 +190,7 @@
 
 <!--  인기 식당 탭  -->
     <section class="overflow-hidden overlap-height position-relative">
+        <!-- 문구  -->
         <div class="container-fluid overlap-gap-section">
             <div class="row justify-content-center mb-2">
                 <div class="col-lg-7 text-center alt-font">
@@ -199,21 +202,23 @@
                 </span>
                 </div>
             </div>
+            <!--    슬라이더 부분        -->
             <div class="row">
                 <div class="col-md-12 position-relative feather-shadow sm-feather-shadow-none">
                     <div class="outside-box-right-15 outside-box-left-15 sm-outside-box-right-0 sm-outside-box-left-0">
-                        <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 30, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 2500, &quot;disableOnInteraction&quot;: false },  &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-1&quot;, &quot;clickable&quot;: true }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 5 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
+                        <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 60, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 2000, &quot;disableOnInteraction&quot;: false },  &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-1&quot;, &quot;clickable&quot;: true }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 5 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
                             <div class="swiper-wrapper">
                                 <!-- Dynamic restaurant slides -->
                                 <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide">
                                     <div class="services-box-style-01 hover-box last-paragraph-no-margin">
-                                        <!-- 링크를 위한 <a> 태그 추가 -->
+                                        <!--슬라이더 이미지 -->
                                         <a th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}">
                                             <div class="position-relative box-image border-radius-6px" id="restaurantImageContainer">
                                                 <img id="restaurantImage" class="w-100 border-radius-6px" th:src="${restaurant.restaurantImgUrl}" alt="">
                                                 <div class="box-overlay bg-dark-gray"></div>
                                             </div>
                                         </a>
+                                        <!-- 문구 !-->
                                         <div class="pt-30px bg-white text-center alt-font">
                                             <span class="d-inline-block text-dark-gray fs-19 fw-600" th:text="${restaurant.restaurantName}">Restaurant Name</span>
                                             <div class="w-100">

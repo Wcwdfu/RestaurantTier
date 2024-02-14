@@ -8,12 +8,6 @@
             width: 40px;
             height: 40px;
         }
-
-        body {
-
-        }
-
-
     </style>
     <nav class="navbar navbar-expand-lg header-light header-reverse alt-font"
          data-header-hover="light" style="background-color: white;opacity: 0.9;">
@@ -66,17 +60,6 @@
                             <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">로그아웃</a>
                         </li>
                     </ul>
-
-                    <!--                    &lt;!&ndash; 로그인 버튼을 네비게이션 리스트 안에 추가 &ndash;&gt;-->
-<!--                                        <ul class="navbar-nav pt-0">-->
-<!--                                            <li class="nav-item d-lg-none"> &lt;!&ndash; d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 &ndash;&gt;-->
-<!--                                                <a class="nav-item d-lg-none alt-font" href="/user/myPage" sec:authorize="isAuthenticated()"></a>-->
-<!--                                            </li>-->
-<!--                                            <li class="nav-item d-lg-none"> &lt;!&ndash; d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 &ndash;&gt;-->
-<!--                                                <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">Login</a>-->
-<!--                                                <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">Logout</a>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
                 </div>
 
             </div>
@@ -117,36 +100,36 @@
         </div>
     </nav>
 
+<!--검색 기능 -->
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', function () {-->
+<!--            var searchButton = document.getElementById('btn_search');-->
+<!--            var searchInput = document.getElementById('search'); // 입력 필드 ID를 "search"로 변경-->
+<!--            var searchForm = document.querySelector('.search-form'); // form 선택자를 class 기반으로 변경-->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var searchButton = document.getElementById('btn_search');
-            var searchInput = document.getElementById('search'); // 입력 필드 ID를 "search"로 변경
-            var searchForm = document.querySelector('.search-form'); // form 선택자를 class 기반으로 변경
-
-            searchButton.addEventListener('click', function (event) {
-                event.preventDefault(); // 폼 제출 방지
-                // 검색 입력창이 이미 표시된 경우
-                if (searchInput.style.display === 'block' || searchInput.style.display === '') {
-                    // 입력값이 있는 경우 폼 제출
-                    if (searchInput.value.trim()) { // 입력값이 있으면 폼 제출
-                        searchForm.submit();
-                    } else {
-                        // 입력값이 없으면 검색창 숨김
-                        searchInput.style.display = 'none';
-                    }
-                } else {
-                    // 검색 입력창이 숨겨져 있는 경우 표시
-                    searchInput.style.display = 'block';
-                    // searchInput.focus(); // 사용자가 바로 입력할 수 있도록 포커스 설정
-                }
-            });
-            // 검색 입력창에 포커스가 맞춰질 때 실행되는 이벤트
-            searchInput.addEventListener('focus', function () {
-                this.value = ''; // 입력창의 값을 비움
-            });
-        });
+<!--            searchButton.addEventListener('click', function (event) {-->
+<!--                event.preventDefault(); // 폼 제출 방지-->
+<!--                // 검색 입력창이 이미 표시된 경우-->
+<!--                if (searchInput.style.display === 'block' || searchInput.style.display === '') {-->
+<!--                    // 입력값이 있는 경우 폼 제출-->
+<!--                    if (searchInput.value.trim()) { // 입력값이 있으면 폼 제출-->
+<!--                        searchForm.submit();-->
+<!--                    } else {-->
+<!--                        // 입력값이 없으면 검색창 숨김-->
+<!--                        searchInput.style.display = 'none';-->
+<!--                    }-->
+<!--                } else {-->
+<!--                    // 검색 입력창이 숨겨져 있는 경우 표시-->
+<!--                    searchInput.style.display = 'block';-->
+<!--                    // searchInput.focus(); // 사용자가 바로 입력할 수 있도록 포커스 설정-->
+<!--                }-->
+<!--            });-->
+<!--            // 검색 입력창에 포커스가 맞춰질 때 실행되는 이벤트-->
+<!--            searchInput.addEventListener('focus', function () {-->
+<!--                this.value = ''; // 입력창의 값을 비움-->
+<!--            });-->
+<!--        });-->
 
 
-    </script>
+<!--    </script>-->
 </header>

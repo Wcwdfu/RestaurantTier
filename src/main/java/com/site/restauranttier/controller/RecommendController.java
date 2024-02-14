@@ -23,6 +23,8 @@ public class RecommendController {
     // 메뉴추천 화면
     @GetMapping("/recommend")
     public String recommend(Model model){
+        List<Restaurant> restaurants = restaurantService.getTopRestaurantsByCuisine();
+        model.addAttribute("restaurants",restaurants);
         model.addAttribute("currentPage","recommend");
 
         return "recommend";

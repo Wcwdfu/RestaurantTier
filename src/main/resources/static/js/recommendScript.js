@@ -1,7 +1,7 @@
 const unselectedCuisines = [];
 
 document.querySelectorAll('.option button').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         // 버튼의 클래스에 "selected"가 있는지 확인
         const isSelected = button.classList.contains('selected');
 
@@ -14,7 +14,7 @@ document.querySelectorAll('.option button').forEach(button => {
     });
 });
 
-document.getElementById('recommendBtn').addEventListener('click', function() {
+document.getElementById('recommendBtn').addEventListener('click', function () {
 
 
     console.log(unselectedCuisines);
@@ -32,7 +32,7 @@ document.getElementById('recommendBtn').addEventListener('click', function() {
         return;
     }
 
-    const apiUrl = "/api/recommend?cuisine="+ unselectedCuisines.join('-');
+    const apiUrl = "/api/recommend?cuisine=" + unselectedCuisines.join('-');
 
     fetch(apiUrl, {
         method: "GET",
@@ -134,20 +134,25 @@ document.getElementById('recommendBtn').addEventListener('click', function() {
             resultImgSlideBar.style.opacity = 0;
 
 
-            setTimeout(function (){
+            setTimeout(function () {
                 resultImgSlideBar.classList.add('hidden');
-            },1200);
+            }, 1000);
 
-        }, 2000);
+        }, 1000);
 
-    }, 5000);
+    }, 5500);
 
 
 });
 
 // 선택된 img의 url을 통해 서버로부터 받은 data와 비교 후, 일치하는 식당정보 가져오기
-function matchingdata(){
-    const apiUrl = "/api/recommend?cuisine="+ unselectedCuisines.join('-');
+function matchingdata() {
+    var image = findClosestImageToSelectBox()
+    console.log(image)
+    var imageUrl = image.src; // 이미지 URL을 기준으로 정보 조회
+    console.log(imageUrl)
+
+    const apiUrl = "/api/recommend?cuisine=" + unselectedCuisines.join('-');
 
     fetch(apiUrl, {
         method: "GET",
@@ -157,7 +162,7 @@ function matchingdata(){
     })
         .then(response => response.json())
         .then(data => {
-            const showStoreImageSrc = document.querySelector('.show-this-store').src;
+            const showStoreImageSrc = imageUrl;
 
             // 이미지 src와 데이터의 imgurl을 비교하여 일치하는 데이터를 찾음
             const matchedData = data.find(item => item.restaurantImgUrl === showStoreImageSrc);
@@ -170,6 +175,8 @@ function matchingdata(){
                 const restaurantId = matchedData.restaurantId;
                 const restaurantCuisine = matchedData.restaurantCuisine;
                 const restaurantName = matchedData.restaurantName;
+                const restaurantType = matchedData.restaurantType;
+
 
                 // 이미지 URL과 링크 설정
                 const resultImg = document.getElementById('resultImg');
@@ -180,7 +187,16 @@ function matchingdata(){
 
                 // Cuisine과 Name 삽입
                 const storeInfo = document.getElementById('storeInfo');
-                storeInfo.innerHTML = `<p>음식종류: ${restaurantCuisine}</p><p>음식점이름: ${restaurantName}</p><p id="imgInfoText">이미지를 누르면 가게 상세 페이지로 이동합니다.</p>`;
+                storeInfo.innerHTML = `<div class="pt-30px bg-white text-center alt-font">
+                    <span class="d-inline-block text-dark-gray fs-19 fw-600">${restaurantName}</span>
+                    <div class="w-100">
+                        <span class="d-inline-block align-middle">${restaurantCuisine}</span>
+                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                        <span class="d-inline-block align-middle">${restaurantType}</span>
+                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                        <!-- 점수 넣기 !-->
+                    </div>
+                </div>`
 
                 const selectedBox = document.getElementById('SelectedBox');
                 selectedBox.style.backgroundImage = `url('${showStoreImageSrc}')`;
@@ -196,6 +212,40 @@ function matchingdata(){
 }
 
 //다시하기 버튼 로직
-document.getElementById('restartBtn').addEventListener('click',function (){
+document.getElementById('restartBtn').addEventListener('click', function () {
     location.reload();
 });
+
+
+// 셀렉 박스 위치와 가장 가까운 이미지 가져오기
+function findClosestImageToSelectBox() {
+    const selectBox = document.querySelector('#SelectedBox'); // .select-box 요소 선택
+    const images = document.querySelectorAll('.result-img-list > img'); // 모든 .img_box 요소 선택
+    const selectBoxRect = selectBox.getBoundingClientRect(); // .select-box의 위치 정보
+
+    let closestImage = null;
+    let minDistance = Infinity;
+
+    images.forEach((image) => {
+        const imageRect = image.getBoundingClientRect(); // 각 이미지의 위치 정보
+        // .select-box와 이미지 중심점 사이의 거리 계산
+        const distance = Math.sqrt(Math.pow(imageRect.x - selectBoxRect.x, 2) + Math.pow(imageRect.y - selectBoxRect.y, 2));
+
+        if (distance < minDistance) {
+            closestImage = image; // 가장 가까운 이미지 업데이트
+            minDistance = distance;
+        }
+    });
+
+    if (closestImage) {
+        // 가장 가까운 이미지의 src 속성 사용
+        console.log('가장 가까운 음식점 이미지:', closestImage.src);
+        // 여기서 추가 작업을 수행할 수 있습니다. 예를 들어, 해당 이미지를 강조 표시하거나 정보를 표시하는 등
+    }
+    return closestImage
+}
+
+
+
+
+
