@@ -8,13 +8,14 @@
             width: 40px;
             height: 40px;
         }
-        body{
+
+        body {
 
         }
 
 
     </style>
-    <nav class="navbar navbar-expand-lg header-light header-reverse"
+    <nav class="navbar navbar-expand-lg header-light header-reverse alt-font"
          data-header-hover="light" style="background-color: white;opacity: 0.9;">
         <div class="container-fluid">
             <div class="col-auto col-lg-2 me-lg-0 me-auto">
@@ -46,26 +47,36 @@
                     <span class="navbar-toggler-line"></span>
                 </button>
                 <div class="collapse navbar-collapse alt-font" id="navbarNav">
-                    <ul class="navbar-nav alt-font ls-1px pb-0" style="gap:10px;">
+                    <ul class="navbar-nav ls-1px pb-0" style="gap:10px;">
                         <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home"
                                                                                                           class="nav-link">홈</a>
                         </li>
                         <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a
                                 href="/recommend" class="nav-link">뽑기</a></li>
                         <li class="nav-item" th:classappend="${currentPage == 'tier' ? 'active' : ''}"><a href="/tier"
-                                                                                                          class="nav-link">순위</a>
+                                                                                                          class="nav-link">티어</a>
                         </li>
                         <li class="nav-item" th:classappend="${currentPage == 'community' ? 'active' : ''}"><a
                                 href="/community" class="nav-link">커뮤니티</a></li>
-                    </ul>
-
-                    <!-- 로그인 버튼을 네비게이션 리스트 안에 추가 -->
-                    <ul class="navbar-nav pt-0">
-                        <li class="nav-item d-lg-none alt-font ls-1px"> <!-- d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 -->
-                            <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">Login</a>
-                            <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">Logout</a>
+                        <li class="nav-item d-lg-none" sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/user/myPage">마이페이지</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">로그인</a>
+                            <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">로그아웃</a>
                         </li>
                     </ul>
+
+                    <!--                    &lt;!&ndash; 로그인 버튼을 네비게이션 리스트 안에 추가 &ndash;&gt;-->
+<!--                                        <ul class="navbar-nav pt-0">-->
+<!--                                            <li class="nav-item d-lg-none"> &lt;!&ndash; d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 &ndash;&gt;-->
+<!--                                                <a class="nav-item d-lg-none alt-font" href="/user/myPage" sec:authorize="isAuthenticated()"></a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item d-lg-none"> &lt;!&ndash; d-lg-none 클래스는 큰 화면에서는 이 요소를 숨깁니다 &ndash;&gt;-->
+<!--                                                <a sec:authorize="isAnonymous()" href="/user/login" class="nav-link">Login</a>-->
+<!--                                                <a sec:authorize="isAuthenticated()" href="/user/logout" class="nav-link">Logout</a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
                 </div>
 
             </div>
@@ -73,38 +84,33 @@
                 <!-- 우측 상단 아이콘 모음 !-->
                 <div class="header-icon">
                     <div class="header-button" style="display: flex; justify-content:center;">
-<!--                        <form class="search-form" action="/search" style="display: flex; gap:8px;">-->
-<!--                            <input id="search" name="kw" type="text" th:value="${kw}"-->
-<!--                                   style="display: none; caret-color: black;">-->
-<!--                            &lt;!&ndash;    검색 버튼      &ndash;&gt;-->
-<!--                            <button id="btn_search" class="search-btn" type="button"-->
-<!--                                    style="border: none;background-color: transparent;">-->
-<!--                                <img id=searchIcon-->
-<!--                                     src="/img/home/search.png">-->
-<!--                            </button>-->
+                        <!-- 검색 아이콘 !-->
+                        <!--                        <form class="search-form" action="/search" style="display: flex; gap:8px;">-->
+                        <!--                            <input id="search" name="kw" type="text" th:value="${kw}"-->
+                        <!--                                   style="display: none; caret-color: black;">-->
+                        <!--                            &lt;!&ndash;    검색 버튼      &ndash;&gt;-->
+                        <!--                            <button id="btn_search" class="search-btn" type="button"-->
+                        <!--                                    style="border: none;background-color: transparent;">-->
+                        <!--                                <img id=searchIcon-->
+                        <!--                                     src="/img/home/search.png">-->
+                        <!--                            </button>-->
 
-<!--                        </form>-->
+                        <!--                        </form>-->
                         <!--마이 페이지 버튼-->
-                        <a class="link" href="/user/myPage" sec:authorize="isAuthenticated()">
+                        <a class="d-none d-lg-block" href="/user/myPage" sec:authorize="isAuthenticated()">
                             <img id="myPage" src="/img/home/account.png">
                         </a>
                         <!-- 로그인 버튼 !-->
                         <a href="/user/login" sec:authorize="isAnonymous()"
-                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1"
+                           class="d-none d-lg-block btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1"
                         >
 
 <span>
-<span class="btn-double-text" data-text="Login">Login</span>
+<span class="btn-double-text alt-font" data-text="로그인">로그인</span>
 
 </span>
                         </a>
-<!--                        <a href="/user/logout" sec:authorize="isAuthenticated()"-->
-<!--                           class="btn btn-dark-gray btn-small btn-box-shadow left-icon btn-switch-text btn-rounded border-1">-->
-<!--<span>-->
-<!--<span class="btn-double-text" data-text="Logout">Logout</span>-->
 
-<!--</span>-->
-<!--                        </a>-->
                     </div>
                 </div>
             </div>

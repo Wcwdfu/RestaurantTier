@@ -351,6 +351,7 @@ div.basic-info > div.texts > span {
     border-radius: 5px;
     background-color: #0000;
     outline: none;
+    caret-color: black;
 }
 
 /* 댓글 인기순 최신순 버튼 */
