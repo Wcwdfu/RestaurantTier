@@ -1,0 +1,32 @@
+var navbarTitles = document.querySelectorAll('.navbar-title');
+
+// -------------navBar 선택 및 보이기 로직 -------------------
+navbarTitles.forEach(function(navbarTitle, index) {
+    navbarTitle.addEventListener('click', function() {
+        // 선택된 탭에 해당하는 인덱스 계산 (인덱스는 0부터 시작하므로 +1 해줍니다)
+        var selectedIndex = index + 1;
+
+        // 모든 탭에 대해 selected 클래스를 제거
+        navbarTitles.forEach(function(title) {
+            title.classList.remove('selected');
+        });
+
+        // 클릭된 탭에 selected 클래스 추가
+        navbarTitle.classList.add('selected');
+
+        // 모든 contents 영역 숨기기
+        var areas = document.querySelectorAll('#mainContents > div');
+        areas.forEach(function(area) {
+            area.classList.add('hidden');
+        });
+
+        // 선택된 contents 영역 보이기
+        var selectedArea = document.getElementById('Area' + selectedIndex);
+        if (selectedArea) {
+            selectedArea.classList.remove('hidden');
+        }
+    });
+});
+
+// -------------navBar 드래그로 옮기기 로직-------------------
+// 이 부분에 드래그로 옮기기 로직 추가
