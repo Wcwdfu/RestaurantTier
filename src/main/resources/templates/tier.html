@@ -163,6 +163,9 @@
             <col>
             <col>
             <col>
+            <col>
+            <col>
+            <col>
         </colgroup>
         <thead>
         <tr>
@@ -170,8 +173,8 @@
             <th scope="col" style="min-width: 50px"></th>
             <th scope="col" style="text-align: left;">식당</th>
             <th th:unless="${cuisine == '전체' and situation != '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;">종류 티어</th>
-            <th th:if="${situation != '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;">상황 티어</th>
-            <th class="th-cuisine" scope="col" style="text-align: left; padding-right: 10px;">종류</th>
+            <th th:if="${situation != '전체'}" scope="col" style="padding-right: 7px; padding-left: 0;">상황 티어</th>
+            <th class="th-cuisine" scope="col" style="text-align: left; padding-right: 7px;">종류</th>
             <th scope="col" style="text-align: left;" id="th-situation">상황</th>
         </tr>
         </thead>
