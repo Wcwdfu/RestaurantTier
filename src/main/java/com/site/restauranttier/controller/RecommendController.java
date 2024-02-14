@@ -49,7 +49,10 @@ public class RecommendController {
                 List<Restaurant> retaurantList = restaurantService.getRestaurantList(item);
                 combinedRestaurantList.addAll(retaurantList);
             }
+
             return new ResponseEntity<>(combinedRestaurantList, HttpStatus.OK);
         }
     }
+
+
 }

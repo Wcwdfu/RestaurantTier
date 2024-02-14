@@ -226,7 +226,7 @@
                                                 <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                                                 <span class="d-inline-block align-middle" th:text="${restaurant.restaurantType}">Type</span>
                                                 <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
-                                                <span class="d-inline-block align-middle" th:text="${#numbers.formatDecimal(restaurant.calculateAverageScore(), 1, 'COMMA', 2, 'POINT')}">Average Score</span>
+                                                <span class="d-inline-block align-middle" th:text="${restaurant.getMainScoreMaxTen()}"></span>
                                             </div>
                                         </div>
                                     </div>

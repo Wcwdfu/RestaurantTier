@@ -60,51 +60,27 @@ document.getElementById('recommendBtn').addEventListener('click', function () {
                 }
             });
 
-            // imageUrls 배열의 길이가 30 이상이면 랜덤으로 30개의 이미지 URL을 선택
-            if (imageUrls.length >= 30) {
-                const randomImageUrls = [];
-                while (randomImageUrls.length < 30) {
-                    const randomIndex = Math.floor(Math.random() * imageUrls.length);
-                    randomImageUrls.push(imageUrls[randomIndex]);
-                }
-                const imgDivs = document.querySelectorAll('.result-img-list');
-                let imgCount = 0;
-                imgDivs.forEach(imgDiv => {
-                    randomImageUrls.forEach(imageUrl => {
-                        const imgElement = document.createElement('img');
-                        imgElement.src = imageUrl;
-                        imgDiv.appendChild(imgElement);
-                        imgCount++;
-                        if (imgCount === 5) { // 5번째 이미지일 경우 클래스 추가
-                            imgElement.classList.add('show-this-store');
-                        }
-                    });
-                });
-            } else {
-                const imgDivs = document.querySelectorAll('.result-img-list');
-                imgDivs.forEach(imgDiv => {
-                    imgDiv.style.width = (imageUrls.length * 150) + "px";
-                });
-                const imgDiv2 = document.querySelector('.result-animation-list');
-                imgDiv2.style.width = (imageUrls.length * 150 * 2) + "px";
-                //
-
-                console.log(imgDiv2.style.width);
-                //
-
-                imgDivs.forEach(imgDiv => {
-                    imageUrls.forEach(imageUrl => {
-                        const imgElement = document.createElement('img');
-                        let imgCount = 0;
-                        imgElement.src = imageUrl;
-                        imgDiv.appendChild(imgElement);
-                        imgCount++;
-                        if (imgCount === 5) { // 5번째 이미지일 경우 클래스 추가
-                            imgElement.classList.add('show-this-store');
-                        }
-                    });
-                });
+            // 불러온 이미지 리스트에서 30개 추출
+            const randomImageUrls = [];
+            while (randomImageUrls.length < 30) {
+                const randomIndex = Math.floor(Math.random() * imageUrls.length);
+                randomImageUrls.push(imageUrls[randomIndex]);
             }
+            const imgDivs = document.querySelectorAll('.result-img-list');
+            let imgCount = 0;
+            imgDivs.forEach(imgDiv => {
+                randomImageUrls.forEach(imageUrl => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgDiv.appendChild(imgElement);
+                    imgCount++;
+                    if (imgCount === 5) { // 5번째 이미지일 경우 클래스 추가
+                        imgElement.classList.add('show-this-store');
+                    }
+                });
+            });
+
+
             console.log(imageUrls.length);
 
             document.getElementById('recommendPage').classList.add('hidden');
@@ -179,7 +155,15 @@ function matchingdata() {
                 const restaurantCuisine = matchedData.restaurantCuisine;
                 const restaurantName = matchedData.restaurantName;
                 const restaurantType = matchedData.restaurantType;
-
+                console.log(matchedData.restaurantScoreSum)
+                console.log(matchedData.restaurantEvaluationCount)
+                let score = 0.0
+                score = (matchedData.restaurantScoreSum / matchedData.restaurantEvaluationCount) / 7.0 * 10.0;
+                if (!score) {
+                    score = "0.0/10.0"
+                } else {
+                    score += "/10.0"
+                }
 
                 // 이미지 URL과 링크 설정
                 const resultImg = document.getElementById('resultImg');
@@ -197,7 +181,7 @@ function matchingdata() {
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${restaurantType}</span>
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
-                        <!-- 점수 넣기 !-->
+                        <span class="d-inline-block align-middle">${score}</span>
                     </div>
                 </div>`
 
@@ -219,7 +203,6 @@ document.getElementById('restartBtn').addEventListener('click', function () {
     location.reload(); // 페이지 새로고침
 });
 //바로 다시하기 버튼 로직
-
 
 
 // 셀렉 박스 위치와 가장 가까운 이미지 가져오기
