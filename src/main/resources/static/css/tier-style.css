@@ -1,3 +1,6 @@
+* {
+    font-family: 'NanumSquare', sans-serif;
+}
 @media only screen and (max-width: 1024px) {
     #categoryBackground, main {
         padding: 0 10px;
@@ -14,7 +17,7 @@
         transform: translateX(-50%);
         border-radius: 50%;
         border: none;
-        background-color: #f3e1c7;
+        background-color: #eeeeee77;
         width: 40px;
         height: 40px;
         padding: 0;
@@ -38,7 +41,7 @@
         z-index: 100;
         border-radius: 50%;
         border: none;
-        background-color: #f3e1c7;
+        background-color: #eeeeee77;
         width: 45px;
         height: 45px;
         padding: 0;
@@ -325,13 +328,6 @@ tbody > tr > td > div{
     font-size: 14px;
     text-align: center;
 }
-.td-main-img {
-    width: 50px;
-    height: 50px;
-    margin: 5px 0;
-    object-fit: cover;
-    border-radius: 7px;
-}
 
 /*.td-name {
     white-space: nowrap;
@@ -343,69 +339,12 @@ tbody > tr > td > div{
     flex-direction: column;
     align-items: flex-start;
 }
-@media only screen and (min-width: 501px) {
-    .td-inner-name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        font-size: 15px;
-    }
-}
-@media only screen and (max-width: 500px) {
-    .td-inner-name {
-        width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        font-size: 15px;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .td-inner-name {
-        width: 160px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        font-size: 15px;
-    }
-}
-@media only screen and (max-width: 370px) {
-    .td-inner-name {
-        width: 140px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        font-size: 15px;
-    }
-}
-@media only screen and (max-width: 340px) {
-    .td-inner-name {
-        width: 120px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        font-size: 15px;
-    }
-}
-.td-inner-type {
-    color: #656565;
-    font-size: 12px;
-    text-align: center;
-}
+/* media query 적용 */
 .td-tier-img {
     width: 30px;
     height: 30px;
     object-fit: cover;
     margin-right: 10px;
-}
-.td-cuisine-outer {
-    display: flex;
-    justify-content: left;
 }
 .td-cuisine-img {
     width: 34px;
@@ -413,7 +352,152 @@ tbody > tr > td > div{
     object-fit: cover;
     margin-right: 5px;
 }
+@media only screen and (min-width: 581px) {
+    .td-inner-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 15px;
+    }
+    .td-main-img {
+        width: 50px;
+        height: 50px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+}
+@media only screen and (max-width: 580px) {
+    .td-inner-name {
+        width: 227px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 14px;
+    }
+    .td-main-img {
+        width: 50px;
+        height: 50px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .td-inner-name {
+        width: 182px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 14px;
+    }
+    .td-main-img {
+        width: 45px;
+        height: 45px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .td-inner-name {
+        width: 133px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 13px;
+    }
+    .td-main-img {
+        width: 44px;
+        height: 44px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    th {
+        font-size: 11px;
+    }
+    .td-inner-name {
+        width: 103px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 12px;
+    }
+    .td-main-img {
+        width: 43px;
+        height: 43px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+    .td-tier-img {
+        width: 28px;
+        height: 28px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    .td-cuisine-img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        margin-right: 5px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    th {
+        font-size: 10px;
+    }
+    .td-inner-name {
+        width: 85px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: black;
+        font-size: 12px;
+    }
+    .td-main-img {
+        width: 40px;
+        height: 40px;
+        margin: 5px 0;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+    .td-tier-img {
+        width: 26px;
+        height: 26px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    .td-cuisine-img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        margin-right: 5px;
+    }
+}
+.td-inner-type {
+    color: #656565;
+    font-size: 12px;
+    text-align: center;
+}
+.td-cuisine-outer {
+    display: flex;
+    justify-content: left;
+}
 @media only screen and (min-width: 701px) {
+    /* th */
+    .th-cuisine {
+        min-width: 115px;
+    }
+    /* td */
     .td-cuisine-span {
         display: inline;
         color: black;
@@ -421,6 +505,11 @@ tbody > tr > td > div{
     }
 }
 @media only screen and (max-width: 700px) {
+    /* th */
+    .th-cuisine {
+        min-width: auto;
+    }
+    /* td */
     .td-cuisine-span {
         display: none;
     }
@@ -437,20 +526,20 @@ tbody > tr > td > div{
     border-radius: 5px;
     margin-right: 5px;
 }
-@media only screen and (max-width: 550px) {
-    #th-situation {
-        display: none;
-    }
-    .td-situation {
-        display: none;
-    }
-}
-@media only screen and (min-width: 551px) {
+@media only screen and (min-width: 631px) {
     #th-situation {
         display: table-cell;
     }
     .td-situation {
         display: table-row;
+    }
+}
+@media only screen and (max-width: 630px) {
+    #th-situation {
+        display: none;
+    }
+    .td-situation {
+        display: none;
     }
 }
 

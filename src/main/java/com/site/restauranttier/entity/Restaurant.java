@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,13 @@ public class Restaurant {
                 .mapToDouble(Evaluation::getEvaluationScore) // 평가 점수로 변환
                 .average() // 평균 계산
                 .orElse(0.0); // 평가가 없는 경우 0 반환
+    }
+
+    // 환산 점수 계산
+    public String getMainScoreMaxTen() {
+        double score = (this.restaurantScoreSum / this.restaurantEvaluationCount) / 7 * 10;
+        DecimalFormat df = new DecimalFormat("#.0");
+        return df.format(score) + "/10.0";
     }
 }
 

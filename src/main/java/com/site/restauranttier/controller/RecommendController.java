@@ -31,7 +31,7 @@ public class RecommendController {
     }
 
     // 메뉴 리스트 받아오기
-    //한식, 일식, 중식
+    // 한식, 일식, 중식
     // /api/recommend?cuisine=한식-일식-중식
     @GetMapping("/api/recommend")
     public ResponseEntity<List<Restaurant>> getRestaurantListForCuisine(

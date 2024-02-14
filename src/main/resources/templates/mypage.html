@@ -6,80 +6,119 @@
     <title>건메추-마이페이지</title>
 
     <link rel="stylesheet" href="/css/mypage-style.css">
-    <script src="/js/mypageScript.js"></script>
+    <script src="/js/mypageScript.js" defer></script>
+
+    <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/library/vendors.min.css">
+    <link rel="stylesheet" href="/css/library/style.min.css">
+    <link rel="stylesheet" href="/css/library/responsive.min.css">
+    <link rel="stylesheet" href="/css/library/restaurant.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 </head>
 <body>
 
-    <header>
-        <div id="header">
-            <img id="gobackBtn" src="/img/mypage/goback-icon.png">
-            <p>마이페이지</p>
-            <img id="homeBtn" src="/img/mypage/home-icon.png">
-        </div>
+<header th:replace="~{navbar-new :: navbarFragment}"></header>
 
-        <div id="slideBox">
-            <div class="slide-item">
-                <p class="ad_text1">쉽게 확인해보는</p>
-                <p class="ad_text2">건대맛집</p>
-                <p class="ad_text1">순위!</p>
+<div id="navBar">
+    <div class="navbar-title selected">
+        <p>내 정보</p>
+    </div>
+    <div class="navbar-title">
+        <p>저장된 맛집</p>
+    </div>
+    <div class="navbar-title">
+        <p>평가한 맛집</p>
+    </div>
+    <div class="navbar-title">
+        <p>댓글단 맛집</p>
+    </div>
+    <div class="navbar-title">
+        <p>작성한 글</p>
+    </div>
+    <div class="navbar-title">
+        <p>댓글단 글</p>
+    </div>
+    <div class="navbar-title">
+        <p>저장된 글</p>
+    </div>
+    <hr class="hr">
+</div>
+
+<div id="mainContents">
+
+    <div id="Area1">
+        <div id="area1Contents" class="gray-border-circular">
+
+            <div id="area1Top">
+
+                <div id="profileImgArea">
+                    <p>프로필 이미지 : </p>
+                    <div id="profileimg"></div>
+                </div>
+
+                <div id="nicknameArea">
+                    <p>닉네임 : </p>
+                    <input id=nickname type="text" placeholder="여기에 텍스트를 입력하세요">
+
+
+                </div>
+
+                <div id="saveBtnArea">
+                    <button id="saveBtn">저장하기</button>
+                </div>
+
             </div>
-        </div>
-    </header>
+
+            <hr class="margin25px">
+
+            <div id="countInfo">
+                <p>저장된 맛집 수 : </p>
+                <p>평가한 맛집 수 : </p>
+                <p>댓글단 맛집 수 : </p>
+                <p>커뮤니티 작성한 글 수 : </p>
+                <p>커뮤니티 댓글단 글 수 : </p>
+                <p>커뮤니티 저장된 글 수 : </p>
+            </div>
 
 
-    <div id="userInfo">
-        <div id="userInfoLeft">
-            <div id="userImg"></div>
-            <p id="userNickname">사용자이름</p>
         </div>
-        
-        <div id="adjustBtnArea">
-            <img id="adjustBtn" src="/img/mypage/btn1.jpg">
-        </div>
+
+
     </div>
 
+    <div id="Area2" class="hidden">
+        <p class="pp">저장된 맛집 영역</p>
 
-    <div id="mainContents">
-        <div class="menu_area">
-            <div class="menu_header">
-                <p class="menu_title">맛집티어 메뉴</p>
-            </div>
-            <div class="menu_lists">
-                <ul>
-                    <li><a href=""></a><img class="icon" src="/img/mypage/rating_icon.png">내가 평가한 맛집</a></li>
-                    <li><a href=""><img class="icon" src="/img/mypage/comment_icon.png">내가 댓글단 맛집</a></li>
-                    <li><a href=""><img class="icon" src="/img/mypage/favorite_icon.png">내가 저정한 맛집</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu_area">
-            <div class="menu_header">
-                <p class="menu_title">커뮤니티 메뉴</p>
-            </div>
-            <div class="menu_lists">
-                <ul>
-                    <li><a href=""><img class="icon" src="/img/mypage/list_icon.png">내가 작성한 글</a></li>
-                    <li><a href=""><img class="icon" src="/img/mypage/comment_icon.png">내가 댓글단 글</a></li>
-                    <li><a href=""><img class="icon" src="/img/mypage/thumb_icon.png">내가 좋아요한 글</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu_area">
-            <div class="menu_header">
-                <p class="menu_title">문의사항</p>
-            </div>
-            <div class="menu_lists">
-                <ul>
-                    <li><a href=""><img class="icon" src="/img/mypage/cs_icon.png">고객센터</a></li>
-                    <li><a href=""><img class="icon" src="/img/mypage/setting_icon.png">설정</a></li>
-                </ul>
-            </div>
-        </div>
 
     </div>
-    
+
+    <div id="Area3" class="hidden">
+        <p class="pp">평가한 맛집 영역</p>
+    </div>
+
+    <div id="Area4" class="hidden">
+        <p class="pp">댓글단 맛집 영역</p>
+    </div>
+
+    <div id="Area5" class="hidden">
+        <p class="pp">작성한 커뮤니티 글 영역</p>
+    </div>
+
+    <div id="Area6" class="hidden">
+        <p class="pp">댓글단 커뮤니티 글 영역</p>
+    </div>
+
+    <div id="Area7" class="hidden">
+        <p class="pp">저장된 커뮤니티 글 영역</p>
+    </div>
+
+</div>
+
 </body>
+
+<footer th:replace="~{footer::footerFragment}"></footer>
 
 </html>
