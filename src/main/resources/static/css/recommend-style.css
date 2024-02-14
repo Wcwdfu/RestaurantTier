@@ -45,6 +45,16 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
         height: 800px;
 
     }
+    .result-animation-list {
+        display: flex;
+
+        width: 6000px;
+    }
+    .result-img-list {
+        display: flex;
+
+        width: 3000px;
+    }
 
     .img-list > img, #SelectedBox, .result-img-list > img {
         width: 100px;
@@ -64,6 +74,9 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
     }
 
 }
+
+
+
 
 @media only screen and (max-width: 767px) {
     /* 모바일화면 */
@@ -113,6 +126,14 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
         width: 600px;
         height: 400px;
         border-radius: 8px;
+    }
+    .result-animation-list {
+        display: flex;
+        width: 9000px;
+    }
+    .result-img-list {
+        display: flex;
+        width: 4500px;
     }
 }
 
@@ -311,15 +332,8 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
     background-repeat: no-repeat; /* 배경 이미지 반복 없앰 */
 }
 
-.result-animation-list {
-    display: flex;
-    width: 9000px;
-}
 
-.result-img-list {
-    display: flex;
-    width: 4500px;
-}
+
 
 .result-animation {
     animation-name: result_infinite_slide;
