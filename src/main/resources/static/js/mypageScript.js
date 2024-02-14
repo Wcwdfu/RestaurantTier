@@ -29,4 +29,26 @@ navbarTitles.forEach(function(navbarTitle, index) {
 });
 
 // -------------navBar 드래그로 옮기기 로직-------------------
-// 이 부분에 드래그로 옮기기 로직 추가
+var navbar = document.getElementById('navBar');
+
+var isDragging = false;
+var startX;
+var scrollLeft;
+
+navbar.addEventListener('touchstart', function(e) {
+    isDragging = true;
+    startX = e.touches[0].clientX - navbar.offsetLeft;
+    scrollLeft = navbar.scrollLeft;
+});
+
+navbar.addEventListener('touchend', function() {
+    isDragging = false;
+});
+
+navbar.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    var x = e.touches[0].clientX - navbar.offsetLeft;
+    var walk = x - startX;
+    navbar.scrollLeft = scrollLeft - walk;
+});

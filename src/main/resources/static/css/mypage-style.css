@@ -6,26 +6,6 @@
         min-width: 260px;
         width: 98%;
     }
-    .store-img{
-        width: 80px;
-        height: 80px;
-        border-radius: 5px 5px 0px 0px;
-    }
-    .store-name{
-        color: black;
-        font-size: 11px;
-        padding: 5px;
-        line-height: 1.5;
-        text-align: center;
-    }
-    .cards{
-        width: 80px;
-        height: 140px;
-        display: inline-block;
-        background-color: #f6f8f6;
-        border-radius: 5px 5px 0px 0px;
-        margin: 5px auto;
-    }
 }
 
 @media only screen and (min-width: 1025px) { /* pc화면 */
@@ -33,26 +13,6 @@
         width: 90%;
         margin: 10px auto;
         min-width: 450px;
-    }
-    .store-img{
-        width: 120px;
-        height: 120px;
-        border-radius: 5px 5px 0px 0px;
-    }
-    .store-name{
-        color: black;
-        font-size: 14px;
-        padding: 5px;
-        line-height: 1.5;
-        text-align: center;
-    }
-    .cards{
-        width: 120px;
-        height: 200px;
-        display: inline-block;
-        background-color: #f6f8f6;
-        border-radius: 5px 5px 0px 0px;
-        margin: 10px;
     }
 }
 /* ------------------- 화면 구성 ----------------- */
@@ -68,9 +28,15 @@
     text-align: center;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
 }
 #navBar div{
     display: inline-block;
+}
+.navbar-title{
+    cursor: pointer;
 }
 .navbar-title p{
     margin: 10px 20px;
