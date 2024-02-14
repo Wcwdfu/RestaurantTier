@@ -1,6 +1,5 @@
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.dataBundle.RestaurantTierBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.repository.EvaluationRepository;
@@ -62,7 +61,7 @@ public class MainController {
 
 
     // 검색 결과 화면
-    @GetMapping("/search")
+    /*@GetMapping("/search")
     public String search(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
         List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleList();
         model.addAttribute("situation", "전체");
@@ -72,7 +71,7 @@ public class MainController {
 //        model.addAttribute("getAllRestaurantTierBundleListByKeyword", getAllRestaurantTierBundleListByKeyword(kw));
         model.addAttribute("kw", kw);
         return "searchResult";
-    }
+    }*/
 
 
 }

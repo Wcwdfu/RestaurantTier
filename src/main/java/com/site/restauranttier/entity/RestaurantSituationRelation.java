@@ -17,6 +17,7 @@ public class RestaurantSituationRelation {
 
     private Integer dataCount;
     private Double scoreSum;
+    private Integer situationTier;
 
     @ManyToOne
     @JsonIgnore

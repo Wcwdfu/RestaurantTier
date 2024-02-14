@@ -1,12 +1,9 @@
 package com.site.restauranttier.service;
 
-import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
-import com.site.restauranttier.dataBundle.CategoryTierBundle;
-import com.site.restauranttier.dataBundle.RestaurantTierBundle;
 import com.site.restauranttier.entity.*;
-import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.etc.EnumTier;
+import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -130,77 +127,94 @@ public class EvaluationService {
         evaluation.setEvaluationItemScoreList(evaluationItemScoreList);
         evaluationRepository.save(evaluation);
 
-
-
-    }
-
-    public Integer getEvaluationCountByRestaurantId(Restaurant restaurant) {
-        return evaluationRepository.countByRestaurant(restaurant);
-    }
-
-    public CategoryTierBundle getTierOfRestaurantInCuisine(Restaurant restaurant) {
-        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getRestaurantAverageScoreBundleListByCuisine(restaurant.getRestaurantCuisine());
-        EnumTier tier = EnumTier.calculateTierOfRestaurantInList(restaurantAverageScoreBundleList, restaurant);
-
-        return new CategoryTierBundle(restaurant.getRestaurantCuisine(), tier);
-    }
-
-    public List<RestaurantTierBundle> getAllRestaurantTierBundleList() {
-        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getAllRestaurantAverageScoreBundleList();
-        List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();
-        for (RestaurantAverageScoreBundle restaurantAverageScoreBundle : restaurantAverageScoreBundleList) {
-            EnumTier newTier = EnumTier.calculateTierOfRestaurant(restaurantAverageScoreBundle.getAverageScore());
-            RestaurantTierBundle restaurantTierBundle = new RestaurantTierBundle(
-                    restaurantAverageScoreBundle.getRestaurant(),
-                    newTier
-            );
-            restaurantTierBundleList.add(restaurantTierBundle);
+        // 메인(cuisine) 티어 저장
+        if (restaurant.getRestaurantEvaluationCount() >= minNumberOfEvaluations) {
+            EnumTier tier = EnumTier.calculateTierOfRestaurant(restaurant.getRestaurantScoreSum() / restaurant.getRestaurantEvaluationCount());
+            restaurant.setMainTier(tier.getValue());
+        } else {
+            restaurant.setMainTier(-1);
         }
-        return restaurantTierBundleList;
-    }
+        restaurantRepository.save(restaurant);
 
-    public List<RestaurantTierBundle> getRestaurantTierBundleListByCuisine(String cuisine) {
-        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getRestaurantAverageScoreBundleListByCuisine(cuisine);
-        List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();
-        for (RestaurantAverageScoreBundle restaurantAverageScoreBundle : restaurantAverageScoreBundleList) {
-            RestaurantTierBundle restaurantTierBundle = new RestaurantTierBundle(
-                    restaurantAverageScoreBundle.getRestaurant(),
-                    EnumTier.calculateTierOfRestaurant(restaurantAverageScoreBundle.getAverageScore())
-            );
-            restaurantTierBundleList.add(restaurantTierBundle);
-        }
-        return restaurantTierBundleList;
-    }
-
-    public List<RestaurantTierBundle> getRestaurantTierBundleListBySituation(Situation situationObject) {
-        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getRestaurantAverageScoreBundleListBySituation(situationObject);
-
-        return getRestaurantTierBundleList(restaurantAverageScoreBundleList);
-    }
-
-    public List<RestaurantTierBundle> getRestaurantTierBundleListByCuisineAndSituation(String cuisine, Situation situationObject) {
-        List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList = restaurantService.getRestaurantAverageScoreBundleListByCuisineAndSituation(cuisine, situationObject);
-
-        return getRestaurantTierBundleList(restaurantAverageScoreBundleList);
-    }
-
-    private List<RestaurantTierBundle> getRestaurantTierBundleList(List<RestaurantAverageScoreBundle> restaurantAverageScoreBundleList) {
-        List<RestaurantTierBundle> restaurantTierBundleList = new ArrayList<>();
-        for (RestaurantAverageScoreBundle restaurantAverageScoreBundle : restaurantAverageScoreBundleList) {
-            Restaurant restaurant = restaurantAverageScoreBundle.getRestaurant();
-            EnumTier enumTier;
-            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) {
-                enumTier = EnumTier.NONE;
+        // 상황(situation) 티어 저장
+        for (RestaurantSituationRelation restaurantSituationRelation : restaurant.getRestaurantSituationRelationList()) {
+            if (restaurantSituationRelation.getDataCount() >= minNumberOfEvaluations) {
+                Double AvgScore = restaurantSituationRelation.getScoreSum() / restaurantSituationRelation.getDataCount();
+                restaurantSituationRelation.setSituationTier(EnumTier.calculateSituationTierOfRestaurant(AvgScore).getValue());
             } else {
-                enumTier = EnumTier.calculateTierOfRestaurant(restaurant.getRestaurantScoreSum() / restaurant.getRestaurantEvaluationCount());
+                restaurantSituationRelation.setSituationTier(-1);
             }
-            RestaurantTierBundle restaurantTierBundle = new RestaurantTierBundle(
-                    restaurantAverageScoreBundle.getRestaurant(),
-                    enumTier
-            );
-            restaurantTierBundleList.add(restaurantTierBundle);
+            restaurantSituationRelationRepository.save(restaurantSituationRelation);
         }
-        return restaurantTierBundleList;
+    }
+
+    public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList() {
+        List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
+
+        return convertToTierDataClassList(restaurantList);
+    }
+
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisine(String cuisine) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
+
+        return convertToTierDataClassList(restaurantList);
+    }
+
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListBySituation(Situation situation) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situation, minNumberOfEvaluations);
+
+        return convertToTierDataClassList(restaurantList, situation);
+    }
+
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisineAndSituation(String cuisine, Situation situation) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situation, minNumberOfEvaluations);
+
+        return convertToTierDataClassList(restaurantList, situation);
+    }
+
+    private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList) {
+        List<RestaurantTierDataClass> resultList = new ArrayList<>();
+        for (Restaurant restaurant: restaurantList) {
+            RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant);
+            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) {
+                resultList.add(newDataClass);
+            } else {
+                insertSituation(newDataClass, restaurant);
+                resultList.add(newDataClass);
+            }
+        }
+        return resultList;
+    }
+
+    private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Situation situation) {
+        List<RestaurantTierDataClass> resultList = new ArrayList<>();
+        for (Restaurant restaurant: restaurantList) {
+            RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant, getSituationTier(restaurant, situation));
+            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) {
+                resultList.add(newDataClass);
+            } else {
+                insertSituation(newDataClass, restaurant);
+                resultList.add(newDataClass);
+            }
+        }
+        return resultList;
+    }
+
+    private Integer getSituationTier(Restaurant restaurant, Situation situation) {
+        for (RestaurantSituationRelation restaurantSituationRelation : restaurant.getRestaurantSituationRelationList()) {
+            if (restaurantSituationRelation.getSituation().equals(situation)) {
+                return restaurantSituationRelation.getSituationTier();
+            }
+        }
+        return -1;
+    }
+
+    private void insertSituation(RestaurantTierDataClass newDataClass, Restaurant restaurant) {
+        for (RestaurantSituationRelation restaurantSituationRelation : restaurant.getRestaurantSituationRelationList()) {
+            if (restaurantSituationRelation.getDataCount() >= minNumberOfEvaluations) {
+                newDataClass.addSituation(restaurantSituationRelation.getSituation());
+            }
+        }
     }
 }
 

@@ -1,6 +1,5 @@
 package com.site.restauranttier.repository;
 
-import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.Situation;
 import org.springframework.data.domain.Page;
@@ -42,48 +41,50 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     // 검색결과 페이징
     Page<Restaurant> findAll(Specification<Restaurant> spec, Pageable pageable);
 
+    // 방문 상위 몇 퍼센트인지
     @Query("SELECT 100.0 * COUNT(r) / (SELECT COUNT(e) FROM Restaurant e) " +
             "FROM Restaurant r " +
             "WHERE r.visitCount >= :#{#restaurant.visitCount}")
     Float getPercentOrderByVisitCount(Restaurant restaurant);
 
-    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END) " +
-            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
+    // 식당의 메인 점수 순으로 식당 리스트 반환
+    @Query("SELECT r " +
+            "FROM Restaurant r " +
             "WHERE r.status = 'ACTIVE' " +
-            "GROUP BY r.restaurantId " +
             "ORDER BY " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END DESC")
-    List<RestaurantAverageScoreBundle> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
+            "CASE WHEN r.restaurantEvaluationCount >= :dataNum " +
+            "THEN CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount " +
+            "ELSE CAST(0.0 AS DOUBLE) END DESC")
+    List<Restaurant> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
 
-    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END) " +
-            "FROM Restaurant r LEFT JOIN r.evaluationList e " +
+    // 식당의 메인 점수 순으로 cuisine에 해당하는 식당 리스트 반환
+    @Query("SELECT r " +
+            "FROM Restaurant r " +
             "WHERE r.restaurantCuisine = :cuisine AND r.status = 'ACTIVE' " +
-            "GROUP BY r.restaurantId " +
             "ORDER BY " +
-            "CASE WHEN COUNT(e) >= :dataNum THEN AVG(e.evaluationScore) ELSE CAST(0.0 AS DOUBLE) END DESC")
-    List<RestaurantAverageScoreBundle> getRestaurantsByCuisineOrderedByAvgScore(
+            "CASE WHEN r.restaurantEvaluationCount >= :dataNum " +
+            "THEN CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount " +
+            "ELSE CAST(0.0 AS DOUBLE) END DESC")
+    List<Restaurant> getRestaurantsByCuisineOrderedByAvgScore(
             @Param("cuisine") String cuisine,
             @Param("dataNum") Integer dataNum
     );
 
-    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CAST(e.scoreSum AS DOUBLE) / e.dataCount) " +
+    // 식당의 특정 situation 점수 순으로 situation에 해당하는 식당 리스트 반환
+    @Query("SELECT r " +
             "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
             "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum " +
             "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount DESC")
-    List<RestaurantAverageScoreBundle> getRestaurantsBySituationOrderedByAvgScore(
+    List<Restaurant> getRestaurantsBySituationOrderedByAvgScore(
             @Param("situation") Situation situation,
             @Param("dataNum") Integer dataNum
     );
 
-    @Query("SELECT new com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle(r, " +
-            "CAST(e.scoreSum AS DOUBLE) / e.dataCount) " +
+    @Query("SELECT r " +
             "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
             "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum AND r.restaurantCuisine = :cuisine " +
-            "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount DESC")
-    List<RestaurantAverageScoreBundle> getRestaurantsByCuisineAndSituationOrderedByAvgScore(
+            "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount + CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount * 5 / 7 DESC")
+    List<Restaurant> getRestaurantsByCuisineAndSituationOrderedByAvgScore(
             @Param("cuisine") String cuisine,
             @Param("situation") Situation situation,
             @Param("dataNum") Integer dataNum
