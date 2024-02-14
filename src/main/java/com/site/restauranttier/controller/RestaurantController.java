@@ -1,9 +1,9 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.DataNotFoundException;
-import com.site.restauranttier.dataBundle.CategoryTierBundle;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.EnumSortComment;
+import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +29,7 @@ public class RestaurantController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final RestaurantService restaurantService;
     private final RestaurantFavoriteService restaurantFavoriteService;
+    private final EvaluationRepository evaluationRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
     
@@ -50,13 +51,10 @@ public class RestaurantController {
                 Math.round(restaurantService.getPercentOrderByVisitCount(restaurant) * 100.0) / 100.0 +
                 "%)";
         model.addAttribute("visitCountData", visitCountData);
-        model.addAttribute("evaluationCountData", evaluatioanService.getEvaluationCountByRestaurantId(restaurant));
+        model.addAttribute("evaluationCountData", evaluationRepository.countByRestaurant(restaurant));
         model.addAttribute("favoriteCount", restaurantFavoriteService.getFavoriteCountByRestaurant(restaurant));
         // 티어 정보
-        CategoryTierBundle restaurantTierDTOBundle = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
-        model.addAttribute("cuisineTier", restaurantTierDTOBundle);
-        /*List restaurantTierDTOList = evaluatioanService.getTierOfRestaurantInCuisine(restaurant);
-        model.addAttribute("tierList", restaurantTierDTOList);*/
+
         // 메뉴
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);

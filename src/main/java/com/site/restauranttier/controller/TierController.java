@@ -1,12 +1,15 @@
 
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.dataBundle.RestaurantTierBundle;
+import com.site.restauranttier.entity.Restaurant;
 import com.site.restauranttier.entity.Situation;
 import com.site.restauranttier.etc.EnumSituation;
+import com.site.restauranttier.etc.RestaurantTierDataClass;
+import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -31,26 +34,26 @@ public class TierController {
             @RequestParam(value = "situation", required = false, defaultValue = "전체") String situation
     ) {
         Pageable pageable = PageRequest.of(page, 100);
-        if (situation.equals("전체") && cuisine.equals("전체")) {
-            List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleList();
+        if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
+            List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList();
             model.addAttribute("situation", "전체");
-            model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
-        } else if (cuisine.equals("전체")) {
+            model.addAttribute("restaurantTierDataList", restaurantList);
+        } else if (cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체 아님
             EnumSituation enumSituation = EnumSituation.valueOf(situation);
             Situation situationObject = situationRepository.findBySituationName(enumSituation.getValue());
-            List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getRestaurantTierBundleListBySituation(situationObject);
+            List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListBySituation(situationObject);
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
-        } else if (situation.equals("전체")) {
-            List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getRestaurantTierBundleListByCuisine(cuisine);
-            model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
+            model.addAttribute("restaurantTierDataList", restaurantList);
+        } else if (situation.equals("전체")) { // 종류: 전체 아님 & 상황: 전체
+            List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListByCuisine(cuisine);
+            model.addAttribute("restaurantTierDataList", restaurantList);
             model.addAttribute("situation", "전체");
-        } else {
+        } else { // 종류: 전체 아님 & 상황: 전체 아님
             EnumSituation enumSituation = EnumSituation.valueOf(situation);
             Situation situationObject = situationRepository.findBySituationName(enumSituation.getValue());
-            List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getRestaurantTierBundleListByCuisineAndSituation(cuisine, situationObject);
+            List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListByCuisineAndSituation(cuisine, situationObject);
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
+            model.addAttribute("restaurantTierDataList", restaurantList);
         }
         model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);

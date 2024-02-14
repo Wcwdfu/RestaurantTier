@@ -37,6 +37,7 @@ public class Restaurant {
     private Integer visitCount;
     private Integer restaurantEvaluationCount;
     private Double restaurantScoreSum;
+    private Integer mainTier;
 
     private String restaurantCuisine;
     private String restaurantLatitude;
@@ -101,15 +102,6 @@ public class Restaurant {
             return input.substring(0, index);
         }
         return input; // delimiter가 없는 경우에는 원본 문자열 그대로 반환
-    }
-
-    public List<String> getSituationImgUrlList() {
-        List<String> imgUrlList = new ArrayList<>();
-        for (RestaurantSituationRelation restaurantSituationRelation: this.getRestaurantSituationRelationList()) {
-            String situationUrl = "/img/tier/" + restaurantSituationRelation.getSituation().getSituationName() + ".png";
-            imgUrlList.add(situationUrl);
-        }
-        return imgUrlList;
     }
 
     // 평균 평가 점수 계산
