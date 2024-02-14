@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>건메추</title>
+    <title>건메추: 로그인</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/css/login-style.css">
@@ -17,8 +17,24 @@
 
 
 <body>
+    <div class="main-grid">
+        <div class="image-section">
+            <img src="/img/login/food6.jpg">
+        </div>
+        <div class="login-section">
+            <a class="logo" href="/home"><img src="/img/home/restaurant-logo.webp"></a>
+            <div class="login-container">
+                <p>로그인</p>
+                <a class="login-button" href="/oauth2/authorization/naver" role="button">
+                    <img src="/img/login/login.png" alt="네이버 로그인">
+                    <!--<p>네이버 계정으로 로그인</p>-->
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <header>
+
+<!--    <header>
         <div id="logoArea">
             <a href="/" id="logoTitle">건메추</a>
             <div id="memberTitleBox">
@@ -28,8 +44,6 @@
         </div>
         <hr>
     </header>
-
-
 <div id="contents">
     <p id="loginTitle">로그인</p>
     <p id="welcomeTitle">건국대 주변의 모든 음식점 정보와 랭킹,<br>맛집 공유 커뮤니티에 오신 것을 환영합니다.</p>
@@ -38,7 +52,7 @@
     <div class="container my-3">
         <form class="form container-fluid" th:action="@{/user/login}" method="post">
 
-<!--    param.error로 에러 발생했는지 확인 가능      -->
+&lt;!&ndash;    param.error로 에러 발생했는지 확인 가능      &ndash;&gt;
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
                     사용자ID 또는 비밀번호를 확인해 주세요.
@@ -67,7 +81,7 @@
         <p id="termsOfUse">이용약관</p>
         <p id="privacyPolicy">개인정보처리방침</p>
     </div>
-</footer>
+</footer>-->
 
 </body>
 

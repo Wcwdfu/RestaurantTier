@@ -1,8 +1,110 @@
-body{
-    background-color: #EBEEF1;
+* {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+html, body{
+    background-color: #FFF;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+@media only screen and (min-width: 1025px) {
+    .main-grid {
+        display: flex;
+        height: 100%;
+        line-height: normal;
+    }
+    .main-grid > div {
+        flex: 1;
+        height: 100%;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .main-grid {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        line-height: normal;
+    }
+    .image-section {
+        flex: 3;
+        height: 100%;
+    }
+    .login-section {
+        flex: 7;
+    }
+}
+/* 로그인 섹션 */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.logo img {
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.login-container {
+    padding: 20px;
+    text-align: center;
+}
+.login-container > p {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+/* 로그인 버튼 */
+.login-button > img {
+    height: 60px;
+}
+/*.login-button {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: #555 solid 1px;
+    padding: 10px;
+}
+.login-button > img {
+    height: 35px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.login-button > p {
+    font-size: 14px;
+    color: #777;
+}*/
+
+/* 이미지 섹션 */
+.image-section {
+    padding: 5px;
+    overflow: hidden;
+}
+.image-section img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* ------------------- header ----------------- */
+
+/*
+!* ------------------- header ----------------- *!
 header{
     display: flex;
     align-items: center;
@@ -37,12 +139,12 @@ hr{
     opacity: 0.5;
 }
 
-/* ------------------- contents ----------------- */
+!* ------------------- contents ----------------- *!
 
 #contents{
     padding-top: 4rem;
-    /* display: grid;
-    grid-template-rows: 3fr 7fr; */
+    !* display: grid;
+    grid-template-rows: 3fr 7fr; *!
     text-align: center;
 }
 #loginTitle{
@@ -64,13 +166,13 @@ hr{
 }
 #loginBtn{
     height: 90px;
-    /* max-width: 90%; */
+    !* max-width: 90%; *!
 }
 #joinBtn{
     height: 90px;
 }
 
-/* ------------------- contents ----------------- */
+!* ------------------- contents ----------------- *!
 
 #footer{
     display: flex;
@@ -88,9 +190,10 @@ hr{
 #privacyPolicy{
     font-size: 15px;
 }
-/* 폼 스타일링 추가 */
+!* 폼 스타일링 추가 *!
 
 .form{
     width: 80vw;
     max-width: 600px;
 }
+*/
