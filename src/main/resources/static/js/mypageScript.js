@@ -52,3 +52,33 @@ navbar.addEventListener('touchmove', function(e) {
     var walk = x - startX;
     navbar.scrollLeft = scrollLeft - walk;
 });
+
+// ------------- 내정보(Area1) nickname바꾸기 로직 -------------------
+document.getElementById('saveBtn').addEventListener('click',function (){
+    var newNickname = document.getElementById("nickname").value; // 해당 input 요소의 값을 가져옴
+
+    // 서버로 전송
+    fetch("/user/api/myPage/setNickname", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newNickname: newNickname }), // JSON 형태로 데이터 전송
+    })
+        .then(response => {
+            if (response.ok) {
+                // 변경 성공 시 동작할 코드
+                alert("닉네임 변경 성공")
+                console.log("닉네임 변경 성공");
+            } else {
+                // 변경 실패 시 동작할 코드
+                alert("닉네임 변경 실패")
+                console.error("닉네임 변경 실패");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+})
+
+
