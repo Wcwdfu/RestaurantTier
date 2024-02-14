@@ -111,6 +111,7 @@ document.getElementById('recommendBtn').addEventListener('click', function () {
             document.getElementById('recommendBtn').classList.add('hidden');
             document.getElementById('resultPage').classList.remove('hidden');
             document.getElementById('restartBtn').classList.remove('hidden');
+
         })
         .catch(error => {
             console.error("Error adding comment:", error);
@@ -125,11 +126,13 @@ document.getElementById('recommendBtn').addEventListener('click', function () {
         const resultInfoPage = document.getElementById('resultInfoPage');
         resultInfoPage.style.opacity = 1;
         const processingTitle = document.getElementById('processingTitle');
-        processingTitle.textContent = '제가 추천드린 가게는요';
+        processingTitle.textContent = '오늘의 맛집은요..';
 
         setTimeout(function () {
             const restartBtn = document.getElementById('restartBtn');
             restartBtn.style.opacity = 1;
+
+
             const resultImgSlideBar = document.querySelector('.result-img-slideBar');
             resultImgSlideBar.style.opacity = 0;
 
@@ -211,10 +214,12 @@ function matchingdata() {
         });
 }
 
-//다시하기 버튼 로직
+//재설정 버튼 로직
 document.getElementById('restartBtn').addEventListener('click', function () {
-    location.reload();
+    location.reload(); // 페이지 새로고침
 });
+//바로 다시하기 버튼 로직
+
 
 
 // 셀렉 박스 위치와 가장 가까운 이미지 가져오기

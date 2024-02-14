@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" type="text/css" href="/css/recommend-style.css">
 
-
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/recommendScript.js" defer></script>
@@ -45,6 +44,7 @@
         </div>
     </div>
 </section>
+
 <div id="mainContents" class="alt-font">
 
     <div id="recommendPage">
@@ -92,7 +92,7 @@
         <hr>
 
         <div class="option-area">
-            <p>제외시키고싶은 메뉴를 골라주세요</p>
+            <p>뽑기에서 제외할 카테고리를 골라주세요</p>
 
             <div class="option">
                 <button>한식</button>
@@ -111,23 +111,21 @@
                 <button class="selected">기타</button>
             </div>
 
-            <div class="info">
-                <div class="colorbox"></div>
-                <p>: 추천에서 제외됨</p>
-            </div>
+
 
         </div>
 
     </div>
-
     <div class="btn-area">
-        <button id="recommendBtn" class="btn-style">추천받기</button>
+        <button id="recommendBtn" class="btn-style alt-font">추천받기</button>
     </div>
+
+
 
     <div id="resultPage" class="hidden">
         <hr>
         <p id="processingTitle" class="title">
-            메뉴를 고르는 중...
+            맛집을 고르는 중...
             <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">
         </p>
         <hr>
@@ -144,7 +142,7 @@
     </div>
 
     <div id="resultInfoPage" class="hidden">
-        <div>
+        <div class="resultImgContainer">
             <div class="image-container">
                 <a id="storeHref" href="">
                     <img id="resultImg" src="/" alt="이미지가 들어올 예정입니다">
@@ -158,10 +156,11 @@
 
 
     </div>
-
     <div class="btn-area">
-        <button id="restartBtn" class="btn-style hidden">다시하기</button>
+        <button id="restartBtn" class="btn-style hidden alt-font">다시 뽑기</button>
+
     </div>
+
 
 </div>
 
