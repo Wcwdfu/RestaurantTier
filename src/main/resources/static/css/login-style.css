@@ -3,6 +3,8 @@
     -webkit-touch-callout: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: 'NanumSquare', sans-serif;
+    color: #000;
 }
 p {
     margin: 0;
@@ -152,7 +154,7 @@ hr{
     font-size: 40px;
     margin-bottom: 0px;
 
-    
+
 }
 #naverIdLogin {
     display: flex;

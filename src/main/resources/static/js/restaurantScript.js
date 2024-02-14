@@ -98,12 +98,9 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
     menuPriceContainer.classList.add('menu-price');
     const menuPriceEm = document.createElement('em');
     if (item.menuPrice != undefined) {
-      menuPriceEm.textContent = item.menuPrice.slice(0,-1);
+      menuPriceEm.textContent = item.menuPrice;
     }
-    const menuPriceSpan = document.createElement('span');
-    menuPriceSpan.textContent = '원';
     menuPriceContainer.appendChild(menuPriceEm);
-    menuPriceContainer.appendChild(menuPriceSpan);
     textDiv.appendChild(menuNameDiv);
     textDiv.appendChild(menuPriceContainer);
     
@@ -249,10 +246,14 @@ function sendComment() {
     const apiUrl = "/api" + window.location.pathname + "/comments";
     const currentUrl = window.location.href;
     const commentInput = document.getElementById('commentInput');
-    const commentBody = commentInput.value;
+    const commentBody = commentInput.value.trim();
     const commentToggleButton2 = document.getElementById('button2');
 
     const commentAlert = document.getElementById('commentAlert');
+    if (commentBody.length === 0) {
+        commentAlert.innerText = '내용을 입력해 주세요.';
+        return;
+    }
 
     fetch(apiUrl, {
         method: "POST",
@@ -270,24 +271,15 @@ function sendComment() {
                 // 리다이렉션이 없는 경우에 대한 처리
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                if (commentBody.length === 0) {
-                    commentAlert.innerText = '내용을 입력해 주세요.';
-                    return;
                 } else {
                     commentInput.value = '';
                     commentAlert.innerText = '';
                     commentToggleButton2.click();
                 }
-
-                return response;
             }
         })
-        .then(data => {
-            //console.log("Comment added successfully:", data);
-        })
         .catch(error => {
-            //console.error("Error adding comment:", error);
+            console.error("Error adding comment:", error);
         });
 }
 
