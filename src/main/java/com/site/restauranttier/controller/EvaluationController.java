@@ -2,6 +2,7 @@ package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
+import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.service.*;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class EvaluationController {
     private final RestaurantService restaurantService;
     private final EvaluationService evaluationService;
 
+    private final RestaurantRepository restaurantRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 평가 페이지 화면
@@ -41,8 +44,8 @@ public class EvaluationController {
     @PostMapping("/api/evaluation")
     public ResponseEntity<?> evaluationDBcreate(@RequestBody JsonData jsonData, Principal principal) {
         evaluationService.createOrUpdate(jsonData, principal);
-        return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
 
+        return ResponseEntity.ok("평가가 성공적으로 저장되었습니다.");
     }
 
 }

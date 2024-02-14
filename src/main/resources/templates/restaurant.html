@@ -53,9 +53,9 @@
         <div>
             <div class="tier-info left-justified" id="tierInfoContainer">
                 <span class="tier">
-                    <span th:text="${cuisineTier.getTierCategoryName()} + ' '"></span>
+                    <!--<span th:text="${cuisineTier.getTierCategoryName()} + ' '"></span>
                     <span th:text="${cuisineTier.getTier().getValue()} + '티어'" th:if="${cuisineTier.getTier().getValue() != -1}"></span>
-                    <span th:if="${cuisineTier.getTier().getValue() == -1}">- 평가 데이터가 부족합니다.</span>
+                    <span th:if="${cuisineTier.getTier().getValue() == -1}">- 평가 데이터가 부족합니다.</span>-->
                 </span>
                 <span class="tier" th:each="tier : ${tierList}"><span th:text="${tier.getTierCategoryName()}"></span><span th:text="${tier.getTier().getValue()}"></span></span>
             </div>

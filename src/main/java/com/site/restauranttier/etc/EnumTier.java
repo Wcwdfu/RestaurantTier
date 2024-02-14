@@ -1,7 +1,5 @@
 package com.site.restauranttier.etc;
 
-import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
-import com.site.restauranttier.entity.Restaurant;
 import lombok.Getter;
 
 import java.util.List;
@@ -29,38 +27,23 @@ public enum EnumTier {
             return EnumTier.NONE;
         }
     }
-    public static EnumTier calculateTierOfRestaurantInList(List<RestaurantAverageScoreBundle> restaurantEverageScoreDTOList, Restaurant restaurant) {
-        int numberOfData = restaurantEverageScoreDTOList.size();
-        int indexOfRestaurant = getIndex(restaurantEverageScoreDTOList, restaurant);
 
-        if (indexOfRestaurant == -1) {
-            return EnumTier.NONE;
-        }
-
-        // 티어 계산 로직
-        double averageScore = restaurantEverageScoreDTOList.get(indexOfRestaurant).getAverageScore();
-        if (averageScore >= 6.0) {
+    public static EnumTier calculateSituationTierOfRestaurant(Double averageScore) {
+        if (averageScore >= 4.3) {
             return EnumTier.ONE;
-        } else if (averageScore >= 5.0) {
+        } else if (averageScore >= 3.9) {
             return EnumTier.TWO;
         } else if (averageScore >= 3.5) {
             return EnumTier.THREE;
-        } else if (averageScore >= 2.0) {
+        } else if (averageScore >= 3.0) {
             return EnumTier.FOUR;
-        } else if (averageScore >= 1.0) {
+        } else if (averageScore >= 2.0) {
             return EnumTier.FIVE;
         } else {
             return EnumTier.NONE;
         }
     }
-    private static int getIndex(List<RestaurantAverageScoreBundle> restaurantEverageScoreBundleList, Restaurant restaurant) {
-        for (int i = 0; i < restaurantEverageScoreBundleList.size(); i++) {
-            if (restaurantEverageScoreBundleList.get(i).getRestaurant().equals(restaurant)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+
     public static EnumTier fromValue(Integer tier) {
         for (EnumTier myEnum : EnumTier.values()) {
             if (myEnum.value.equals(tier)) {

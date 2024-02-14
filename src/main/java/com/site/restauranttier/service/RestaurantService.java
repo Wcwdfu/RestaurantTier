@@ -1,9 +1,7 @@
 package com.site.restauranttier.service;
 
 import com.site.restauranttier.DataNotFoundException;
-import com.site.restauranttier.dataBundle.RestaurantAverageScoreBundle;
 import com.site.restauranttier.entity.*;
-import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.repository.RestaurantMenuRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -107,20 +105,6 @@ public class RestaurantService {
     public void plusVisitCount(Restaurant restaurant) {
         restaurant.setVisitCount(restaurant.getVisitCount() + 1);
         restaurantRepository.save(restaurant);
-    }
-
-    public List<RestaurantAverageScoreBundle> getAllRestaurantAverageScoreBundleList() {
-        return restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
-    }
-    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListByCuisine(String cuisine) {
-        return restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
-    }
-    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListBySituation(Situation situationObject) {
-        return restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situationObject, minNumberOfEvaluations);
-    }
-
-    public List<RestaurantAverageScoreBundle> getRestaurantAverageScoreBundleListByCuisineAndSituation(String cuisine, Situation situationObject) {
-        return restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situationObject, minNumberOfEvaluations);
     }
 
     // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘
