@@ -1,5 +1,8 @@
 package com.site.restauranttier.controller;
 
+import com.site.restauranttier.entity.User;
+import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.service.CustomOAuth2UserService;
 import com.site.restauranttier.user.UserCreateForm;
 import com.site.restauranttier.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,17 +11,20 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+
+import java.security.Principal;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,6 +33,7 @@ public class UserController {
 
     private final UserService userService;
     private final HttpSession httpSesseion;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     // 실제 로그인을 진행하는 post는 스프링 시큐리티가 해줌
     @GetMapping("/login")
@@ -73,8 +80,6 @@ public class UserController {
         }
         return "redirect:/user/login";
     }
-    @GetMapping("/myPage")
-    public String myPage(){
-        return "mypage";
-    }
+
+
 }

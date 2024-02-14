@@ -40,7 +40,11 @@ public class CommunityController {
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
-    public String community(Model model, @RequestParam(defaultValue = "전체") String postCategory, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "recent") String sort) {
+    public String community(
+            Model model,
+            @RequestParam(defaultValue = "전체") String postCategory,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(defaultValue = "recent") String sort) {
         Page<Post> paging;
         // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
