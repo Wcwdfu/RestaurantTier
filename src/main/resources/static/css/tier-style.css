@@ -1,3 +1,6 @@
+* {
+    font-family: 'NanumSquare', sans-serif;
+}
 @media only screen and (max-width: 1024px) {
     #categoryBackground, main {
         padding: 0 10px;
@@ -414,6 +417,11 @@ tbody > tr > td > div{
     margin-right: 5px;
 }
 @media only screen and (min-width: 701px) {
+    /* th */
+    .th-cuisine {
+        min-width: 115px;
+    }
+    /* td */
     .td-cuisine-span {
         display: inline;
         color: black;
@@ -421,6 +429,11 @@ tbody > tr > td > div{
     }
 }
 @media only screen and (max-width: 700px) {
+    /* th */
+    .th-cuisine {
+        min-width: auto;
+    }
+    /* td */
     .td-cuisine-span {
         display: none;
     }
