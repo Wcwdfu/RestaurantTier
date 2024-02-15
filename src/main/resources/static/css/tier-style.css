@@ -1,8 +1,13 @@
 * {
     font-family: 'NanumSquare', sans-serif;
+    color: black;
+}
+/* 텍스트 커서 깜빡임 없애기 */
+body{
+    caret-color: transparent;
 }
 @media only screen and (max-width: 1024px) {
-    #categoryBackground, main {
+    #categoryBackground, main, .search-area {
         padding: 0 10px;
         min-width: 260px;
         width: 100%;
@@ -25,7 +30,7 @@
 }
 
 @media only screen and (min-width: 1025px) {
-    #categoryBackground, main {
+    #categoryBackground, main, .search-area {
         width: 70%;
         min-width: 450px;
         max-width: 900px;
@@ -95,6 +100,7 @@ div.category {
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 div.fixed-category{
@@ -230,6 +236,31 @@ div.category div.category-list a.unselected:hover {
         font-size: 12px;
     }
 }
+
+/* ---------검색---------- */
+.search-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0 10px;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-container > span {
+    font-size: 14px;
+}
+.search-container > input {
+    caret-color: black;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+
+}
+
 
 /* 티어표 */
 main {
@@ -577,9 +608,29 @@ tbody > tr > td > div > img {
 .page-item.disabled > .page-link {
     pointer-events: none; /* 클릭 이벤트 비활성화 */
 }
-/* 텍스트 커서 깜빡임 없애기 */
-body{
-    caret-color: transparent;
+/*배너 높이*/
+@media only screen and (max-width: 767px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 200px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 250px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
+    }
 }
 
 

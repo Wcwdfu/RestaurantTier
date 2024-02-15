@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RestaurantTierDataClass {
+    private String ranking;
     private Restaurant restaurant;
     private Integer situationTier;
     private List<Situation> situationList = new ArrayList<>();
