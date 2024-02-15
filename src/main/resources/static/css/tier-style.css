@@ -213,11 +213,9 @@ div.category div.category-list a.unselected:hover {
 
 /* ---------검색---------- */
 .search-area {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: right;
-    padding: 0 10px;
 }
 .search-container {
     display: flex;
@@ -225,16 +223,25 @@ div.category div.category-list a.unselected:hover {
     align-items: center;
 }
 .search-container > span {
+    display: block;
     font-size: 14px;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    padding-right: 5px;
 }
 .search-container > input {
+    width: 200px;
     caret-color: black;
+    color: #333;
     padding: 0;
-    margin: 0;
+    margin: 3px 0 8px 0;
     font-size: 14px;
-
+    line-height: 24px;
 }
 
+#spinner {
+    margin-right: 20px;
+}
 
 /* 티어표 */
 main {
@@ -346,10 +353,11 @@ tbody > tr > td > div{
 }
 /* media query 적용 */
 .td-tier-img {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     object-fit: cover;
     margin-right: 10px;
+    border-radius: 7px;
 }
 .td-cuisine-img {
     width: 34px;
@@ -444,8 +452,8 @@ tbody > tr > td > div{
         border-radius: 7px;
     }
     .td-tier-img {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         object-fit: cover;
         margin-right: 10px;
     }
@@ -476,8 +484,8 @@ tbody > tr > td > div{
         border-radius: 7px;
     }
     .td-tier-img {
-        width: 26px;
-        height: 26px;
+        width: 30px;
+        height: 30px;
         object-fit: cover;
         margin-right: 10px;
     }
