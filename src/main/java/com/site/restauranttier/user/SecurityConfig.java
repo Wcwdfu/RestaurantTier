@@ -55,11 +55,11 @@ public class SecurityConfig {
                         .failureUrl("/user/login?error=true"))
                 .logout((logout) -> logout
                         .logoutUrl("/user/logout")
-                        .logoutSuccessUrl("/home")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
-                        .permitAll());
+                        .permitAll()
+                        .logoutSuccessHandler(new CustomLogoutSuccessHandler()));
         return http.build();
     }
 
