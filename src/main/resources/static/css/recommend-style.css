@@ -230,7 +230,7 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
         transform: translateX(0%)
     }
     100% {
-        transform: translateX(-90%);
+        transform: translateX(-80%);
     }
 }
 
