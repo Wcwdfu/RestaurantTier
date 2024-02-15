@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const selectedCuisines = [];
-
-    document.querySelectorAll('.option .col button').forEach(button => {
+    // 음식 종류에 대한 클릭 리스너
+    document.querySelectorAll('.cuisine .col button').forEach(button => {
         button.addEventListener('click', function () {
             // 버튼의 클래스에 "selected"가 있는지 확인
             const isSelected = button.classList.contains('selected');
