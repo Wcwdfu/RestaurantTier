@@ -6,13 +6,14 @@
     <title>건메추 - 가게추천</title>
 
 
-
     <!-- 아이콘 관련 라이브러리 -->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/library/vendors.min.css">
     <link rel="stylesheet" href="/css/library/icon.min.css">
     <link rel="stylesheet" href="/css/library/style.min.css">
@@ -39,7 +40,8 @@
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h1 class=" text-dark-gray ls-minus-1px mb-0 text-uppercase">뽑기</h1>
                 <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
-                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>뭘 먹을 지 고민될때<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>뭘 먹을 지 고민될때<span
+                        class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
             </div>
         </div>
     </div>
@@ -92,28 +94,67 @@
         <hr>
 
         <div class="option-area">
-<!--            <p>뽑기에서 제외할 카테고리를 골라주세요</p>-->
+            <p>원하는 카테고리를 골라주세요</p>
 
-            <div class="option">
-                <button>한식</button>
-                <button>일식</button>
-                <button>중식</button>
-                <button>양식</button>
-                <button>아시안</button>
-                <button>고기</button>
-                <button>치킨</button>
-                <button>해산물</button>
-                <button>햄버거/피자</button>
-                <button>분식</button>
-                <button class="selected">술집</button>
-                <button class="selected">카페/디저트</button>
-                <button class="selected">베이커리</button>
-                <button class="selected">기타</button>
+            <div class="option row row-cols-3 row-cols-md-4 row-cols-lg-6">
+                <div class="col">
+                    <button class="col-12">한식</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">중식</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">양식</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">아시안</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">고기</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">치킨</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">해산물</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">햄버거/피자</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">분식</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">술집</button>
+                </div>
+
+                <div class="col">
+                    <button class="col-12">카페/디저트</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">베이커리</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">기타</button>
+                </div>
+                <!--                <button class="col">일식</button>-->
+                <!--                <button class="col">중식</button>-->
+                <!--                <button class="col">양식</button>-->
+                <!--                <button class="col">아시안</button>-->
+                <!--                <button class="col">고기</button>-->
+                <!--                <button class="col">치킨</button>-->
+                <!--                <button class="col">해산물</button>-->
+                <!--                <button class="col">햄버거/피자</button>-->
+                <!--                <button class="col">분식</button>-->
+                <!--                <button class="col">술집</button>-->
+                <!--                <button class="col">카페/디저트</button>-->
+                <!--                <button class="col">베이커리</button>-->
+                <!--                <button class="col">기타</button>-->
             </div>
-            <div class="info">
-                <div class="colorbox"></div>
-                <p>: 뽑기에서 제외됨</p>
-            </div>
+            <!--            <div class="info">-->
+            <!--                <div class="colorbox"></div>-->
+            <!--                <p>: 뽑기에서 제외됨</p>-->
+            <!--            </div>-->
 
 
         </div>
@@ -122,7 +163,6 @@
     <div class="btn-area">
         <button id="recommendBtn" class="btn-style alt-font">추천받기</button>
     </div>
-
 
 
     <div id="resultPage" class="hidden">
@@ -155,7 +195,6 @@
 
             </div>
         </div>
-
 
 
     </div>
