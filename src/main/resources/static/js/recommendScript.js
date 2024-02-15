@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (selectedCuisines.length === 0) {
             // 비어있다면 경고창을 띄우고 함수 종료
-            alert("모든 메뉴를 제외하고 추천을 진행할 수 없습니다.");
+            alert("최소 하나의 카테고리를 선택해야합니다.");
             return;
         }
 
@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('recommendBtn').classList.add('hidden');
                 document.getElementById('resultPage').classList.remove('hidden');
                 document.getElementById('restartBtn').classList.remove('hidden');
+                document.getElementById('restartDirectBtn').classList.remove('hidden');
+
 
             })
             .catch(error => {
@@ -122,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
                 restartBtn.style.opacity = 1;
-
+                const restartDirectBtn = document.getElementById('restartDirectBtn');
+                restartDirectBtn.style.opacity = 1;
 
                 const resultImgSlideBar = document.querySelector('.result-img-slideBar');
                 resultImgSlideBar.style.opacity = 0;
@@ -179,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // 이미지 URL과 링크 설정
                     const resultImg = document.getElementById('resultImg');
                     const storeHref = document.getElementById('storeHref');
-                    const restaurantUrl = `/restaurants/{restaurantId}`;
+                    const restaurantUrl = `/restaurants/${restaurantId}`;
 
                     // 뽑힌 식당의 이미지 url 이 있으면 설정, 없으면 임시이미지
                     if (matchedData.restaurantImgUrl) {
@@ -234,8 +237,124 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('restartBtn').addEventListener('click', function () {
         location.reload(); // 페이지 새로고침
     });
-//바로 다시하기 버튼 로직
 
+
+//바로 다시하기 버튼 로직
+    document.getElementById('restartDirectBtn').addEventListener('click', function () {
+        //select 박스 초기화
+        const selectedBox = document.getElementById('SelectedBox');
+        selectedBox.style.backgroundImage = '';
+
+        console.log(selectedCuisines);
+
+
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-');
+
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+                console.log(response)
+                if (!response.ok) {
+                    throw new Error(`${data.status}: ${data.message}`);
+                }
+                return response.json();
+            })
+
+            .then(data => {
+                console.log(data)
+                var restaurantList = []
+
+                // 불러온 이미지 리스트에서 30개 추출
+                while (restaurantList.length < 30) {
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    restaurantList.push(data[randomIndex]);
+                }
+                console.log(restaurantList)
+                const imgDivs = document.querySelectorAll('.result-img-list');
+                let imgCount = 0;
+                imgDivs.forEach(imgDiv => {
+                    while (imgDiv.firstChild) {
+                        imgDiv.removeChild(imgDiv.firstChild);
+                    }
+                    restaurantList.forEach(restaurant => {
+                        const imgElement = document.createElement('img');
+                        if (restaurant.restaurantImgUrl) {
+                            imgElement.src = restaurant.restaurantImgUrl;
+                        } else {
+                            imgElement.src = "/img/restaurant/no_img.png";
+                            console.log(imgElement)
+                        }
+
+
+                        // 레스토랑 id를 data 속성으로 추가
+                        imgElement.setAttribute('data-id', restaurant.restaurantId);
+
+                        imgDiv.appendChild(imgElement);
+                    });
+                });
+
+
+
+
+                // 결과 페이지 가리기
+                document.getElementById('resultInfoPage').classList.add('hidden');
+
+                // 슬라이더 시작
+                const resultImgSlideBar = document.querySelector('.result-img-slideBar');
+                resultImgSlideBar.style.opacity = 1;
+                document.querySelector('.result-img-slideBar').classList.remove('hidden');
+
+                // 버튼 삭제
+                // const restartBtn = document.getElementById('restartBtn');
+                // restartBtn.style.opacity = 0;
+                // const restartDirectBtn = document.getElementById('restartDirectBtn');
+                // restartDirectBtn.style.opacity = 0;
+                const restartDirectBtn = document.getElementById('restartDirectBtn');
+                const restartBtn = document.getElementById('restartBtn');
+
+                restartDirectBtn.classList.add("hidden")
+                restartb.classList.add("hidden")
+
+
+            })
+            .catch(error => {
+                console.error("Error adding comment:", error);
+            });
+
+        const storeHref = document.getElementById('storeHref');
+        storeHref.removeAttribute('href');
+
+
+        setTimeout(function () {
+            matchingdata();
+            document.getElementById('resultInfoPage').classList.remove('hidden');
+            const resultInfoPage = document.getElementById('resultInfoPage');
+            resultInfoPage.style.opacity = 1;
+            const processingTitle = document.getElementById('processingTitle');
+            processingTitle.textContent = '오늘의 맛집은요..';
+
+            setTimeout(function () {
+                const restartBtn = document.getElementById('restartBtn');
+                restartBtn.classList.remove("hidden")
+                const restartDirectBtn = document.getElementById('restartDirectBtn');
+                restartDirectBtn.classList.remove("hidden")
+
+                const resultImgSlideBar = document.querySelector('.result-img-slideBar');
+                resultImgSlideBar.style.opacity = 0;
+
+
+                setTimeout(function () {
+                    resultImgSlideBar.classList.add('hidden');
+                }, 1000);
+
+            }, 1000);
+
+        }, 5500);
+    });
 
 // 셀렉 박스 위치와 가장 가까운 이미지 가져오기
     function findClosestImageToSelectBox() {
