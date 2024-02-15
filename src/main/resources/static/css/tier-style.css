@@ -1,3 +1,5 @@
+@import "variables.css";
+
 * {
     font-family: 'NanumSquare', sans-serif;
     color: black;
@@ -5,6 +7,9 @@
 /* 텍스트 커서 깜빡임 없애기 */
 body{
     caret-color: transparent;
+}
+section h2 {
+    color: var(--main-color);
 }
 @media only screen and (max-width: 1024px) {
     #categoryBackground, main, .search-area {
@@ -57,40 +62,6 @@ img {
     -webkit-touch-callout: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-/* 리스트의 아이템 중 클릭 상태인 것(티어표) */
-div.header-bottom ul.menu-list > li > a > div.tier {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.home:hover,.rank:hover,.community:hover, .recommend:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.home, .rank,.community,.recommend {
-    display: flex;
-    align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
 }
 
 
@@ -180,11 +151,11 @@ div.category div.category-list > div > div.buttons {
     margin-left: 10px;
 }
 
-div.category div.category-list > div > div.buttons > span > img {
+div.category div.category-list > div > div.buttons > a > img {
     vertical-align: middle;
 }
 
-div.category div.category-list > div > div.buttons > span > span {
+div.category div.category-list > div > div.buttons > a > span {
     vertical-align: middle;
 }
 
@@ -193,10 +164,13 @@ div.category div.category-list a.selected {
     margin: 4px 7px;
     padding: 5px 10px;
     border-radius: 4px;
-    background-color: #ECF2FF;
-    color: #5383E8;
-    font-weight: 570;
+    background-color: var(--main-light-color);
     cursor: pointer;
+}
+
+div.category div.category-list a.selected > span {
+    color: var(--main-color);
+    font-weight: 570;
 }
 
 div.category div.category-list a.unselected {
