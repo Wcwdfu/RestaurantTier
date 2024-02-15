@@ -12,6 +12,12 @@
     #nickname{
         padding: 5px;
     }
+    #area1Top p{
+        width: 120px;
+    }
+    #nicknameComment{
+        padding-left: 10px;
+    }
 }
 
 @media only screen and (min-width: 1025px) { /* pc화면 */
@@ -22,6 +28,12 @@
     }
     .gray-border-circular{
         padding: 50px;
+    }
+    #area1Top p{
+        width: 180px;
+    }
+    #nicknameComment{
+        padding-left: 200px;
     }
 }
 /* ------------------- 화면 구성 ----------------- */
@@ -73,7 +85,6 @@
 #area1Top p{
     color: black;
     margin: 10px;
-    width: 120px;
 }
 #area1Contents div{
     margin-bottom: 15px;
@@ -95,6 +106,11 @@
     border-radius: 5px;
     margin-right: 15px;
 }
+#nicknameComment{
+    width: 100%;
+    color: gray;
+    font-size: 12px;
+}
 #saveBtnArea{
     display: flex;
     justify-content: flex-end;
@@ -102,10 +118,109 @@
 #saveBtn{
     border: none;
     border-radius: 5px;
-    width: 100px;
-    height: 50px;
-    padding: 0 10px;
+    width: 90px;
+    height: 40px;
 }
 #countInfo p{
     margin: 15px 0;
+}
+
+/*----------------- 로그아웃 버튼 ---------------*/
+#logoutBtn{
+    border: none;
+    border-radius: 5px;
+    width: 90px;
+    height: 40px;
+}
+
+/*----------------- 내가 작성한 게시글 영역(Area5) ---------------*/
+
+#postul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.postli {
+    width: 100%;
+    display: flex;
+    height: 77px;
+    align-items: center;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 14px;
+    background: white;
+    border-top: 1px solid #ebeef1;
+    position: relative;
+}
+.recommend-tab{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: center;
+    font-size: 14px;
+    color: gray;
+    white-space: nowrap;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    text-align: center;
+
+    flex-shrink: 0;
+}
+.postBox{
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-right: 12px;
+}
+.postLink {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+
+}
+.underLink{
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    color: #8b99a6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 24px;
+}
+.underLink > span{
+    float: left;
+    padding-left: 8px;
+    line-height: 24px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+#category{
+    padding-left: 0;
+}
+#createdAt::before, #author::before{
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #ebeef1;
+    height: 12px;
+    content: "";
+    margin-right: 8px;
+}
+#author{
+    flex: 1;
+    overflow: hidden;
 }
