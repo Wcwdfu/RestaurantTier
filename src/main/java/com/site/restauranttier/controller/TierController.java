@@ -57,6 +57,7 @@ public class TierController {
             model.addAttribute("situation", enumSituation.getValue());
             model.addAttribute("paging", convertToPage(restaurantList, pageable));
         }
+        model.addAttribute("situationQueryParameter", situation);
         model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);
         return "tier";
