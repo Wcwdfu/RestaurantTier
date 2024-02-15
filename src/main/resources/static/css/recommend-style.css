@@ -55,12 +55,10 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
 
 .animation-list {
     display: flex;
-    width: 4200px;
 }
 
 .img-list {
     display: flex;
-    width: 2100px;
 }
 
 
@@ -143,8 +141,8 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
 .option div button {
     border: 1px solid black;
     color:black;
-    border-radius: 30px;
-    background-color: white;
+    border-radius: 5px;
+    background-color: #F0F0F0;
     margin:1rem;
 
 
@@ -165,7 +163,7 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
 }
 
 .btn-style {
-    width: 300px;
+    width: 100%;
     height: 60px;
     border: 1px solid #000;
     border-radius: 10px;
@@ -230,7 +228,7 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
         transform: translateX(0%)
     }
     100% {
-        transform: translateX(-90%);
+        transform: translateX(-80%);
     }
 }
 
@@ -329,15 +327,23 @@ footer{
 
         width: 6000px;
     }
-    .result-img-slideBar{
-        width: 300px;
-        margin:10px auto;
-    }
     .result-img-list {
         display: flex;
 
         width: 3000px;
     }
+    .animation-list{
+        width: 2400px;
+
+    }
+    .img-list{
+        width: 1200px;
+    }
+    .result-img-slideBar{
+        width: 300px;
+        margin:10px auto;
+    }
+
 
     .img-list > img, #SelectedBox, .result-img-list > img {
         width: 100px;
@@ -369,14 +375,6 @@ footer{
     margin-left: 10px;
 }
 
-
-
-
-
-
-
-
-
 @media only screen and (min-width: 1024px) {
     /* pc화면 */
     #mainContents {
@@ -385,7 +383,13 @@ footer{
 
         margin: 20px auto;
     }
+    .animation-list{
+        width: 3600px;
 
+    }
+    .img-list{
+        width: 1800px;
+    }
     .img-list > img, #SelectedBox, .result-img-list > img {
         width: 150px;
         height: 150px;
@@ -411,7 +415,7 @@ footer{
         width: 4500px;
     }
     .option div button {
-        width: 150px;
+        width: 120px;
         height: 60px;
         font-size: 20px;
         margin:30px;
