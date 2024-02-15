@@ -1,6 +1,6 @@
 const unselectedCuisines = [];
 
-document.querySelectorAll('.option button').forEach(button => {
+document.querySelectorAll('.option .col button').forEach(button => {
     button.addEventListener('click', function () {
         // 버튼의 클래스에 "selected"가 있는지 확인
         const isSelected = button.classList.contains('selected');

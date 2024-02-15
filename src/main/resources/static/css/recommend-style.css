@@ -142,7 +142,7 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
     color:black;
     border-radius: 5px;
     background-color: #F0F0F0;
-
+    padding:0;
 
 }
 
@@ -425,4 +425,8 @@ footer{
     .col{
         margin-top:15px;
     }
+}
+
+.col{
+    padding:0;
 }
