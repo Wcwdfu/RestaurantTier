@@ -42,6 +42,7 @@ public class PostService {
             return this.postRepository.findByStatus("ACTIVE", pageable);
 
         }
+
         // 인기순 정렬하기
         else {
             sorts.add(Sort.Order.desc("likeCount"));

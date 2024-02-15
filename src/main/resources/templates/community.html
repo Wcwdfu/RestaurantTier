@@ -27,10 +27,11 @@
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
 <!--커뮤니티 첫번쨰 body-->
 <section
-         class="top-banner mt-0 page-title-big-typography cover-background p-0 md-background-position-left-center"
-         style="background-image: url('/img/home/background.jpg');">
+         class="top-banner mt-0 mb-1 page-title-big-typography cover-background p-0 md-background-position-left-center"
+         style="background-image: url('/img/home/background.jpg'); display: flex;
+    align-items: flex-end;">
     <div class="container">
-        <div class="row align-items-center justify-content-center small-screen">
+        <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">커뮤니티</h1>
@@ -83,8 +84,14 @@
             <span th:text="${post.likeCount}"></span>
         </span>
             <div class="postBox">
-                <a class="postLink" th:text="${post.postTitle}"
-                   th:href="@{/community/{postId}(postId=${post.postId})}"></a>
+                <div>
+                    <a class="postLink" th:text="${post.postTitle}"
+                       th:href="@{/community/{postId}(postId=${post.postId})}"></a>
+                    <span class="comment-count" th:text="'['+${post.postCommentList.size()+']'}">
+
+                    </span>
+                </div>
+
                 <div class="underLink">
                     <span id="category" th:text="${post.postCategory}"></span>
 
@@ -109,7 +116,7 @@
 
 <div class="input-group">
     <input type="text" id="search_kw" class="form-control" th:value="${postSearchKw}">
-    <button type="button" id="postSearch" style="font-family: 'Arial', sans-serif;background-color: #f9f6f3; border: none">검색</button>
+    <button type="button" id="postSearch" class="alt-font" style="background-color: #f9f6f3; border: none">검색</button>
 </div>
 <!--페이지 컨트롤러-->
 <div th:replace="~{page_controller::page-controller}"></div>
