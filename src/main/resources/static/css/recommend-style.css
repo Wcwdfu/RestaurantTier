@@ -137,13 +137,11 @@ div.header-bottom ul.menu-list > li > a > div.recommend {
 
 
 
-
 .option div button {
     border: 1px solid black;
     color:black;
     border-radius: 5px;
     background-color: #F0F0F0;
-    margin:1rem;
 
 
 }
@@ -314,7 +312,7 @@ footer{
     }
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 991px) {
     /* 모바일화면 */
     #mainContents {
         margin: 10px auto;
@@ -366,7 +364,9 @@ footer{
 
         width: 100px;
         height: 40px;
-        margin:5px;
+    }
+    .col{
+        margin-top:10px;
     }
 
 }
@@ -375,7 +375,7 @@ footer{
     margin-left: 10px;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 992px) {
     /* pc화면 */
     #mainContents {
         width: 1050px;
@@ -415,12 +415,14 @@ footer{
         width: 4500px;
     }
     .option div button {
-        width: 120px;
+        width: 150px;
         height: 60px;
         font-size: 20px;
-        margin:30px;
     }
     .top-banner{
         height: 300px;
+    }
+    .col{
+        margin-top:15px;
     }
 }
