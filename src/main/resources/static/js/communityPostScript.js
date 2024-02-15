@@ -244,12 +244,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // 댓글 작성
     document.querySelector('.post-footer .comment-form').addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
-        // 현재 주소에서 postId 추출
+        // 댓글 공백 제거
+        var content = this.querySelector('.comment-content').value.trim(); // 댓글 내용을 trim 처리
+
+        // 댓글 내용이 비어있는지 검사
+        if (!content) {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+        }
 
         var postId = window.location.pathname.split('/').pop();
-        console.log(postId)
         var formData = new FormData(this);
+        formData.set('content', content); // trim 처리된 내용으로 업데이트
         formData.append('postId', postId);
+
 
         fetch(this.action, {
             method: 'POST',

@@ -1,4 +1,4 @@
-
+@import "variables.css";
 
 
 
@@ -49,10 +49,12 @@ body {
 
 
 .postLink {
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-decoration: none;
-    color: inherit;
+    color: black;
     display: inline-block;
-
+    font-weight: bold;
 }
 
 .postImage {
@@ -277,4 +279,11 @@ footer{
     .top-banner{
         height: 300px;
     }
+}
+
+/*댓글 개수*/
+.comment-count{
+    color: #d51f0f;
+    margin-left: 2px;
+    margin-bottom: 2px;
 }

@@ -84,8 +84,14 @@
             <span th:text="${post.likeCount}"></span>
         </span>
             <div class="postBox">
-                <a class="postLink" th:text="${post.postTitle}"
-                   th:href="@{/community/{postId}(postId=${post.postId})}"></a>
+                <div>
+                    <a class="postLink" th:text="${post.postTitle}"
+                       th:href="@{/community/{postId}(postId=${post.postId})}"></a>
+                    <span class="comment-count" th:text="'['+${post.postCommentList.size()+']'}">
+
+                    </span>
+                </div>
+
                 <div class="underLink">
                     <span id="category" th:text="${post.postCategory}"></span>
 
@@ -110,7 +116,7 @@
 
 <div class="input-group">
     <input type="text" id="search_kw" class="form-control" th:value="${postSearchKw}">
-    <button type="button" id="postSearch" style="font-family: 'Arial', sans-serif;background-color: #f9f6f3; border: none">검색</button>
+    <button type="button" id="postSearch" class="alt-font" style="background-color: #f9f6f3; border: none">검색</button>
 </div>
 <!--페이지 컨트롤러-->
 <div th:replace="~{page_controller::page-controller}"></div>

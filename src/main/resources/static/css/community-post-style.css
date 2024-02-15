@@ -1,38 +1,5 @@
-/* 리스트의 아이템 중 클릭 상태인 것(커뮤니티) */
-div.header-bottom ul.menu-list > li > a > div.community {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
+@import "variables.css";
 
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(커뮤니티 제외 나머지) */
-.tier:hover, .rank:hover, .home:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(커뮤니티 제외 나머지) */
-.tier, .rank, .home {
-    display: flex;
-    align-items: center;
-    color: white;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
 
 .post {
     background: white;
@@ -263,7 +230,7 @@ div > button > img {
     vertical-align: middle;
     border: 1px solid #46cfa7;
     color: #fff;
-    background-color: #46cfa7;
+    background-color: var(--main-color) ;
 }
 
 .under-content > div > img {
@@ -414,8 +381,8 @@ div > button > img {
 }
 
 .comment-name img {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
 }
 
 ol, ul {
