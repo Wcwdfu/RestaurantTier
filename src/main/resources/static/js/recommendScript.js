@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${restaurantType}</span>
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
-                        <span class="d-inline-block align-middle">${score}</span>
+                        <span class="d-inline-block align-middle">${formattedScore}</span>
                     </div>
                 </div>`
                     }
@@ -309,15 +309,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.querySelector('.result-img-slideBar').classList.remove('hidden');
 
                 // 버튼 삭제
-                // const restartBtn = document.getElementById('restartBtn');
-                // restartBtn.style.opacity = 0;
-                // const restartDirectBtn = document.getElementById('restartDirectBtn');
-                // restartDirectBtn.style.opacity = 0;
                 const restartDirectBtn = document.getElementById('restartDirectBtn');
                 const restartBtn = document.getElementById('restartBtn');
 
                 restartDirectBtn.classList.add("hidden")
-                restartb.classList.add("hidden")
+                restartBtn.classList.add("hidden")
 
 
             })
