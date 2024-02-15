@@ -12,11 +12,9 @@ $(document).ready(function () {
         btn.addEventListener('click', function() {
             if (btn.dataset.cuisine) {
                 var apiUrl = `/tier?cuisine=${btn.dataset.cuisine}&situation=${situationParam}`;
-                console.log(apiUrl);
                 window.location.href = apiUrl;
             } else if (btn.dataset.situation) {
                 var apiUrl = `/tier?cuisine=${cuisineParam}&situation=${btn.dataset.situation}`;
-                console.log(apiUrl);
                 window.location.href = apiUrl;
             }
         })
@@ -116,10 +114,8 @@ $(document).ready(function () {
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
     let timer;
     searchInput.addEventListener('input', function(event) {
-        console.log(event.target.value);
         const inputValue = event.target.value;
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
-            console.log(1);
             tierTableBody.innerHTML = '';
             lastInputType = 0;
             spinner.style.display = 'inline-block';
@@ -145,7 +141,6 @@ $(document).ready(function () {
 
             pageController.style.display = 'flex';
         } else if (prevInput === '') { // 이전에 검색창에 내용이 없었던 경우 -> page가 아닌 list로 불러옴
-            console.log(2);
             tierTableBody.innerHTML = '';
             lastInputType = 1;
             spinner.style.display = 'inline-block';
@@ -173,7 +168,6 @@ $(document).ready(function () {
         // 이전에 검색창에 내용이 있어서 이미 list 목록인 경우(이미 page가 아님)
         timer = setTimeout(function() {
             if (lastInputType !== 0) {
-                console.log(3)
                 pageController.style.display = 'none';
                 lastInputType = 1;
                 if (lastInputType === 1) {
