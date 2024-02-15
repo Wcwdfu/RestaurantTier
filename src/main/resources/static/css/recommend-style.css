@@ -329,6 +329,10 @@ footer{
 
         width: 6000px;
     }
+    .result-img-slideBar{
+        width: 300px;
+        margin:10px auto;
+    }
     .result-img-list {
         display: flex;
 
