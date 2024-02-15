@@ -54,7 +54,7 @@ body {
     text-decoration: none;
     color: black;
     display: inline-block;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .postImage {

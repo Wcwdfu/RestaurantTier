@@ -366,10 +366,14 @@ div > button > img {
 }
 
 .comment-name > span {
+
     float: left;
     padding-left: 8px;
     line-height: 24px;
     white-space: nowrap;
+}
+.user-name{
+    color:black;
 }
 
 .comment-body > div {
