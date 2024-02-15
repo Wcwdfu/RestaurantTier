@@ -174,11 +174,14 @@ public class EvaluationService {
 
     private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
-        for (Restaurant restaurant: restaurantList) {
+        for (int i = 0; i < restaurantList.size(); i++) {
+            Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant);
-            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) {
+            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
+                newDataClass.setRanking("-");
                 resultList.add(newDataClass);
-            } else {
+            } else { // 평가 데이터가 충분히 있는 경우
+                newDataClass.setRanking((i + 1) + "");
                 insertSituation(newDataClass, restaurant);
                 resultList.add(newDataClass);
             }
@@ -188,11 +191,13 @@ public class EvaluationService {
 
     private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Situation situation) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
-        for (Restaurant restaurant: restaurantList) {
+        for (int i = 0; i < restaurantList.size(); i++) {
+            Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant, getSituationTier(restaurant, situation));
-            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) {
+            newDataClass.setRanking((i + 1) + "");
+            if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
                 resultList.add(newDataClass);
-            } else {
+            } else { // 평가 데이터가 충분히 있는 경우
                 insertSituation(newDataClass, restaurant);
                 resultList.add(newDataClass);
             }

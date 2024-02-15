@@ -10,6 +10,8 @@ import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -37,26 +39,34 @@ public class TierController {
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList();
             model.addAttribute("situation", "전체");
-            model.addAttribute("restaurantTierDataList", restaurantList);
+            model.addAttribute("paging", convertToPage(restaurantList, pageable));
         } else if (cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체 아님
             EnumSituation enumSituation = EnumSituation.valueOf(situation);
             Situation situationObject = situationRepository.findBySituationName(enumSituation.getValue());
             List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListBySituation(situationObject);
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("restaurantTierDataList", restaurantList);
+            model.addAttribute("paging", convertToPage(restaurantList, pageable));
         } else if (situation.equals("전체")) { // 종류: 전체 아님 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListByCuisine(cuisine);
-            model.addAttribute("restaurantTierDataList", restaurantList);
+            model.addAttribute("paging", convertToPage(restaurantList, pageable));
             model.addAttribute("situation", "전체");
         } else { // 종류: 전체 아님 & 상황: 전체 아님
             EnumSituation enumSituation = EnumSituation.valueOf(situation);
             Situation situationObject = situationRepository.findBySituationName(enumSituation.getValue());
             List<RestaurantTierDataClass> restaurantList = evaluationService.getRestaurantTierDataClassListByCuisineAndSituation(cuisine, situationObject);
             model.addAttribute("situation", enumSituation.getValue());
-            model.addAttribute("restaurantTierDataList", restaurantList);
+            model.addAttribute("paging", convertToPage(restaurantList, pageable));
         }
+        model.addAttribute("situationQueryParameter", situation);
         model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);
         return "tier";
+    }
+
+    public Page<RestaurantTierDataClass> convertToPage(List<RestaurantTierDataClass> dataList, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dataList.size());
+
+        return new PageImpl<>(dataList.subList(start, end), pageable, dataList.size());
     }
 }

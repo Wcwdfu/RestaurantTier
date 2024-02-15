@@ -1,8 +1,18 @@
+@import "variables.css";
+
 * {
     font-family: 'NanumSquare', sans-serif;
+    color: black;
+}
+/* 텍스트 커서 깜빡임 없애기 */
+body{
+    caret-color: transparent;
+}
+section h2 {
+    color: var(--main-color);
 }
 @media only screen and (max-width: 1024px) {
-    #categoryBackground, main {
+    #categoryBackground, main, .search-area {
         padding: 0 10px;
         min-width: 260px;
         width: 100%;
@@ -25,7 +35,7 @@
 }
 
 @media only screen and (min-width: 1025px) {
-    #categoryBackground, main {
+    #categoryBackground, main, .search-area {
         width: 70%;
         min-width: 450px;
         max-width: 900px;
@@ -54,40 +64,6 @@ img {
     user-select: none;
 }
 
-/* 리스트의 아이템 중 클릭 상태인 것(티어표) */
-div.header-bottom ul.menu-list > li > a > div.tier {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.home:hover,.rank:hover,.community:hover, .recommend:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(티어표 제외 나머지) */
-.home, .rank,.community,.recommend {
-    display: flex;
-    align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-
 
 /* category 고르기 창 */
 div.category {
@@ -95,6 +71,7 @@ div.category {
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 div.fixed-category{
@@ -174,11 +151,11 @@ div.category div.category-list > div > div.buttons {
     margin-left: 10px;
 }
 
-div.category div.category-list > div > div.buttons > span > img {
+div.category div.category-list > div > div.buttons > a > img {
     vertical-align: middle;
 }
 
-div.category div.category-list > div > div.buttons > span > span {
+div.category div.category-list > div > div.buttons > a > span {
     vertical-align: middle;
 }
 
@@ -187,10 +164,13 @@ div.category div.category-list a.selected {
     margin: 4px 7px;
     padding: 5px 10px;
     border-radius: 4px;
-    background-color: #ECF2FF;
-    color: #5383E8;
-    font-weight: 570;
+    background-color: var(--main-light-color);
     cursor: pointer;
+}
+
+div.category div.category-list a.selected > span {
+    color: var(--main-color);
+    font-weight: 570;
 }
 
 div.category div.category-list a.unselected {
@@ -230,6 +210,31 @@ div.category div.category-list a.unselected:hover {
         font-size: 12px;
     }
 }
+
+/* ---------검색---------- */
+.search-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0 10px;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-container > span {
+    font-size: 14px;
+}
+.search-container > input {
+    caret-color: black;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+
+}
+
 
 /* 티어표 */
 main {
@@ -577,9 +582,29 @@ tbody > tr > td > div > img {
 .page-item.disabled > .page-link {
     pointer-events: none; /* 클릭 이벤트 비활성화 */
 }
-/* 텍스트 커서 깜빡임 없애기 */
-body{
-    caret-color: transparent;
+/*배너 높이*/
+@media only screen and (max-width: 767px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 200px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 250px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
+    }
 }
 
 /*배너 높이*/

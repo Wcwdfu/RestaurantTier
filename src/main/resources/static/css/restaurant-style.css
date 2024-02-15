@@ -1,3 +1,5 @@
+@import "variables.css";
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -222,7 +224,7 @@ div.basic-info > div.texts > span {
     padding: 5px 10px;
     border-radius: 4px;
     color: #fff;
-    background-color: #0F6341;
+    background-color: var(--main-color);
     font-size: 15px;
     font-weight: 570;
 }
@@ -325,13 +327,13 @@ div.basic-info > div.texts > span {
     display: inline-block; /* 또는 display: block; */
     width: 100%; /* 또는 다른 너비 값 설정 */
     color: #fff;
-    background-color: #0F6341;
+    background-color: var(--main-color);
     font-size: 15px;
     font-weight: 570;
 }
 .evaluation-button:hover {
     color: #fff;
-    background-color: #1d8058;
+    background-color: var(--main-hover-color);
 }
 
 /* 댓글 */
@@ -401,8 +403,8 @@ div.basic-info > div.texts > span {
 }
 
 .sort-toggle-buttons button.active {
-    border: #0F6341 solid 1px;
-    color: #0F6341;
+    border: var(--main-color) solid 1px;
+    color: var(--main-color);
     font-weight: bold;
 }
 
