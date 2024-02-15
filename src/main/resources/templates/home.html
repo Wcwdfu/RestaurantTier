@@ -210,6 +210,9 @@
                         <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 60, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 2000, &quot;disableOnInteraction&quot;: false },  &quot;pagination&quot;: { &quot;el&quot;: &quot;.slider-four-slide-pagination-1&quot;, &quot;clickable&quot;: true }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 5 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
                             <div class="swiper-wrapper">
                                 <!-- Dynamic restaurant slides -->
+                                <div>
+
+                                </div>
                                 <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide">
                                     <div class="services-box-style-01 hover-box last-paragraph-no-margin">
                                         <!--슬라이더 이미지 -->
@@ -223,11 +226,9 @@
                                         <div class="pt-30px bg-white text-center alt-font">
                                             <span class="d-inline-block text-dark-gray fs-19 fw-600" th:text="${restaurant.restaurantName}">Restaurant Name</span>
                                             <div class="w-100">
-                                                <span class="d-inline-block align-middle" th:text="${restaurant.restaurantCuisine}">Cuisine</span>
-                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                                                 <span class="d-inline-block align-middle" th:text="${restaurant.restaurantType}">Type</span>
-                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
-                                                <span class="d-inline-block align-middle" th:text="${restaurant.getMainScoreMaxTen()}"></span>
+                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5" th:if="${restaurant.restaurantEvaluationCount}" >◍</span>
+                                                <span class="d-inline-block align-middle" th:if="${restaurant.restaurantEvaluationCount}" th:text="${restaurant.getMainScoreMaxTen()}"></span>
                                             </div>
                                         </div>
                                     </div>

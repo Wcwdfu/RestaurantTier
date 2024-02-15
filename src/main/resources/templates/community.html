@@ -36,8 +36,7 @@
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">커뮤니티</h1>
                 <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
-                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>STORIES FROM
-                    RESTAURANT<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>여러분들의 의견을 나눠보세요<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
             </div>
         </div>
     </div>
@@ -87,7 +86,7 @@
                 <div>
                     <a class="postLink" th:text="${post.postTitle}"
                        th:href="@{/community/{postId}(postId=${post.postId})}"></a>
-                    <span class="comment-count" th:text="'['+${post.postCommentList.size()+']'}">
+                    <span th:if="${post.postCommentList.size()}" class="comment-count" th:text="'['+${post.postCommentList.size()+']'}">
 
                     </span>
                 </div>
