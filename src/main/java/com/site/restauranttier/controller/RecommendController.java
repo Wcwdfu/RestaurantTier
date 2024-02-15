@@ -49,13 +49,6 @@ public class RecommendController {
                 List<Restaurant> retaurantList = restaurantService.getRestaurantList(item);
                 combinedRestaurantList.addAll(retaurantList);
             }
-
-            // restaurantImgUrl이 없는 객체에 대해 기본 이미지 URL 설정
-            combinedRestaurantList.forEach(restaurant -> {
-                if (restaurant.getRestaurantImgUrl() == null || restaurant.getRestaurantImgUrl().isEmpty()) {
-                    restaurant.setRestaurantImgUrl("/path/to/no_img.png"); // 기본 이미지 경로 설정
-                }
-            });
             return new ResponseEntity<>(combinedRestaurantList, HttpStatus.OK);
         }
     }
