@@ -35,10 +35,8 @@
         <div class="row align-items-center justify-content-center small-screen">
             <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font"
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">음식을 고르세요</h1>
-                <h2 class="m-auto text-green fw-600 text-uppercase mb-0"><span
-                        class="h-2px w-5px bg-green d-inline-block align-middle me-5px"></span>konkuk restaurant<span
-                        class="h-2px w-5px bg-green d-inline-block align-middle ms-5px"></span></h2>
+                <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">티어표</h1>
+                <h2 class="m-auto fw-600 text-uppercase mb-0">- 여러분의 평가만 반영합니다. -</h2>
             </div>
         </div>
     </div>
@@ -237,7 +235,7 @@
 </body>
 
 <!--페이지 컨트롤러-->
-<div th:replace="~{page_controller::page-controller}"></div>
+<div th:replace="~{page_controller::tier-page-controller}"></div>
 <!--footer-->
 <footer th:replace="~{footer::footerFragment}">
 </footer>
