@@ -355,8 +355,8 @@ footer{
         animation-duration: 30s;
     }
     #resultImg {
-        width: 300px;
-        height: 200px;
+        width: 400px;
+        height: 300px;
         border-radius: 8px;
     }
 
@@ -403,7 +403,7 @@ footer{
     }
     #resultImg {
         width: 600px;
-        height: 400px;
+        height: 450px;
         border-radius: 8px;
     }
     .result-animation-list {
