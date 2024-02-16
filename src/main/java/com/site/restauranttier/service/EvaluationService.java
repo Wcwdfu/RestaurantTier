@@ -172,6 +172,7 @@ public class EvaluationService {
         return convertToTierDataClassList(restaurantList, situation);
     }
 
+    // 그냥 Restaurant 리스트를 RestaurantTierDataClass 리스트로 변경 ver1
     private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
         for (int i = 0; i < restaurantList.size(); i++) {
@@ -189,6 +190,7 @@ public class EvaluationService {
         return resultList;
     }
 
+    // 그냥 Restaurant 리스트를 RestaurantTierDataClass 리스트로 변경. ver2: situation이 선택된 경우.
     private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Situation situation) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
         for (int i = 0; i < restaurantList.size(); i++) {
@@ -214,10 +216,10 @@ public class EvaluationService {
         return -1;
     }
 
-    private void insertSituation(RestaurantTierDataClass newDataClass, Restaurant restaurant) {
+    public void insertSituation(RestaurantTierDataClass newDataClass, Restaurant restaurant) {
         for (RestaurantSituationRelation restaurantSituationRelation : restaurant.getRestaurantSituationRelationList()) {
             if (restaurantSituationRelation.getDataCount() >= minNumberOfEvaluations) {
-                newDataClass.addSituation(restaurantSituationRelation.getSituation());
+                newDataClass.addSituation(restaurantSituationRelation);
             }
         }
     }
