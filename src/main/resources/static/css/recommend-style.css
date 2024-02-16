@@ -115,6 +115,7 @@
 
 .selected {
     background-color: darkgray!important;
+    color: white!important;
 }
 
 
@@ -266,23 +267,34 @@ footer{
     flex:1;
 }
 @media only screen and (max-width: 767px) {
-    /* 모바일 */
+    /* 모바일화면 */
     .top-banner{
         height: 200px;
     }
+
 }
+
 @media only screen and (min-width: 768px) {
-    /* 모바일 */
+    /* 태블릿화면 */
     .top-banner{
-        height: 200px;
+        height: 250px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1023px) {
     /* 모바일화면 */
     #mainContents {
-        margin: 10px auto;
-        width: 400px;
+        margin: 5px auto;
+        width: 300px;
 
     }
     .result-animation-list {
@@ -327,8 +339,9 @@ footer{
 
     .option div button {
 
-        width: 100px;
-        height: 40px;
+        width: 80px;
+        height: 30px;
+        font-size:13px;
     }
     .col{
         margin-top:5px;
@@ -345,10 +358,10 @@ footer{
     margin-left: 10px;
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1024px) {
     /* pc화면 */
     #mainContents {
-        width: 1050px;
+        width: 800px;
 
         margin: 20px auto;
     }
@@ -384,9 +397,8 @@ footer{
         width: 4500px;
     }
     .option div button {
-        width: 150px;
-        height: 60px;
-        font-size: 20px;
+        width: 100px;
+        height: 40px;
     }
     .top-banner{
         height: 300px;
@@ -407,3 +419,4 @@ footer{
 section h2 {
     color: var(--main-color);
 }
+
