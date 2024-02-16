@@ -1,0 +1,43 @@
+@import "variables.css";
+* {
+    font-family: 'NanumSquare', sans-serif;
+}
+/* 저장된 맛집 */
+.restaurant-favorite-container {
+    display: flex;
+    align-items: center;
+    padding: 5px 9px;
+    margin-bottom: 10px;
+    border: var(--main-color) solid 1px;
+    border-radius: 6px;
+}
+.restaurant-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 7px;
+}
+.restaurant-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 7px;
+}
+.restaurant-name {
+    font-size: 14px;
+    color: black;
+}
+.restaurant-type {
+    font-size: 12px;
+    color: #444;
+}
+.restaurant-cuisine-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 7px;
+}
+.favorite-add-date-div {
+    color: #333;
+    font-size: 13px;
+}

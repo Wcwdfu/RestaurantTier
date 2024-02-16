@@ -3,6 +3,7 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.DataNotFoundException;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.EnumSortComment;
+import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,9 @@ public class RestaurantController {
         model.addAttribute("evaluationCountData", evaluationRepository.countByRestaurant(restaurant));
         model.addAttribute("favoriteCount", restaurantFavoriteService.getFavoriteCountByRestaurant(restaurant));
         // 티어 정보
-
+        RestaurantTierDataClass restaurantTierDataClass = new RestaurantTierDataClass(restaurant);
+        evaluatioanService.insertSituation(restaurantTierDataClass, restaurant);
+        model.addAttribute("situationTierList", restaurantTierDataClass.getRestaurantSituationRelationList());
         // 메뉴
         List<RestaurantMenu> restaurantMenus = restaurantService.getRestaurantMenuList(restaurantId);
         model.addAttribute("menus", restaurantMenus);
