@@ -25,6 +25,11 @@ public class MypageController {
     public String myPage(Model model, Principal principal){
         User user = customOAuth2UserService.getUser(principal.getName());
         model.addAttribute("user",user);
+
+
+        // 저장된 맛집 정보
+        model.addAttribute("restaurantFavoriteList", user.getRestaurantFavoriteList());
+
         return "mypage";
     }
 

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="/css/mypage-style.css">
     <script src="/js/mypageScript.js" defer></script>
+    <script src="/js/mypageRestaurantSectionScript.js" defer></script>
 
     <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="/css/library/restaurant.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/mypage-style-restaurant.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
 </head>
@@ -86,7 +88,7 @@
             <hr class="margin25px">
 
             <div id="logoutArea">
-                <button id="logoutBtn">로그아웃</button>
+                <button id="logoutBtn" onclick="logout()">로그아웃</button>
             </div>
 
 
@@ -96,9 +98,24 @@
     </div>
 
     <div id="Area2" class="hidden">
-        <p class="pp">저장된 맛집 영역</p>
-
-
+        <div id="area2Contents" class="gray-border-circular">
+            <div class="restaurant-favorite-container" th:each="restaurantFavorie: ${restaurantFavoriteList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantFavorie.getRestaurant().restaurantId})} + '\''">
+                <!-- 메인 이미지 -->
+                <img th:if="${restaurantFavorie.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantFavorie.getRestaurant().getRestaurantImgUrl()}">
+                <img th:if="${restaurantFavorie.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="restaurant-img" src="/img/restaurant/no_img.png">
+                <!-- 식당 이름, 타입 -->
+                <div class="restaurant-info">
+                    <span class="restaurant-name" th:text="${restaurantFavorie.getRestaurant().getRestaurantName()}"></span>
+                    <span class="restaurant-type" th:text="${restaurantFavorie.getRestaurant().getRestaurantType()}"></span>
+                </div>
+                <!-- 식당 cuisine -->
+                <img class="restaurant-cuisine-img" th:src="${restaurantFavorie.getRestaurant().getCuisineImgUrl(restaurantFavorie.getRestaurant().getRestaurantCuisine())}">
+                <!-- 추가 날짜 -->
+                <div class="favorite-add-date-div">
+                    <span class="favorite-add-date-span" th:text="${restaurantFavorie.calculateTimeAgo()}"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="Area3" class="hidden">

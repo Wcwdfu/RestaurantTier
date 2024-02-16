@@ -4,6 +4,7 @@
 #mainContents {
     display: flex;
     flex-direction: column;
+    height: auto;
 }
 
 .hidden {
@@ -67,6 +68,8 @@
 .option-area {
     margin-top:2rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .option-area > p {
@@ -280,7 +283,6 @@ footer{
     #mainContents {
         margin: 10px auto;
         width: 400px;
-        height: 800px;
 
     }
     .result-animation-list {
@@ -318,7 +320,7 @@ footer{
         animation-duration: 30s;
     }
     #resultImg {
-        width: 400px;
+        width: 300px;
         height: 300px;
         border-radius: 8px;
     }
@@ -329,7 +331,12 @@ footer{
         height: 40px;
     }
     .col{
-        margin-top:10px;
+        margin-top:5px;
+        margin-bottom:5px;
+
+    }
+    .option{
+        margin:5px 0;
     }
 
 }
@@ -342,7 +349,6 @@ footer{
     /* pc화면 */
     #mainContents {
         width: 1050px;
-        height: 1000px;
 
         margin: 20px auto;
     }
@@ -366,8 +372,8 @@ footer{
     }
     #resultImg {
         width: 600px;
-        height: 450px;
-        border-radius: 8px;
+        height: 600px;
+        border-radius: 10px;
     }
     .result-animation-list {
         display: flex;
@@ -386,10 +392,18 @@ footer{
         height: 300px;
     }
     .col{
-        margin-top:15px;
+        margin-top:7px;
+        margin-bottom:7px;
+    }
+    .option{
+        margin:10px 0;
     }
 }
 
 .col{
     padding:0;
+}
+
+section h2 {
+    color: var(--main-color);
 }

@@ -1,3 +1,6 @@
+@import "variables.css";
+
+
 /* 전체 페이지에 대한 기본 스타일 */
 body {
     display: flex;
@@ -252,4 +255,8 @@ footer{
     .top-banner{
         height: 300px;
     }
+}
+
+.firstSectionComment,.secondSectionComment {
+    color: var(--main-color);
 }

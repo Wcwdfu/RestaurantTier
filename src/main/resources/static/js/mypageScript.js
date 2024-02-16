@@ -88,4 +88,8 @@ document.getElementById('saveBtn').addEventListener('click',function (){
         });
 })
 
+//logout
+function logout() {
+    window.location.href = '/user/logout';
+}
 

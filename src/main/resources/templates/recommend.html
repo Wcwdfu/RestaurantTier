@@ -15,7 +15,6 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/library/vendors.min.css">
-    <link rel="stylesheet" href="/css/library/icon.min.css">
     <link rel="stylesheet" href="/css/library/style.min.css">
     <link rel="stylesheet" href="/css/library/responsive.min.css">
     <link rel="stylesheet" href="/css/library/restaurant.css">
@@ -33,15 +32,15 @@
 <!--뽑기 첫번쨰 body-->
 <section
         class="top-banner mt-0 mb-1 page-title-big-typography cover-background p-0 md-background-position-left-center"
-        style="margin-top: inherit ;background-image: url('/img/home/background.jpg'); display: flex; align-items: flex-end;">
+        style="margin-top: inherit ;background-image: url('/img/home/background.jpg');">
     <div class="container alt-font">
-        <div class="row align-items-center justify-content-center">
+        <div class="row align-items-center justify-content-center small-screen">
             <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h1 class=" text-dark-gray ls-minus-1px mb-0 text-uppercase">뽑기</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
-                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>뭘 먹을 지 고민될때<span
-                        class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+                <h2 class="m-auto fw-600 text-uppercase mb-0">
+                    - 뭘 먹을 지 고민될때 -
+                </h2>
             </div>
         </div>
     </div>
@@ -63,47 +62,16 @@
                     <img class="img_box" th:src="${restaurant.restaurantImgUrl}">
                 </div>
 
-                <!--                <div class="img-list">-->
-<!--                    <img class="img_box" src="/img/recommend/비빔밥.png" alt="비빔밥">-->
-<!--                    <img class="img_box" src="/img/recommend/돈까스.png" alt="돈까스">-->
-<!--                    <img class="img_box" src="/img/recommend/짜장면.png" alt="짜장면">-->
-<!--                    <img class="img_box" src="/img/recommend/파스타.png" alt="파스타">-->
-<!--                    <img class="img_box" src="/img/recommend/쌀국수.png" alt="쌀국수">-->
-<!--                    <img class="img_box" src="/img/recommend/소고기.png" alt="소고기">-->
-<!--                    <img class="img_box" src="/img/recommend/치킨.png" alt="치킨">-->
-<!--                    <img class="img_box" src="/img/recommend/생선.png" alt="생선">-->
-<!--                    <img class="img_box" src="/img/recommend/피자.png" alt="피자">-->
-<!--                    <img class="img_box" src="/img/recommend/분식.png" alt="분식">-->
-<!--                    <img class="img_box" src="/img/recommend/맥주.png" alt="맥주">-->
-<!--                    <img class="img_box" src="/img/recommend/커피.png" alt="커피">-->
-<!--                    <img class="img_box" src="/img/recommend/베이커리.png" alt="베이커리">-->
-<!--                    <img class="img_box" src="/img/recommend/샌드위치.png" alt="샌드위치">-->
-<!--                </div>-->
-<!--                <div class="img-list">-->
-<!--                    <img class="img_box" src="/img/recommend/비빔밥.png" alt="비빔밥">-->
-<!--                    <img class="img_box" src="/img/recommend/돈까스.png" alt="돈까스">-->
-<!--                    <img class="img_box" src="/img/recommend/짜장면.png" alt="짜장면">-->
-<!--                    <img class="img_box" src="/img/recommend/파스타.png" alt="파스타">-->
-<!--                    <img class="img_box" src="/img/recommend/쌀국수.png" alt="쌀국수">-->
-<!--                    <img class="img_box" src="/img/recommend/소고기.png" alt="소고기">-->
-<!--                    <img class="img_box" src="/img/recommend/치킨.png" alt="치킨">-->
-<!--                    <img class="img_box" src="/img/recommend/생선.png" alt="생선">-->
-<!--                    <img class="img_box" src="/img/recommend/피자.png" alt="피자">-->
-<!--                    <img class="img_box" src="/img/recommend/분식.png" alt="분식">-->
-<!--                    <img class="img_box" src="/img/recommend/맥주.png" alt="맥주">-->
-<!--                    <img class="img_box" src="/img/recommend/커피.png" alt="커피">-->
-<!--                    <img class="img_box" src="/img/recommend/베이커리.png" alt="베이커리">-->
-<!--                    <img class="img_box" src="/img/recommend/샌드위치.png" alt="샌드위치">-->
-<!--                </div>-->
+
             </div>
         </div>
 
-        <hr>
 
         <div class="option-area">
             <p>원하는 카테고리를 골라주세요</p>
+            <hr style="border-width:1px 0 0 0; border-color:#000000;">
 
-            <div class="option row row-cols-3 row-cols-lg-6">
+            <div class="option row row-cols-3 row-cols-lg-6 filter-cuisine">
                 <div class="col">
                     <button class="col-12">한식</button>
                 </div>
@@ -144,24 +112,42 @@
                 <div class="col">
                     <button class="col-12">기타</button>
                 </div>
-                <!--                <button class="col">일식</button>-->
-                <!--                <button class="col">중식</button>-->
-                <!--                <button class="col">양식</button>-->
-                <!--                <button class="col">아시안</button>-->
-                <!--                <button class="col">고기</button>-->
-                <!--                <button class="col">치킨</button>-->
-                <!--                <button class="col">해산물</button>-->
-                <!--                <button class="col">햄버거/피자</button>-->
-                <!--                <button class="col">분식</button>-->
-                <!--                <button class="col">술집</button>-->
-                <!--                <button class="col">카페/디저트</button>-->
-                <!--                <button class="col">베이커리</button>-->
-                <!--                <button class="col">기타</button>-->
+
+
             </div>
-            <!--            <div class="info">-->
-            <!--                <div class="colorbox"></div>-->
-            <!--                <p>: 뽑기에서 제외됨</p>-->
-            <!--            </div>-->
+            <hr style="border-width:1px 0 0 0; border-color:#000000;">
+
+            <div class="option row row-cols-3 row-cols-lg-6 filter-location">
+                <div class="col">
+                    <button class="col-12 selected">전체</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">건입~중문</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">중문~어대역</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">후문</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">구의역</button>
+                </div>
+
+            </div>
+            <hr style="border-width:1px 0 0 0; border-color:#000000;">
+            <div class="option row row-cols-3 row-cols-lg-6 filter-evaluation">
+                <div class="col">
+                    <button class="col-12 selected">전체</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">평점 높은 순</button>
+                </div>
+                <div class="col">
+                    <button class="col-12">후기 많은 순</button>
+                </div>
+            </div>
+            <hr style="border-width:1px 0 0 0; border-color:#000000;">
 
 
         </div>
@@ -209,8 +195,6 @@
         <button id="restartBtn" class="btn-style hidden alt-font">재설정</button>
         <button id="restartDirectBtn" class="btn-style hidden alt-font">바로 다시 뽑기</button>
     </div>
-
-
 
 
 </div>

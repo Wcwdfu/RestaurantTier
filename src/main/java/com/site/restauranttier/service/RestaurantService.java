@@ -97,6 +97,14 @@ public class RestaurantService {
             return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
         }
     }
+    // 뽑기 리스트 반환
+    // location이 전체면 그냥 반환
+    public List<Restaurant> getRestaurantListByRandomPick(String cuisine, String location) {
+        if(location.equals("전체")) {
+            return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
+        }
+        return restaurantRepository.findByRestaurantCuisineAndStatusAndRestaurantPosition(cuisine, "ACTIVE", location);
+    }
 
     public Float getPercentOrderByVisitCount(Restaurant restaurant) {
         return restaurantRepository.getPercentOrderByVisitCount(restaurant);

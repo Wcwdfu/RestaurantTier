@@ -1,6 +1,8 @@
 @import "variables.css";
 
-
+section h2 {
+    color: var(--main-color);
+}
 
 .dropdown-toggle {
     line-height: 22px;
@@ -158,9 +160,9 @@ body {
 }
 @media only screen and (min-width: 1025px) {
     #content {
-        width: 70%;
+        width: 60%;
         min-width: 450px;
-        max-width: 900px;
+        max-width: 1300px;
     }
     
 }
