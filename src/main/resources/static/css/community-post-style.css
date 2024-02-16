@@ -517,9 +517,9 @@ p{
 .current-page {
     color: var(--main-color)!important;
 }
-.body{
+body{
     caret-color: transparent;
 }
-.comment-content{
+textarea, input{
     caret-color: black;
 }

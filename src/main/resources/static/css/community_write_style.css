@@ -170,4 +170,9 @@ body {
 
 
 
-/* 기타 필요한 스타일 */
+body{
+    caret-color: transparent;
+}
+textarea, input{
+    caret-color: black;
+}
