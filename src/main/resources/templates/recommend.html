@@ -57,10 +57,10 @@
         <div id="ImgSlideBar">
             <div class="animation-list animation">
                 <div class="img-list" th:each="restaurant: ${restaurants}">
-                    <img class="img_box" th:src="${restaurant.restaurantImgUrl}">
+                    <img class="img_box" th:if="${restaurant.restaurantImgUrl}" th:attr="src=${restaurant.restaurantImgUrl == 'no_img' || restaurant.restaurantImgUrl == 'no_restaurant' ? '/img/recommend/no_img.png' : restaurant.restaurantImgUrl}">
                 </div>
                 <div class="img-list" th:each="restaurant: ${restaurants}">
-                    <img class="img_box" th:src="${restaurant.restaurantImgUrl}">
+                    <img class="img_box" th:if="${restaurant.restaurantImgUrl}" th:attr="src=${restaurant.restaurantImgUrl == 'no_img' || restaurant.restaurantImgUrl == 'no_restaurant' ? '/img/recommend/no_img.png' : restaurant.restaurantImgUrl}">
                 </div>
 
 
@@ -142,10 +142,10 @@
                     <button class="col-12 selected">전체</button>
                 </div>
                 <div class="col">
-                    <button class="col-12">평점 높은 것</button>
+                    <button class="col-12">평점 높은 집</button>
                 </div>
                 <div class="col">
-                    <button class="col-12">후기 많은 것</button>
+                    <button class="col-12">후기 많은 집</button>
                 </div>
             </div>
             <hr style="border-width:1px 0 0 0; border-color:#000000;">

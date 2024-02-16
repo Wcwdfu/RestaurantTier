@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const restaurantUrl = `/restaurants/${restaurantId}`;
 
                     // 뽑힌 식당의 이미지 url 이 있으면 설정, 없으면 임시이미지
-                    if (matchedData.restaurantImgUrl !== "no_img") {
+                    if (matchedData.restaurantImgUrl !== "no_img" && matchedData.restaurantImgUrl !== "no_restaurant") {
                         resultImg.src = matchedData.restaurantImgUrl;
                     } else {
                         resultImg.src = "/img/restaurant/no_img.png";
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     restaurantList.forEach(restaurant => {
                         const imgElement = document.createElement('img');
-                        if (restaurant.restaurantImgUrl !== "no_img") {
+                        if (restaurant.restaurantImgUrl !== "no_img" && restaurant.restaurantImgUrl !== "no_restaurant") {
                             imgElement.src = restaurant.restaurantImgUrl;
                         } else {
                             imgElement.src = "/img/recommend/no_img.png";
