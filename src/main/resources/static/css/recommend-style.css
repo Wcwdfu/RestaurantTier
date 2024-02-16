@@ -403,3 +403,7 @@ footer{
 .col{
     padding:0;
 }
+
+section h2 {
+    color: var(--main-color);
+}
