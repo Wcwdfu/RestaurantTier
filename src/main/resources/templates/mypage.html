@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>건메추-마이페이지</title>
+    <title>건스토랑 - 마이페이지</title>
 
     <link rel="stylesheet" href="/css/mypage-style.css">
     <script src="/js/mypageScript.js" defer></script>
@@ -145,6 +145,7 @@
 
     <div id="Area5" class="hidden">
         <p class="pp">작성한 커뮤니티 글 영역</p>
+        <p th:text="${test}"></p>
 
         <ul id="postul">
             <li th:each="post,iterStat: ${paging}" class="postli">
