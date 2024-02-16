@@ -135,9 +135,9 @@
         </div>
         <div class="comment-filter">
             <a th:href="@{/community/{postId}(postId=${post.postId}, sort='popular')}"
-               class="popularity filter selected">인기순</a>
-            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}" class="latest filter">최신순</a>
-
+               th:class="${sort == 'popular' ? 'popularity filter current-page' : 'popularity filter'}">인기순</a>
+            <a th:href="@{/community/{postId}(postId=${post.postId}, sort='recent')}"
+               th:class="${sort == 'recent' ? 'latest filter current-page' : 'latest filter'}">최신순</a>
         </div>
 
         <div class="comment-list">
