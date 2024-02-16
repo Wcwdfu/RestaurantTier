@@ -7,6 +7,7 @@ import com.site.restauranttier.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class MypageController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final UserRepository userRepository;
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/myPage")
     public String myPage(Model model, Principal principal){
         User user = customOAuth2UserService.getUser(principal.getName());
@@ -35,6 +37,7 @@ public class MypageController {
         return "mypage";
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/myPage/setNickname")
     public ResponseEntity<String> setNickname(@RequestBody Map<String, String> requestBody, Principal principal){
         String newNickname=requestBody.get("newNickname");
