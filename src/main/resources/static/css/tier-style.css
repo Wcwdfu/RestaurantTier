@@ -4,6 +4,15 @@
     font-family: 'NanumSquare', sans-serif;
     color: black;
 }
+
+/* 로그인 버튼 */
+.top-login-button a {
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #FFF;
+}
+
 /* 텍스트 커서 깜빡임 없애기 */
 body{
     caret-color: transparent;
