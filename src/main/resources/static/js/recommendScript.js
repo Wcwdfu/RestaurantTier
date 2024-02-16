@@ -213,7 +213,7 @@ function matchingdata() {
                         <span class="d-inline-block align-middle">${restaurantType}</span>
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${score}</span>
-                    </div>
+                    </div>F
                 </div>`
                 }
 
