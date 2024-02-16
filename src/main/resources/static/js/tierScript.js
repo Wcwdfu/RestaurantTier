@@ -113,7 +113,7 @@ $(document).ready(function () {
     var relativeUrl = currentUrl.replace(baseUrl, '');
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
     let timer;
-    searchInput.addEventListener('input', function(event) {
+    $('input').on('input', function(event) {
         const inputValue = event.target.value;
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
             tierTableBody.innerHTML = '';
@@ -173,7 +173,7 @@ $(document).ready(function () {
                 if (lastInputType === 1) {
                     filterTableBody(tierTableBody, inputValue);
                 }
-            }
+            } // 검색 결과를 보여주는거는 0.4초가 지나야 필터링 해줌. 이게 핵심임.
         }, 400);
         prevInput = inputValue;
     })

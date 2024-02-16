@@ -210,23 +210,66 @@ div.basic-info > div.texts > span {
 }
 
 /* 티어 정보 */
-.tier-info {
+.tier1 {
+    background-color: var(--tier1-color);
+}
+.tier2 {
+    background-color: var(--tier2-color);
+}
+.tier3 {
+    background-color: var(--tier3-color);
+}
+.tier4 {
+    background-color: var(--tier4-color);
+}
+.tier5 {
+    background-color: var(--tier5-color);
+}
+.tier-1 {
+    background-color: var(--main-color);
+}
+/* Cuisine Tier */
+.cuisine-tier-info {
     display: flex;
     align-items: center;
-    overflow-x: scroll;
-    white-space: nowrap;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
-
-.tier-info > .tier {
+.cuisine-tier-info > .cuisine-tier {
+    white-space: nowrap;
     display: inline-block;
-    margin: 4px 7px;
-    padding: 5px 10px;
-    border-radius: 4px;
+    margin: 5px 10px 5px 0;
+    padding: 7px 10px;
+    border-radius: 5px;
     color: #fff;
-    background-color: var(--main-color);
-    font-size: 15px;
+    font-size: 17px;
+    line-height: 18px;
     font-weight: 570;
+}
+.tier-cuisine-img {
+    width: 20px;
+    height: 20px;
+}
+/* Situation Tier */
+.situation-tier-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.situation-tier-info .situation-tier {
+    white-space: nowrap;
+    display: inline-block;
+    margin: 4px 4px 4px 0;
+    padding: 6px 11px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: 570;
+}
+.tier-situation-img {
+    width: 16px;
+    height: 16px;
 }
 
 /* 통계 정보 */

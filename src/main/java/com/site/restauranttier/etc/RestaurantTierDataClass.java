@@ -15,7 +15,7 @@ public class RestaurantTierDataClass {
     private String ranking;
     private Restaurant restaurant;
     private Integer situationTier;
-    private List<Situation> situationList = new ArrayList<>();
+    private List<RestaurantSituationRelation> restaurantSituationRelationList = new ArrayList<>();
 
     public RestaurantTierDataClass(Restaurant restaurant) {
         this.restaurant = restaurant;
@@ -26,7 +26,7 @@ public class RestaurantTierDataClass {
         this.situationTier = situationTier;
     }
 
-    public void addSituation(Situation situation) {
-        this.situationList.add(situation);
+    public void addSituation(RestaurantSituationRelation restaurantSituationRelation) {
+        this.restaurantSituationRelationList.add(restaurantSituationRelation);
     }
 }
