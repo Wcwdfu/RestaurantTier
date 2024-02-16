@@ -19,10 +19,13 @@
 <body>
     <div class="main-grid">
         <div class="image-section">
-            <img src="/img/login/food6.jpg">
+
+            <img th:src="${imgUrl}">
         </div>
         <div class="login-section">
-            <a class="logo" href="/home"><img src="/img/home/restaurant-logo.webp"></a>
+            <a class="logo" href="/home"><img src="/img/home/restaurant-logo.webp">
+            </a>
+
             <div class="login-container">
                 <p>로그인</p>
                 <a class="login-button" href="/oauth2/authorization/naver" role="button">

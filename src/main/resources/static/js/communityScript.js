@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     //검색
 
     const btn_search = document.getElementById("postSearch");
-    console.log(btn_search)
     btn_search.addEventListener('click', function () {
 
         // form의 값을 현재 kw와 현재 page로 설정하고 전송

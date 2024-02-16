@@ -517,4 +517,9 @@ p{
 .current-page {
     color: var(--main-color)!important;
 }
-
+.body{
+    caret-color: transparent;
+}
+.comment-content{
+    caret-color: black;
+}
