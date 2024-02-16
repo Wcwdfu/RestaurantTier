@@ -37,9 +37,7 @@
             <img th:if="${restaurant.restaurantImgUrl == 'no_img'}" th:id="mainImg" src="/img/restaurant/no_img.png">
             <div class="texts left-justified">
                 <div id="restaurantNameOuter">
-                    <div id="restaurantName" th:text="${restaurant.restaurantName}">
-
-                    </div>
+                    <div id="restaurantName" th:text="${restaurant.restaurantName}"></div>
                     <div id="favoriteContainer">
                         <img id="favoriteImg" th:class="${isFavoriteExist} ? 'after-favorite' : 'before-favorite'"
                              th:src="${isFavoriteExist} ? 'https://s-lol-web.op.gg/images/icon/icon-bookmark-on-w.svg?v=1702977255104' : 'https://s-lol-web.op.gg/images/icon/icon-bookmark.svg?v=1702977255104'">
@@ -51,13 +49,20 @@
             </div>
         </div>
         <div>
-            <div class="tier-info left-justified" id="tierInfoContainer">
-                <span class="tier">
-                    <!--<span th:text="${cuisineTier.getTierCategoryName()} + ' '"></span>
-                    <span th:text="${cuisineTier.getTier().getValue()} + '티어'" th:if="${cuisineTier.getTier().getValue() != -1}"></span>
-                    <span th:if="${cuisineTier.getTier().getValue() == -1}">- 평가 데이터가 부족합니다.</span>-->
+            <div class="cuisine-tier-info left-justified" id="tierInfoContainer">
+                <span th:class="'cuisine-tier tier' + ${restaurant.getMainTier()}">
+                    <img class="tier-cuisine-img" th:src="${restaurant.getCuisineImgUrl(restaurant.getRestaurantCuisine())}">
+                    <span th:text="${restaurant.getRestaurantCuisine()} + ' '"></span>
+                    <span th:text="${restaurant.getMainTier()} + '티어'" th:if="${restaurant.getMainTier() != -1}"></span>
+                    <span th:if="${restaurant.getMainTier() == -1}">- 평가 데이터가 부족합니다.</span>
                 </span>
-                <span class="tier" th:each="tier : ${tierList}"><span th:text="${tier.getTierCategoryName()}"></span><span th:text="${tier.getTier().getValue()}"></span></span>
+            </div>
+            <div class="situation-tier-info left-justified">
+                <span th:each="situationTier : ${situationTierList}" th:class="'situation-tier tier' + ${situationTier.getSituationTier()}">
+                    <img class="tier-situation-img" th:src="'/img/tier/'+${situationTier.getSituation().getSituationName()}+'.png'">
+                    <span th:text="${situationTier.getSituation().getSituationName()} + ' '"></span>
+                    <span th:text="${situationTier.getSituationTier()} + '티어'"></span>
+                </span>
             </div>
         </div>
         <div class="stats-info">
