@@ -1,3 +1,5 @@
+/* 여기 수정 */
+@import "variables.css";
 /* ------------------- 화면 구성 ----------------- */
 
 @media only screen and (max-width: 1024px) { /* 모바일화면 */
@@ -126,10 +128,14 @@
 }
 
 /*----------------- 로그아웃 버튼 ---------------*/
+/* 여기 수정 */
 #logoutBtn{
     border: none;
     border-radius: 5px;
-    width: 90px;
+    background-color: var(--main-color);
+    color: #FFF;
+
+    width: 100%;
     height: 40px;
 }
 

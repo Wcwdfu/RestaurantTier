@@ -42,7 +42,11 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
         if (fullURL != null && !fullURL.equals("")) {
             // 회원가입 - 로그인으로 넘어온 경우 "/"로 redirect
-            if (fullURL.contains("/auth/join") || fullURL.contains("/myPage")) {
+            if (
+                    fullURL.contains("/auth/join") ||
+                    fullURL.contains("/myPage") ||
+                    fullURL.contains("/community/write")
+            ) {
                 uri = "/home";
             } else {
                 uri = fullURL;
