@@ -238,7 +238,145 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error("Error:", error);
             });
+<<<<<<< HEAD
+
+
+            console.log(data.length);
+
+            document.getElementById('recommendPage').classList.add('hidden');
+            document.getElementById('recommendBtn').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+            document.getElementById('restartBtn').classList.remove('hidden');
+
+        })
+        .catch(error => {
+            console.error("Error adding comment:", error);
+        });
+
+    const storeHref = document.getElementById('storeHref');
+    storeHref.removeAttribute('href');
+
+    setTimeout(function () {
+        matchingdata();
+        document.getElementById('resultInfoPage').classList.remove('hidden');
+        const resultInfoPage = document.getElementById('resultInfoPage');
+        resultInfoPage.style.opacity = 1;
+        const processingTitle = document.getElementById('processingTitle');
+        processingTitle.textContent = '오늘의 맛집은요..';
+
+        setTimeout(function () {
+            const restartBtn = document.getElementById('restartBtn');
+            restartBtn.style.opacity = 1;
+
+
+            const resultImgSlideBar = document.querySelector('.result-img-slideBar');
+            resultImgSlideBar.style.opacity = 0;
+
+
+            setTimeout(function () {
+                resultImgSlideBar.classList.add('hidden');
+            }, 1000);
+
+        }, 1000);
+
+    }, 5500);
+
+
+});
+
+// 선택된 img의 data-id를 통해 해당 id와 일치하는 식당정보 가져오기
+function matchingdata() {
+    var image = findClosestImageToSelectBox()
+    console.log(image)
+    var restaurantId = image.dataset.id; // 이미지 URL을 기준으로 정보 조회
+    console.log(restaurantId)
+
+    const apiUrl = "/recommend/restaurant?restaurantId=" + restaurantId
+
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            const matchedData = data;
+            console.log(matchedData)
+            if (matchedData) {
+                const restaurantId = matchedData.restaurantId;
+                const restaurantCuisine = matchedData.restaurantCuisine;
+                const restaurantName = matchedData.restaurantName;
+                const restaurantType = matchedData.restaurantType;
+                const restaurantImageUrl = matchedData.restaurantImgUrl;
+
+                console.log(matchedData.restaurantScoreSum)
+                console.log(matchedData.restaurantEvaluationCount)
+                
+                // 식당 점수
+                let score = 0.0
+                score = (matchedData.restaurantScoreSum / matchedData.restaurantEvaluationCount) / 7.0 * 10.0;
+                var formattedScore = score.toFixed(1) + "/10.0";
+                console.log(formattedScore); // "9.5/10.0" 출력
+
+
+                // 이미지 URL과 링크 설정
+                const resultImg = document.getElementById('resultImg');
+                const storeHref = document.getElementById('storeHref');
+                const restaurantUrl = `/restaurants/{restaurantId}`;
+                
+                // 뽑힌 식당의 이미지 url 이 있으면 설정, 없으면 임시이미지
+                if(matchedData.restaurantImgUrl){
+                    resultImg.src = matchedData.restaurantImgUrl;
+                }else{
+                    resultImg.src = "/img/restaurant/no_img.png";
+
+                }
+                console.log(resultImg)
+                storeHref.href = restaurantUrl;
+
+                // 식당 정보 삽입
+                const storeInfo = document.getElementById('storeInfo');
+                // 불러온 식당의 평가데이터가 하나도 없으면
+                if(matchedData.restaurantEvaluationCount===0){
+                    storeInfo.innerHTML = `<div class="pt-30px bg-white text-center alt-font">
+                    <span class="d-inline-block text-dark-gray fs-19 fw-600">${restaurantName}</span>
+                    <div class="w-100">
+                        <span class="d-inline-block align-middle">${restaurantCuisine}</span>
+                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                        <span class="d-inline-block align-middle">${restaurantType}</span>
+                    </div>
+                </div>`
+                }else{
+                    storeInfo.innerHTML = `<div class="pt-30px bg-white text-center alt-font">
+                    <span class="d-inline-block text-dark-gray fs-19 fw-600">${restaurantName}</span>
+                    <div class="w-100">
+                        <span class="d-inline-block align-middle">${restaurantCuisine}</span>
+                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                        <span class="d-inline-block align-middle">${restaurantType}</span>
+                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
+                        <span class="d-inline-block align-middle">${score}</span>
+                    </div>F
+                </div>`
+                }
+
+
+                const selectedBox = document.getElementById('SelectedBox');
+                selectedBox.style.backgroundImage = `url('${restaurantImageUrl}')`;
+
+                console.log(matchedData);
+            } else {
+                console.log("일치하는 데이터를 찾을 수 없습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+}
+=======
     }
+>>>>>>> 327df9b093ab8c2b29f0efe57cc84871189e0445
 
 //재설정 버튼 로직
     document.getElementById('restartBtn').addEventListener('click', function () {
