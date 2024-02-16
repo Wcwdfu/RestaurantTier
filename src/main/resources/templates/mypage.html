@@ -119,7 +119,7 @@
     </div>
 
     <div id="Area3" class="hidden">
-        <div id="area2Contents" class="gray-border-circular">
+        <div id="area3Contents" class="gray-border-circular">
             <div class="restaurant-favorite-container" th:each="restaurantEvaluation: ${restaurantEvaluationList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantEvaluation.getRestaurant().restaurantId})} + '\''">
                 <!-- 메인 이미지 -->
                 <img th:if="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl()}">
