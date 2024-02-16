@@ -1,0 +1,30 @@
+<tr th:each="restaurantTierData,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierData.getRestaurant().restaurantId})} + '\''">
+  <td class="td-rank" th:text="${restaurantTierData.getRanking()}" style="min-width: 32px"></td>
+  <td class="td-center" style="min-width: 58px">
+    <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
+    <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+  </td>
+  <td class="td-name">
+    <div class="td-name-outer">
+      <span class="td-inner-name" th:text="${restaurantTierData.getRestaurant().getRestaurantName()}"></span>
+      <span class="td-inner-type" th:text="${restaurantTierData.getRestaurant().getRestaurantType()}"></span>
+    </div>
+  </td>
+  <td th:unless="${cuisine == '전체' and situation != '전체'}" class="td-center" style="min-width: 42px">
+    <img class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
+  </td>
+  <td th:if="${situation != '전체'}" class="td-center" style="min-width: 42px">
+    <img th:unless="${restaurantTierData.getSituationTier() == 0}" class="td-tier-img" th:src="'/img/tier/'+${restaurantTierData.getSituationTier()}+'tier.png'">
+  </td>
+  <td style="min-width: 46px">
+    <div class="td-cuisine-outer">
+      <img class="td-cuisine-img" th:src="${restaurantTierData.getRestaurant().getCuisineImgUrl(restaurantTierData.getRestaurant().getRestaurantCuisine())}">
+      <span class="td-cuisine-span" th:text="${restaurantTierData.getRestaurant().getRestaurantCuisine()}"></span>
+    </div>
+  </td>
+  <td class="td-situation">
+    <div class="td-situations-outer">
+      <img th:each="situationEl :${restaurantTierData.getSituationList()}" th:src="'/img/tier/'+${situationEl.getSituationName()}+'.png'">
+    </div>
+  </td>
+</tr>

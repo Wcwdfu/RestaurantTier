@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/library/responsive.min.css">
     <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" type="text/css" href="/css/tier-style.css"/>
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/tierScript.js"></script>
@@ -170,12 +171,15 @@
 </div>
 <div class="search-area">
     <div class="search-container">
+        <div id="spinner" style="display: none" class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
         <span>검색</span>
         <input id="searchInput" type="text">
     </div>
 </div>
 <main id="tierChartMain">
-    <table class="tier-table">
+    <table id="tierTable" class="tier-table">
         <colgroup>
             <col>
             <col>
