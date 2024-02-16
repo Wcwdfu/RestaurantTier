@@ -105,7 +105,7 @@
 
 
 .option div button {
-    border: 1px solid black;
+    border: none;
     color:black;
     border-radius: 5px;
     background-color: #F0F0F0;
@@ -361,7 +361,7 @@ footer{
 @media only screen and (min-width: 992px) {
     /* pc화면 */
     #mainContents {
-        width: 800px;
+        width: 750px;
 
         margin: 20px auto;
     }
