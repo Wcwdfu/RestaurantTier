@@ -3,6 +3,7 @@
 section h2 {
     color: var(--main-color);
 }
+
 .post {
     background: white;
     color: black;
@@ -511,5 +512,9 @@ p{
     .top-banner{
         height: 300px;
     }
+}
+
+.current-page {
+    color: var(--main-color)!important;
 }
 

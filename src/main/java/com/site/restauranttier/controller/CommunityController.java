@@ -78,6 +78,7 @@ public class CommunityController {
                     .anyMatch(scrap -> scrap.getUser().equals(user));
         }
         ;
+        model.addAttribute("sort",sort);
         model.addAttribute("isPostScrappedByUser", isPostScrappedByUser);
         return "community_post";
     }
