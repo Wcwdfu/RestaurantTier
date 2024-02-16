@@ -25,6 +25,9 @@ public class RecommendController {
     // 메뉴추천 화면
     @GetMapping("/recommend")
     public String recommend(Model model){
+        List<Restaurant> restaurants = restaurantService.getTopRestaurantsByCuisine();
+        model.addAttribute("restaurants",restaurants);
+
         model.addAttribute("currentPage","recommend");
 
         return "recommend";
@@ -49,13 +52,6 @@ public class RecommendController {
                 List<Restaurant> retaurantList = restaurantService.getRestaurantList(item);
                 combinedRestaurantList.addAll(retaurantList);
             }
-
-            // restaurantImgUrl이 없는 객체에 대해 기본 이미지 URL 설정
-            combinedRestaurantList.forEach(restaurant -> {
-                if (restaurant.getRestaurantImgUrl() == null || restaurant.getRestaurantImgUrl().isEmpty()) {
-                    restaurant.setRestaurantImgUrl("/path/to/no_img.png"); // 기본 이미지 경로 설정
-                }
-            });
             return new ResponseEntity<>(combinedRestaurantList, HttpStatus.OK);
         }
     }
