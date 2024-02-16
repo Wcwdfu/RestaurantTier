@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
 
             .then(data => {
-                console.log(data)
                 // 데이터가 비어 있는 경우
                 if (!data || data.length === 0) {
                     alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
@@ -179,9 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 const matchedData = data;
-                console.log(matchedData)
                 if (matchedData) {
                     const restaurantId = matchedData.restaurantId;
                     const restaurantCuisine = matchedData.restaurantCuisine;
@@ -195,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     let score = 0.0
                     score = (matchedData.restaurantScoreSum / matchedData.restaurantEvaluationCount) / 7.0 * 10.0;
                     var formattedScore = score.toFixed(1) + "/10.0";
-                    console.log(formattedScore); // "9.5/10.0" 출력
 
 
                     // 이미지 URL과 링크 설정
@@ -237,9 +233,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     const selectedBox = document.getElementById('SelectedBox');
                     selectedBox.style.backgroundImage = `url('${restaurantImageUrl}')`;
 
-                    console.log(matchedData);
-                } else {
-                    console.log("일치하는 데이터를 찾을 수 없습니다.");
                 }
             })
             .catch(error => {
@@ -270,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error(`${data.status}: ${data.message}`);
                 }
@@ -381,7 +373,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (closestImage) {
             // 가장 가까운 이미지의 src 속성 사용
-            console.log('가장 가까운 음식점 이미지:', closestImage.src);
             // 여기서 추가 작업을 수행할 수 있습니다. 예를 들어, 해당 이미지를 강조 표시하거나 정보를 표시하는 등
         }
         return closestImage
