@@ -283,7 +283,7 @@ footer{
 }
 
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 992px) {
     /* pc화면 */
     .top-banner{
         height: 300px;
@@ -358,7 +358,7 @@ footer{
     margin-left: 10px;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 992px) {
     /* pc화면 */
     #mainContents {
         width: 800px;
