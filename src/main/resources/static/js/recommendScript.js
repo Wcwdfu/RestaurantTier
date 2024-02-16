@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    var restaurantLocation, restaurantEvaluation
     const selectedCuisines = [];
     // 음식 종류에 대한 클릭 리스너
-    document.querySelectorAll('.cuisine .col button').forEach(button => {
+    document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
         button.addEventListener('click', function () {
             // 버튼의 클래스에 "selected"가 있는지 확인
             const isSelected = button.classList.contains('selected');
@@ -16,29 +16,65 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // 위치,평가 카테고리에 대한 클릭 리스너
+
+    document.querySelectorAll('.filter-location, .filter-evaluation').forEach(option => {
+        option.addEventListener('click', function (e) {
+            // 클릭된 요소가 버튼인지 확인
+            if (e.target.tagName === 'BUTTON') {
+                const isSelected = e.target.classList.contains('selected');
+
+                // 클릭된 버튼이 이미 selected 상태인 경우, 해당 버튼에 대해서만 selected 클래스 제거
+                if (isSelected) {
+                    e.target.classList.remove('selected');
+                } else {
+                    // 그렇지 않다면, 현재 row 내의 모든 버튼에서 'selected' 클래스 제거 후,
+                    // 클릭된 버튼에 'selected' 클래스 추가
+                    e.currentTarget.querySelectorAll('button').forEach(button => {
+                        button.classList.remove('selected');
+                    });
+                    e.target.classList.add('selected');
+                }
+            }
+        });
+    });
+
+
 // 추천하기 버튼 리스너
     document.getElementById('recommendBtn').addEventListener('click', function () {
 
 
-        console.log(selectedCuisines);
-        // 모든 버튼들을 가져와서 순회
-        document.querySelectorAll('.option .col button').forEach(button => {
+        document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
             // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
             if (button.classList.contains('selected')) {
                 selectedCuisines.push(button.textContent);
-                console.log(button.textContent)
             }
 
         });
-        console.log(selectedCuisines);
+        // 지역 데이터 추가
+        document.querySelectorAll('.filter-location .col button').forEach(button => {
+            // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
+            if (button.classList.contains('selected')) {
+                restaurantLocation = button.textContent
+            }
+
+        });
+        // 평가 순 데이터 추가
+        document.querySelectorAll('.filter-evaluation .col button').forEach(button => {
+            // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
+            if (button.classList.contains('selected')) {
+                restaurantEvaluation = button.textContent
+            }
+
+        });
 
         if (selectedCuisines.length === 0) {
             // 비어있다면 경고창을 띄우고 함수 종료
-            alert("최소 하나의 카테고리를 선택해야합니다.");
+            alert("최소 하나의 카테고리를 선택해야 합니다.");
             return;
         }
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-');
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
 
         fetch(apiUrl, {
             method: "GET",
@@ -47,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error(`${data.status}: ${data.message}`);
                 }
@@ -56,35 +91,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
             .then(data => {
                 console.log(data)
-                // const imageUrls = [];
-                // data.forEach(item => {
-                //     // restaurantImgUrl 값이 존재하는지 확인하고 값이 'no_img'가 아닌 경우에만 push
-                //     if (item.restaurantImgUrl && item.restaurantImgUrl !== 'no_img') {
-                //         // 값이 존재하면 push
-                //         imageUrls.push(item.restaurantImgUrl);
-                //     } else {
-                //         // 값이 존재하지 않거나 'no_img'인 경우 대체 이미지 경로를 push
-                //         imageUrls.push("../img/restaurant/no_img.png");
-                //     }
-                // });
-                var restaurantList = []
-
-                // 불러온 이미지 리스트에서 30개 추출
-                while (restaurantList.length < 30) {
-                    const randomIndex = Math.floor(Math.random() * data.length);
-                    restaurantList.push(data[randomIndex]);
+                // 데이터가 비어 있는 경우
+                if (!data || data.length === 0) {
+                    alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
+                    window.location.reload(); // 페이지 새로고침
+                    return; // 이후 로직을 실행하지 않기 위해 함수에서 빠르게 탈출
                 }
-                console.log(restaurantList)
+                var restaurantList = data
+
                 const imgDivs = document.querySelectorAll('.result-img-list');
                 let imgCount = 0;
                 imgDivs.forEach(imgDiv => {
                     restaurantList.forEach(restaurant => {
                         const imgElement = document.createElement('img');
-                        if (restaurant.restaurantImgUrl) {
+                        if (restaurant.restaurantImgUrl !== "no_img") {
                             imgElement.src = restaurant.restaurantImgUrl;
                         } else {
-                            imgElement.src = "/img/restaurant/no_img.png";
-                            console.log(imgElement)
+                            imgElement.src = "/img/recommend/no_img.png";
                         }
 
 
@@ -96,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
 
-                console.log(data.length);
 
                 document.getElementById('recommendPage').classList.add('hidden');
                 document.getElementById('recommendBtn').classList.add('hidden');
@@ -145,11 +167,9 @@ document.addEventListener('DOMContentLoaded', function () {
 // 선택된 img의 data-id를 통해 해당 id와 일치하는 식당정보 가져오기
     function matchingdata() {
         var image = findClosestImageToSelectBox()
-        console.log(image)
         var restaurantId = image.dataset.id; // 이미지 URL을 기준으로 정보 조회
-        console.log(restaurantId)
 
-        const apiUrl = "/recommend/restaurant?restaurantId=" + restaurantId
+        const apiUrl = "/api/recommend/restaurant?restaurantId=" + restaurantId
 
         fetch(apiUrl, {
             method: "GET",
@@ -169,8 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const restaurantType = matchedData.restaurantType;
                     const restaurantImageUrl = matchedData.restaurantImgUrl;
 
-                    console.log(matchedData.restaurantScoreSum)
-                    console.log(matchedData.restaurantEvaluationCount)
+
 
                     // 식당 점수
                     let score = 0.0
@@ -189,29 +208,24 @@ document.addEventListener('DOMContentLoaded', function () {
                         resultImg.src = matchedData.restaurantImgUrl;
                     } else {
                         resultImg.src = "/img/restaurant/no_img.png";
-                        console.log(resultImg)
                     }
-                    console.log(resultImg)
                     storeHref.href = restaurantUrl;
 
                     // 식당 정보 삽입
                     const storeInfo = document.getElementById('storeInfo');
-                    // 불러온 식당의 평가데이터가 하나도 없으면
+                    // 불러온 식당의 평가데이터가 하나도 없는 경우
                     if (matchedData.restaurantEvaluationCount === 0) {
                         storeInfo.innerHTML = `<div class="pt-30px bg-white text-center alt-font">
                     <span class="d-inline-block text-dark-gray fs-19 fw-600">${restaurantName}</span>
                     <div class="w-100">
-                        <span class="d-inline-block align-middle">${restaurantCuisine}</span>
-                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${restaurantType}</span>
                     </div>
                 </div>`
-                    } else {
+                    } // 최소 하나 이상 평가 데이터가 있는 경우 
+                    else {
                         storeInfo.innerHTML = `<div class="pt-30px bg-white text-center alt-font">
                     <span class="d-inline-block text-dark-gray fs-19 fw-600">${restaurantName}</span>
                     <div class="w-100">
-                        <span class="d-inline-block align-middle">${restaurantCuisine}</span>
-                        <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${restaurantType}</span>
                         <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5">◍</span>
                         <span class="d-inline-block align-middle">${formattedScore}</span>
@@ -235,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //재설정 버튼 로직
     document.getElementById('restartBtn').addEventListener('click', function () {
-        location.reload(); // 페이지 새로고침
+        window.location.reload(); // 페이지 새로고침
     });
 
 
@@ -245,10 +259,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedBox = document.getElementById('SelectedBox');
         selectedBox.style.backgroundImage = '';
 
-        console.log(selectedCuisines);
 
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-');
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
 
         fetch(apiUrl, {
             method: "GET",
@@ -265,28 +278,24 @@ document.addEventListener('DOMContentLoaded', function () {
             })
 
             .then(data => {
-                console.log(data)
-                var restaurantList = []
-
-                // 불러온 이미지 리스트에서 30개 추출
-                while (restaurantList.length < 30) {
-                    const randomIndex = Math.floor(Math.random() * data.length);
-                    restaurantList.push(data[randomIndex]);
+                // 데이터가 비어 있는 경우
+                if (!data || data.length === 0) {
+                    alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
+                    window.location.reload(); // 페이지 새로고침
+                    return; // 이후 로직을 실행하지 않기 위해 함수에서 빠르게 탈출
                 }
-                console.log(restaurantList)
+                var restaurantList = data
                 const imgDivs = document.querySelectorAll('.result-img-list');
-                let imgCount = 0;
                 imgDivs.forEach(imgDiv => {
                     while (imgDiv.firstChild) {
                         imgDiv.removeChild(imgDiv.firstChild);
                     }
                     restaurantList.forEach(restaurant => {
                         const imgElement = document.createElement('img');
-                        if (restaurant.restaurantImgUrl) {
+                        if (restaurant.restaurantImgUrl !== "no_img") {
                             imgElement.src = restaurant.restaurantImgUrl;
                         } else {
-                            imgElement.src = "/img/restaurant/no_img.png";
-                            console.log(imgElement)
+                            imgElement.src = "/img/recommend/no_img.png";
                         }
 
 
@@ -296,8 +305,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         imgDiv.appendChild(imgElement);
                     });
                 });
-
-
 
 
                 // 결과 페이지 가리기
@@ -324,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const storeHref = document.getElementById('storeHref');
         storeHref.removeAttribute('href');
 
-
+        // 멈춘 뒤 멈춘 자리의 사진 데이터 정보 띄우기
         setTimeout(function () {
             matchingdata();
             document.getElementById('resultInfoPage').classList.remove('hidden');

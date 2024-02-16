@@ -2333,11 +2333,9 @@
         anime({targets: animePath[0], duration: 10000, easing: 'cubicBezier(0.5, 0, 0.5, 1)', d: paths, loop: true});
     });
     var customCursorInit = false;
-    handleCustomCursor();
     forceHideCustomCursor();
     $(window).resize(function () {
         if (!customCursorInit && !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-            handleCustomCursor();
         }
         forceHideCustomCursor();
     });
@@ -2351,78 +2349,6 @@
             }
         }, 250);
     }
-
-    // function handleCustomCursor() {
-    //     if ($('body').hasClass('custom-cursor')) {
-    //         customCursorInit = true;
-    //         const cursorInnerEl = document.querySelector('.circle-cursor-inner');
-    //         const cursorOuterEl = document.querySelector('.circle-cursor-outer');
-    //         let lastY, lastX;
-    //         let magneticFlag = false;
-    //         let anchorHover = false;
-    //         window.onmousemove = function (event) {
-    //             if (!magneticFlag) {
-    //                 cursorOuterEl.style.transform = 'translate(' + event.clientX + 'px, ' + event.clientY + 'px' + ')';
-    //             }
-    //             if (cursorInnerEl.style.opacity = '0') {
-    //                 cursorInnerEl.style.opacity = '1';
-    //             }
-    //             cursorInnerEl.style.transform = 'translate(' + event.clientX + 'px, ' + event.clientY + 'px' + ')';
-    //             lastY = event.clientY;
-    //             lastX = event.clientX;
-    //         }
-    //         $('body').on('mouseenter', 'a', function () {
-    //             cursorInnerEl.classList.add('cursor-link-hover');
-    //             cursorOuterEl.classList.add('cursor-link-hover');
-    //             anchorHover = true;
-    //         });
-    //         $('body').on('mouseenter', '.magic-cursor', function () {
-    //             cursorInnerEl.style.visibility = 'hidden';
-    //             cursorOuterEl.style.visibility = 'hidden';
-    //         });
-    //         $('body').on('mouseleave', '.magic-cursor', function () {
-    //             cursorInnerEl.style.visibility = 'visible';
-    //             cursorOuterEl.style.visibility = 'visible';
-    //         });
-    //         $('body').on('mouseleave', 'a', function () {
-    //             if ($(this).is('a') && $(this).closest('.cursor-as-pointer').length) {
-    //                 return;
-    //             }
-    //             cursorInnerEl.classList.remove('cursor-link-hover');
-    //             cursorOuterEl.classList.remove('cursor-link-hover');
-    //             anchorHover = false;
-    //         });
-    //         $('body').on('mouseenter', '.rounded-box', function () {
-    //             const $elem = $(this);
-    //             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    //             if (anchorHover) {
-    //                 cursorInnerEl.classList.remove('cursor-link-hover');
-    //                 cursorOuterEl.classList.remove('cursor-link-hover');
-    //             }
-    //             cursorOuterEl.style.transition = 'all .2s ease-out';
-    //             cursorOuterEl.style.transform = 'translate(' + $elem.offset().left + 'px, ' + ($elem.offset().top - scrollTop) + 'px' + ')';
-    //             cursorOuterEl.style.width = $elem.width() + 'px';
-    //             cursorOuterEl.style.height = $elem.height() + 'px';
-    //             cursorOuterEl.style.marginLeft = 0;
-    //             cursorOuterEl.style.marginTop = 0;
-    //             magneticFlag = true;
-    //         });
-    //         $('body').on('mouseleave', '.rounded-box', function () {
-    //             if (anchorHover) {
-    //                 cursorInnerEl.classList.add('cursor-link-hover');
-    //                 cursorOuterEl.classList.add('cursor-link-hover');
-    //             }
-    //             cursorOuterEl.style.transition = null;
-    //             cursorOuterEl.style.width = null;
-    //             cursorOuterEl.style.height = null;
-    //             cursorOuterEl.style.marginLeft = null;
-    //             cursorOuterEl.style.marginTop = null;
-    //             magneticFlag = false;
-    //         });
-    //         cursorInnerEl.style.visibility = 'visible';
-    //         cursorOuterEl.style.visibility = 'visible';
-    //     }
-    // }
 
     stackAnimation();
     var stackLastScroll = 0;

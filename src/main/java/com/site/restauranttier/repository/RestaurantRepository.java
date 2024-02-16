@@ -30,6 +30,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     List<Restaurant> findByRestaurantCuisineAndStatus(String restaurantCuisine, String status);
     List<Restaurant> findByStatus(String status);
 
+    List<Restaurant> findByRestaurantCuisineAndStatusAndRestaurantPosition(String restaurantCuisine, String status,String restaurantPosition);
+
+
     /*@Query("SELECT r " +
             "FROM Restaurant r " +
             "JOIN r.situationList s " +
