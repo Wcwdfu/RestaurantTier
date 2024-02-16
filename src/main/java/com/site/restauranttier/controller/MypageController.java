@@ -30,6 +30,8 @@ public class MypageController {
 
         // 저장된 맛집 정보
         model.addAttribute("restaurantFavoriteList", user.getRestaurantFavoriteList());
+        // 평가한 맛집 정보
+        model.addAttribute("restaurantEvaluationList", user.getEvaluationList());
 
         return "mypage";
     }
