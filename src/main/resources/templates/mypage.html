@@ -64,6 +64,11 @@
                     <div id="profileimg"></div>
                 </div>
 
+                <div id="emailArea">
+                    <p>이메일 : </p>
+                    <span th:text="${user.getUserEmail()}"></span>
+                </div>
+
                 <div id="nicknameArea">
                     <p>닉네임 : </p>
                     <input id=nickname type="text" th:placeholder="${user.userNickname}">

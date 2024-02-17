@@ -24,7 +24,7 @@
 
 @media only screen and (min-width: 1025px) { /* pc화면 */
     #mainContents {
-        width: 90%;
+        width: 75%;
         margin: 10px auto;
         min-width: 450px;
     }
@@ -93,6 +93,7 @@
 }
 #profileImgArea{
     display: flex;
+    max-width: 800px;
 }
 #profileimg{
     width: 150px;
@@ -100,13 +101,23 @@
     background-color: lightgray;
     border-radius: 5px;
 }
+#emailArea {
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+}
+#emailArea > span {
+    flex: 1;
+}
 #nicknameArea{
     display: flex;
+    max-width: 800px;
 }
 #nickname{
     width: 60%;
     border-radius: 5px;
     margin-right: 15px;
+    flex: 1;
 }
 #nicknameComment{
     width: 100%;
