@@ -9,7 +9,7 @@ group = 'com.site'
 version = '0.0.1-SNAPSHOT'
 // 배포 자바 버젼 ( 서버컴퓨터의 자바버전)
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '19'
 }
 
 configurations {

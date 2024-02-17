@@ -152,9 +152,7 @@ footer{
 .cell-button .label {
     opacity: 0; /* 기본적으로 숨김 */
 }
-.cell-button:hover .label {
-    opacity: 1; /* 마우스 오버 시 보임 */
-}
+
 
 @media only screen and (min-width: 1024px) {
     /* pc화면 */
@@ -163,12 +161,15 @@ footer{
     }
     /*음식 버튼 이미지 hover*/
     .cell-button .label {
-        background-color: rgba(0, 0, 0, 0.1); /* 어두운 배경 */
+        background-color: rgba(0, 0, 0, 0.4); /* 어두운 배경 */
         color: white; /* 글자 색상 */
         font-size: 20px; /* 글자 크기 */
         transition: opacity 0.5s ease; /* 부드러운 효과 */
         height: 100%; /* 부모 요소와 동일한 높이 */
         width: 100%; /* 부모 요소와 동일한 너비 */
+    }
+    .cell-button:hover .label {
+        opacity: 1; /* 마우스 오버 시 보임 */
     }
 }
 
