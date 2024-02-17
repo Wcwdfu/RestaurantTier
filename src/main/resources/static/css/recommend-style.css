@@ -118,7 +118,6 @@
 }
 
 
-
 .btn-area {
     margin: 20px;
     display: flex;
@@ -264,6 +263,9 @@ body {
 footer{
     flex:1;
 }
+.row{
+    margin:0;
+}
 @media only screen and (max-width: 767px) {
     /* 모바일화면 */
     .top-banner{
@@ -288,13 +290,18 @@ footer{
     }
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 991px) {
     /* 모바일화면 */
     #mainContents {
         margin: 5px auto;
         width: 300px;
 
     }
+
+    .option-area hr{
+        width: 100px;
+    }
+
     #restartBtn, #restartDirectBtn{
         font-size:15px!important;
     }
@@ -352,6 +359,7 @@ footer{
     .option{
         margin:5px 0;
     }
+
 
 }
 .row{
@@ -411,6 +419,10 @@ footer{
     .option{
         margin:10px 0;
     }
+    .option-area hr{
+        width: 100%;
+    }
+
 }
 
 .col{

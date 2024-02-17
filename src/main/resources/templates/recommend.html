@@ -70,7 +70,12 @@
 
         <div class="option-area">
             <p>원하는 카테고리를 골라주세요</p>
-            <hr style="border-width:1px 0 0 0; border-color:#000000;">
+            <div class="row" style="display: flex; align-items: center;">
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
+                <span class="col">음식 종류</span>
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
+
+            </div>
 
             <div class="option row row-cols-3 row-cols-lg-6 filter-cuisine">
                 <div class="col">
@@ -119,8 +124,12 @@
 
 
             </div>
-            <hr style="border-width:1px 0 0 0; border-color:#000000;">
+            <div class="row" style="display: flex; align-items: center;">
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
+                <span class="col">지역</span>
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
 
+            </div>
             <div class="option row row-cols-3 row-cols-lg-6 filter-location">
                 <div class="col">
                     <button class="col-12 selected">전체</button>
@@ -139,8 +148,12 @@
                 </div>
 
             </div>
-            <hr style="border-width:1px 0 0 0; border-color:#000000;">
-            <div class="option row row-cols-3 row-cols-lg-6  filter-evaluation">
+            <div class="row" style="display: flex; align-items: center;">
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
+                <span class="col">후보 기준</span>
+                <hr class="col" style="border-width:1px 0 0 0; border-color:#000000;">
+
+            </div>            <div class="option row row-cols-3 row-cols-lg-6  filter-evaluation">
                 <div class="col">
                     <button class="col-12 selected">전체</button>
                 </div>
@@ -151,14 +164,13 @@
                     <button class="col-12">후기 많은 집</button>
                 </div>
             </div>
-            <hr style="border-width:1px 0 0 0; border-color:#000000;">
 
 
         </div>
 
     </div>
     <div class="btn-area">
-        <button id="recommendBtn" class="btn-style alt-font">추천받기</button>
+        <button id="recommendBtn" class="btn-style alt-font">맛집 뽑기</button>
     </div>
 
 
