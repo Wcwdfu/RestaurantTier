@@ -53,111 +53,7 @@ main {
 
 
 
-/* 리스트의 아이템 중 클릭 상태인 것(홈) */
-div.header-bottom ul.menu-list > li > a > div.home {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
 
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier:hover, .rank:hover, .community:hover, .recommend:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(홈 제외 나머지) */
-.tier, .rank, .community, .recommend {
-    display: flex;
-    align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
-}
-/*접시 이미지 나타나는 효과*/
-#plate {
-    opacity: 0;
-    transform: rotate(-15deg); /* 초기 회전 각도 */
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* opacity와 transform 변경을 위한 transition 설정 */
-}
-
-#plate.on {
-    opacity: 1;
-    transform: rotate(0deg); /* 최종 회전 각도 */
-}
-
-#community{
-    opacity: 0;
-    transition: opacity 2s ease-in-out
-}
-#community.on{
-    opacity: 1;
-}
-#phrase{
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out
-}
-#phrase.on{
-    opacity: 1;
-}
-
-#firstComment {
-    opacity: 0;
-    transform: translateX(20px); /* 오른쪽에서 시작 */
-    transition: opacity 1.5s ease-in-out, transform 2.5s ease-in-out;
-}
-
-#firstComment.on {
-    opacity: 1;
-    transform: translateX(0); /* 원래 위치로 이동 */
-}
-
-#secondComment {
-    opacity: 0;
-    transform: translateX(20px); /* 오른쪽에서 시작 */
-    transition: opacity 2s ease-in-out, transform 2.7s ease-in-out;
-}
-
-#secondComment.on {
-    opacity: 1;
-    transform: translateX(0); /* 원래 위치로 이동 */
-}
-
-#thirdComment {
-    opacity: 0;
-    transform: translateX(20px); /* 오른쪽에서 시작 */
-    transition: opacity 2.5s ease-in-out, transform 2.7s ease-in-out;
-}
-
-#thirdComment.on {
-    opacity: 1;
-    transform: translateX(0); /* 원래 위치로 이동 */
-}
-
-#transferButton {
-    opacity: 0;
-    transform: translateX(20px); /* 오른쪽에서 시작 */
-    transition: opacity 2.5s ease-in-out, transform 2.7s ease-in-out;
-}
-
-#transferButton.on {
-    opacity: 1;
-    transform: translateX(0); /* 원래 위치로 이동 */
-}
 
 
 .swiper-slide:hover {
@@ -197,20 +93,9 @@ h2 {
 }
 
 
-/*음식 버튼 이미지 hover*/
-.cell-button .label {
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
-    color: white; /* 글자 색상 */
-    font-size: 20px; /* 글자 크기 */
-    opacity: 0; /* 기본적으로 숨김 */
-    transition: opacity 0.5s ease; /* 부드러운 효과 */
-    height: 100%; /* 부모 요소와 동일한 높이 */
-    width: 100%; /* 부모 요소와 동일한 너비 */
-}
 
-.cell-button:hover .label {
-    opacity: 1; /* 마우스 오버 시 보임 */
-}
+
+
 
 img:hover {
     filter: brightness(50%); /* 마우스 오버 시 이미지 어둡게 */
@@ -248,12 +133,26 @@ footer{
     }
 
 }
-
+.cell-button .label {
+    opacity: 0; /* 기본적으로 숨김 */
+}
+.cell-button:hover .label {
+    opacity: 1; /* 마우스 오버 시 보임 */
+}
 
 @media only screen and (min-width: 1024px) {
     /* pc화면 */
     .top-banner{
         height: 300px;
+    }
+    /*음식 버튼 이미지 hover*/
+    .cell-button .label {
+        background-color: rgba(0, 0, 0, 0.1); /* 어두운 배경 */
+        color: white; /* 글자 색상 */
+        font-size: 20px; /* 글자 크기 */
+        transition: opacity 0.5s ease; /* 부드러운 효과 */
+        height: 100%; /* 부모 요소와 동일한 높이 */
+        width: 100%; /* 부모 요소와 동일한 너비 */
     }
 }
 

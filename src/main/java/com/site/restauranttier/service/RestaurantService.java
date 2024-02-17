@@ -119,7 +119,7 @@ public class RestaurantService {
     public List<Restaurant> getTopRestaurantsByCuisine() {
         // 모든 식당을 불러온다. 실제로는 repository에서 findAll()을 사용하거나,
         // 필요한 데이터만 가져오는 쿼리 메서드를 정의하여 사용
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findByStatus("ACTIVE");
 
         // 각 식당의 평균 평가 점수를 기준으로 Cuisine 별로 최고 점수의 식당을 찾는다.
         Map<String, Optional<Restaurant>> topRestaurantsByCuisine = restaurants.stream()
