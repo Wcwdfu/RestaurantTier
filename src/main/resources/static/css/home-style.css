@@ -101,6 +101,22 @@ img:hover {
     filter: brightness(50%); /* 마우스 오버 시 이미지 어둡게 */
 }
 
+/* 모바일 화면에서 종류 카테고리 이름 보이게 */
+@media only screen and (max-width:1024px) {
+    .mobile-cuisine-name {
+        display: flex;
+        justify-content: center;
+        line-height: 19px;
+        font-size: 14px;
+        color: #333;
+    }
+}
+@media only screen and (min-width:1025px) {
+    .mobile-cuisine-name {
+        display: none;
+    }
+}
+
 /*화면 꽉 채우고, 푸터 아래에 붙이기 */
 html {
     height: 100vh; /* 뷰포트 높이의 100%로 설정 */
