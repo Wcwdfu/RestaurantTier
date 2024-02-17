@@ -6,6 +6,7 @@ import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,6 +44,16 @@ public class MypageController {
     public ResponseEntity<String> setNickname(@RequestBody Map<String, String> requestBody, Principal principal){
         String newNickname=requestBody.get("newNickname");
         User user = customOAuth2UserService.getUser(principal.getName());
+        // 닉네임이 10자 이상인 경우
+        if (newNickname.length() > 15) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 15자 이하여야 합니다.");
+        }
+        // 닉네임이 이미 존재하는 경우
+        Optional<User> userOptional =  userRepository.findByUserNickname(newNickname);
+        if (userOptional.isPresent() && !newNickname.equals(user.getUserNickname())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 닉네임이 이미 존재합니다.");
+        }
+
         user.setUserNickname(newNickname);
         userRepository.save(user);
 
