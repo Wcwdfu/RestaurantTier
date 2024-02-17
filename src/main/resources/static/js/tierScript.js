@@ -106,6 +106,8 @@ $(document).ready(function () {
     const pageController = document.getElementById('pageController');
     const tierTableBody = document.getElementById('tierTableBody');
     const searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+    searchInput.focus();
     const spinner = document.getElementById('spinner');
     var prevInput = '';
     var currentUrl = window.location.href;
@@ -113,7 +115,8 @@ $(document).ready(function () {
     var relativeUrl = currentUrl.replace(baseUrl, '');
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
     let timer;
-    $('input').on('input', function(event) {
+
+    searchInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
             tierTableBody.innerHTML = '';
