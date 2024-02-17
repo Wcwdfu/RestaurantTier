@@ -43,129 +43,125 @@
         </div>
     </div>
 </section>
-<button id="scrollTopBtn" style="display: none;"><img src="/img/up-arrow.png"></button>
-<div class="category alt-font" id="categoryWindow">
-    <div class="category-background" id="categoryBackground">
-        <div class="category-top">
-            <span class="category-text" id="categoryText">카테고리</span>
-            <input id="categoryCheckBtn" type="checkbox" checked/>
-            <label for="categoryCheckBtn" id="categoryLabel" class="category-check-btn">
-                        <span id="categoryCheckBtnText" class="category-check-btn-text">
-                            접기　
-                        </span>
-                <span id="categoryCheckBtnArrow">▼</span>
-            </label>
-        </div>
-        <div class="category-list" id="categoryList">
-            <div class="cuisine">
-                <span class="text">종류</span>
-                <div class="buttons scrollable">
-                    <a th:class="${cuisine == '전체' ? 'selected button category' : 'unselected button category'}" data-cuisine="전체">
-                        <img src="/img/tier/전체.png">
-                        <span class="cuisine-link">전체</span>
-                    </a>
-                    <a th:class="${cuisine == '한식' ? 'selected button category' : 'unselected button category'}" data-cuisine="한식">
-                        <img src="/img/tier/cuisine/한식.png">
-                        <span class="cuisine-link">한식</span>
-                    </a>
-                    <a th:class="${cuisine == '일식' ? 'selected button category' : 'unselected button category'}" data-cuisine="일식">
-                        <img src="/img/tier/cuisine/일식.png">
-                        <span class="cuisine-link">일식</span>
-                    </a>
-                    <a th:class="${cuisine == '중식' ? 'selected button category' : 'unselected button category'}" data-cuisine="중식">
-                        <img src="/img/tier/cuisine/중식.png">
-                        <span class="cuisine-link">중식</span>
-                    </a>
-                    <a th:class="${cuisine == '양식' ? 'selected button category' : 'unselected button category'}" data-cuisine="양식">
-                        <img src="/img/tier/cuisine/양식.png">
-                        <span class="cuisine-link">양식</span>
-                    </a>
-                    <a th:class="${cuisine == '아시안' ? 'selected button category' : 'unselected button category'}" data-cuisine="아시안">
-                        <img src="/img/tier/cuisine/아시안.png">
-                        <span class="cuisine-link">아시안</span>
-                    </a>
-                    <a th:class="${cuisine == '고기' ? 'selected button category' : 'unselected button category'}" data-cuisine="고기">
-                        <img src="/img/tier/cuisine/고기.png">
-                        <span class="cuisine-link">고기</span>
-                    </a>
-                    <a th:class="${cuisine == '치킨' ? 'selected button category' : 'unselected button category'}" data-cuisine="치킨">
-                        <img src="/img/tier/cuisine/치킨.png">
-                        <span class="cuisine-link">치킨</span>
-                    </a>
-                    <a th:class="${cuisine == '해산물' ? 'selected button category' : 'unselected button category'}" data-cuisine="해산물">
-                        <img src="/img/tier/cuisine/해산물.png">
-                        <span class="cuisine-link">해산물</span>
-                    </a>
-                    <a th:class="${cuisine == '햄버거/피자' ? 'selected button category' : 'unselected button category'}" data-cuisine="햄버거/피자">
-                        <img src="/img/tier/cuisine/햄버거.png">
-                        <span class="cuisine-link">햄버거/피자</span>
-                    </a>
-                    <a th:class="${cuisine == '분식' ? 'selected button category' : 'unselected button category'}" data-cuisine="분식">
-                        <img src="/img/tier/cuisine/분식.png">
-                        <span class="cuisine-link">분식</span>
-                    </a>
-                    <a th:class="${cuisine == '술집' ? 'selected button category' : 'unselected button category'}" data-cuisine="술집">
-                        <img src="/img/tier/cuisine/술집.png">
-                        <span class="cuisine-link">술집</span>
-                    </a>
-                    <a th:class="${cuisine == '카페/디저트' ? 'selected button category' : 'unselected button category'}" data-cuisine="카페/디저트">
-                        <img src="/img/tier/cuisine/카페.png">
-                        <span class="cuisine-link">카페/디저트</span>
-                    </a>
-                    <a th:class="${cuisine == '베이커리' ? 'selected button category' : 'unselected button category'}" data-cuisine="베이커리">
-                        <img src="/img/tier/cuisine/베이커리.png">
-                        <span class="cuisine-link">베이커리</span>
-                    </a>
-                    <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
-                        <img src="/img/tier/cuisine/기타.png">
-                        <span class="cuisine-link">기타</span>
-                    </a>
+<div class="category-background accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item category-item">
+        <h2 class="accordion-header category-top">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                카테고리
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="category-body accordion-collapse collapse show">
+            <div class="category-list" id="categoryList">
+                <div class="cuisine">
+                    <span class="text">종류</span>
+                    <div class="buttons scrollable">
+                        <a th:class="${cuisine == '전체' ? 'selected button category' : 'unselected button category'}" data-cuisine="전체">
+                            <img src="/img/tier/전체.png">
+                            <span class="cuisine-link">전체</span>
+                        </a>
+                        <a th:class="${cuisine == '한식' ? 'selected button category' : 'unselected button category'}" data-cuisine="한식">
+                            <img src="/img/tier/cuisine/한식.png">
+                            <span class="cuisine-link">한식</span>
+                        </a>
+                        <a th:class="${cuisine == '일식' ? 'selected button category' : 'unselected button category'}" data-cuisine="일식">
+                            <img src="/img/tier/cuisine/일식.png">
+                            <span class="cuisine-link">일식</span>
+                        </a>
+                        <a th:class="${cuisine == '중식' ? 'selected button category' : 'unselected button category'}" data-cuisine="중식">
+                            <img src="/img/tier/cuisine/중식.png">
+                            <span class="cuisine-link">중식</span>
+                        </a>
+                        <a th:class="${cuisine == '양식' ? 'selected button category' : 'unselected button category'}" data-cuisine="양식">
+                            <img src="/img/tier/cuisine/양식.png">
+                            <span class="cuisine-link">양식</span>
+                        </a>
+                        <a th:class="${cuisine == '아시안' ? 'selected button category' : 'unselected button category'}" data-cuisine="아시안">
+                            <img src="/img/tier/cuisine/아시안.png">
+                            <span class="cuisine-link">아시안</span>
+                        </a>
+                        <a th:class="${cuisine == '고기' ? 'selected button category' : 'unselected button category'}" data-cuisine="고기">
+                            <img src="/img/tier/cuisine/고기.png">
+                            <span class="cuisine-link">고기</span>
+                        </a>
+                        <a th:class="${cuisine == '치킨' ? 'selected button category' : 'unselected button category'}" data-cuisine="치킨">
+                            <img src="/img/tier/cuisine/치킨.png">
+                            <span class="cuisine-link">치킨</span>
+                        </a>
+                        <a th:class="${cuisine == '해산물' ? 'selected button category' : 'unselected button category'}" data-cuisine="해산물">
+                            <img src="/img/tier/cuisine/해산물.png">
+                            <span class="cuisine-link">해산물</span>
+                        </a>
+                        <a th:class="${cuisine == '햄버거/피자' ? 'selected button category' : 'unselected button category'}" data-cuisine="햄버거/피자">
+                            <img src="/img/tier/cuisine/햄버거.png">
+                            <span class="cuisine-link">햄버거/피자</span>
+                        </a>
+                        <a th:class="${cuisine == '분식' ? 'selected button category' : 'unselected button category'}" data-cuisine="분식">
+                            <img src="/img/tier/cuisine/분식.png">
+                            <span class="cuisine-link">분식</span>
+                        </a>
+                        <a th:class="${cuisine == '술집' ? 'selected button category' : 'unselected button category'}" data-cuisine="술집">
+                            <img src="/img/tier/cuisine/술집.png">
+                            <span class="cuisine-link">술집</span>
+                        </a>
+                        <a th:class="${cuisine == '카페/디저트' ? 'selected button category' : 'unselected button category'}" data-cuisine="카페/디저트">
+                            <img src="/img/tier/cuisine/카페.png">
+                            <span class="cuisine-link">카페/디저트</span>
+                        </a>
+                        <a th:class="${cuisine == '베이커리' ? 'selected button category' : 'unselected button category'}" data-cuisine="베이커리">
+                            <img src="/img/tier/cuisine/베이커리.png">
+                            <span class="cuisine-link">베이커리</span>
+                        </a>
+                        <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
+                            <img src="/img/tier/cuisine/기타.png">
+                            <span class="cuisine-link">기타</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="situation">
-                <span class="text">상황</span>
-                <div class="buttons scrollable">
-                    <a th:class="${situation == '전체' ? 'selected button category' : 'unselected button category'}" data-situation="전체">
-                        <img src="/img/tier/전체.png">
-                        <span>전체</span>
-                    </a>
-                    <a th:class="${situation == '혼밥' ? 'selected button category' : 'unselected button category'}" data-situation="ONE">
-                        <img src="/img/tier/혼밥.png">
-                        <span>혼밥</span>
-                    </a>
-                    <a th:class="${situation == '2~4인' ? 'selected button category' : 'unselected button category'}" data-situation="TWO">
-                        <img src="/img/tier/2~4인.png">
-                        <span>2~4인</span>
-                    </a>
-                    <a th:class="${situation == '5인 이상' ? 'selected button category' : 'unselected button category'}" data-situation="THREE">
-                        <img src="/img/tier/5인%20이상.png">
-                        <span>5인 이상</span>
-                    </a>
-                    <a th:class="${situation == '단체 회식' ? 'selected button category' : 'unselected button category'}" data-situation="FOUR">
-                        <img src="/img/tier/단체%20회식.png">
-                        <span>단체 회식</span>
-                    </a>
-                    <a th:class="${situation == '배달' ? 'selected button category' : 'unselected button category'}" data-situation="FIVE">
-                        <img src="/img/tier/배달.png">
-                        <span>배달</span>
-                    </a>
-                    <a th:class="${situation == '야식' ? 'selected button category' : 'unselected button category'}" data-situation="SIX">
-                        <img src="/img/tier/야식.png">
-                        <span>야식</span>
-                    </a>
-                    <a th:class="${situation == '친구 초대' ? 'selected button category' : 'unselected button category'}" data-situation="SEVEN">
-                        <img src="/img/tier/친구%20초대.png">
-                        <span>친구 초대</span>
-                    </a>
-                    <a th:class="${situation == '데이트' ? 'selected button category' : 'unselected button category'}" data-situation="EIGHT">
-                        <img src="/img/tier/데이트.png">
-                        <span>데이트</span>
-                    </a>
-                    <a th:class="${situation == '소개팅' ? 'selected button category' : 'unselected button category'}" data-situation="NINE">
-                        <img src="/img/tier/소개팅.png">
-                        <span>소개팅</span>
-                    </a>
+                <div class="situation">
+                    <span class="text">상황</span>
+                    <div class="buttons scrollable">
+                        <a th:class="${situation == '전체' ? 'selected button category' : 'unselected button category'}" data-situation="전체">
+                            <img src="/img/tier/전체.png">
+                            <span>전체</span>
+                        </a>
+                        <a th:class="${situation == '혼밥' ? 'selected button category' : 'unselected button category'}" data-situation="ONE">
+                            <img src="/img/tier/혼밥.png">
+                            <span>혼밥</span>
+                        </a>
+                        <a th:class="${situation == '2~4인' ? 'selected button category' : 'unselected button category'}" data-situation="TWO">
+                            <img src="/img/tier/2~4인.png">
+                            <span>2~4인</span>
+                        </a>
+                        <a th:class="${situation == '5인 이상' ? 'selected button category' : 'unselected button category'}" data-situation="THREE">
+                            <img src="/img/tier/5인%20이상.png">
+                            <span>5인 이상</span>
+                        </a>
+                        <a th:class="${situation == '단체 회식' ? 'selected button category' : 'unselected button category'}" data-situation="FOUR">
+                            <img src="/img/tier/단체%20회식.png">
+                            <span>단체 회식</span>
+                        </a>
+                        <a th:class="${situation == '배달' ? 'selected button category' : 'unselected button category'}" data-situation="FIVE">
+                            <img src="/img/tier/배달.png">
+                            <span>배달</span>
+                        </a>
+                        <a th:class="${situation == '야식' ? 'selected button category' : 'unselected button category'}" data-situation="SIX">
+                            <img src="/img/tier/야식.png">
+                            <span>야식</span>
+                        </a>
+                        <a th:class="${situation == '친구 초대' ? 'selected button category' : 'unselected button category'}" data-situation="SEVEN">
+                            <img src="/img/tier/친구%20초대.png">
+                            <span>친구 초대</span>
+                        </a>
+                        <a th:class="${situation == '데이트' ? 'selected button category' : 'unselected button category'}" data-situation="EIGHT">
+                            <img src="/img/tier/데이트.png">
+                            <span>데이트</span>
+                        </a>
+                        <a th:class="${situation == '소개팅' ? 'selected button category' : 'unselected button category'}" data-situation="NINE">
+                            <img src="/img/tier/소개팅.png">
+                            <span>소개팅</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
