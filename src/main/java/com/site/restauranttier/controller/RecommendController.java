@@ -61,8 +61,7 @@ public class RecommendController {
         }
         // 조건에 맞게 상위 100개 선택
         List<Restaurant> top100List = combinedRestaurantList.stream().limit(100).collect(Collectors.toList());
-        for(Restaurant r  : top100List)
-            logger.info(r.toString());
+
         // 상위 100개 중에서 랜덤으로 30개 선택
         return new ResponseEntity<>(getRandomSubList(top100List, 30), HttpStatus.OK);
 
