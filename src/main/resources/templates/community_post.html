@@ -5,6 +5,7 @@
     <title th:text="'쿠스토랑-' + ${post.postTitle}"></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
     <!-- 아이콘 관련 라이브러리 -->
@@ -114,8 +115,7 @@
         <div class="comment-write">
             <div>
                 <form class="comment-form" action="/api/community/comment/create" method="post">
-                <textarea name="content" class="comment-content" maxlength="300"
-                          placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
+                <textarea name="content" class="comment-content" maxlength="300" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
 <!--                        <span type="button">-->
@@ -125,7 +125,6 @@
 <!--                            </span>-->
 
 <!--                        </span>-->
-
 
                         </div>
                         <button type="submit">

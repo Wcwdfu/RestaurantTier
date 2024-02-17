@@ -1,5 +1,9 @@
 @import "variables.css";
 
+/*드롭다운 색깔 메인컬러로 바꾸기*/
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--main-color);
+}
 section h2 {
     color: var(--main-color);
 }
