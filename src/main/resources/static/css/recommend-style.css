@@ -127,8 +127,7 @@
 .btn-style {
     width: 100%;
     height: 50px;
-    border: 1px solid #000;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
     background-color: var(--main-color);
 
@@ -298,9 +297,11 @@ footer {
     #recommendBtn {
 
         width: 100%;
-        height: 40px;
     }
+    .btn-style{
+        height: 40px;
 
+    }
     .option-area hr {
         width: 100px;
     }

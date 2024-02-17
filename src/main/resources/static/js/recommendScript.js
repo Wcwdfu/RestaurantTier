@@ -122,9 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('recommendPage').classList.add('hidden');
                 document.getElementById('recommendBtn').classList.add('hidden');
                 document.getElementById('resultPage').classList.remove('hidden');
-                // 가장 위로 올리기
-                window.scrollTo(0, 0);
-
+                // 스크롤 이미지슬라이드바로 올리기
+                const element = document.querySelector('.result-img-slideBar');
+                element.scrollIntoView({
+                    block: 'center', // 수직 방향으로 중앙에 위치
+                    inline: 'center' // 수평 방향으로 중앙에 위치 (필요한 경우)
+                });
                 document.getElementById('restartBtn').classList.remove('hidden');
                 document.getElementById('restartDirectBtn').classList.remove('hidden');
 
@@ -308,10 +311,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 슬라이더 시작
                 const resultImgSlideBar = document.querySelector('.result-img-slideBar');
                 resultImgSlideBar.style.opacity = 1;
-                document.querySelector('.result-img-slideBar').classList.remove('hidden');
-                // 스크롤 가장 위로 올리기
-                window.scrollTo(0, 0);
-
+                
+                // 스크롤 이미지슬라이드바로 올리기
+                const element = document.querySelector('.result-img-slideBar');
+                element.classList.remove('hidden');
+                element.scrollIntoView({
+                    block: 'center', // 수직 방향으로 중앙에 위치
+                    inline: 'center' // 수평 방향으로 중앙에 위치 (필요한 경우)
+                });
                 // 버튼 삭제
                 const restartDirectBtn = document.getElementById('restartDirectBtn');
                 const restartBtn = document.getElementById('restartBtn');
