@@ -1,5 +1,12 @@
 @import "variables.css";
 
+#postSearch{
+    border-radius: 5px;
+    background-color: var(--main-color);
+    border:none;
+    color:white;
+}
+body input{caret-color: black;}
 /*드롭다운 색깔 메인컬러로 바꾸기*/
 .dropdown-item.active, .dropdown-item:active {
     background-color: var(--main-color);
