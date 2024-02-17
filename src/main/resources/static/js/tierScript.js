@@ -20,22 +20,6 @@ $(document).ready(function () {
         })
     });
 
-    // 맨위로 올라가는 버튼
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    scrollTopBtn.addEventListener("click", function() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 0) {
-            scrollTopBtn.style.display = 'inline';
-        } else {
-            scrollTopBtn.style.display = 'none';
-        }
-    })
-
 // 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
     document.getElementById('categoryCheckBtn').addEventListener('change', function () {
         const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
