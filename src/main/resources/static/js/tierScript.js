@@ -113,6 +113,15 @@ $(document).ready(function () {
     var relativeUrl = currentUrl.replace(baseUrl, '');
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
     let timer;
+    searchInput.addEventListener('click', function(event) {
+        var target = event.target;
+
+        // Check if the clicked element is the input field or inside it
+        if (target !== searchInput && !searchInput.contains(target)) {
+            // Prevent blur on input field
+            event.stopPropagation();
+        }
+    });
     $('input').on('input', function(event) {
         const inputValue = event.target.value;
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
@@ -200,4 +209,8 @@ $(document).ready(function () {
         }
         spinner.style.display = 'none';
     }
+    // 페이지 이동할 때 검색창 비우기
+    window.onbeforeunload = function() {
+        searchInput.value = '';
+    };
 });
