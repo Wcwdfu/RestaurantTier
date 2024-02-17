@@ -7,6 +7,7 @@ import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -122,10 +123,14 @@ public class RestaurantController {
             @RequestBody Map<String, Object> jsonBody,
             Principal principal
     ) {
+        String commentBody = jsonBody.get("commentBody").toString();
+        if (commentBody.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("내용을 입력해 주세요.");
+        }
         String result = restaurantCommentService.addComment(
                 restaurantId,
                 principal.getName(),
-                jsonBody.get("commentBody").toString());
+                commentBody);
         if (result.equals("ok")) {
             return ResponseEntity.ok("Comment added successfully");
         } else if (result.equals("userTokenId")) {

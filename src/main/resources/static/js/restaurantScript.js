@@ -45,7 +45,7 @@ document.getElementById('favoriteImg').addEventListener('click', function() {
 });
 // 식당 Favorite 토글 요청
 function toggleFavoriteRequest() {
-    fetch("/api" + window.location.pathname + "/favorite/toggle", {
+    fetch(window.location.origin + "/api" + window.location.pathname + "/favorite/toggle", {
         method: 'POST',
     })
         .then(response => {
@@ -243,17 +243,14 @@ function toggleButton(buttonNumber) {
 
 // 댓글 달기 요청
 function sendComment() {
-    const apiUrl = "/api" + window.location.pathname + "/comments";
+    const apiUrl = window.location.origin + "/api" + window.location.pathname + "/comments";
     const currentUrl = window.location.href;
     const commentInput = document.getElementById('commentInput');
     const commentBody = commentInput.value.trim();
     const commentToggleButton2 = document.getElementById('button2');
 
     const commentAlert = document.getElementById('commentAlert');
-    if (commentBody.length === 0) {
-        commentAlert.innerText = '내용을 입력해 주세요.';
-        return;
-    }
+    console.log("ee"+commentBody+"ee");
 
     fetch(apiUrl, {
         method: "POST",
@@ -269,12 +266,18 @@ function sendComment() {
                 window.location.href = response.url;
             } else {
                 // 리다이렉션이 없는 경우에 대한 처리
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                } else {
+                if (response.ok) {
                     commentInput.value = '';
                     commentAlert.innerText = '';
                     commentToggleButton2.click();
+                } else if (response.status === 400) {
+                    // 메시지가 빈 경우
+                    commentInput.value = '';
+                    return response.text().then(errorMessege => {
+                        alert(errorMessege);
+                    })
+                } else {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
             }
         })
@@ -286,7 +289,7 @@ function sendComment() {
 // 댓글 좋아요 요청
 function commentLike(button) {
     const commentId = button.getAttribute("data-id");
-    const apiUrl = `/api/restaurants/comments/${commentId}/like`;
+    const apiUrl = window.location.origin + `/api/restaurants/comments/${commentId}/like`;
     fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -310,7 +313,7 @@ function commentLike(button) {
 // 댓글 싫어요 요청
 function commentDislike(button) {
     const commentId = button.getAttribute("data-id");
-    const apiUrl = `/api/restaurants/comments/${commentId}/dislike`;
+    const apiUrl = window.location.origin + `/api/restaurants/comments/${commentId}/dislike`;
     fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -333,7 +336,7 @@ function commentDislike(button) {
 }
 // 댓글 하나 html 교체
 function changeCommentHtml(commentId, commentLi) {
-    const apiUrl = `/api/restaurants/comments/${commentId}`;
+    const apiUrl = window.location.origin + `/api/restaurants/comments/${commentId}`;
     fetch(apiUrl, {
         method: "GET",
     })
@@ -371,7 +374,7 @@ function deleteComment(deleteButton) {
     }
 
     yesButton.onclick = function() {
-        const apiUrl = `/api/restaurants/comments/${commentId}`;
+        const apiUrl = window.location.origin + `/api/restaurants/comments/${commentId}`;
         fetch(apiUrl, {
             method: "DELETE",
         })

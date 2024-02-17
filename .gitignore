@@ -38,3 +38,6 @@ out/
 
 ### oauth ###
 application-oauth.properties
+
+### ect ###
+build.gradle
