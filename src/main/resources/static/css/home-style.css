@@ -161,7 +161,7 @@ footer{
     }
     /*음식 버튼 이미지 hover*/
     .cell-button .label {
-        background-color: rgba(0, 0, 0, 0.4); /* 어두운 배경 */
+        background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
         color: white; /* 글자 색상 */
         font-size: 20px; /* 글자 크기 */
         transition: opacity 0.5s ease; /* 부드러운 효과 */
