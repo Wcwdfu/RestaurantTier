@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,8 @@ public class EvaluationService {
         // 있으면 업데이트 및 삭제
         if (evaluationOptional.isPresent()) {
             evaluation = evaluationOptional.get();
+            // updated at
+            evaluation.setUpdatedAt(LocalDateTime.now());
             // restaurant tbl update
             double preveMainScore = evaluation.getEvaluationScore();
             restaurant.setRestaurantScoreSum(restaurant.getRestaurantScoreSum() - preveMainScore + jsonData.getStarRating());

@@ -80,7 +80,7 @@ public class RestaurantService {
 
         return restaurantRepository.findAll(spec, pageable);
     }
-
+    // 식당의 메뉴 리스트 반환
     public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
         if (restaurant.getStatus().equals("ACTIVE")) {
@@ -89,7 +89,7 @@ public class RestaurantService {
             return null;
         }
     }
-
+    // status가 ACTIVE인 cuisine에 속한 식당 리스트 반환
     public List<Restaurant> getRestaurantList(String cuisine) {
         if (cuisine.equals("전체")) {
             return restaurantRepository.findByStatus("ACTIVE");
@@ -105,11 +105,11 @@ public class RestaurantService {
         }
         return restaurantRepository.findByRestaurantCuisineAndStatusAndRestaurantPosition(cuisine, "ACTIVE", location);
     }
-
+    // 해당 식당이 방문 상위 몇 퍼센트인지 반환
     public Float getPercentOrderByVisitCount(Restaurant restaurant) {
         return restaurantRepository.getPercentOrderByVisitCount(restaurant);
     }
-
+    // 식당 방문 카운트 1 증가
     public void plusVisitCount(Restaurant restaurant) {
         restaurant.setVisitCount(restaurant.getVisitCount() + 1);
         restaurantRepository.save(restaurant);

@@ -1,6 +1,8 @@
 package com.site.restauranttier.controller;
 
+import com.site.restauranttier.entity.Evaluation;
 import com.site.restauranttier.entity.Post;
+import com.site.restauranttier.entity.RestaurantFavorite;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.CustomOAuth2UserService;
@@ -14,8 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,15 +27,30 @@ public class MypageController {
 
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/myPage")
-    public String myPage(Model model, Principal principal){
+    public String myPage(
+            @RequestParam(value = "menu-index", defaultValue = "0") int menuIndex,
+            Model model,
+            Principal principal
+    ){
         User user = customOAuth2UserService.getUser(principal.getName());
 
         model.addAttribute("user",user);
 
+        // 메뉴 탭 인덱스 정보
+        model.addAttribute("menuIndex", menuIndex);
         // 저장된 맛집 정보
+        List<RestaurantFavorite> favoriteList =  user.getRestaurantFavoriteList();
+        favoriteList.sort(Comparator.comparing(RestaurantFavorite::getCreatedAt).reversed()); //정렬
         model.addAttribute("restaurantFavoriteList", user.getRestaurantFavoriteList());
         // 평가한 맛집 정보
-        model.addAttribute("restaurantEvaluationList", user.getEvaluationList());
+        List<Evaluation> evaluationList =  user.getEvaluationList();
+        evaluationList.sort(Comparator.comparing((Evaluation e) -> { // 정렬
+            if (e.getUpdatedAt() != null && e.getUpdatedAt().isAfter(e.getCreatedAt())) {
+                return e.getUpdatedAt();
+            }
+            return e.getCreatedAt();
+        }).reversed());
+        model.addAttribute("restaurantEvaluationList", evaluationList);
 
         // 커뮤나티관련 정보
         model.addAttribute("postList",user.getPostList());

@@ -64,10 +64,12 @@ public class MainController {
     @GetMapping("/search")
     public String search(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
         if (kw.isEmpty()) {
-
+            model.addAttribute("kw", "입력된 검색어가 없습니다.");
+            return "searchResult";
+        } else {
+            model.addAttribute("kw", kw);
         }
-        System.out.println(kw);
-        model.addAttribute("kw", kw);
+
         return "searchResult";
     }
 }

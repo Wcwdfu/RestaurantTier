@@ -13,7 +13,10 @@
     <div class="nick-date-div">
         <span class="nick-span" th:text="${comment.getUser.getUserNickname()}"></span>
         <span class="date-span" th:text="${comment.calculateTimeAgo()}"></span>
-        <button class="delete-button" onclick="deleteComment(this)" th:if="${comment.getUser() == user}" th:data-id="${comment.commentId}">삭제</button>
+        <!-- Button trigger modal -->
+        <button type="button" th:if="${comment.getUser() == user}" th:data-id="${comment.commentId}" class="delete-button btn btn-primary" onclick="deleteComment(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            삭제
+        </button>
     </div>
     <div class="real-comment-container">
         <span th:text="${comment.getCommentBody()}"></span>
