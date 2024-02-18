@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '오늘의 맛집은요..';
+            processingTitle.textContent = '제가 추천드린 가게는요..';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
@@ -257,6 +257,9 @@ document.addEventListener('DOMContentLoaded', function () {
         //select 박스 초기화
         const selectedBox = document.getElementById('SelectedBox');
         selectedBox.style.backgroundImage = '';
+        const processingTitle = document.getElementById('processingTitle');
+
+        processingTitle.textContent = '맛집을 고르는 중...';
 
 
 
@@ -280,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!data || data.length === 0) {
                     alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
                     window.location.reload(); // 페이지 새로고침
-                    return; // 이후 로직을 실행하지 않기 위해 함수에서 빠르게 탈출
+                    return;
                 }
                 var restaurantList = data
                 const imgDivs = document.querySelectorAll('.result-img-list');
