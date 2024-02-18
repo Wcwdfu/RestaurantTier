@@ -250,7 +250,6 @@ function sendComment() {
     const commentToggleButton2 = document.getElementById('button2');
 
     const commentAlert = document.getElementById('commentAlert');
-    console.log("ee"+commentBody+"ee");
 
     fetch(apiUrl, {
         method: "POST",
@@ -351,37 +350,17 @@ function changeCommentHtml(commentId, commentLi) {
 //댓글 삭제
 function deleteComment(deleteButton) {
     const commentId = deleteButton.getAttribute('data-id');
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-    var yesButton = document.getElementById('confirmButton');
-    var noButton = document.getElementById('cancelButton');
+    var modal = document.getElementById("exampleModal");
+    var deleteAgreeButton = document.getElementById('deleteAgreeButton');
 
-    modal.style.display = "block";
-
-    // 모달 닫기 버튼을 클릭하면 모달을 숨깁니다.
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    noButton.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // 모달 외부를 클릭하면 모달을 숨깁니다.
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    yesButton.onclick = function() {
+    deleteAgreeButton.onclick = function() {
         const apiUrl = window.location.origin + `/api/restaurants/comments/${commentId}`;
         fetch(apiUrl, {
             method: "DELETE",
         })
             .then(response => {
-                modal.style.display = "none";
                 if (!response.ok) {
-                    throw new Error(`${data.status}: ${data.message}`);
+                    throw new Error(`${response.status}: ${response.message}`);
                 } else {
                     deleteButton.closest('li').remove();
                 }

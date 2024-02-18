@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${'쿠스토랑 - ' + restaurant.getRestaurantName()}"></title>
     <meta charset="UTF-8"/>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- 아이콘 라이브러리-->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
@@ -139,7 +138,10 @@
                     <div class="nick-date-div">
                         <span class="nick-span" th:text="${restaurantComment[0].getUser().getUserNickname()}"></span>
                         <span class="date-span" th:text="${restaurantComment[0].calculateTimeAgo()}"></span>
-                        <button class="delete-button" onclick="deleteComment(this)" th:if="${restaurantComment[0].getUser() == user}" th:data-id="${restaurantComment[0].commentId}">삭제</button>
+                        <!-- Button trigger modal -->
+                        <button type="button" th:if="${restaurantComment[0].getUser() == user}" th:data-id="${restaurantComment[0].commentId}" class="delete-button btn btn-primary" onclick="deleteComment(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            삭제
+                        </button>
                     </div>
                     <div class="real-comment-container">
                         <span th:text="${restaurantComment[0].getCommentBody()}"></span>
@@ -148,15 +150,21 @@
             </li>
         </ul>
     </div>
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div>
-                <p>정말 댓글을 삭제하시겠습니까?</p>
-                <span class="close">&times;</span>
-            </div>
-            <div class="modal-buttons">
-                <button class="delete-button" id="confirmButton">확인</button>
-                <button class="delete-button" id="cancelButton">취소</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">댓글 삭제</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    정말 댓글을 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button id="deleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">삭제</button>
+                </div>
             </div>
         </div>
     </div>
