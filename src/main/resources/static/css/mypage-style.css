@@ -134,7 +134,7 @@
 }
 
 /*----------------- 로그아웃 버튼 ---------------*/
-/* 여기 수정 */
+
 #logoutBtn{
     border: none;
     border-radius: 5px;
@@ -147,9 +147,10 @@
 
 /*----------------- 내가 작성한 게시글 영역(Area5) ---------------*/
 
-#postul {
-    margin-bottom: 1rem;
+.postul {
     margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0;
     border-top: 1px solid white;
 
     display: flex;
@@ -235,17 +236,17 @@
     display: flex;
     align-items: center;
 }
-#category{
+.category{
     padding-left: 0;
 }
-#createdAt::before, #author::before{
-    display: inline-block;
-    vertical-align: middle;
-    border-left: 1px solid #ebeef1;
-    height: 12px;
-    content: "";
-    margin-right: 8px;
-}
+/*.createdAt::before, #author::before{*/
+/*    display: inline-block;*/
+/*    vertical-align: middle;*/
+/*    border-left: 1px solid #ebeef1;*/
+/*    height: 12px;*/
+/*    content: "";*/
+/*    margin-right: 8px;*/
+/*}*/
 #author{
     flex: 1;
     overflow: hidden;

@@ -86,9 +86,9 @@
             <div id="countInfo">
                 <p>저장된 맛집 수 : <span th:text="${restaurantFavoriteList.size()}"></span></p>
                 <p>평가한 맛집 수 : <span th:text="${restaurantEvaluationList.size()}"></span></p>
-<!--                <p>댓글단 맛집 수 : </p>-->
+                <p>작성한 맛집 댓글 수 : </p>
                 <p>커뮤니티 작성한 글 수 : <span th:text="${postList.size()}"></span></p>
-<!--                <p>커뮤니티 댓글단 글 수 : <span th:text="${postCommentList.size()}"></span></p>-->
+                <p>작성한 커뮤니티 댓글 수 : <span th:text="${postCommentList.size()}"></span></p>
                 <p>커뮤니티 저장된 글 수 : <span th:text="${postScrabList.size()}"></span></p>
             </div>
 
@@ -154,37 +154,36 @@
 
     <div id="Area5" class="hidden">
         <div id="area5Contents" class="gray-border-circular">
-<!--            <div id="myPostList" th:each="myPostList : ${postList}">-->
-                <ul id="postul">
+            <ul id="postul">
 
-<!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
-                    <li th:each="postlist:${postList}" class="postli">
-                        <hr>
+                <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
+                <li th:each="postlist:${postList}" class="postli">
+                    <hr>
                     <span class="recommend-tab">
                         <img class="likecount" src="../img/community/up.png" alt="이미지">
                         <span th:text="${postlist.likeCount}"></span>
                     </span>
 
-                        <div class="postBox">
-                            <a class="postLink" th:text="${postlist.postTitle}"
-                               th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>
-                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}">
+                    <div class="postBox">
+                        <div>
+                            <a class="postLink" th:text="${postlist.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>
+                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>
+                        </div>
+
                             <div class="underLink">
                                 <span id="category" th:text="${postlist.postCategory}"></span>
 
                                 <!--  현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시               -->
                                 <span id="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>
-                                <span id="author" th:text="${postlist.user.userNickname}"></span>
                             </div>
-                        </div>
 
-<!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
-<!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
-<!--                             th:src="${post.postPhotoList.get(0).photoImgUrl}"/>-->
-                    </li>
-                </ul>
+                    </div>
 
-<!--            </div>-->
+                    <!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
+                    <!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
+                    <!--                             th:src="${post.postPhotoList.get(0).photoImgUrl}"/>-->
+                </li>
+            </ul>
 
 
 
@@ -199,6 +198,36 @@
 
     <div id="Area7" class="hidden">
         <div id="area7Contents" class="gray-border-circular">
+            <ul class="postul">
+
+                <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
+                <li th:each="postsScrabList:${postScrabList}" class="postli">
+                    <hr>
+<!--                    <span class="recommend-tab">-->
+<!--                        <img class="likecount" src="../img/community/up.png" alt="이미지">-->
+<!--                        <span th:text="${postScrabList.likeCount}"></span>-->
+<!--                    </span>-->
+
+<!--                    <div class="postBox">-->
+<!--                        <div>-->
+<!--                            <a class="postLink" th:text="${postScrabList.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>-->
+<!--                            <span class="comment-count" th:if="${postScrabList.postCommentList.size()}" th:text="'['+${postScrabList.postCommentList.size()+']'}"></span>-->
+<!--                        </div>-->
+
+<!--                        <div class="underLink">-->
+<!--                            <span class="category" th:text="${postScrabList.postCategory}"></span>-->
+
+<!--                            &lt;!&ndash;  현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시               &ndash;&gt;-->
+<!--                            <span class="createdAt" th:text="${postScrabList.calculateTimeAgo()}"> </span>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+                    <!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
+                    <!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
+                    <!--                             th:src="${post.postPhotoList.get(0).photoImgUrl}"/>-->
+                </li>
+            </ul>
         </div>
     </div>
 

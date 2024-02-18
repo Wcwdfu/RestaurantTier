@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (selectedIndex == 5) {
             comment.textContent = "제법 괜찮아요. 무조건 재방문 합니다";
         } else {
-            comment.textContent = "입안을 행복하게해줄 최고의 맛이에요";
+            comment.textContent = "내 마음속 최고의 가게!";
         }
 
     }
