@@ -28,25 +28,25 @@
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
 
 <div id="navBar">
-    <div class="navbar-title selected">
+    <div th:class="${menuIndex == 0 ? 'navbar-title selected' : 'navbar-title'}">
         <p>내 정보</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 1 ? 'navbar-title selected' : 'navbar-title'}">
         <p>저장된 맛집</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 2 ? 'navbar-title selected' : 'navbar-title'}">
         <p>평가한 맛집</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 3 ? 'navbar-title selected' : 'navbar-title'}">
         <p>댓글단 맛집</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 4 ? 'navbar-title selected' : 'navbar-title'}">
         <p>작성한 글</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 5 ? 'navbar-title selected' : 'navbar-title'}">
         <p>댓글단 글</p>
     </div>
-    <div class="navbar-title">
+    <div th:class="${menuIndex == 6 ? 'navbar-title selected' : 'navbar-title'}">
         <p>저장된 글</p>
     </div>
     <hr class="hr">
@@ -117,10 +117,6 @@
                 </div>
                 <!-- 식당 cuisine -->
                 <img class="restaurant-cuisine-img" th:src="${restaurantFavorie.getRestaurant().getCuisineImgUrl(restaurantFavorie.getRestaurant().getRestaurantCuisine())}">
-                <!-- 추가 날짜 -->
-                <div class="favorite-add-date-div">
-                    <span class="favorite-add-date-span" th:text="${restaurantFavorie.calculateTimeAgo()}"></span>
-                </div>
             </div>
         </div>
     </div>
