@@ -46,5 +46,15 @@ tr td a{
     color: inherit;
 }
 
-
+/* 내용이 없을 경우 */
+.no-result {
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-result > span {
+    font-size: 20px;
+    color: #444;
+}
 

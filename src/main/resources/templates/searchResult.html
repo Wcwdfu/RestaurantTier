@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/library/responsive.min.css">
     <link rel="stylesheet" href="/css/library/restaurant.css">
     <link rel="stylesheet" type="text/css" href="/css/tier-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/searchResult-style.css">
 
 </head>
 
@@ -27,14 +28,17 @@
         <div class="row align-items-center justify-content-center small-screen">
             <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete"
                  data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">Search Result</h1>
-                <h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
-                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>Konkuk Restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>
+                <h1 class="alt-font text-dark-gray ls-minus-1px mb-0 text-uppercase">검색 결과</h1>
+                <!--<h2 class="m-auto text-red fw-600 text-uppercase mb-0" style=""><span
+                        class="h-2px w-5px bg-red d-inline-block align-middle me-5px"></span>Konkuk Restaurant<span class="h-2px w-5px bg-red d-inline-block align-middle ms-5px"></span></h2>-->
             </div>
         </div>
     </div>
 </section>
-<main id="tierChartMain">
+<div th:if="${#strings.isEmpty(restaurantList)}" class="no-result">
+    <span>해당하는 식당이 없습니다</span>
+</div>
+<main th:if="${not #strings.isEmpty(restaurantList)}" id="tierChartMain">
     <table class="tier-table">
         <colgroup>
             <col>

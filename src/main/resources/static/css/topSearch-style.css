@@ -6,7 +6,7 @@
         width: 170px;
         height: 35px;
         margin-right: 25px;
-        border-radius: 5px;
+        border-radius: 7px;
         border: #444 solid 1px;
         justify-content: center;
         align-items: center;
@@ -94,9 +94,13 @@
     background-color: #444;
     opacity: 0.5;
 }
+.prevent-scroll {
+    overflow: hidden;
+}
 @media only screen and (min-width: 576px) {
     .search-front {
         width: 70%;
+        max-width: 900px;
         top: 5px;
     }
 }
@@ -126,6 +130,11 @@
     border-radius: 6px;
     border: #ccc solid 1px;
     align-items: center;
+    padding: 1px;
+}
+.border-highlight {
+    border: var(--main-color) solid 2px;
+    padding: 0;
 }
 .input-container > img {
     height: 16px;
@@ -134,7 +143,7 @@
 }
 .input-container input {
     flex: 1;
-    padding: 4px 0;
+    padding: 5px 0;
     font-size: 15px;
     line-height: 23px;
     color: #333;
