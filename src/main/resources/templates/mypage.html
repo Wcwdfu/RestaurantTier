@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>건스토랑 - 마이페이지</title>
+    <title>쿠스토랑 - 마이페이지</title>
 
     <link rel="stylesheet" href="/css/mypage-style.css">
     <script src="/js/mypageScript.js" defer></script>
@@ -84,12 +84,12 @@
             <hr class="margin25px">
 
             <div id="countInfo">
-                <p>저장된 맛집 수 : </p>
-                <p>평가한 맛집 수 : </p>
-                <p>댓글단 맛집 수 : </p>
-                <p>커뮤니티 작성한 글 수 : </p>
-                <p>커뮤니티 댓글단 글 수 : </p>
-                <p>커뮤니티 저장된 글 수 : </p>
+                <p>저장된 맛집 수 : <span th:text="${restaurantFavoriteList.size()}"></span></p>
+                <p>평가한 맛집 수 : <span th:text="${restaurantEvaluationList.size()}"></span></p>
+<!--                <p>댓글단 맛집 수 : </p>-->
+                <p>커뮤니티 작성한 글 수 : <span th:text="${postList.size()}"></span></p>
+<!--                <p>커뮤니티 댓글단 글 수 : <span th:text="${postCommentList.size()}"></span></p>-->
+                <p>커뮤니티 저장된 글 수 : <span th:text="${postScrabList.size()}"></span></p>
             </div>
 
             <hr class="margin25px">
@@ -98,9 +98,7 @@
                 <button id="logoutBtn" onclick="logout()">로그아웃</button>
             </div>
 
-
         </div>
-
 
     </div>
 
@@ -151,41 +149,53 @@
     </div>
 
     <div id="Area5" class="hidden">
-        <p class="pp">작성한 커뮤니티 글 영역</p>
-        <p th:text="${test}"></p>
+        <div id="area5Contents" class="gray-border-circular">
+<!--            <div id="myPostList" th:each="myPostList : ${postList}">-->
+                <ul id="postul">
 
-        <ul id="postul">
-            <li th:each="post,iterStat: ${paging}" class="postli">
-        <span class="recommend-tab">
-            <img src="/img/community/up.png">
-            <span th:text="${post.likeCount}"></span>
-        </span>
-                <div class="postBox">
-                    <a class="postLink" th:text="${post.postTitle}"
-                       th:href="@{/community/{postId}(postId=${post.postId})}"></a>
-                    <div class="underLink">
-                        <span id="category" th:text="${post.postCategory}"></span>
+<!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
+                    <li th:each="postlist:${postList}" class="postli">
+                        <hr>
+                    <span class="recommend-tab">
+                        <img class="likecount" src="../img/community/up.png" alt="이미지">
+                        <span th:text="${postlist.likeCount}"></span>
+                    </span>
 
-                        <!--     현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시 (ex.1시간 전)               -->
-                        <span id="createdAt" th:text="${post.calculateTimeAgo()}"> </span>
-                        <span id="author" th:text="${post.user.userNickname}"></span>
-                    </div>
-                </div>
+                        <div class="postBox">
+                            <a class="postLink" th:text="${postlist.postTitle}"
+                               th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>
+                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}">
+                            <div class="underLink">
+                                <span id="category" th:text="${postlist.postCategory}"></span>
 
-                <!-- 게시글에 사진이 있으면 썸네일 표시 -->
-                <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"
-                     th:src="${post.postPhotoList.get(0).photoImgUrl}"/>
-            </li>
-        </ul>
+                                <!--  현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시               -->
+                                <span id="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>
+                                <span id="author" th:text="${postlist.user.userNickname}"></span>
+                            </div>
+                        </div>
+
+<!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
+<!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
+<!--                             th:src="${post.postPhotoList.get(0).photoImgUrl}"/>-->
+                    </li>
+                </ul>
+
+<!--            </div>-->
+
+
+
+        </div>
 
     </div>
 
     <div id="Area6" class="hidden">
-        <p class="pp">댓글단 커뮤니티 글 영역</p>
+        <div id="area6Contents" class="gray-border-circular">
+        </div>
     </div>
 
     <div id="Area7" class="hidden">
-        <p class="pp">저장된 커뮤니티 글 영역</p>
+        <div id="area7Contents" class="gray-border-circular">
+        </div>
     </div>
 
 </div>

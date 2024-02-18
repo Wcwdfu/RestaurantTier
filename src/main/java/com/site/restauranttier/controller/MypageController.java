@@ -36,6 +36,12 @@ public class MypageController {
         // 평가한 맛집 정보
         model.addAttribute("restaurantEvaluationList", user.getEvaluationList());
 
+        // 커뮤나티관련 정보
+        model.addAttribute("postList",user.getPostList());
+        model.addAttribute("postCommentList",user.getPostCommentList());
+        model.addAttribute("postScrabList",user.getScrapList());
+
+
         return "mypage";
     }
 
@@ -44,6 +50,15 @@ public class MypageController {
     public ResponseEntity<String> setNickname(@RequestBody Map<String, String> requestBody, Principal principal){
         String newNickname=requestBody.get("newNickname");
         User user = customOAuth2UserService.getUser(principal.getName());
+
+        //전과 동일한 닉네임
+        if(newNickname.equals(user.getUserNickname())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이전과 동일한 닉네임입니다.");
+        }
+        // 닉네임이 2글자 이하인 경우
+        if (newNickname.length() < 2) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 2자 이상이어야 합니다.");
+        }
         // 닉네임이 10자 이상인 경우
         if (newNickname.length() > 15) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 15자 이하여야 합니다.");
@@ -60,21 +75,4 @@ public class MypageController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/myPage/myPostList")
-//    public String myPostList(
-//            Model model,
-//            Principal principal,
-//            @RequestParam(defaultValue = "전체") String postCategory,
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "recent") String sort) {
-//        Page<Post> paging;
-//
-//        return "myPostList";
-//    }
-
-    @GetMapping("/myPage/myPostList")
-    public String test(Model model){
-        model.addAttribute("test","테스트입니다");
-        return "myPostList";
-    }
 }
