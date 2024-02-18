@@ -26,12 +26,6 @@ navbarTitles.forEach(function(navbarTitle, index) {
             selectedArea.classList.remove('hidden');
         }
 
-        // 5번째 메뉴가 클릭되었을 때 URL 변경
-        if (selectedIndex === 5) {
-            var newState = { page: 'myPostList' };
-            var newUrl = '/user/myPage/myPostList';
-            window.history.pushState(newState, '', newUrl);
-        }
     });
 });
 

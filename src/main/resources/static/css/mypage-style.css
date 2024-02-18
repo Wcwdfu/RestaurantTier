@@ -71,11 +71,6 @@
 .hidden{
     display: none;
 }
-.pp{
-    width: 100%;
-    margin: 0;
-}
-
 /*----------------- 내정보 영역(Area1) ---------------*/
 .gray-border-circular{
     border: 1px solid rgba(128, 128, 128, 0.3);
@@ -191,6 +186,10 @@
 
     flex-shrink: 0;
 }
+.recommend-tab img{
+    width: 14px;
+    height: 14px;
+}
 .postBox{
 
     display: flex;
@@ -201,12 +200,22 @@
     overflow: hidden;
     padding-right: 12px;
 }
-.postLink {
-    text-decoration: none;
-    color: inherit;
-    display: inline-block;
 
+.postLink {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    font-weight: 600;
 }
+
+.comment-count{
+    color: #d51f0f;
+    margin-left: 2px;
+    margin-bottom: 2px;
+}
+
 .underLink{
     font-size: 14px;
     display: inline-flex;

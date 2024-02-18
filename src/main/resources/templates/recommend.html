@@ -56,11 +56,39 @@
 
         <div id="ImgSlideBar">
             <div class="animation-list animation">
-                <div class="img-list" th:each="restaurant: ${restaurants}">
-                    <img class="img_box" th:if="${restaurant.restaurantImgUrl}" th:attr="src=${restaurant.restaurantImgUrl == 'no_img' || restaurant.restaurantImgUrl == 'no_restaurant' ? '/img/recommend/no_img.png' : restaurant.restaurantImgUrl}">
+                <div class="img-list">
+                    <img class="img_box" src="../img/recommend/비빔밥.png" alt="비빔밥">
+                    <img class="img_box" src="../img/recommend/돈까스.png" alt="돈까스">
+                    <img class="img_box" src="../img/recommend/짜장면.png" alt="짜장면">
+                    <img class="img_box" src="../img/recommend/파스타.png" alt="파스타">
+                    <img class="img_box" src="../img/recommend/쌀국수.png" alt="쌀국수">
+                    <img class="img_box" src="../img/recommend/소고기.png" alt="소고기">
+                    <img class="img_box" src="../img/recommend/치킨.png" alt="치킨">
+                    <img class="img_box" src="../img/recommend/생선.png" alt="생선">
+                    <img class="img_box" src="../img/recommend/피자.png" alt="피자">
+                    <img class="img_box" src="../img/recommend/분식.png" alt="분식">
+                    <img class="img_box" src="../img/recommend/맥주.png" alt="맥주">
+                    <img class="img_box" src="../img/recommend/커피.png" alt="커피">
+                    <img class="img_box" src="../img/recommend/베이커리.png" alt="베이커리">
+                    <img class="img_box" src="../img/recommend/샌드위치.png" alt="샌드위치">
+
                 </div>
-                <div class="img-list" th:each="restaurant: ${restaurants}">
-                    <img class="img_box" th:if="${restaurant.restaurantImgUrl}" th:attr="src=${restaurant.restaurantImgUrl == 'no_img' || restaurant.restaurantImgUrl == 'no_restaurant' ? '/img/recommend/no_img.png' : restaurant.restaurantImgUrl}">
+                <div class="img-list">
+                    <img class="img_box" src="../img/recommend/비빔밥.png" alt="비빔밥">
+                    <img class="img_box" src="../img/recommend/돈까스.png" alt="돈까스">
+                    <img class="img_box" src="../img/recommend/짜장면.png" alt="짜장면">
+                    <img class="img_box" src="../img/recommend/파스타.png" alt="파스타">
+                    <img class="img_box" src="../img/recommend/쌀국수.png" alt="쌀국수">
+                    <img class="img_box" src="../img/recommend/소고기.png" alt="소고기">
+                    <img class="img_box" src="../img/recommend/치킨.png" alt="치킨">
+                    <img class="img_box" src="../img/recommend/생선.png" alt="생선">
+                    <img class="img_box" src="../img/recommend/피자.png" alt="피자">
+                    <img class="img_box" src="../img/recommend/분식.png" alt="분식">
+                    <img class="img_box" src="../img/recommend/맥주.png" alt="맥주">
+                    <img class="img_box" src="../img/recommend/커피.png" alt="커피">
+                    <img class="img_box" src="../img/recommend/베이커리.png" alt="베이커리">
+                    <img class="img_box" src="../img/recommend/샌드위치.png" alt="샌드위치">
+
                 </div>
 
 
@@ -77,7 +105,7 @@
 
             </div>
 
-            <div class="option row row-cols-3 row-cols-lg-6 filter-cuisine">
+            <div class="option row row-cols-4 row-cols-lg-6 filter-cuisine">
                 <div class="col">
                     <button class="col-12">한식</button>
                 </div>
@@ -170,7 +198,7 @@
 
     </div>
     <div class="btn-area">
-        <button id="recommendBtn" class="btn-style alt-font">맛집 뽑기</button>
+        <button id="recommendBtn" class="btn-style">맛집뽑기</button>
     </div>
 
 
@@ -208,8 +236,8 @@
 
     </div>
     <div class="btn-area">
-        <button id="restartBtn" class="btn-style hidden alt-font">재설정</button>
-        <button id="restartDirectBtn" class="btn-style hidden alt-font">다시 뽑기</button>
+        <button id="restartBtn" class="btn-style2 hidden alt-font">재설정</button>
+        <button id="restartDirectBtn" class="btn-style2 hidden alt-font">다시 뽑기</button>
     </div>
 
 
