@@ -97,9 +97,9 @@ h2 {
 
 
 
-img:hover {
-    filter: brightness(50%); /* 마우스 오버 시 이미지 어둡게 */
-}
+/*img:hover {
+    filter: brightness(50%); !* 마우스 오버 시 이미지 어둡게 *!
+}*/
 
 /* 모바일 화면에서 종류 카테고리 이름 보이게 */
 @media only screen and (max-width:1024px) {

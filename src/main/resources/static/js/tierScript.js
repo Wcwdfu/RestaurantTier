@@ -20,22 +20,6 @@ $(document).ready(function () {
         })
     });
 
-// 카테고리바를 눌렀을 때 접혔다 펼쳐졌다 하는 기능을 위한 부분
-    document.getElementById('categoryCheckBtn').addEventListener('change', function () {
-        const categoryCheckBtnArrow = document.getElementById('categoryCheckBtnArrow');
-        const categoryCheckBtnText = document.getElementById('categoryCheckBtnText');
-        const categoryList = document.getElementById('categoryList');
-        if (this.checked) {
-            categoryList.style.display = 'block';
-            categoryCheckBtnText.textContent = '접기　';
-            categoryCheckBtnArrow.textContent = '▼'
-        } else {
-            categoryList.style.display = 'none';
-            categoryCheckBtnText.textContent = '펼치기　';
-            categoryCheckBtnArrow.textContent = '◀'
-        }
-    });
-
 // pc에서도 카테고리의 가로 스크롤을 마우스 드래그로 할 수 있게 해주는 부분
     var scrollableElements = document.querySelectorAll('.scrollable');
     scrollableElements.forEach(function (scrollableElement) {
@@ -91,7 +75,6 @@ $(document).ready(function () {
     const tierTableBody = document.getElementById('tierTableBody');
     const searchInput = document.getElementById('searchInput');
     searchInput.value = '';
-    searchInput.focus();
     const spinner = document.getElementById('spinner');
     var prevInput = '';
     var currentUrl = window.location.href;

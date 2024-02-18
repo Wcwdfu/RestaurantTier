@@ -200,15 +200,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function toggleSelectPoint(rating, keyword) {
         var selectPoints = keyword.querySelectorAll('.select-point .circle');
+        var leftBars = keyword.querySelectorAll('.left-bar');
+        var rightBars = keyword.querySelectorAll('.right-bar');
         var ratingParagraphs = keyword.querySelectorAll('.bar-comment-area p');
 
         // 해당 keyword 내에서 모든 select-point에서 picked 클래스 제거
         selectPoints.forEach(function (point) {
             point.classList.remove('picked');
+            point.classList.remove('color-circle');
+        });
+        leftBars.forEach(function (point) {
+            point.classList.remove('picked-bar');
+        });
+        rightBars.forEach(function (point) {
+            point.classList.remove('picked-bar');
         });
 
         // 클릭된 select-point에 picked 클래스 추가
-        keyword.querySelector('.select-point.lv' + rating + ' .circle').classList.add('picked');
+        selectPoints.forEach(function(circle, index) {
+            if (index < rating - 1) {
+                circle.classList.add("color-circle");
+            } else if (index === rating - 1) {
+                circle.classList.add('picked');
+            }
+        })
+        // 클릭된 부분 앞의 bar에 picked-bar 클래스 추가
+        leftBars.forEach(function(bar, index) {
+            if (index < rating - 1) {
+                bar.classList.add('picked-bar');
+            }
+        })
+        rightBars.forEach(function(bar, index) {
+            if (index < rating - 1) {
+                bar.classList.add('picked-bar');
+            }
+        })
 
         // 각 p 태그에 bold 클래스를 toggle
         ratingParagraphs.forEach(function (p, index) {

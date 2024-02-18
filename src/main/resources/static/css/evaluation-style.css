@@ -68,8 +68,15 @@ body{
     width: fit-content;
     padding-bottom: 10px;
 }
-.stars{
-    width: 40px;
+@media only screen and (min-width: 371px) {
+    .stars{
+        width: 40px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    .stars{
+        width: 33px;
+    }
 }
 #ratingComment{
     color: #555;
@@ -183,21 +190,17 @@ body{
     align-items: center;
     height: 50px;
 }
-.left-bar {
-    width: 50%;
+.evaluation-bar {
+    z-index: 1;
     height: 3px;
     background-color: #bbb;
-    margin-left: auto;
 }
 .right-bar {
     width: 50%;
-    height: 3px;
-    background-color: #bbb;
+    margin-left: auto;
 }
-.bar {
-    width: 100%;
-    height: 3px;
-    background-color: #bbb;
+.left-bar {
+    width: 50%;
 }
 .circle {
     width: 10px;
@@ -222,21 +225,48 @@ body{
     background-color: #0F6341;
     width: 15px;
     height: 15px;
+    z-index: 2;
 }
-.bar-comment-area{
-    width: 100%;
-    display: flex;
-    margin: 0 auto;
-    font-size: 13px;
+.color-circle {
+    background-color: #0F6341;
+}
+.picked-bar {
+    background-color: #0F6341;
+}
+@media only screen and (min-width: 371px) {
+    .bar-comment-area{
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        font-size: 13px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    .bar-comment-area{
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        font-size: 12px;
+    }
 }
 .bar-comment-area > p {
     flex: 1;
     text-align: center;
 }
 /* bar형 ui에서 해당ㅇ이 선택되면 글자색을 바꿈*/
-.bar-comment-area .bold{
-    font-weight: bold;
-    color: #0F6341;
+@media only screen and (min-width: 371px) {
+    .bar-comment-area .bold{
+        font-weight: bold;
+        color: #0F6341;
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    .bar-comment-area .bold{
+        font-weight: bold;
+        color: #0F6341;
+        font-size: 13px;
+    }
 }
 .hidden{
     display: none;

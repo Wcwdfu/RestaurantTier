@@ -80,7 +80,8 @@ img {
 .category-top > button {
     border: #44444466 solid 1px;
     height: 45px;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 550;
 }
 
 div.category-list {
@@ -193,10 +194,10 @@ div.category-list a.unselected:hover {
     font-size: 14px;
     white-space: nowrap;
     padding-bottom: 5px;
-    padding-right: 10px;
+    padding-right: 6px;
 }
 .search-container > input {
-    width: 240px;
+    width: 210px;
     caret-color: black;
     color: #333;
     border-radius: 4px;
@@ -205,6 +206,16 @@ div.category-list a.unselected:hover {
     margin: 3px 0 8px 0;
     font-size: 15px;
     line-height: 22px;
+}
+@media only screen and (max-width: 350px) {
+    .search-container > span {
+        font-size: 12px;
+    }
+    .search-container > input {
+        width: 180px;
+        font-size: 13px;
+        line-height: 18px;
+    }
 }
 
 #spinner {
