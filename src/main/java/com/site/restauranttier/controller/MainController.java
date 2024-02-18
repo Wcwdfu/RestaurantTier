@@ -66,7 +66,7 @@ public class MainController {
         if (kw.isEmpty()) {
 
         }
-
+        System.out.println(kw);
         model.addAttribute("kw", kw);
         return "searchResult";
     }
