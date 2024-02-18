@@ -25,3 +25,9 @@ mainSearchInput.onclick = function() {mainSearchInput.focus();}
 function closeSearchWindow() {
     searchArea.style.display = 'none';
 }
+
+// 검색창 문자 지우기
+document.getElementById('eraseButtonReal').addEventListener('click', function() {
+    mainSearchInput.value = '';
+    mainSearchInput.click();
+})

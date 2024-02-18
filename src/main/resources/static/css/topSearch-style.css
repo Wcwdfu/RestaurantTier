@@ -6,7 +6,7 @@
         width: 170px;
         height: 35px;
         margin-right: 25px;
-        border-radius: 5px;
+        border-radius: 7px;
         border: #444 solid 1px;
         justify-content: center;
         align-items: center;
@@ -127,6 +127,9 @@
     border: #ccc solid 1px;
     align-items: center;
 }
+.input-container:focus {
+    border: var(--main-color) solid 3px;
+}
 .input-container > img {
     height: 16px;
     margin: 0 7px;
@@ -134,7 +137,7 @@
 }
 .input-container input {
     flex: 1;
-    padding: 4px 0;
+    padding: 5px 0;
     font-size: 15px;
     line-height: 23px;
     color: #333;
