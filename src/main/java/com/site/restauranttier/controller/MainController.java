@@ -61,19 +61,15 @@ public class MainController {
 
 
     // 검색 결과 화면
-    /*@GetMapping("/search")
+    @GetMapping("/search")
     public String search(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleList();
-        model.addAttribute("situation", "전체");
-        model.addAttribute("restaurantTierBundleList", restaurantTierBundleList);
-        // 검색결과 메소드 만드는 것 대기중
-//        List<RestaurantTierBundle> restaurantTierBundleList = evaluationService.getAllRestaurantTierBundleListByKeyword(kw);
-//        model.addAttribute("getAllRestaurantTierBundleListByKeyword", getAllRestaurantTierBundleListByKeyword(kw));
+        if (kw.isEmpty()) {
+
+        }
+
         model.addAttribute("kw", kw);
         return "searchResult";
-    }*/
-
-
+    }
 }
 
 

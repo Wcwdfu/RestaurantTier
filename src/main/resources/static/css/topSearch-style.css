@@ -94,9 +94,13 @@
     background-color: #444;
     opacity: 0.5;
 }
+.prevent-scroll {
+    overflow: hidden;
+}
 @media only screen and (min-width: 576px) {
     .search-front {
         width: 70%;
+        max-width: 900px;
         top: 5px;
     }
 }
@@ -126,9 +130,11 @@
     border-radius: 6px;
     border: #ccc solid 1px;
     align-items: center;
+    padding: 1px;
 }
-.input-container:focus {
-    border: var(--main-color) solid 3px;
+.border-highlight {
+    border: var(--main-color) solid 2px;
+    padding: 0;
 }
 .input-container > img {
     height: 16px;
