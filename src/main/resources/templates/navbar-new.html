@@ -4,6 +4,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <link rel="stylesheet" href="/css/topSearch-style.css">
+    <script type="text/javascript" src="/js/topSearchScript.js" defer></script>
     <style>
         #myPage {
             width: 40px;
@@ -13,9 +14,38 @@
             
         }
     </style>
+    <!-- 검색창 부분 -->
+    <div id="searchArea" class="search-area">
+        <div id="searchBackdrop" class="search-backdrop"></div>
+        <div class="search-front">
+            <div class="search-top">
+                <div class="input-container">
+                    <img src="/img/home/search.png">
+                    <input id="mainSearchInput" type="search" placeholder="검색하세요">
+                    <button id="eraseButton">
+                        <img src="/img/home/erase.png">
+                    </button>
+                </div>
+            </div>
+            <div class="search-middle">
+
+            </div>
+            <div class="search-bottom">
+                <button type="button" class="search-tip"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="식당 이름이나 먹고 싶은 음식을 검색해보세요!">
+                    검색 팁
+                </button>
+                <div></div>
+                <span class="feedback-button">Feedback</span>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg header-light header-reverse alt-font"
          data-header-hover="light" style="background-color: white;opacity: 0.9;">
         <div class="container-fluid">
+            <!-- 메뉴 부분 -->
             <div class="col-auto col-lg-2 me-lg-0 me-auto">
                 <a class="navbar-brand" href="/home">
                     <script type="text/javascript" style="display:none">
@@ -36,7 +66,7 @@
                 </a>
             </div>
             <!-- 검색 버튼 -->
-            <button id="searchButton2">
+            <button id="searchButton2" onclick="openSearchWindow()">
                 <img src="/img/home/search.png">
             </button>
             <div class="col-auto menu-order position-static">
@@ -75,7 +105,7 @@
                 <div class="header-icon">
                     <div class="header-button" style="display: flex; justify-content:center; align-items: center">
                         <!-- 검색 버튼 -->
-                        <button id="searchButton1">
+                        <button id="searchButton1" onclick="openSearchWindow()">
                             <img src="/img/home/search.png">
                             <p>Type '/' to search</p>
                         </button>
