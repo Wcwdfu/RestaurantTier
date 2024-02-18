@@ -40,11 +40,17 @@ public class MypageController {
         model.addAttribute("menuIndex", menuIndex);
         // 저장된 맛집 정보
         List<RestaurantFavorite> favoriteList =  user.getRestaurantFavoriteList();
-        favoriteList.sort(Comparator.comparing(RestaurantFavorite::getCreatedAt).reversed());
+        favoriteList.sort(Comparator.comparing(RestaurantFavorite::getCreatedAt).reversed()); //정렬
         model.addAttribute("restaurantFavoriteList", user.getRestaurantFavoriteList());
         // 평가한 맛집 정보
-        // 나이를 기준으로 내림차순으로 정렬
-        model.addAttribute("restaurantEvaluationList", favoriteList);
+        List<Evaluation> evaluationList =  user.getEvaluationList();
+        evaluationList.sort(Comparator.comparing((Evaluation e) -> { // 정렬
+            if (e.getUpdatedAt() != null && e.getUpdatedAt().isAfter(e.getCreatedAt())) {
+                return e.getUpdatedAt();
+            }
+            return e.getCreatedAt();
+        }).reversed());
+        model.addAttribute("restaurantEvaluationList", evaluationList);
 
         return "mypage";
     }

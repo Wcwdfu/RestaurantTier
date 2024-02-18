@@ -10,7 +10,6 @@
 }
 .restaurant-favorite-container {
     width: 100%;
-    min-width: 300px;
     display: flex;
     align-items: center;
     padding: 5px 9px;
@@ -20,6 +19,7 @@
 }
 .restaurant-img {
     width: 50px;
+    min-width: 50px;
     height: 50px;
     border-radius: 5px;
     margin-right: 7px;
@@ -58,6 +58,11 @@
         width: 170px;
     }
 }
+@media only screen and (max-width: 310px) {
+    .restaurant-name {
+        width: 150px;
+    }
+}
 .restaurant-type {
     font-size: 12px;
     color: #444;
@@ -67,4 +72,48 @@
     height: 40px;
     border-radius: 5px;
     margin-right: 7px;
+}
+/* 평가 모음 */
+.restaurant-evaluation-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 9px;
+    margin-bottom: 10px;
+    border: #888 solid 1px;
+    border-radius: 6px;
+}
+.evaluation-restaurant-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+/* 평가 점수 부분 */
+.evaluation-outer {
+    display: flex;
+
+}
+.category-main-name {
+    width: 70px;
+    font-size: 15px;
+    color: #222;
+}
+.category-main-score {
+    text-align: center;
+    width: 70px;
+    font-size: 16px;
+    color: #000;
+    font-weight: 550;
+}
+.category-name {
+    width: 70px;
+    font-size: 14px;
+    color: #444;
+}
+.category-score {
+    text-align: center;
+    width: 70px;
+    font-size: 15px;
+    color: #000;
 }

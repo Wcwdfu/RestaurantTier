@@ -123,20 +123,28 @@
 
     <div id="Area3" class="hidden">
         <div id="area3Contents" class="gray-border-circular">
-            <div class="restaurant-favorite-container" th:each="restaurantEvaluation: ${restaurantEvaluationList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantEvaluation.getRestaurant().restaurantId})} + '\''">
-                <!-- 메인 이미지 -->
-                <img th:if="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl()}">
-                <img th:if="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="restaurant-img" src="/img/restaurant/no_img.png">
-                <!-- 식당 이름, 타입 -->
-                <div class="restaurant-info">
-                    <span class="restaurant-name" th:text="${restaurantEvaluation.getRestaurant().getRestaurantName()}"></span>
-                    <span class="restaurant-type" th:text="${restaurantEvaluation.getRestaurant().getRestaurantType()}"></span>
+            <div class="restaurant-evaluation-container" th:each="restaurantEvaluation: ${restaurantEvaluationList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantEvaluation.getRestaurant().restaurantId})} + '\''">
+                <div class="evaluation-restaurant-info">
+                    <!-- 메인 이미지 -->
+                    <img th:if="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl()}">
+                    <img th:if="${restaurantEvaluation.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="restaurant-img" src="/img/restaurant/no_img.png">
+                    <!-- 식당 이름, 타입 -->
+                    <div class="restaurant-info">
+                        <span class="restaurant-name" th:text="${restaurantEvaluation.getRestaurant().getRestaurantName()}"></span>
+                        <span class="restaurant-type" th:text="${restaurantEvaluation.getRestaurant().getRestaurantType()}"></span>
+                    </div>
+                    <!-- 식당 cuisine -->
+                    <img class="restaurant-cuisine-img" th:src="${restaurantEvaluation.getRestaurant().getCuisineImgUrl(restaurantEvaluation.getRestaurant().getRestaurantCuisine())}">
                 </div>
-                <!-- 식당 cuisine -->
-                <img class="restaurant-cuisine-img" th:src="${restaurantEvaluation.getRestaurant().getCuisineImgUrl(restaurantEvaluation.getRestaurant().getRestaurantCuisine())}">
-                <!-- 추가 날짜 -->
-                <div class="favorite-add-date-div">
-                    <span class="favorite-add-date-span" th:text="${restaurantEvaluation.calculateTimeAgo()}"></span>
+                <div class="evaluation-score-section">
+                    <div class="evaluation-outer main-evaluation">
+                        <span class="category-main-name" th:text="${restaurantEvaluation.getRestaurant().getRestaurantCuisine()}"></span>
+                        <span class="category-main-score" th:text="${restaurantEvaluation.getEvaluationScore()} + '/7.0'"></span>
+                    </div>
+                    <div class="evaluation-outer" th:each="situationEval: ${restaurantEvaluation.getEvaluationItemScoreList()}">
+                        <span class="category-name" th:text="${situationEval.getSituation().getSituationName()}"></span>
+                        <span class="category-score" th:text="${situationEval.getScore()} + '/5.0'"></span>
+                    </div>
                 </div>
             </div>
         </div>
