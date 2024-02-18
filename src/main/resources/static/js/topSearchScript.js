@@ -52,6 +52,6 @@ function search(searchInput) {
 }
 document.addEventListener('keydown', function(event) {
     if (isSearching && (event.key === 'Enter' || event.key === 'Return')) {
-        search(mainSearchInput.value);
+        search(mainSearchInput.value.trim());
     }
 })
