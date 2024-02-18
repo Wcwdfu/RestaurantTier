@@ -1,7 +1,7 @@
 @import "variables.css";
 /* 검색 */
 @media only screen and (min-width: 992px) {
-    #searchButton1 {
+    /*#searchButton1 {
         display: flex;
         width: 170px;
         height: 35px;
@@ -11,19 +11,39 @@
         justify-content: center;
         align-items: center;
         background-color: #fff;
+    }*/
+    #searchButton1 {
+        display: flex;
+        width: 37px;
+        height: 37px;
+        margin-right: 20px;
+        border: none;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
     }
     #searchButton2 {
         display: none;
     }
 }
 @media only screen and (max-width: 991px) {
-    #searchButton1 {
+    /*#searchButton1 {
         display: flex;
         width: 200px;
         height: 35px;
         margin-right: 10px;
         border-radius: 5px;
         border: #444 solid 1px;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+    }*/
+    #searchButton1 {
+        display: flex;
+        width: 37px;
+        height: 37px;
+        margin-right: 20px;
+        border: none;
         justify-content: center;
         align-items: center;
         background-color: #fff;
@@ -47,7 +67,7 @@
         background-color: #fff;
     }
 }
-#searchButton1 img {
+/*#searchButton1 img {
     height: 18px;
     margin: 0;
     padding: 0 5px 0 3px;
@@ -60,13 +80,20 @@
     padding: 0;
     line-height: 14px;
     text-align: start;
+}*/
+#searchButton1 img {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    opacity: 0.8;
 }
 #searchButton2 img {
     width: 20px;
     height: 20px;
     margin: 0;
     padding: 0;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 /* 로그인 버튼 */
 .login-button {
