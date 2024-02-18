@@ -75,7 +75,6 @@ $(document).ready(function () {
     const tierTableBody = document.getElementById('tierTableBody');
     const searchInput = document.getElementById('searchInput');
     searchInput.value = '';
-    searchInput.focus();
     const spinner = document.getElementById('spinner');
     var prevInput = '';
     var currentUrl = window.location.href;
