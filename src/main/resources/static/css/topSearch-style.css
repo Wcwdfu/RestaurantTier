@@ -1,3 +1,4 @@
+@import "variables.css";
 /* 검색 */
 @media only screen and (min-width: 992px) {
     #searchButton1 {
@@ -40,8 +41,7 @@
         width: 37px;
         height: 37px;
         margin-right: 10px;
-        border-radius: 5px;
-        border: #444 solid 1px;
+        border: none;
         justify-content: center;
         align-items: center;
         background-color: #fff;
@@ -61,19 +61,136 @@
     text-align: start;
 }
 #searchButton2 img {
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     padding: 0;
 }
 /* 로그인 버튼 */
 .login-button {
     white-space: nowrap;
-    border-radius: 15px;
-    height: 37px;
-    width: 80px;
+    border-radius: 18px;
+    height: 40px;
+    width: 85px;
 }
 .login-button span {
-    margin-top: -5px;
-    margin-left: -4px;
+    margin-top: -4px;
+    margin-left: -3px;
+}
+
+/* 실제 검색창 */
+.search-area {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+.search-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #444;
+    opacity: 0.5;
+}
+@media only screen and (min-width: 576px) {
+    .search-front {
+        width: 70%;
+        top: 5px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .search-front {
+        width: 100%;
+        top: 0;
+    }
+}
+.search-front {
+    background-color: #fff;
+    border-radius: 12px;
+    border: #ddd solid 1px;
+    z-index: 101;
+    position: fixed;
+    padding-top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+/* 입력하는 부분 */
+.search-top {
+    padding: 0 10px;
+}
+.input-container {
+    width: 100%;
+    display: flex;
+    border-radius: 6px;
+    border: #ccc solid 1px;
+    align-items: center;
+}
+.input-container > img {
+    height: 16px;
+    margin: 0 7px;
+    opacity: 0.6;
+}
+.input-container input {
+    flex: 1;
+    padding: 4px 0;
+    font-size: 15px;
+    line-height: 23px;
+    color: #333;
+    border: none;
+    caret-color: #333;
+}
+.input-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffffff;
+    border: none;
+    height: 24px;
+    padding: 4px;
+    margin: auto 5px;
+}
+.input-container button:hover {
+    background-color: #ddd;
+    border-radius: 7px;
+}
+.input-container button img {
+    height: 16px;
+    opacity: 0.5;
+}
+/* 검색창 중간 */
+.search-middle {
+    padding: 0 10px;
+}
+
+/* 검색창 아래쪽 */
+.search-bottom {
+    margin-top: 6px;
+    border-top: #ccc solid 1px;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    padding: 0 10px;
+}
+.search-tip {
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--main-color);
+    background: none;
+    border: none;
+}
+.search-bottom > div {
+    flex: 1;
+}
+.feedback-button{
+    font-size: 12px;
+    line-height: 15px;
+    margin-right: 3px;
+    color: var(--main-color);
+    cursor: pointer;
+    text-decoration: none;
+}
+.feedback-button:hover {
+    text-decoration: underline;
 }
