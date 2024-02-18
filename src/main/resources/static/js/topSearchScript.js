@@ -49,7 +49,7 @@ document.getElementById('eraseButtonReal').addEventListener('click', function() 
 // 검색하기
 function search(searchInput) {
     console.log(searchInput);
-    window.location.href = '/search?=' + searchInput;
+    window.location.href = '/search?kw=' + searchInput;
 }
 document.addEventListener('keydown', function(event) {
     console.log(event.key);

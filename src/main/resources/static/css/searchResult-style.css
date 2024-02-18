@@ -48,7 +48,8 @@ tr td a{
 
 /* 내용이 없을 경우 */
 .no-result {
-    margin: 50px auto;
+    margin-top: 60px;
+    margin-bottom: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
