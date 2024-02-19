@@ -73,7 +73,6 @@
 
 .option-area > p {
     margin: 30px;
-    font-size: 30px;
     letter-spacing: 2px;
     color: black;
     border-radius: 30px;
@@ -374,7 +373,7 @@ footer {
 
     .option div button {
 
-        width: 80px;
+        width: 90px;
         height: 30px;
         font-size: 13px;
     }
@@ -387,6 +386,10 @@ footer {
 
     .option {
         margin: 5px 0;
+    }
+
+    .option-area > p {
+        font-size: 24px;
     }
 
 
@@ -445,7 +448,7 @@ footer {
     }
 
     .option div button {
-        width: 100px;
+        width: 110px;
         height: 40px;
     }
 
@@ -464,6 +467,9 @@ footer {
 
     .option-area hr {
         width: 100%;
+    }
+    .option-area > p {
+        font-size: 30px;
     }
 
 }

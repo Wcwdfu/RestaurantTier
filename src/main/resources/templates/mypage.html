@@ -104,6 +104,7 @@
 
     <div id="Area2" class="hidden">
         <div id="area2Contents" class="gray-border-circular">
+            <p th:if="${#lists.isEmpty(restaurantFavoriteList)}">저장된 정보가 없습니다.</p>
             <div class="restaurant-favorite-container" th:each="restaurantFavorie: ${restaurantFavoriteList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantFavorie.getRestaurant().restaurantId})} + '\''">
                 <!-- 메인 이미지 -->
                 <img th:if="${restaurantFavorie.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantFavorie.getRestaurant().getRestaurantImgUrl()}">
@@ -121,6 +122,7 @@
 
     <div id="Area3" class="hidden">
         <div id="area3Contents" class="gray-border-circular">
+            <p th:if="${#lists.isEmpty(restaurantEvaluationList)}">저장된 정보가 없습니다.</p>
             <div class="restaurant-evaluation-container" th:each="restaurantEvaluation: ${restaurantEvaluationList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantEvaluation.getRestaurant().restaurantId})} + '\''">
                 <div class="evaluation-restaurant-info">
                     <!-- 메인 이미지 -->
@@ -154,10 +156,12 @@
 
     <div id="Area5" class="hidden">
         <div id="area5Contents" class="gray-border-circular">
+            <!-- postList가 비어있거나 모든 post의 status가 DELETED인 경우에만 메시지를 출력 -->
+            <p class="text-center" th:if="${#lists.isEmpty(postList)}">저장된 정보가 없습니다.</p>
             <ul class="postul">
 
                 <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
-                <li th:each="postlist:${postList}" class="postli">
+                <li th:each="postlist:${postList}" th:unless="${postlist.status=='DELETED'}" class="postli">
                     <hr>
                     <span class="recommend-tab">
                         <img class="likecount" src="../img/community/up.png" alt="이미지">
@@ -191,11 +195,41 @@
 
     <div id="Area6" class="hidden">
         <div id="area6Contents" class="gray-border-circular">
+            <p class="text-center" th:if="${#lists.isEmpty(postCommentList)}">저장된 정보가 없습니다.</p>
+            <ul class="postul">
+
+                <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
+                <li th:each="commentlist:${postCommentList}" class="postli">
+                    <hr>
+                    <span class="recommend-tab">
+                        <img class="likecount" src="../img/community/up.png" alt="이미지">
+                        <span th:text="${postCommentList.size()}"></span>
+                    </span>
+
+<!--                    <div class="postBox">-->
+<!--                        <div>-->
+<!--                            <a class="postLink" th:text="${postlist.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>-->
+<!--                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>-->
+<!--                        </div>-->
+
+<!--                        <div class="underLink">-->
+<!--                            <span class="category" th:text="${postlist.postCategory}"></span>-->
+<!--                            <span class="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+                    <!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
+                    <!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
+                    <!--                             th:src="${post.postPhotoList.get(0).photoImgUrl}"/>-->
+                </li>
+            </ul>
         </div>
     </div>
 
     <div id="Area7" class="hidden">
         <div id="area7Contents" class="gray-border-circular">
+            <p class="text-center" th:if="${#lists.isEmpty(postScrabList)}">저장된 정보가 없습니다.</p>
             <ul class="postul">
 
                 <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
