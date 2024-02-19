@@ -295,3 +295,8 @@ footer{
 }
 
 /*댓글 개수*/
+.comment-count{
+    color: #d51f0f !important;
+    margin-left: 2px;
+    margin-bottom: 2px;
+}

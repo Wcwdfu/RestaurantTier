@@ -95,13 +95,15 @@ public class CommunityController {
             comment.setStatus("DELETED");
         }
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
-
-
+        List<PostScrap> scraps = post.getPostScrapList();
+        scraps.clear();
 
         post.setStatus("DELETED");
         postRepository.save(post);
+        System.out.println("User's postScrapList size after deletion: " + post.getPostScrapList().size());
         return ResponseEntity.ok("post delete complete");
     }
+
     // 댓글 삭제
     @GetMapping("/api/comment/delete")
     public ResponseEntity<String> commentDelete(@RequestParam Integer commentId) {
