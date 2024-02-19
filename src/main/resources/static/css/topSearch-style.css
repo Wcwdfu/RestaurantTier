@@ -214,7 +214,7 @@
 .search-tip {
     font-size: 12px;
     line-height: 15px;
-    color: var(--main-color);
+    color: var(--main-color)!important;
     background: none;
     border: none;
 }
@@ -225,10 +225,42 @@
     font-size: 12px;
     line-height: 15px;
     margin-right: 3px;
-    color: var(--main-color);
+    color: var(--main-color)!important;
     cursor: pointer;
     text-decoration: none;
 }
 .feedback-button:hover {
     text-decoration: underline;
+}
+
+/* 모달 스타일 */
+.modal-body {
+    font-size: 16px;
+}
+.modal-footer button {
+    line-height: 20px;
+    border-radius: 5px;
+}
+.modal-footer button.cancel:hover {
+    background-color: #555;
+}
+.modal-footer button.sure {
+    background-color: var(--main-color);
+}
+.modal-footer button.sure:hover {
+    background-color: var(--main-hover-color);
+    border-color: var(--main-hover-color);
+}
+#exampleModalFeedback textarea {
+    color: #333;
+    padding: 5px;
+    line-height: 20px;
+    resize: none;
+    width: 100%;
+    height: 130px;
+    border-radius: 5px;
+    border: #888 solid 1px;
+    background-color: #0000;
+    outline: none;
+    caret-color: black;
 }

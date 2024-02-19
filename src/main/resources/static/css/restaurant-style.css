@@ -483,6 +483,7 @@ div.basic-info > div.texts > span {
 .nick-date-div {
     display: flex;
     font-size: 13px;
+    line-height: 29.5px;
     justify-content: space-between;
     align-items: center;
 }
@@ -521,24 +522,6 @@ div.basic-info > div.texts > span {
     text-align: left;
     white-space: pre-wrap;
     width: 100%;
-}
-/* 모달 스타일 */
-.modal-body {
-    font-size: 16px;
-}
-.modal-footer button {
-    line-height: 20px;
-    border-radius: 5px;
-}
-.modal-footer button.cancel:hover {
-    background-color: #555;
-}
-.modal-footer button.sure {
-    background-color: var(--main-color);
-}
-.modal-footer button.sure:hover {
-    background-color: var(--main-hover-color);
-    border-color: var(--main-hover-color);
 }
 /* 텍스트 커서 깜빡임 없애기 */
 body{

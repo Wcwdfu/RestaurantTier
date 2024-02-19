@@ -80,6 +80,14 @@ public class UserController {
         return stringList.get(randomIndex);
     }
 
+    // 로그인되어있는지 여부 확인
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/is-login")
+    public ResponseEntity<String> isLogin () {
+        return ResponseEntity.ok("true");
+    }
+
+
     // signup에 Get => 회원가입 템플릿
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
