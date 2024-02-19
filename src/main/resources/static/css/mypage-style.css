@@ -239,14 +239,14 @@
 .category{
     padding-left: 0;
 }
-/*.createdAt::before, #author::before{*/
-/*    display: inline-block;*/
-/*    vertical-align: middle;*/
-/*    border-left: 1px solid #ebeef1;*/
-/*    height: 12px;*/
-/*    content: "";*/
-/*    margin-right: 8px;*/
-/*}*/
+.createdAt::before, .author::before{
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #ebeef1;
+    height: 12px;
+    content: "";
+    margin-right: 8px;
+}
 #author{
     flex: 1;
     overflow: hidden;
