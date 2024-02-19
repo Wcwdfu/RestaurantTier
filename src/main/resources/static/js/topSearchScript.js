@@ -65,7 +65,9 @@ function setIsFeedbackWindowOpenFalse() {
     isFeedbackWindowOpen = false;
 }
 
+// 피드백 버튼 누르면 이게 실행됨
 function isLogin() {
+    feedbackTextarea.value = '';
     fetch('/user/api/is-login', {
         method: "GET",
         headers: {
@@ -88,6 +90,7 @@ function isLogin() {
         });
 }
 function submitFeedback() {
+    const feedbackBody = feedbackTextarea.value.trim();
     setIsFeedbackWindowOpenFalse();
     fetch('/api/feedback', {
         method: "POST",
@@ -95,7 +98,7 @@ function submitFeedback() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            feedbackBody: feedbackTextarea.value.trim()
+            feedbackBody: feedbackBody
         })
     })
         .then(response => {
