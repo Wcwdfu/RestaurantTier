@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="/css/searchResult-style.css">
     <!-- 파비콘 -->
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <!--  -->
+    <script src="/js/searchResult.js" defer></script>
 
 </head>
 
@@ -36,10 +38,10 @@
         </div>
     </div>
 </section>
-<div th:if="${#strings.isEmpty(restaurantList)}" class="no-result">
+<div th:if="${#strings.isEmpty(restaurantTierData) or restaurantTierData.size() == 0}" class="no-result">
     <span>해당하는 식당이 없습니다</span>
 </div>
-<main th:if="${not #strings.isEmpty(restaurantList)}" id="tierChartMain">
+<main th:if="${not #strings.isEmpty(restaurantTierData) and restaurantTierData.size() != 0}" id="tierChartMain">
     <table class="tier-table">
         <colgroup>
             <col>
@@ -49,39 +51,37 @@
         </colgroup>
         <thead>
         <tr>
-            <th scope="col">순위</th>
             <th scope="col" style="min-width: 50px"></th>
             <th scope="col" style="text-align: left;">식당</th>
-            <th scope="col">티어</th>
+            <th scope="col">메인 티어</th>
             <th scope="col" style="text-align: left;">종류</th>
             <th scope="col" style="text-align: left;" id="th-situation">상황</th>
         </tr>
         </thead>
         <tbody id="tierTableBody">
-        <tr th:each="restaurantTierBundle,loop :${restaurantTierBundleList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierBundle.getRestaurant().restaurantId})} + '\''">
-            <td class="td-rank" th:text="${loop.index + 1}" style="min-width: 32px"></td>
+        <tr th:each="restaurantTierData,loop :${restaurantTierData}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierData.getRestaurant().restaurantId})} + '\''">
             <td class="td-center" style="min-width: 58px">
-                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl()}">
-                <img th:if="${restaurantTierBundle.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+                <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
+                <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
             </td>
             <td class="td-name">
                 <div class="td-name-outer">
-                    <span class="td-inner-name" th:text="${restaurantTierBundle.getRestaurant().getRestaurantName()}"></span>
-                    <span class="td-inner-type" th:text="${restaurantTierBundle.getRestaurant().getRestaurantType()}"></span>
+                    <span class="td-inner-name" th:text="${restaurantTierData.getRestaurant().getRestaurantName()}"></span>
+                    <span class="td-inner-type" th:text="${restaurantTierData.getRestaurant().getRestaurantType()}"></span>
                 </div>
             </td>
             <td class="td-center" style="min-width: 42px">
-                <img class="td-tier-img" th:src="${restaurantTierBundle.getRestaurant().getTierImgUrl(restaurantTierBundle.getTier().getValue())}">
+                <img class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
             </td>
             <td style="min-width: 46px">
                 <div class="td-cuisine-outer">
-                    <img class="td-cuisine-img" th:src="${restaurantTierBundle.getRestaurant().getCuisineImgUrl(restaurantTierBundle.getRestaurant().getRestaurantCuisine())}">
-                    <span class="td-cuisine-span" th:text="${restaurantTierBundle.getRestaurant().getRestaurantCuisine()}"></span>
+                    <img class="td-cuisine-img" th:src="${restaurantTierData.getRestaurant().getCuisineImgUrl(restaurantTierData.getRestaurant().getRestaurantCuisine())}">
+                    <span class="td-cuisine-span" th:text="${restaurantTierData.getRestaurant().getRestaurantCuisine()}"></span>
                 </div>
             </td>
             <td class="td-situation">
                 <div class="td-situations-outer">
-                    <img th:each="imgUrl :${restaurantTierBundle.getRestaurant().getSituationImgUrlList()}" th:src="${imgUrl}">
+                    <img th:each="situationEl :${restaurantTierData.getRestaurantSituationRelationList()}" th:src="'/img/tier/'+${situationEl.getSituation().getSituationName()}+'.png'">
                 </div>
             </td>
         </tr>
