@@ -1,7 +1,7 @@
 @import "variables.css";
 
 #postSearch{
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     background-color: var(--main-color);
     border:none;
     color:white;
