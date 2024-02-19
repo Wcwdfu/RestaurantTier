@@ -94,7 +94,6 @@ public class CommunityController {
         }
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
         List<PostScrap> scraps = post.getPostScrapList();
-        scraps.clear();
 
         post.setStatus("DELETED");
         postRepository.save(post);
