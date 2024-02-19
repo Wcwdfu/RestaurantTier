@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/user/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                         .failureUrl("/user/login")
                         .userInfoEndpoint(userInfoEndPoint -> userInfoEndPoint
                                 .userService(customOAuth2UserService))
@@ -51,7 +51,7 @@ public class SecurityConfig {
                 //사이트 내 로그인
                 .formLogin(form -> form
                         .loginPage("/user/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                         .failureUrl("/user/login?error=true"))
                 .logout((logout) -> logout
                         .logoutUrl("/user/logout")
