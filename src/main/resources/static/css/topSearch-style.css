@@ -16,7 +16,7 @@
         display: flex;
         width: 37px;
         height: 37px;
-        margin-right: 20px;
+        margin-right: 25px;
         border: none;
         justify-content: center;
         align-items: center;
@@ -60,7 +60,7 @@
         display: flex;
         width: 37px;
         height: 37px;
-        margin-right: 10px;
+        margin-right: 23px;
         border: none;
         justify-content: center;
         align-items: center;
@@ -263,4 +263,25 @@
     background-color: #0000;
     outline: none;
     caret-color: black;
+}
+
+/* 검색버튼 조정을 위함 */
+#topMenuBar {
+    display: flex;
+    align-items: center;
+}
+
+/* 메뉴 backdrop */
+#topMenuBar, #searchButton1, #searchButton2 {
+    z-index: 200;
+}
+#navbarNav.show:before {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(100,100,100,0.0);
+    content: '';
+    z-index: -1;
 }
