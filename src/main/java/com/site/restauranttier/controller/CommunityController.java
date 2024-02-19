@@ -39,7 +39,6 @@ public class CommunityController {
     private final PostCommentRepository postCommentRepository;
     private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
-    private final PostScrapRepository postScrapRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 커뮤니티 메인 화면
@@ -99,8 +98,6 @@ public class CommunityController {
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
         List<PostScrap> scraps = post.getPostScrapList();
         postScrapRepository.deleteAll(scraps);
-
-
 
         // 글 삭제
         post.setStatus("DELETED");
