@@ -7,6 +7,7 @@ import com.site.restauranttier.entity.PostScrap;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
+import com.site.restauranttier.repository.PostScrapRepository;
 import com.site.restauranttier.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class CommunityController {
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
     private final PostCommentRepository postCommentRepository;
+    private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
