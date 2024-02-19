@@ -51,7 +51,63 @@ function search(searchInput) {
     window.location.href = '/search?kw=' + searchInput;
 }
 document.addEventListener('keydown', function(event) {
-    if (isSearching && (event.key === 'Enter' || event.key === 'Return')) {
+    if (isSearching && !isFeedbackWindowOpen && (event.key === 'Enter' || event.key === 'Return')) {
         search(mainSearchInput.value.trim());
     }
 })
+
+// 피드백 버튼 리스너
+const feedbackButton = document.getElementById('feedbackButton');
+const feedbackTextarea = document.getElementById('feedbackTextarea');
+const modal = new bootstrap.Modal(document.getElementById('exampleModalFeedback'));
+var isFeedbackWindowOpen = false;
+function setIsFeedbackWindowOpenFalse() {
+    isFeedbackWindowOpen = false;
+}
+
+// 피드백 버튼 누르면 이게 실행됨
+function isLogin() {
+    feedbackTextarea.value = '';
+    fetch('/user/api/is-login', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (response.ok) {
+                // 모달 표시하기
+                isFeedbackWindowOpen = true;
+                modal.show();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+function submitFeedback() {
+    const feedbackBody = feedbackTextarea.value.trim();
+    setIsFeedbackWindowOpenFalse();
+    fetch('/api/feedback', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            feedbackBody: feedbackBody
+        })
+    })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (response.status === 200 || response.status === 404 || response.status === 400) {
+                return response.text().then(errorMessege => {
+                    alert(errorMessege);
+                })
+            }
+        })
+}

@@ -52,6 +52,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Evaluation> evaluationList = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Feedback> feedbackList = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")

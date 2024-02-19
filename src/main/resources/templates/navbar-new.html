@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <link rel="stylesheet" href="/css/topSearch-style.css">
     <script type="text/javascript" src="/js/topSearchScript.js" defer></script>
+
     <style>
         #myPage {
             width: 30px;
@@ -30,15 +31,33 @@
             <div class="search-middle">
 
             </div>
-            <div class="search-bottom">
+            <div id="searchBottom" class="search-bottom">
                 <button type="button" class="search-tip"
                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="식당 이름이나 먹고 싶은 음식을 검색해보세요!">
+                        data-bs-title="단어를 띄어쓰기로 구분해서 검색하세요!(검색 예시: '닭발 술집', '일식 튀김', '튀김 매운 한식')">
                     검색 팁
                 </button>
                 <div></div>
-                <span class="feedback-button">Feedback</span>
+                <span id="feedbackButton" class="feedback-button" onclick="isLogin()">Feedback</span>
+            </div>
+        </div>
+    </div>
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="exampleModalFeedback" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabelFeedback">Give Feedback</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="feedbackTextarea" placeholder="어떤 피드백이든 감사합니다!" spellcheck="false"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="setIsFeedbackWindowOpenFalse()" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button id="feedbackSubmitButton" onclick="submitFeedback()" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">제출</button>
+                </div>
             </div>
         </div>
     </div>

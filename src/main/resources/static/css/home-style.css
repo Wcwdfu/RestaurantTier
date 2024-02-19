@@ -20,7 +20,7 @@ html{
 .row .col .col-12 {
 
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 main {
@@ -38,12 +38,7 @@ main {
     background-color: white;
 }
 
-.cell-button > .label {
-    font-size: small;
-    padding: 1rem;
-    color: black;
-    opacity: 0.9;
-}
+
 
 .cell-button > .img {
     padding: 1.25rem;
@@ -100,20 +95,27 @@ h2 {
 /*img:hover {
     filter: brightness(50%); !* 마우스 오버 시 이미지 어둡게 *!
 }*/
+.mobile-cuisine-name {
+    display: flex;
+    justify-content: center;
+    color: #333;
+    font-family: 'NanumSquare', sans-serif;
+
+
+}
 
 /* 모바일 화면에서 종류 카테고리 이름 보이게 */
 @media only screen and (max-width:1024px) {
     .mobile-cuisine-name {
-        display: flex;
-        justify-content: center;
+
         line-height: 19px;
         font-size: 14px;
-        color: #333;
     }
 }
 @media only screen and (min-width:1025px) {
     .mobile-cuisine-name {
-        display: none;
+        line-height: 25px;
+        font-size: 18px;
     }
 }
 
@@ -149,9 +151,6 @@ footer{
     }
 
 }
-.cell-button .label {
-    opacity: 0; /* 기본적으로 숨김 */
-}
 
 
 @media only screen and (min-width: 1024px) {
@@ -159,20 +158,35 @@ footer{
     .top-banner{
         height: 300px;
     }
-    /*음식 버튼 이미지 hover*/
-    .cell-button .label {
-        background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
-        color: white; /* 글자 색상 */
-        font-size: 20px; /* 글자 크기 */
-        transition: opacity 0.5s ease; /* 부드러운 효과 */
-        height: 100%; /* 부모 요소와 동일한 높이 */
-        width: 100%; /* 부모 요소와 동일한 너비 */
+
+
+    .button-grid{
+        width: 900px;
     }
-    .cell-button:hover .label {
-        opacity: 1; /* 마우스 오버 시 보임 */
+
+    .cell-button img:hover{
+        filter: brightness(0.8);
+        transition: filter 0.5s ease;
+    }
+
+}
+
+
+@media only screen and (min-width: 2000px) {
+    .button-grid{
+        width: 1500px;
+    }
+    .cell-button img:hover{
+        filter: brightness(0.8);
+        transition: filter 0.7s ease;
     }
 }
 
 .firstSectionComment,.secondSectionComment {
     color: var(--main-color);
+}
+
+.button-grid{
+    margin:0 auto;
+    padding-top: 0;
 }
