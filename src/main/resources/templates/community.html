@@ -83,8 +83,7 @@
             <div class="postBox">
                 <div>
                     <a class="postLink" th:text="${post.postTitle}" th:href="@{/community/{postId}(postId=${post.postId})}"></a>
-                    <span th:if="${post.postCommentList.size()}" class="comment-count" th:text="'['+${post.postCommentList.size()+']'}">
-
+                    <span th:if="${#lists.size(post.postCommentList.?[status=='ACTIVE']) != 0}" class="comment-count" th:text="${#lists.size(post.postCommentList.?[status=='ACTIVE'])}">
                     </span>
                 </div>
 

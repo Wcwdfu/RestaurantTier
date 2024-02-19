@@ -86,6 +86,15 @@ public class CommunityController {
     @GetMapping("/api/post/delete")
     public ResponseEntity<String> postDelete(@RequestParam String postId) {
         Post post =  postService.getPost(Integer.valueOf(postId));
+        //게시글 지워지면 그 게시글의 댓글들도 DELETED 상태로 변경
+        List<PostComment> comments = post.getPostCommentList();
+        for (PostComment comment : comments) {
+            comment.setStatus("DELETED");
+        }
+        //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
+
+
+
         post.setStatus("DELETED");
         postRepository.save(post);
         return ResponseEntity.ok("post delete complete");
