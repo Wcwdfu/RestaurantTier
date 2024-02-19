@@ -18,10 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -34,8 +31,13 @@ public class RestaurantService {
     @Value("${tier.min.evaluation}")
     private int minNumberOfEvaluations;
 
-    private Specification<Restaurant> search(String kw) {
-        return new Specification<>() {
+    public List<Restaurant> searchRestaurants(String[] keyword) {
+        Specification<Restaurant> spec = createSearchSpecification(keyword);
+        return restaurantRepository.findAll(spec);
+    }
+
+    private Specification<Restaurant> createSearchSpecification(String[] kws) {
+        return new Specification<Restaurant>() {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -44,23 +46,38 @@ public class RestaurantService {
 
                 // 조인
                 Join<Restaurant, RestaurantHashtag> joinHashtag = root.join("restaurantHashtagList", JoinType.LEFT);
-                Join<Restaurant, Situation> joinSituation = root.join("situationList", JoinType.LEFT);
+                Join<Restaurant, RestaurantMenu> joinMenu = root.join("restaurantMenuList", JoinType.LEFT);
+                //Join<Restaurant, Situation> joinSituation = root.join("situationList", JoinType.LEFT);
 
-                // 검색 조건
-                Predicate namePredicate = cb.like(root.get("restaurantName"), "%" + kw + "%");
-                Predicate typePredicate = cb.like(root.get("restaurantType"), "%" + kw + "%");
-                Predicate cuisinePredicate = cb.like(root.get("restaurantCuisine"), "%" + kw + "%");
-                Predicate hashtagPredicate = cb.like(joinHashtag.get("hashtagName"), "%" + kw + "%");
-                Predicate situationPredicate = cb.like(joinSituation.get("situationName"), "%" + kw + "%");
-
-                // 'ACTIVE' 상태 조건 추가
+                List<Predicate> predicates = new ArrayList<>();
+                // 여기서 for문을 사용하여 각 항목에 대한 Predicate를 생성하고 predicates 리스트에 추가합니다.
                 Predicate statusPredicate = cb.equal(root.get("status"), "ACTIVE");
+                for (String kw : kws) {
+                    Predicate namePredicate = cb.like(root.get("restaurantName"), "%" + kw + "%");
+                    Predicate typePredicate = cb.like(root.get("restaurantType"), "%" + kw + "%");
+                    Predicate cuisinePredicate = cb.like(root.get("restaurantCuisine"), "%" + kw + "%");
+                    Predicate hashtagPredicate = cb.like(joinHashtag.get("hashtagName"), "%" + kw + "%");
+                    Predicate menuPredicate = cb.like(joinMenu.get("menuName"), "%" + kw + "%");
 
-                // 모든 조건을 결합
-                return cb.and(statusPredicate, cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate, situationPredicate));
+                    // 각 Predicate를 predicates 리스트에 추가합니다.
+                    predicates.add(cb.and(
+                            cb.equal(root.get("status"), "ACTIVE"),
+                            cb.or(namePredicate, typePredicate, cuisinePredicate, hashtagPredicate, menuPredicate)));
+                }
+
+                // predicates 리스트에 있는 모든 Predicate를 and() 메소드에 전달하여 모든 조건을 결합합니다.
+                return cb.and(predicates.toArray(new Predicate[0]));
             }
         };
     }
+
+    // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
+    /*public Page<Restaurant> getList(int page, String kw) {
+        Pageable pageable = PageRequest.of(page, 30);
+        Specification<Restaurant> spec = search(kw);
+
+        return restaurantRepository.findAll(spec, pageable);
+    }*/
 
     public Restaurant getRestaurant(Integer id) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(id);
@@ -72,14 +89,6 @@ public class RestaurantService {
 
     }
 
-
-    // 페이지 번호를 입력받아 해당 페이지의 데이터 조회
-    public Page<Restaurant> getList(int page, String kw) {
-        Pageable pageable = PageRequest.of(page, 30);
-        Specification<Restaurant> spec = search(kw);
-
-        return restaurantRepository.findAll(spec, pageable);
-    }
     // 식당의 메뉴 리스트 반환
     public List<RestaurantMenu> getRestaurantMenuList(int restaurantId) {
         Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);

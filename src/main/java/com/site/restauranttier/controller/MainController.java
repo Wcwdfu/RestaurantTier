@@ -2,6 +2,7 @@ package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
+import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.RestaurantRepository;
 import com.site.restauranttier.repository.SituationRepository;
@@ -69,6 +70,13 @@ public class MainController {
         } else {
             model.addAttribute("kw", kw);
         }
+
+        String[] kwList = kw.split(" "); // 검색어 공백 단위로 끊음
+        List<Restaurant> restaurantList = restaurantService.searchRestaurants(kwList);
+
+        List<RestaurantTierDataClass> restaurantTierDataClassList = evaluationService.convertToTierDataClassList(restaurantList);
+
+        model.addAttribute("restaurantTierData", restaurantTierDataClassList);
 
         return "searchResult";
     }

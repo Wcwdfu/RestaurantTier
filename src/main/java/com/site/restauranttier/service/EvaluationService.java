@@ -176,7 +176,7 @@ public class EvaluationService {
     }
 
     // 그냥 Restaurant 리스트를 RestaurantTierDataClass 리스트로 변경 ver1
-    private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList) {
+    public List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
         for (int i = 0; i < restaurantList.size(); i++) {
             Restaurant restaurant = restaurantList.get(i);
