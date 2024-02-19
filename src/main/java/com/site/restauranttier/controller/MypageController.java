@@ -1,8 +1,6 @@
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.entity.Evaluation;
-import com.site.restauranttier.entity.RestaurantFavorite;
-import com.site.restauranttier.entity.User;
+import com.site.restauranttier.entity.*;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +49,16 @@ public class MypageController {
         model.addAttribute("restaurantEvaluationList", evaluationList);
 
         // 커뮤나티관련 정보
-        model.addAttribute("postList",user.getPostList());
-        model.addAttribute("postCommentList",user.getPostCommentList());
+        //status가 ACTIVE상태인 post/postComment만 list로 새로만들기
+        List<Post> activePostList = user.getPostList().stream()
+                .filter(post -> post.getStatus().equals("ACTIVE"))
+                .toList();
+        List<PostComment> activePostCommentList=user.getPostCommentList().stream()
+                        .filter(postComment -> postComment.getStatus().equals("ACTIVE"))
+                                .toList();
+
+        model.addAttribute("postList",activePostList);
+        model.addAttribute("postCommentList",activePostCommentList);
         model.addAttribute("postScrabList",user.getScrapList());
 
 

@@ -71,11 +71,11 @@
 .hidden{
     display: none;
 }
-/*----------------- 내정보 영역(Area1) ---------------*/
 .gray-border-circular{
     border: 1px solid rgba(128, 128, 128, 0.3);
     border-radius: 5px;
 }
+/*----------------- 내정보 영역(Area1) ---------------*/
 .margin25px{
     margin-bottom:50px;
 }
@@ -212,7 +212,7 @@
 }
 
 .comment-count{
-    color: #d51f0f;
+    color: #d51f0f !important;
     margin-left: 2px;
     margin-bottom: 2px;
 }
