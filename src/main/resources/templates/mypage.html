@@ -171,7 +171,9 @@
                     <div class="postBox">
                         <div>
                             <a class="postLink" th:text="${postlist.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>
-                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>
+<!--                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>-->
+                            <span th:if="${#lists.size(postlist.postCommentList.?[status=='ACTIVE']) != 0}" class="comment-count" th:text="${#lists.size(postlist.postCommentList.?[status=='ACTIVE'])}">
+                    </span>
                         </div>
 
                             <div class="underLink">
@@ -243,7 +245,8 @@
                     <div class="postBox">
                         <div>
                             <a class="postLink" th:text="${postScrab.post.postTitle}" th:href="@{/community/{postId}(postId=${postScrab.post.postId})}"></a>
-                            <span class="comment-count" th:if="${postScrab.post.postCommentList.size()}" th:text="'['+${postScrab.post.postCommentList.size()+']'}"></span>
+                            <span th:if="${#lists.size(postScrab.post.postCommentList.?[status=='ACTIVE']) != 0}" class="comment-count" th:text="${#lists.size(postScrab.post.postCommentList.?[status=='ACTIVE'])}"></span>
+
                         </div>
 
                         <div class="underLink">

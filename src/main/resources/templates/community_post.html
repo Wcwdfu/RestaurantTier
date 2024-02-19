@@ -65,9 +65,8 @@
                         <span th:text="'조회수 '+ ${post.postVisitCount}" class="first-detail">
 
                         </span>
-                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail">
-
-                        </span>
+<!--                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail"></span>-->
+                        <span class="second-detail" th:text="'댓글 '+ ${#lists.size(post.postCommentList.?[status=='ACTIVE'])}"></span>
                         <span th:text="'추천 '+ ${post.likeCount}"
                               class="third-de tail">
 
