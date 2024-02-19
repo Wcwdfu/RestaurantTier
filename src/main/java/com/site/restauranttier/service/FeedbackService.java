@@ -28,6 +28,7 @@ public class FeedbackService {
         newFeedback.setFeedbackContent(feedbackBody);
         newFeedback.setUser(userOptional.get());
         newFeedback.setCreatedAt(LocalDateTime.now());
+        newFeedback.setStatus("ACTIVE");
 
         feedbackRepository.save(newFeedback);
         return "success";

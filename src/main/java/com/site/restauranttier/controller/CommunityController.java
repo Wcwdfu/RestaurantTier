@@ -7,7 +7,9 @@ import com.site.restauranttier.entity.PostScrap;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.PostCommentRepository;
 import com.site.restauranttier.repository.PostRepository;
+import com.site.restauranttier.repository.PostScrapRepository;
 import com.site.restauranttier.service.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +37,8 @@ public class CommunityController {
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
     private final PostCommentRepository postCommentRepository;
+    private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
-
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 커뮤니티 메인 화면
@@ -85,6 +87,7 @@ public class CommunityController {
     }
     // 게시물 삭제
     @GetMapping("/api/post/delete")
+    @Transactional
     public ResponseEntity<String> postDelete(@RequestParam String postId) {
         Post post =  postService.getPost(Integer.valueOf(postId));
         //게시글 지워지면 그 게시글의 댓글들도 DELETED 상태로 변경
@@ -94,10 +97,11 @@ public class CommunityController {
         }
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
         List<PostScrap> scraps = post.getPostScrapList();
+        postScrapRepository.deleteAll(scraps);
 
+        // 글 삭제
         post.setStatus("DELETED");
         postRepository.save(post);
-        System.out.println("User's postScrapList size after deletion: " + post.getPostScrapList().size());
         return ResponseEntity.ok("post delete complete");
     }
 
