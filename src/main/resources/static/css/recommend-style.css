@@ -287,13 +287,7 @@ footer {
 
 }
 
-@media only screen and (max-width: 350px) {
-    .option div .col-12 {
-
-        width: 60px;
-        height: 30px;
-        font-size: 10px;
-    }
+@media only screen and (max-width: 430px) {
 
 }
 
@@ -329,6 +323,11 @@ footer {
     .btn-style {
         height: 40px;
 
+    }
+    .option .col .col-12 {
+        width: 90%;
+        height: 40px;
+        font-size: 13px;
     }
 
     .option-area hr {
@@ -385,12 +384,7 @@ footer {
         border-radius: 8px;
     }
 
-    .option div button {
 
-        width: 70px;
-        height: 30px;
-        font-size: 13px;
-    }
 
     .col {
         margin-top: 5px;
