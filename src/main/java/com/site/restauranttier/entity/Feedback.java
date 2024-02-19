@@ -23,4 +23,5 @@ public class Feedback {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String status;
 }

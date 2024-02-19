@@ -32,6 +32,7 @@ function openSearchWindow() {
     mainSearchInput.click();
 }
 mainSearchInput.onclick = function() {mainSearchInput.focus();}
+mainSearchInput.onfocus = function() {isFeedbackWindowOpen = false;}
 
 // 검색창 닫기
 function closeSearchWindow() {
