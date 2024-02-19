@@ -53,6 +53,7 @@ public class MypageController {
         List<Post> activePostList = user.getPostList().stream()
                 .filter(post -> post.getStatus().equals("ACTIVE"))
                 .toList();
+
         List<PostComment> activePostCommentList=user.getPostCommentList().stream()
                         .filter(postComment -> postComment.getStatus().equals("ACTIVE"))
                                 .toList();
