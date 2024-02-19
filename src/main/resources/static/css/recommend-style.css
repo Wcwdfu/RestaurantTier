@@ -138,6 +138,7 @@
     font-weight: bold;
     letter-spacing: 2px;
 }
+
 .btn-style2 {
     width: 150px;
     height: 50px;
@@ -283,6 +284,11 @@ footer {
         height: 200px;
     }
 
+
+}
+
+@media only screen and (max-width: 430px) {
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -313,10 +319,17 @@ footer {
 
         width: 100%;
     }
-    .btn-style{
+
+    .btn-style {
         height: 40px;
 
     }
+    .option .col .col-12 {
+        width: 90%;
+        height: 40px;
+        font-size: 13px;
+    }
+
     .option-area hr {
         width: 100px;
     }
@@ -371,12 +384,7 @@ footer {
         border-radius: 8px;
     }
 
-    .option div button {
 
-        width: 70px;
-        height: 30px;
-        font-size: 13px;
-    }
 
     .col {
         margin-top: 5px;
@@ -468,6 +476,7 @@ footer {
     .option-area hr {
         width: 100%;
     }
+
     .option-area > p {
         font-size: 30px;
     }
@@ -482,6 +491,7 @@ section h2 {
     color: var(--main-color);
 }
 
-hr{
-    border-width:1px 0 0 0; border-color:#000000;
+hr {
+    border-width: 1px 0 0 0;
+    border-color: #000000;
 }
