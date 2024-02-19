@@ -1,13 +1,11 @@
 package com.site.restauranttier.controller;
 
 import com.site.restauranttier.entity.Evaluation;
-import com.site.restauranttier.entity.Post;
 import com.site.restauranttier.entity.RestaurantFavorite;
 import com.site.restauranttier.entity.User;
 import com.site.restauranttier.repository.UserRepository;
 import com.site.restauranttier.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
