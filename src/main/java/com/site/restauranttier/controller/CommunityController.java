@@ -37,6 +37,7 @@ public class CommunityController {
     private final PostCommentService postCommentService;
     private final PostRepository postRepository;
     private final PostCommentRepository postCommentRepository;
+    private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
     private final PostScrapRepository postScrapRepository;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
