@@ -76,33 +76,50 @@ $(document).ready(function () {
     const searchInput = document.getElementById('searchInput');
     searchInput.value = '';
     const spinner = document.getElementById('spinner');
+    let newTrElements;
     var prevInput = '';
     var currentUrl = window.location.href;
     var baseUrl = window.location.origin;
     var relativeUrl = currentUrl.replace(baseUrl, '');
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
+    var isListApiProcessing = false;
     let timer;
+
+    function showSpinner() { // Spinner 표시
+        const spinnerDisplay = spinner.style.display;
+        if (spinnerDisplay === 'none') {
+            spinner.style.display = 'inline-block';
+        }
+    }
+    function hideSpinner() { // Spinner 안보이게
+        spinner.style.display = 'none';
+    }
 
     searchInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
+        showSpinner();
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
             tierTableBody.innerHTML = '';
             lastInputType = 0;
-            spinner.style.display = 'inline-block';
             const apiUrl = "/api/page" + relativeUrl;
             fetch(apiUrl)
                 .then(response => {
-                    if (lastInputType === 0) {
-                        spinner.style.display = 'none';
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.text();
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    return response.text();
                 })
                 .then(html => {
-                    tierTableBody.innerHTML = html;
-                    setMouseHover();
+                    if (html && lastInputType === 0) {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const tbodyContent = doc.querySelector('tbody').innerHTML;
+                        tierTableBody.innerHTML = tbodyContent;
+
+                        hideSpinner();
+                        setMouseHover();
+                    }
                 })
                 .catch(error => {
                     // 오류 처리
@@ -112,8 +129,8 @@ $(document).ready(function () {
             pageController.style.display = 'flex';
         } else if (prevInput === '') { // 이전에 검색창에 내용이 없었던 경우 -> page가 아닌 list로 불러옴
             tierTableBody.innerHTML = '';
+            isListApiProcessing = true;
             lastInputType = 1;
-            spinner.style.display = 'inline-block';
             const apiUrl = "/api/list" + relativeUrl;
             fetch(apiUrl)
                 .then(response => {
@@ -125,35 +142,38 @@ $(document).ready(function () {
                     }
                 })
                 .then(html => {
-                    pageController.style.display = 'none';
-                    tierTableBody.innerHTML = html;
-                    setMouseHover();
-                    filterTableBody(tierTableBody, inputValue);
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    newTrElements = doc.querySelectorAll('tr');
+                    filterTableBody(newTrElements, inputValue);
+                    isListApiProcessing = false;
                 })
                 .catch(error => {
                     // 오류 처리
                     console.error('Error fetching data:', error);
+                    isListApiProcessing = false;
                 });
+        } else {
+            timer = setTimeout(function() {
+                if (lastInputType !== 0) {
+                    pageController.style.display = 'none';
+                    lastInputType = 1;
+                    if (lastInputType === 1 && !isListApiProcessing) {
+                        filterTableBody(newTrElements, inputValue);
+                    }
+                } // 검색 결과를 보여주는거는 0.4초가 지나야 필터링 해줌. 이게 핵심임.
+            }, 400);
         }
-        // 이전에 검색창에 내용이 있어서 이미 list 목록인 경우(이미 page가 아님)
-        timer = setTimeout(function() {
-            if (lastInputType !== 0) {
-                pageController.style.display = 'none';
-                lastInputType = 1;
-                if (lastInputType === 1) {
-                    filterTableBody(tierTableBody, inputValue);
-                }
-            } // 검색 결과를 보여주는거는 0.4초가 지나야 필터링 해줌. 이게 핵심임.
-        }, 400);
         prevInput = inputValue;
-    })
+    });
 
     // 검색어가 이름이나 type에 들어가 있는 행만 보여줌
-    function filterTableBody(tableBody, inputValue) {
-        let trList = tableBody.getElementsByTagName("tr");
+    function filterTableBody(trList, inputValue) {
+        // DocumentFragment 생성
+        const fragment = document.createDocumentFragment()
 
-        // 첫 번재 tr은 맨 위의 열 정보임. 그래서 생략
-        for (i = 0; i < trList.length; i++) {
+        // 첫 번째 tr은 데이터가 아니어서 1번부터
+        for (let i = 1; i < trList.length; i++) {
             let td = trList[i].getElementsByTagName("td")[2];
             let spanList = td.getElementsByTagName("span");
             if (td) {
@@ -163,11 +183,17 @@ $(document).ready(function () {
                     restaurantName.includes(inputValue) || restaurantType.includes(inputValue)
                 ) {
                     trList[i].style.display = "table-row";
+                    // DocumentFragment에 tr 요소 추가
+                    fragment.appendChild(trList[i]);
                 } else {
                     trList[i].style.display = "none";
                 }
             }
         }
-        spinner.style.display = 'none';
+        // DocumentFragment를 tierTableBody에 추가
+        tierTableBody.appendChild(fragment);
+
+        setMouseHover();
+        hideSpinner();
     }
 });
