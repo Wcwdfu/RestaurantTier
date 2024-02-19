@@ -154,7 +154,7 @@
 
     <div id="Area5" class="hidden">
         <div id="area5Contents" class="gray-border-circular">
-            <ul id="postul">
+            <ul class="postul">
 
                 <!--                    <li th:each="post,iterStat: ${paging}" class="postli">-->
                 <li th:each="postlist:${postList}" class="postli">
@@ -171,10 +171,8 @@
                         </div>
 
                             <div class="underLink">
-                                <span id="category" th:text="${postlist.postCategory}"></span>
-
-                                <!--  현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시               -->
-                                <span id="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>
+                                <span class="category" th:text="${postlist.postCategory}"></span>
+                                <span class="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>
                             </div>
 
                     </div>
@@ -217,8 +215,6 @@
                         <div class="underLink">
                             <span class="category" th:text="${postScrab.post.postCategory}"></span>
                             <span class="author" th:text="${postScrab.post.user.userNickname}"></span>
-
-                            <!--  현재 postList의 인덱스에 해당하는 포스트의 생성시간으로부터의 경과 표시               -->
                             <span class="createdAt" th:text="${postScrab.post.calculateTimeAgo()}"> </span>
                         </div>
 
