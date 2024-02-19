@@ -3,11 +3,9 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.etc.RestaurantTierDataClass;
-import com.site.restauranttier.repository.EvaluationRepository;
-import com.site.restauranttier.repository.RestaurantRepository;
-import com.site.restauranttier.repository.SituationRepository;
-import com.site.restauranttier.repository.UserRepository;
+import com.site.restauranttier.repository.*;
 import com.site.restauranttier.service.EvaluationService;
+import com.site.restauranttier.service.FeedbackService;
 import com.site.restauranttier.service.RestaurantCommentService;
 import com.site.restauranttier.service.RestaurantService;
 import groovy.util.Eval;
@@ -20,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +31,7 @@ import java.util.*;
 @Controller
 public class MainController {
     private final RestaurantRepository restaurantRepository;
+    private final FeedbackService feedbackService;
     private final RestaurantService restaurantService;
     private final EvaluationService evaluationService;
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -79,6 +79,27 @@ public class MainController {
         model.addAttribute("restaurantTierData", restaurantTierDataClassList);
 
         return "searchResult";
+    }
+
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PostMapping("/api/feedback")
+    public ResponseEntity<String> submitFeedback(
+            @RequestBody Map<String, Object> jsonBody,
+            Principal principal
+    ) {
+        String feedbackBody = jsonBody.get("feedbackBody").toString();
+
+        if (feedbackBody.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("내용이 없습니다.");
+        }
+
+        String result = feedbackService.addFeedback(feedbackBody, principal);
+
+        if (result.equals("fail")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 접근입니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("피드백 감사합니다.");
+        }
     }
 }
 
