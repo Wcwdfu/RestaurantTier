@@ -1,6 +1,5 @@
 package com.site.restauranttier.controller;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.site.restauranttier.entity.Post;
 import com.site.restauranttier.entity.PostComment;
 import com.site.restauranttier.entity.PostScrap;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor

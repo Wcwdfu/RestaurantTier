@@ -81,7 +81,7 @@ public class PostService {
             sorts.add(Sort.Order.desc("createdAt"));
         }
         Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
-        Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory);
+        Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory,sort);
         return this.postRepository.findAll(spec, pageable);
 
     }
@@ -252,20 +252,24 @@ public class PostService {
         };
     }
 
-    private Specification<Post> getSpecByCategoryAndPopularOver5(String postCategory) {
+    private Specification<Post> getSpecByCategoryAndPopularOver5(String postCategory,String sort) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
+                Predicate likeCountPredicate;
                 // 조건 추가
+                if(sort.equals("popular")){
+                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
+                }else{
+                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), -1000);
+                }
 
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
-                Predicate likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
                 Predicate categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
-                return cb.and(statusPredicate, likeCountPredicate, categoryPredicate     // 글 작성자
-                );
+                return cb.and(statusPredicate, likeCountPredicate, categoryPredicate);
             }
 
 
