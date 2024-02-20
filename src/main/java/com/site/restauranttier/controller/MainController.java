@@ -43,15 +43,15 @@ public class MainController {
             "베이커리", "기타"
     );
 
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/home";
+    @GetMapping("/home")
+    public String home() {
+        return "redirect:/";
     }
 
 
     // 홈 화면
-    @GetMapping("/home")
-    public String home(Model model) {
+    @GetMapping("/")
+    public String root(Model model) {
         List<Restaurant> restaurants = restaurantService.getTopRestaurantsByCuisine();
         model.addAttribute("restaurants",restaurants);
         model.addAttribute("currentPage","home");

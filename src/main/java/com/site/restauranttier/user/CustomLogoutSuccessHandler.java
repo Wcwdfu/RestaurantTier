@@ -38,7 +38,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         }
 
         // 기본 URI
-        String uri = "/home";
+        String uri = "/";
 
         if (fullURL != null && !fullURL.equals("")) {
             // 회원가입 - 로그인으로 넘어온 경우 "/"로 redirect
@@ -47,7 +47,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
                     fullURL.contains("/myPage") ||
                     fullURL.contains("/community/write")
             ) {
-                uri = "/home";
+                uri = "/";
             } else {
                 uri = fullURL;
             }

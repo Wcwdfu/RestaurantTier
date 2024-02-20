@@ -35,7 +35,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }
 
         // 기본 URI
-        String uri = "/home";
+        String uri = "/";
 
         /**
          * savedRequest 존재하는 경우 = 인증 권한이 없는 페이지 접근

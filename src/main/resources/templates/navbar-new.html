@@ -66,7 +66,7 @@
         <div class="container-fluid">
             <!-- 메뉴 부분 -->
             <div class="col-auto col-lg-2 me-lg-0 me-auto">
-                <a class="navbar-brand" href="/home">
+                <a class="navbar-brand" href="/">
                     <script type="text/javascript" style="display:none">
                         //<![CDATA[
                         window.__mirage2 = {petok: "E5U2MX_72TJ6zGrnnrl16NRJf7wB8JKtWT5ha.GflxI-3600-0"};
@@ -84,12 +84,13 @@
                     <!--                        <img data-cfsrc="images/demo-restaurant-logo-black.png" data-at2x="images/demo-restaurant-logo-black@2x.png" alt="" class="mobile-logo" src="images/demo-restaurant-logo-black@2x.png" width="0" height="0">-->
                 </a>
             </div>
-            <!-- 검색 버튼 -->
-            <button id="searchButton2" onclick="openSearchWindow()">
-                <img src="/img/home/search.png">
-            </button>
-            <div class="col-auto menu-order position-static">
-                <button class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse"
+            <!-- 메뉴바 -->
+            <div id="topMenuBar" class="col-auto menu-order position-static">
+                <!-- 검색 버튼 -->
+                <button id="searchButton2" onclick="openSearchWindow()">
+                    <img src="/img/home/search.png">
+                </button>
+                <button id="topMenuButton" class="navbar-toggler float-start collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="#navbarNav-clone" aria-label="Toggle navigation"
                         data-target="#navbarNav-clone" aria-expanded="false">
                     <span class="navbar-toggler-line"></span>
@@ -99,7 +100,7 @@
                 </button>
                 <div class="collapse navbar-collapse alt-font" id="navbarNav">
                     <ul class="navbar-nav ls-1px pb-0" style="gap:10px;">
-                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/home"
+                        <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}"><a href="/"
                                                                                                           class="nav-link">홈</a>
                         </li>
                         <li class="nav-item" th:classappend="${currentPage == 'recommend' ? 'active' : ''}"><a
