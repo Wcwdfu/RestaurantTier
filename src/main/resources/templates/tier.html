@@ -134,6 +134,10 @@
                             <img src="/img/tier/cuisine/베이커리.png">
                             <span class="cuisine-link">베이커리</span>
                         </a>
+                        <a th:class="${cuisine == '샐러드' ? 'selected button category' : 'unselected button category'}" data-cuisine="샐러드">
+                            <img src="/img/tier/cuisine/샐러드.png">
+                            <span class="cuisine-link">샐러드</span>
+                        </a>
                         <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
                             <img src="/img/tier/cuisine/기타.png">
                             <span class="cuisine-link">기타</span>
