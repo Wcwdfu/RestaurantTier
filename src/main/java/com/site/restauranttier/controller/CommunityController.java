@@ -101,7 +101,6 @@ public class CommunityController {
 
         // 글 삭제
         post.setStatus("DELETED");
-
         postRepository.save(post);
         return ResponseEntity.ok("post delete complete");
     }
