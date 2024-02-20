@@ -57,7 +57,7 @@ public class PostService {
     // 검색 결과 반환하기
     public Page<Post> getList(int page, String sort, String kw, String postCategory) {
         List<Sort.Order> sorts = new ArrayList<>();
-        
+
         // 인기순 최신순 모두 최신순으로
         sorts.add(Sort.Order.desc("createdAt"));
 
