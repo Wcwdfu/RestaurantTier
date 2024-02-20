@@ -56,7 +56,8 @@ public class MypageController {
 
         List<PostComment> activePostCommentList=user.getPostCommentList().stream()
                         .filter(postComment -> postComment.getStatus().equals("ACTIVE"))
-                                .toList();
+                        .toList();
+
 
         model.addAttribute("postList",activePostList);
         model.addAttribute("postCommentList",activePostCommentList);

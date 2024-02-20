@@ -173,7 +173,7 @@
                             <a class="postLink" th:text="${postlist.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>
 <!--                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>-->
                             <span th:if="${#lists.size(postlist.postCommentList.?[status=='ACTIVE']) != 0}" class="comment-count" th:text="${#lists.size(postlist.postCommentList.?[status=='ACTIVE'])}">
-                    </span>
+                            </span>
                         </div>
 
                             <div class="underLink">
@@ -205,21 +205,20 @@
                     <hr>
                     <span class="recommend-tab">
                         <img class="likecount" src="../img/community/up.png" alt="이미지">
-                        <span th:text="${postCommentList.size()}"></span>
+                        <span th:text="${commentlist.likeCount}"></span>
                     </span>
 
-<!--                    <div class="postBox">-->
-<!--                        <div>-->
-<!--                            <a class="postLink" th:text="${postlist.postTitle}" th:href="@{/community/{postId}(postId=${postlist.postId})}"></a>-->
-<!--                            <span class="comment-count" th:if="${postlist.postCommentList.size()}" th:text="'['+${postlist.postCommentList.size()+']'}"></span>-->
-<!--                        </div>-->
+                    <div class="postBox">
+                        <div>
+                            <a class="postLink" th:text="${commentlist.commentBody}" th:href="@{/community/{postId}(postId=${commentlist.post.getPostId()})}"></a>
+                        </div>
 
-<!--                        <div class="underLink">-->
-<!--                            <span class="category" th:text="${postlist.postCategory}"></span>-->
-<!--                            <span class="createdAt" th:text="${postlist.calculateTimeAgo()}"> </span>-->
-<!--                        </div>-->
+                        <div class="underLink">
+                            <span class="category">게시글 제목 :&nbsp;</span><span class="category" th:text="${commentlist.post.getPostTitle()}"></span>
+                            <span class="createdAt" th:text="${commentlist.calculateTimeAgo()}"> </span>
+                        </div>
 
-<!--                    </div>-->
+                    </div>
 
                     <!--                        &lt;!&ndash; 게시글에 사진이 있으면 썸네일 표시 &ndash;&gt;-->
                     <!--                        <img class="postImage" th:if="${not #lists.isEmpty(post.postPhotoList)}"-->
