@@ -4,6 +4,18 @@ const mainSearchInput = document.getElementById('mainSearchInput');
 const inputContainer = document.getElementById('inputContainer');
 const body = document.getElementsByTagName('body')[0];
 let isSearching = false;
+
+// 현재 페이지의 프로토콜 가져오기
+const currentProtocol = window.location.protocol;
+// HTTP 또는 HTTPS 프로토콜에 따라 요청을 보낼 URL 설정
+let requestBaseURL = '';
+if (currentProtocol === 'http:') {
+    requestBaseURL = 'http://localhost:8080';
+} else if (currentProtocol === 'https:') {
+    requestBaseURL = 'https://kustaurant.com';
+}
+
+//-------------
 mainSearchInput.addEventListener('focus', function() {
     inputContainer.classList.add('border-highlight');
 })
@@ -69,7 +81,7 @@ function setIsFeedbackWindowOpenFalse() {
 // 피드백 버튼 누르면 이게 실행됨
 function isLogin() {
     feedbackTextarea.value = '';
-    fetch('/user/api/is-login', {
+    fetch(requestBaseURL + '/user/api/is-login', {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -93,7 +105,7 @@ function isLogin() {
 function submitFeedback() {
     const feedbackBody = feedbackTextarea.value.trim();
     setIsFeedbackWindowOpenFalse();
-    fetch('/api/feedback', {
+    fetch(requestBaseURL + '/api/feedback', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
