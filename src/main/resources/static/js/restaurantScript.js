@@ -111,8 +111,7 @@ function fillMenuInfo(data, num) { //num은 처음 표시할 메뉴 개수임. -
       img.alt = 'menu img';
       const menuImgUrl = item.menuImgUrl
       if (menuImgUrl === 'icon') {
-          img.setAttribute('src', '/img/tier/logo.png');
-          img.style.backgroundColor = '#aaa';
+          img.setAttribute('src', '/img/favicon.png');
       } else {
           img.setAttribute('src', menuImgUrl);
       }
