@@ -94,6 +94,10 @@ public class CommunityController {
         List<PostComment> comments = post.getPostCommentList();
         for (PostComment comment : comments) {
             comment.setStatus("DELETED");
+            //대댓글 삭제
+            for (PostComment reply: comment.getRepliesList()){
+                reply.setStatus("DELETED");
+            }
         }
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
         List<PostScrap> scraps = post.getPostScrapList();
@@ -106,11 +110,18 @@ public class CommunityController {
     }
 
     // 댓글 삭제
+    @Transactional
     @GetMapping("/api/comment/delete")
     public ResponseEntity<String> commentDelete(@RequestParam Integer commentId) {
         PostComment postComment =  postCommentService.getPostCommentByCommentId(commentId);
         postComment.setStatus("DELETED");
+        List<PostComment> repliesList = postComment.getRepliesList();
+        // 대댓글 삭제
+        for (PostComment reply: repliesList){
+            reply.setStatus("DELETED");
+        }
         postCommentRepository.save(postComment);
+
         return ResponseEntity.ok("comment delete complete");
     }
 
