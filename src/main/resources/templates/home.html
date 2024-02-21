@@ -62,7 +62,8 @@
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
 <!-- 검색엔진 노출용 -->
-<span style="font-size: 1px; color:#ffffff00; margin:0;padding:0;line-height: 1px;">건대(건국대) 주변 맛집에 대해 평가하고 의견을 나누는 사이트입니다. 건대 맛집 모음. 건대 맛집 순위 모음.</span>
+<h1 style="font-size: 1px; color:#ffffff00; margin:0;padding:0;line-height: 1px;">쿠스토랑 : 건대 맛집</h1>
+<h2 style="font-size: 1px; color:#ffffff00; margin:0;padding:0;line-height: 1px;">건대(건국대) 주변 맛집에 대해 평가하고 의견을 나누는 사이트입니다. 건대 맛집 모음. 건대 맛집 순위 모음.</h2>
 <main class="container-fluid alt-font p-0">
     <!--홈화면 배너-->
     <section
@@ -72,8 +73,8 @@
             <div class="row align-items-center justify-content-center small-screen">
                 <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font"
                      data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">음식을 골라보세요</h1>
-                    <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">관련 맛집을 볼 수 있습니다</h2>
+                    <h2 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0" style="font-size: 48px; color: #222; line-height:80px; font-weight: 400;">음식을 골라보세요</h2>
+                    <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">건대 주변의 관련 맛집을 볼 수 있습니다</h2>
                 </div>
             </div>
         </div>
@@ -274,7 +275,7 @@
                                             <div class="position-relative box-image border-radius-6px"
                                                  id="restaurantImageContainer">
                                                 <img id="restaurantImage" class="w-100 border-radius-6px"
-                                                     th:src="${restaurant.restaurantImgUrl}" alt="쿠스토랑 건대 맛집">
+                                                     th:src="${restaurant.restaurantImgUrl}" alt="쿠스토랑 건대 맛집 인기">
                                                 <div class="box-overlay bg-dark-gray"></div>
                                             </div>
                                         </a>
