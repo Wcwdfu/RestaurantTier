@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '제가 추천드린 가게는요..';
+            processingTitle.textContent = '오늘의 맛집은요..';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
