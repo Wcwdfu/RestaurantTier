@@ -262,16 +262,20 @@ public class PostService {
             public Predicate toPredicate(Root<Post> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
                 Predicate likeCountPredicate;
-                // 조건 추가
-                if(sort.equals("popular")){
-                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
-                }else{
-                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), -1000);
-                }
 
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
                 Predicate categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
-                return cb.and(statusPredicate, likeCountPredicate, categoryPredicate);
+                // 조건 추가
+                if(sort.equals("popular")){
+                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
+                    return cb.and(statusPredicate, likeCountPredicate, categoryPredicate);
+                }else{
+
+                    return cb.and(statusPredicate, categoryPredicate);
+                }
+
+
+
             }
 
 
