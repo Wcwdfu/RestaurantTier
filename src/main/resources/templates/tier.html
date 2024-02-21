@@ -204,8 +204,8 @@
     </div>
 </div>
 <div class="rank-description">
-    <span th:if="${situation == '전체'}">메인 평가(7점 만점)를 고려한 순위입니다.</span>
-    <span th:if="${cuisine == '전체' and situation != '전체'}" th:text="${situation} + ' 평가(5점 만점)를 고려한 순위입니다.'"></span>
+    <span th:if="${situation == '전체'}">메인 평가(7점 만점)만을 고려한 순위입니다.</span>
+    <span th:if="${cuisine == '전체' and situation != '전체'}" th:text="${situation} + ' 평가(5점 만점)만을 고려한 순위입니다.'"></span>
     <span th:if="${cuisine != '전체' and situation != '전체'}" th:text="'메인 평가와 ' + ${situation} + ' 평가를 모두 고려한 순위입니다.'"></span>
 </div>
 <main id="tierChartMain">
@@ -224,9 +224,9 @@
             <th scope="col">순위</th>
             <th scope="col" style="min-width: 50px"></th>
             <th scope="col" style="text-align: left;">식당</th>
-            <th th:if="${cuisine == '전체' and situation == '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;">메인 티어</th>
-            <th th:if="${cuisine != '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;" th:text="${cuisine}+ ' 티어'"></th>
-            <th th:if="${situation != '전체'}" scope="col" style="padding-right: 7px; padding-left: 0;" th:text="${situation}+' 티어'"></th>
+            <th th:if="${cuisine == '전체' and situation == '전체'}" scope="col" style="font-weight: 700; color: #000; font-size:13px; padding-right: 10px; padding-left: 0;">메인 티어</th>
+            <th th:if="${cuisine != '전체'}" scope="col" style="font-weight: 700; color: #000; font-size:13px; padding-right: 10px; padding-left: 0;" th:text="${cuisine}+ ' 티어'"></th>
+            <th th:if="${situation != '전체'}" scope="col" style="font-weight: 700; color: #000; font-size:13px; padding-right: 7px; padding-left: 0;" th:text="${situation}+' 티어'"></th>
             <th class="th-cuisine" scope="col" style="text-align: left; padding-right: 7px;">종류</th>
             <th scope="col" style="text-align: left;" id="th-situation">상황</th>
         </tr>

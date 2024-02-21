@@ -164,6 +164,7 @@ $(document).ready(function () {
                 } // 검색 결과를 보여주는거는 0.4초가 지나야 필터링 해줌. 이게 핵심임.
             }, 400);
         }
+        scheduleBlurEvent();
         prevInput = inputValue;
     });
 
@@ -196,4 +197,17 @@ $(document).ready(function () {
         setMouseHover();
         hideSpinner();
     }
+    let timerForBlur;
+    function searchInputBlur() {
+        searchInput.blur();
+    }
+    function scheduleBlurEvent() {
+        // 이전 타이머가 있다면 취소
+        if (timerForBlur) {
+            clearTimeout(timerForBlur);
+        }
+        // 새로운 타이머 설정
+        timerForBlur = setTimeout(searchInputBlur, 1200);
+    }
 });
+

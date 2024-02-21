@@ -208,6 +208,21 @@ div.basic-info > div.texts > span {
     background-color: #E28400;
     border: 1px solid #E28400;
 }
+#naverMapLink {
+    width: fit-content;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #089f0d;
+    padding: 4px;
+}
+#naverMapLink:hover {
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #43a646;
+    color: #eee;
+}
 
 /* 티어 정보 */
 .tier1 {
