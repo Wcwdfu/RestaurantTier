@@ -14,7 +14,7 @@ section h2 {
     color: var(--main-color);
 }
 @media only screen and (max-width: 1024px) {
-    .category-background, main, .search-area {
+    .category-background, main, .search-area, .rank-description {
         padding: 0 10px;
         min-width: 260px;
         width: 100%;
@@ -37,7 +37,7 @@ section h2 {
 }
 
 @media only screen and (min-width: 1025px) {
-    .category-background, main, .search-area {
+    .category-background, main, .search-area, .rank-description {
         width: 70%;
         min-width: 450px;
         max-width: 900px;
@@ -220,6 +220,13 @@ div.category-list a.unselected:hover {
 
 #spinner {
     margin-right: 20px;
+}
+
+/* 순위 설명 */
+.rank-description {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
 }
 
 /* 티어표 */

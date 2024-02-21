@@ -47,6 +47,13 @@ public class MypageController {
             return e.getCreatedAt();
         }).reversed());
         model.addAttribute("restaurantEvaluationList", evaluationList);
+        // 맛집 댓글 정보
+        List<RestaurantComment> activeRestaurantCommentList =
+                user.getRestaruantCommentList().stream()
+                        .filter(restaurantcomment -> restaurantcomment.getStatus().equals("ACTIVE"))
+                        .sorted(Comparator.comparing(RestaurantComment::getCreatedAt).reversed())
+                        .toList();
+        model.addAttribute("restaurantCommentList", activeRestaurantCommentList);
 
         // 커뮤나티관련 정보
         //status가 ACTIVE상태인 post/postComment만 list로 새로만들기

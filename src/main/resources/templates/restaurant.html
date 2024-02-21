@@ -112,7 +112,8 @@
         <div id="menuInfoContainer">
             <ul class="menu-ul" id="menuUL">
                 <li th:each="menu, iterStat : ${menus}" th:if="${iterStat.index < initialDisplayMenuCount}">
-                    <img th:if="${menu.naverType eq 'type1' or menu.naverType eq 'type3'}" th:src="${menu.menuImgUrl}" alt="menu img">
+                    <img th:if="${(menu.naverType eq 'type1' or menu.naverType eq 'type3') and menu.menuImgUrl != 'icon'}" th:src="${menu.menuImgUrl}" alt="menu img">
+                    <img th:if="${(menu.naverType eq 'type1' or menu.naverType eq 'type3') and menu.menuImgUrl == 'icon'}" src="/img/favicon.png" alt="menu img">
                     <div class="menu-text-container">
                         <div class="menu-name" th:text="${menu.menuName}"></div>
                         <div class="menu-price">

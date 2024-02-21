@@ -172,7 +172,27 @@
     </div>
 
     <div id="Area4" class="hidden">
-        <p class="pp">댓글단 맛집 영역</p>
+        <div id="area4Contents" class="gray-border-circular">
+            <p th:if="${#lists.isEmpty(restaurantCommentList)}">저장된 정보가 없습니다.</p>
+            <div class="restaurant-evaluation-container" th:each="restaurantComment: ${restaurantCommentList}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantComment.getRestaurant().restaurantId})} + '\''">
+                <div class="evaluation-restaurant-info">
+                    <!-- 메인 이미지 -->
+                    <img th:if="${restaurantComment.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="restaurant-img" th:src="${restaurantComment.getRestaurant().getRestaurantImgUrl()}">
+                    <img th:if="${restaurantComment.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="restaurant-img" src="/img/restaurant/no_img.png">
+                    <!-- 식당 이름, 타입 -->
+                    <div class="restaurant-info">
+                        <span class="restaurant-name" th:text="${restaurantComment.getRestaurant().getRestaurantName()}"></span>
+                        <span class="restaurant-type" th:text="${restaurantComment.getRestaurant().getRestaurantType()}"></span>
+                    </div>
+                    <!-- 식당 cuisine -->
+                    <img class="restaurant-cuisine-img" th:src="${restaurantComment.getRestaurant().getCuisineImgUrl(restaurantComment.getRestaurant().getRestaurantCuisine())}">
+                </div>
+                <div class="restaurant-comment-section">
+                    <span class="restaurant-comment-body" th:text="${restaurantComment.getCommentBody()}"></span>
+                    <span class="restaurant-comment-date" th:text="${restaurantComment.calculateTimeAgo()}"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="Area5" class="hidden">

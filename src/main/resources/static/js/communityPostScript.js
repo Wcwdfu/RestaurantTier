@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else if (data.likeCreated) {
                         likeButtonImage.src = '/img/community/up-green.png';
                     }
+                    document.querySelector("#postRecommendCount").textContent = "추천 " + (data.likeCount - data.dislikeCount);
                 }).catch(error => console.error('Error:', error));
 
         }
@@ -82,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else if (data.dislikeCreated) {
                         dislikeButtonImage.src = '/img/community/down-red.png';
                     }
+                    document.querySelector("#postRecommendCount").textContent = "추천 " + (data.likeCount - data.dislikeCount);
+
                 }).catch(error => console.error('Error:', error));
         }
     )
@@ -319,52 +322,53 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
+    // 글 삭제
+    // if (document.querySelector(".post-delete")) {
+    //     document.querySelector(".post-delete").addEventListener("click", function (event) {
+    //         event.preventDefault(); // 폼의 기본 제출 동작을 방지
+    //         var postId = document.querySelector(".post-title").dataset.id;
+    //         console.log(postId);
+    //         fetch("/api/post/delete?postId=" + postId, {
+    //             method: 'GET'
+    //         })
+    //             .then(response => {
+    //                 if (response.ok) {
+    //                     alert("게시물이 삭제되었습니다.")
+    //                     window.location.href = "/community";
+    //                     return response.json()
+    //                 }
+    //             })
+    //             .then(data => {
+    //                 console.log(data)
+    //             }).catch(error => console.error('Error:', error));
+    //     })
+    // }
 
-    if (document.querySelector(".post-delete")) {
-        document.querySelector(".post-delete").addEventListener("click", function (event) {
-            event.preventDefault(); // 폼의 기본 제출 동작을 방지
-            var postId = document.querySelector(".post-title").dataset.id;
-            console.log(postId);
-            fetch("/api/post/delete?postId=" + postId, {
-                method: 'GET'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("게시물이 삭제되었습니다.")
-                        window.location.href = "/community";
-                        return response.json()
-                    }
-                })
-                .then(data => {
-                    console.log(data)
-                }).catch(error => console.error('Error:', error));
-        })
-    }
-
-
-    document.querySelectorAll(".comment-delete").forEach(
-        button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault(); // 폼의 기본 제출 동작을 방지
-                const commentLi = this.closest('.comment-li');
-                const commentId = commentLi.getAttribute('data-id');
-                fetch("/api/comment/delete?commentId=" + commentId, {
-                    method: 'GET'
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("댓글이 삭제되었습니다.")
-                            commentLi.remove();
-
-                            return response.json()
-                        }
-                    })
-                    .then(data => {
-                        console.log(data)
-                    }).catch(error => console.error('Error:', error));
-            })
-        }
-    )
+    // // 댓글 ,대댓글 삭제
+    // document.querySelectorAll(".comment-delete").forEach(button => {
+    //     button.addEventListener("click", function (event) {
+    //         event.preventDefault(); // 폼의 기본 제출 동작을 방지
+    //         const commentLi = this.closest('.comment-li');
+    //         const commentId = commentLi.getAttribute('data-id');
+    //         fetch("/api/comment/delete?commentId=" + commentId, {
+    //             method: 'GET'
+    //         })
+    //             .then(response => response.json()) // 먼저 JSON으로 변환
+    //             .then(data => {
+    //                 if (data.success) {
+    //                     alert("댓글이 삭제되었습니다.")
+    //                     commentLi.remove();
+    //
+    //                     // 삭제된 댓글 + 대댓글 수만큼 댓글 수 업데이트
+    //                     const commentCountSpan = document.querySelector("#commentCount");
+    //                     let currentCount = parseInt(commentCountSpan.innerText.replace('댓글 ', ''));
+    //                     // data.deletedCount는 삭제된 댓글과 대댓글의 총 개수
+    //                     commentCountSpan.innerText = '댓글 ' + (currentCount - data.deletedCount);
+    //                 }
+    //             })
+    //             .catch(error => console.error('Error:', error));
+    //     })
+    // });
     // document.querySelectorAll(".reply-delete").forEach(
     //     button => {
     //         button.addEventListener("click", function (event) {
@@ -398,6 +402,69 @@ document.addEventListener('DOMContentLoaded', function () {
     //     }
     // )
 
+// 모달 활성화 버튼에 대한 이벤트 리스너
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+        button.addEventListener('click', function () {
+            const itemId = this.getAttribute('data-id'); // 삭제 대상의 ID
+            const itemType = this.getAttribute('data-type'); // 삭제 대상의 타입 ('post' 또는 'comment')
+
+            // 글 삭제 모달의 삭제 확인 버튼
+            const postDeleteAgreeButton = document.getElementById('postDeleteAgreeButton');
+            if (itemType === 'post') {
+                postDeleteAgreeButton.setAttribute('data-id', itemId);
+                postDeleteAgreeButton.onclick = () => deletePost(itemId);
+            }
+
+            // 댓글 삭제 모달의 삭제 확인 버튼
+            const commentDeleteAgreeButton = document.getElementById('commentDeleteAgreeButton');
+            if (itemType === 'comment') {
+                commentDeleteAgreeButton.setAttribute('data-id', itemId);
+                commentDeleteAgreeButton.onclick = () => deleteComment(itemId);
+            }
+        });
+    });
+
+// 게시글 삭제 함수
+    function deletePost(postId) {
+
+        fetch("/api/post/delete?postId=" + postId, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/community";
+                    return response.json()
+                }
+            })
+            .then(data => {
+                console.log(data)
+            }).catch(error => console.error('Error:', error));
+
+
+    }
+
+// 댓글 삭제 함수
+    function deleteComment(commentId) {
+        // const commentLi = this.closest('.comment-li');
+        // const commentId = commentLi.getAttribute('data-id');
+        fetch("/api/comment/delete?commentId=" + commentId, {
+            method: 'GET'
+        })
+            .then(response => response.json()) // 먼저 JSON으로 변환
+            .then(data => {
+                if (data.success) {
+                    document.querySelector(`[data-id="${commentId}"]`).closest('.comment-li').remove();
+
+                    // 삭제된 댓글 + 대댓글 수만큼 댓글 수 업데이트
+                    const commentCountSpan = document.querySelector("#commentCount");
+                    let currentCount = parseInt(commentCountSpan.innerText.replace('댓글 ', ''));
+                    // data.deletedCount는 삭제된 댓글과 대댓글의 총 개수
+                    commentCountSpan.innerText = '댓글 ' + (currentCount - data.deletedCount);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+    }
 
 
 })

@@ -28,7 +28,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final PostScrapRepository postScrapRepository;
     // 인기순 제한 기준 숫자
-    public static  final int POPULARCOUNT = 1;
+    public static  final int POPULARCOUNT = 2;
     // 페이지 숫자
     public static  final int PAGESIZE=10;
 
@@ -45,7 +45,7 @@ public class PostService {
 
         // 인기순 정렬하기
         else {
-            sorts.add(Sort.Order.desc("likeCount"));
+            sorts.add(Sort.Order.desc("createdAt"));
             Specification<Post> spec = getSpecByPopularOver5();
             Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
             return this.postRepository.findAll(spec, pageable);
@@ -58,13 +58,12 @@ public class PostService {
     public Page<Post> getList(int page, String sort, String kw, String postCategory) {
         List<Sort.Order> sorts = new ArrayList<>();
 
-        if (sort.equals("recent")) {
-            sorts.add(Sort.Order.desc("createdAt"));
-        } else if (sort.equals("popular")) {
-            sorts.add(Sort.Order.desc("likeCount"));
-        }
+        // 인기순 최신순 모두 최신순으로
+        sorts.add(Sort.Order.desc("createdAt"));
+
+        Specification<Post> spec = search(kw, postCategory, sort);
+
         Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
-        Specification<Post> spec = search(kw, postCategory);
         return this.postRepository.findAll(spec, pageable);
     }
 
@@ -72,14 +71,10 @@ public class PostService {
     //  드롭다운에서 카테고리가 설정된 상태에서 게시물 반환하기
     public Page<Post> getListByPostCategory(String postCategory, int page, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-        // 인기순
-        if (sort.equals("popular")) {
-            sorts.add(Sort.Order.desc("likeCount"));
-        }
-        // 최신순
-        else {
-            sorts.add(Sort.Order.desc("createdAt"));
-        }
+
+        // 인기순 최신순 모두 최신순으로
+        sorts.add(Sort.Order.desc("createdAt"));
+
         Pageable pageable = PageRequest.of(page, PAGESIZE, Sort.by(sorts));
         Specification<Post> spec = getSpecByCategoryAndPopularOver5(postCategory,sort);
         return this.postRepository.findAll(spec, pageable);
@@ -215,7 +210,7 @@ public class PostService {
     }
 
 
-    private Specification<Post> search(String kw, String postCategory) {
+    private Specification<Post> search(String kw, String postCategory, String sort) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
@@ -230,11 +225,18 @@ public class PostService {
                 // 액티브 조건 추가
                 Predicate statusPredicate = cb.equal(p.get("status"), "ACTIVE");
                 Predicate categoryPredicate;
+                // sort
+                Predicate likeCountPredicate;
+                if(sort.equals("popular")){
+                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), POPULARCOUNT);
+                }else{
+                    likeCountPredicate = cb.greaterThanOrEqualTo(p.get("likeCount"), -1000);
+                }
 
                 // 검색 조건 결합 (카테고리 설정이 되어있을때는 검색 시 카테고리 안에서 검색을 한다).
                 if (!postCategory.equals("전체")) {
                     categoryPredicate = cb.equal(p.get("postCategory"), postCategory);
-                    return cb.and(statusPredicate, categoryPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
+                    return cb.and(statusPredicate, likeCountPredicate, categoryPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
                             cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용
                             cb.like(u1.get("userNickname"), "%" + kw + "%")    // 글 작성자
 //                            ,cb.like(c.get("commentBody"), "%" + kw + "%"),      // 댓글 내용
@@ -242,7 +244,7 @@ public class PostService {
                     ));
                 }
                 // 검색 조건 결합
-                return cb.and(statusPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
+                return cb.and(statusPredicate, likeCountPredicate, cb.or(cb.like(p.get("postTitle"), "%" + kw + "%"), // 제목
                         cb.like(p.get("postBody"), "%" + kw + "%"),      // 내용
                         cb.like(u1.get("userNickname"), "%" + kw + "%")    // 글 작성자
 //                        ,cb.like(c.get("commentBody"), "%" + kw + "%"),      // 댓글 내용

@@ -3,6 +3,10 @@
 section h2 {
     color: var(--main-color);
 }
+.modal{
+    font-family: 'NanumSquare', sans-serif;
+
+}
 
 .post {
     background: white;

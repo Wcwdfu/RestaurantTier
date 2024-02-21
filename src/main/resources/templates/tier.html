@@ -134,6 +134,10 @@
                             <img src="/img/tier/cuisine/베이커리.png">
                             <span class="cuisine-link">베이커리</span>
                         </a>
+                        <a th:class="${cuisine == '샐러드' ? 'selected button category' : 'unselected button category'}" data-cuisine="샐러드">
+                            <img src="/img/tier/cuisine/샐러드.png">
+                            <span class="cuisine-link">샐러드</span>
+                        </a>
                         <a th:class="${cuisine == '기타' ? 'selected button category' : 'unselected button category'}" data-cuisine="기타">
                             <img src="/img/tier/cuisine/기타.png">
                             <span class="cuisine-link">기타</span>
@@ -199,6 +203,11 @@
         <input id="searchInput" type="text" spellcheck="false">
     </div>
 </div>
+<div class="rank-description">
+    <span th:if="${situation == '전체'}">메인 평가(7점 만점)를 고려한 순위입니다.</span>
+    <span th:if="${cuisine == '전체' and situation != '전체'}" th:text="${situation} + ' 평가(5점 만점)를 고려한 순위입니다.'"></span>
+    <span th:if="${cuisine != '전체' and situation != '전체'}" th:text="'메인 평가와 ' + ${situation} + ' 평가를 모두 고려한 순위입니다.'"></span>
+</div>
 <main id="tierChartMain">
     <table id="tierTable" class="tier-table">
         <colgroup>
@@ -215,7 +224,8 @@
             <th scope="col">순위</th>
             <th scope="col" style="min-width: 50px"></th>
             <th scope="col" style="text-align: left;">식당</th>
-            <th th:unless="${cuisine == '전체' and situation != '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;" th:text="${cuisine}+ ' 티어'"></th>
+            <th th:if="${cuisine == '전체' and situation == '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;">메인 티어</th>
+            <th th:if="${cuisine != '전체'}" scope="col" style="padding-right: 10px; padding-left: 0;" th:text="${cuisine}+ ' 티어'"></th>
             <th th:if="${situation != '전체'}" scope="col" style="padding-right: 7px; padding-left: 0;" th:text="${situation}+' 티어'"></th>
             <th class="th-cuisine" scope="col" style="text-align: left; padding-right: 7px;">종류</th>
             <th scope="col" style="text-align: left;" id="th-situation">상황</th>
