@@ -61,7 +61,9 @@
 <!-- End Google Tag Manager (noscript) -->
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
-
+<!-- 검색엔진 노출용 -->
+<h1 style="font-size: 1px; color:#ffffff00; margin:0;padding:0;line-height: 1px;">쿠스토랑 : 건대 맛집</h1>
+<h2 style="font-size: 1px; color:#ffffff00; margin:0;padding:0;line-height: 1px;">건대(건국대) 주변 맛집에 대해 평가하고 의견을 나누는 사이트입니다. 건대 맛집 모음. 건대 맛집 순위 모음.</h2>
 <main class="container-fluid alt-font p-0">
     <!--홈화면 배너-->
     <section
@@ -71,8 +73,8 @@
             <div class="row align-items-center justify-content-center small-screen">
                 <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font"
                      data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">음식을 골라보세요</h1>
-                    <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">관련 맛집을 볼 수 있습니다</h2>
+                    <h2 class="main-page-title alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">음식을 골라보세요</h2>
+                    <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">건대 주변의 관련 맛집을 볼 수 있습니다</h2>
                 </div>
             </div>
         </div>
@@ -87,7 +89,7 @@
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=한식" class="cell-button col-12 p-0">
                         <img class="img col-12"
-                             src="/img/home/bibimbap.png" alt="쿠스토랑 한식">
+                             src="/img/home/bibimbap.png" alt="쿠스토랑 건대 맛집 한식">
 
 
                     </a>
@@ -97,7 +99,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=일식" class="cell-button col-12 p-0">
-                        <img class="img col-12" src="/img/home/tonkatsu.png" alt="쿠스토랑 일식">
+                        <img class="img col-12" src="/img/home/tonkatsu.png" alt="쿠스토랑 건대 맛집 일식">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -106,7 +108,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=중식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/jajangmyeon.png" alt="쿠스토랑 중식">
+                                                                                   src="/img/home/jajangmyeon.png" alt="쿠스토랑 건대 맛집 중식">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -116,7 +118,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=양식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/spaguetti.png" alt="쿠스토랑 양식">
+                                                                                   src="/img/home/spaguetti.png" alt="쿠스토랑 건대 맛집 양식">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -126,7 +128,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=아시안" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                    src="/img/home/ricenoodles.png" alt="쿠스토랑 아시안">
+                                                                                    src="/img/home/ricenoodles.png" alt="쿠스토랑 건대 맛집 아시안">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -136,7 +138,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=고기" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/meat.png" alt="쿠스토랑 고기">
+                                                                                   src="/img/home/meat.png" alt="쿠스토랑 건대 맛집 고기">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -146,7 +148,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=치킨" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/fried-chicken.png" alt="쿠스토랑 치킨">
+                                                                                   src="/img/home/fried-chicken.png" alt="쿠스토랑 건대 맛집 치킨">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -156,7 +158,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=해산물" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                    src="/img/home/shrimp.png" alt="쿠스토랑 해산물">
+                                                                                    src="/img/home/shrimp.png" alt="쿠스토랑 건대 맛집 해산물">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -166,7 +168,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=햄버거/피자" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                        src="/img/home/fast-food.png" alt="쿠스토랑 햄버거/피자">
+                                                                                        src="/img/home/fast-food.png" alt="쿠스토랑 건대 맛집 햄버거/피자">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -176,7 +178,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=분식" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/tteokbokki.png" alt="쿠스토랑 분식">
+                                                                                   src="/img/home/tteokbokki.png" alt="쿠스토랑 건대 맛집 분식">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -188,7 +190,7 @@
 
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=술집" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                   src="/img/home/beer.png" alt="쿠스토랑 술집">
+                                                                                   src="/img/home/beer.png" alt="쿠스토랑 건대 맛집 술집">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -199,7 +201,7 @@
 
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=카페/디저트" class="cell-button col-12 p-0"><img class="img col-12"
-                                                                                       src="/img/home/coffee.png" alt="쿠스토랑 카페/디저트">
+                                                                                       src="/img/home/coffee.png" alt="쿠스토랑 건대 맛집 카페/디저트">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -209,7 +211,7 @@
                 </div>
                 <div class="cell col  position-relative">
                     <a href="/tier?cuisine=베이커리" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                      src="/img/home/bakery.png" alt="쿠스토랑 베이커리">
+                                                                                      src="/img/home/bakery.png" alt="쿠스토랑 건대 맛집 베이커리">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -219,7 +221,7 @@
                 </div>
                 <div class="cell col  position-relative">
                     <a href="/tier?cuisine=샐러드" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                      src="/img/home/salad.png" alt="쿠스토랑 샐러드">
+                                                                                      src="/img/home/salad.png" alt="쿠스토랑 건대 맛집 샐러드">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -229,7 +231,7 @@
                 </div>
                 <div class="cell col position-relative">
                     <a href="/tier?cuisine=기타" class="cell-button col-12 p-0 "><img class="img col-12"
-                                                                                    src="/img/home/taco.png" alt="쿠스토랑 기타">
+                                                                                    src="/img/home/taco.png" alt="쿠스토랑 건대 맛집 기타">
 
                     </a>
                     <div class="mobile-cuisine-name">
@@ -249,7 +251,7 @@
         <div class="container-fluid overlap-gap-section">
             <div class="row justify-content-center mb-2">
                 <div class="col-lg-7 text-center alt-font">
-                    <h2 class="text-dark-gray mb-0">TOP 맛집</h2>
+                    <h2 class="text-dark-gray mb-0">건대 TOP 맛집</h2>
                     <span class="fs-15 fw-600 text-red text-uppercase mb-10px d-block secondSectionComment">
                     - 건대생들이 인정한 진짜 맛집 -
                 </span>
@@ -273,7 +275,7 @@
                                             <div class="position-relative box-image border-radius-6px"
                                                  id="restaurantImageContainer">
                                                 <img id="restaurantImage" class="w-100 border-radius-6px"
-                                                     th:src="${restaurant.restaurantImgUrl}" alt="">
+                                                     th:src="${restaurant.restaurantImgUrl}" alt="쿠스토랑 건대 맛집 인기">
                                                 <div class="box-overlay bg-dark-gray"></div>
                                             </div>
                                         </a>

@@ -23,6 +23,7 @@ import java.util.List;
 public class TierController {
     private final SituationRepository situationRepository;
     private final EvaluationService evaluationService;
+    private final Integer tierPageSize = 40;
 
     // 티어표 화면
     @GetMapping("/tier")
@@ -32,7 +33,7 @@ public class TierController {
             @RequestParam(value = "cuisine", required = false, defaultValue = "전체") String cuisine,
             @RequestParam(value = "situation", required = false, defaultValue = "전체") String situation
     ) {
-        Pageable pageable = PageRequest.of(page, 50);
+        Pageable pageable = PageRequest.of(page, tierPageSize);
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList();
             model.addAttribute("situation", "전체");
@@ -106,7 +107,7 @@ public class TierController {
             @RequestParam(value = "cuisine", required = false, defaultValue = "전체") String cuisine,
             @RequestParam(value = "situation", required = false, defaultValue = "전체") String situation
     ) {
-        Pageable pageable = PageRequest.of(page, 50);
+        Pageable pageable = PageRequest.of(page, tierPageSize);
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList();
             model.addAttribute("situation", "전체");
