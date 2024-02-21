@@ -74,6 +74,11 @@
     margin-right: 7px;
 }
 /* 평가 모음 */
+#area3Contents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .restaurant-evaluation-container {
     width: 100%;
     display: flex;
@@ -118,6 +123,11 @@
     color: #000;
 }
 /* 댓글 내용 */
+#area4Contents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .restaurant-comment-section {
     width: 100%;
     display: flex;

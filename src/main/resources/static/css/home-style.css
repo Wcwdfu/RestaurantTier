@@ -190,3 +190,26 @@ footer{
     margin:0 auto;
     padding-top: 0;
 }
+
+/* 메인 글자를 h1에서 h2로 바꿔서 글자 크기가 알아서 안바뀌는것같아서 media query 추가함 */
+@media only screen and (min-width: 992px) {
+    h2.main-page-title {
+        font-size: 48px;
+        line-height:80px;
+        color: #2a2a2a;
+    }
+}
+@media only screen and (max-width: 991px) {
+    h2.main-page-title {
+        font-size: 42px;
+        line-height:70px;
+        color: #2a2a2a;
+    }
+}
+@media only screen and (max-width: 767px) {
+    h2.main-page-title {
+        font-size: 36px;
+        line-height:60px;
+        color: #2a2a2a;
+    }
+}

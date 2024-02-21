@@ -46,7 +46,9 @@ public class UserController {
             "/img/login/food6.jpg",
             "/img/login/food7.jpg",
             "/img/login/food8.jpg",
-            "/img/login/food9.jpg"
+            "/img/login/food9.jpg",
+            "/img/login/food10.jpg",
+            "/img/login/food11.jpg"
     );
 
     // 실제 로그인을 진행하는 post는 스프링 시큐리티가 해줌
