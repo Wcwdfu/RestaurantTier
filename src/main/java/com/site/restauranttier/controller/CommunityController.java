@@ -49,12 +49,12 @@ public class CommunityController {
         // 따로 전송된 카테고리 값이 없을떄
         if (postCategory.equals("전체")) {
             paging = postService.getList(page, sort);
-        } 
+        }
         // 카테고리 값이 있을 때
         else {
             paging = postService.getListByPostCategory(postCategory, page, sort);
         }
-        model.addAttribute("currentPage","community");
+        model.addAttribute("currentPage", "community");
         model.addAttribute("postCategory", postCategory);
         model.addAttribute("sort", sort);
         model.addAttribute("paging", paging);
@@ -67,7 +67,7 @@ public class CommunityController {
         Post post = postService.getPost(postId);
         // 조회수 증가
         postService.increaseVisitCount(post);
-        List<PostComment> postCommentList = postCommentService.getList(postId,sort);
+        List<PostComment> postCommentList = postCommentService.getList(postId, sort);
         model.addAttribute("postCommentList", postCommentList);
         model.addAttribute("post", post);
         boolean isPostScrappedByUser = false;
@@ -78,21 +78,22 @@ public class CommunityController {
                     .anyMatch(scrap -> scrap.getUser().equals(user));
         }
         ;
-        model.addAttribute("sort",sort);
+        model.addAttribute("sort", sort);
         model.addAttribute("isPostScrappedByUser", isPostScrappedByUser);
         return "community_post";
     }
+
     // 게시물 삭제
     @GetMapping("/api/post/delete")
     @Transactional
     public ResponseEntity<String> postDelete(@RequestParam String postId) {
-        Post post =  postService.getPost(Integer.valueOf(postId));
+        Post post = postService.getPost(Integer.valueOf(postId));
         //게시글 지워지면 그 게시글의 댓글들도 DELETED 상태로 변경
         List<PostComment> comments = post.getPostCommentList();
         for (PostComment comment : comments) {
             comment.setStatus("DELETED");
             //대댓글 삭제
-            for (PostComment reply: comment.getRepliesList()){
+            for (PostComment reply : comment.getRepliesList()) {
                 reply.setStatus("DELETED");
             }
         }
@@ -105,19 +106,34 @@ public class CommunityController {
         return ResponseEntity.ok("post delete complete");
     }
 
-    // 댓글 삭제
+    // 댓글 ,대댓글 삭제
     @Transactional
     @GetMapping("/api/comment/delete")
-    public ResponseEntity<String> commentDelete(@RequestParam Integer commentId) {
-        PostComment postComment =  postCommentService.getPostCommentByCommentId(commentId);
+    public ResponseEntity<Map<String, Object>> commentDelete(@RequestParam Integer commentId) {
+        PostComment postComment = postCommentService.getPostCommentByCommentId(commentId);
         postComment.setStatus("DELETED");
         List<PostComment> repliesList = postComment.getRepliesList();
-        // 대댓글 삭제
-        for (PostComment reply: repliesList){
-            reply.setStatus("DELETED");
+        int deletedCount = 1;
+        // 해당 댓글에 대한 대댓글이 존재하면 삭제
+        if (!repliesList.isEmpty()) {
+            for (PostComment reply : repliesList) {
+                if (!reply.getStatus().equals("DELETED")) {
+                    reply.setStatus("DELETED");
+                    deletedCount += 1;
+                }
+
+            }
+
         }
 
-        return ResponseEntity.ok("comment delete complete");
+
+        // 응답에 삭제된 개수 포함
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("deletedCount", deletedCount);
+        response.put("message", "comment delete complete");
+
+        return ResponseEntity.ok(response);
     }
 
     // 댓글 or 대댓글 생성
@@ -138,7 +154,7 @@ public class CommunityController {
         if (!parentCommentId.isEmpty()) {
             PostComment parentComment = postCommentService.getPostCommentByCommentId(Integer.valueOf(parentCommentId));
             savedPostComment.setParentComment(parentComment);
-            parentComment.getRepliesList().add(postComment);
+            parentComment.getRepliesList().add(savedPostComment);
             postCommentService.replyCreate(user, savedPostComment);
             postCommentRepository.save(parentComment);
         }
@@ -171,7 +187,7 @@ public class CommunityController {
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
-        Map<String, Object> response =  postService.dislikeCreateOrDelete(post, user);
+        Map<String, Object> response = postService.dislikeCreateOrDelete(post, user);
         response.put("dislikeCount", post.getDislikeUserList().size());
         response.put("likeCount", post.getLikeUserList().size());
         return ResponseEntity.ok(response);
@@ -180,7 +196,7 @@ public class CommunityController {
     // 게시글 스크랩
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/post/scrap")
-    public ResponseEntity<Map<String,Object>> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
+    public ResponseEntity<Map<String, Object>> postScrap(@RequestParam("postId") String postId, Model model, Principal principal) {
         Integer postidInt = Integer.valueOf(postId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Post post = postService.getPost(postidInt);
@@ -205,24 +221,24 @@ public class CommunityController {
     // 게시글 댓글 좋아요
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/like/{commentId}")
-    public ResponseEntity<Map<String,Object>> likeComment(@PathVariable String commentId, Principal principal) {
+    public ResponseEntity<Map<String, Object>> likeComment(@PathVariable String commentId, Principal principal) {
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
-        Map<String,Object> response = postCommentService.likeCreateOrDelete(postComment, user);
-        response.put("totalLikeCount",postComment.getLikeCount());
+        Map<String, Object> response = postCommentService.likeCreateOrDelete(postComment, user);
+        response.put("totalLikeCount", postComment.getLikeCount());
         return ResponseEntity.ok(response);
     }
 
     // 게시글 댓글 싫어요
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/api/comment/dislike/{commentId}")
-    public ResponseEntity<Map<String,Object>> dislikeComment(@PathVariable String commentId, Principal principal) {
+    public ResponseEntity<Map<String, Object>> dislikeComment(@PathVariable String commentId, Principal principal) {
         Integer commentIdInt = Integer.valueOf(commentId);
         PostComment postComment = postCommentService.getPostCommentByCommentId(commentIdInt);
         User user = customOAuth2UserService.getUser(principal.getName());
-        Map<String,Object> response = postCommentService.dislikeCreateOrDelete(postComment, user);
-        response.put("totalLikeCount",postComment.getLikeCount());
+        Map<String, Object> response = postCommentService.dislikeCreateOrDelete(postComment, user);
+        response.put("totalLikeCount", postComment.getLikeCount());
         return ResponseEntity.ok(response);
     }
 

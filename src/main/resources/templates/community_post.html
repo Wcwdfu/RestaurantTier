@@ -87,15 +87,16 @@
 
                         </span>
 <!--                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail"></span>-->
-                        <span class="second-detail" th:text="'댓글 '+ ${#lists.size(post.postCommentList.?[status=='ACTIVE'])}"></span>
+                        <span id="commentCount" class="second-detail" th:text="'댓글 '+ ${#lists.size(post.postCommentList.?[status=='ACTIVE'])}"></span>
                         <span th:text="'추천 '+ ${post.likeCount}"
-                              class="third-de tail">
+                              class="third-detail" id="postRecommendCount">
 
                         </span>
                     </div>
                 </div>
             </div>
-            <button th:if="${post.user==user}" class="post-delete" type="button">
+            <!-- 글 삭제 버튼 -->
+            <button th:if="${post.user==user}" type="button" class="post-delete" data-bs-toggle="modal" data-bs-target="#postModal" th:data-id="${post.postId}" th:data-type="post" data-action="postDelete">
                 삭제
             </button>
         </div>
@@ -194,8 +195,12 @@
                                 </div>
                                     <ul style="padding-left: 0;">
                                     <li th:if="${comment.user==user}">
-                                        <button class="comment-button comment-delete">삭제</button>
+                                        <!-- 댓글 삭제 버튼 -->
+                                        <button class="comment-button comment-delete" data-bs-toggle="modal" data-bs-target="#commentModal" th:data-id="${comment.commentId}" th:data-type="comment" data-action="commentDelete">
+                                            삭제
+                                        </button>
                                     </li>
+
                                     <li>
                                         <button class="comment-button reply">답글 쓰기</button>
                                     </li>
@@ -241,7 +246,10 @@
                                         </div>
                                         <ul style="padding-left: 0;">
                                             <li>
-                                                <button class="comment-button comment-delete">삭제</button>
+                                                <!-- 대댓글 삭제 버튼 -->
+                                                <button class="comment-button comment-delete" data-bs-toggle="modal" data-bs-target="#commentModal" th:data-id="${reply.commentId}" th:data-type="comment" data-action="commentDelete">
+                                                    삭제
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
@@ -257,6 +265,45 @@
     </div>
 </main>
 </body>
+
+<!-- Modal -->
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="postModalLabel">글 삭제</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말 이 글을 삭제하시겠습니까?
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button id="postDeleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="commentModalLabel">댓글 삭제</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말 이 댓글을 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button id="commentDeleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--footer-->
 <section th:replace="~{footer::footerFragment}"></section>
 
