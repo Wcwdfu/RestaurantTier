@@ -204,8 +204,8 @@
     </div>
 </div>
 <div class="rank-description">
-    <span th:if="${situation == '전체'}">메인 평가(7점 만점)를 고려한 순위입니다.</span>
-    <span th:if="${cuisine == '전체' and situation != '전체'}" th:text="${situation} + ' 평가(5점 만점)를 고려한 순위입니다.'"></span>
+    <span th:if="${situation == '전체'}">메인 평가(7점 만점)만을 고려한 순위입니다.</span>
+    <span th:if="${cuisine == '전체' and situation != '전체'}" th:text="${situation} + ' 평가(5점 만점)만을 고려한 순위입니다.'"></span>
     <span th:if="${cuisine != '전체' and situation != '전체'}" th:text="'메인 평가와 ' + ${situation} + ' 평가를 모두 고려한 순위입니다.'"></span>
 </div>
 <main id="tierChartMain">
