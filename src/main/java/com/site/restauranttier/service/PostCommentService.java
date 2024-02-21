@@ -28,8 +28,6 @@ public class PostCommentService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final PostService postService;
-    // 인기순 기준 숫자
-    public static final int POPULARCOUNT = 1;
 
     // 댓글 생성
     public void create(Post post, User user, PostComment postComment) {
