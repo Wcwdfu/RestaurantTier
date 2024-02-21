@@ -306,13 +306,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response;
             })
             .then(data => {
-                window.location.href = "/restaurants/"+restaurantId
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = "/restaurants/"+restaurantId;
+                }
             }
         )
             .catch(error =>{
-                alert(error.message)
-                window.location.href = "/restaurants/"+restaurantId
-
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = "/restaurants/"+restaurantId;
+                }
             })
 
     })
