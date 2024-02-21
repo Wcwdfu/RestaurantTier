@@ -151,6 +151,32 @@ public class EvaluationService {
         }
     }
 
+    // 모든 평가 기록에 대해서 티어를 다시 계산함.
+    public void calculateAllTier() {
+        // 가게 메인 티어 계산
+        List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
+        for (Restaurant restaurant: restaurantList) {
+            if (restaurant.getRestaurantEvaluationCount() >= minNumberOfEvaluations) {
+                EnumTier tier = EnumTier.calculateTierOfRestaurant(restaurant.getRestaurantScoreSum() / restaurant.getRestaurantEvaluationCount());
+                restaurant.setMainTier(tier.getValue());
+            } else {
+                restaurant.setMainTier(-1);
+            }
+            restaurantRepository.save(restaurant);
+        }
+        // 가게 상황 티어 계산
+        List<RestaurantSituationRelation> restaurantSituationRelationList = restaurantSituationRelationRepository.findAll();
+        for (RestaurantSituationRelation restaurantSituationRelation: restaurantSituationRelationList) {
+            if (restaurantSituationRelation.getDataCount() >= minNumberOfEvaluations) {
+                Double AvgScore = restaurantSituationRelation.getScoreSum() / restaurantSituationRelation.getDataCount();
+                restaurantSituationRelation.setSituationTier(EnumTier.calculateSituationTierOfRestaurant(AvgScore).getValue());
+            } else {
+                restaurantSituationRelation.setSituationTier(-1);
+            }
+            restaurantSituationRelationRepository.save(restaurantSituationRelation);
+        }
+    }
+
     public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList() {
         List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
 
