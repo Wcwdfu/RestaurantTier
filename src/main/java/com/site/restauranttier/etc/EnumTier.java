@@ -13,15 +13,15 @@ public enum EnumTier {
     EnumTier(Integer value) { this.value = value; }
 
     public static EnumTier calculateTierOfRestaurant(Double averageScore) {
-        if (averageScore >= 6.3) {
+        if (averageScore >= 6.2) {
             return EnumTier.ONE;
-        } else if (averageScore >= 5.5) {
+        } else if (averageScore >= 5.7) {
             return EnumTier.TWO;
-        } else if (averageScore >= 3.7) {
+        } else if (averageScore >= 4.2) {
             return EnumTier.THREE;
-        } else if (averageScore >= 2.3) {
+        } else if (averageScore >= 2.7) {
             return EnumTier.FOUR;
-        } else if (averageScore >= 1.7) {
+        } else if (averageScore >= 1.0) {
             return EnumTier.FIVE;
         } else {
             return EnumTier.NONE;
@@ -29,15 +29,15 @@ public enum EnumTier {
     }
 
     public static EnumTier calculateSituationTierOfRestaurant(Double averageScore) {
-        if (averageScore >= 4.3) {
+        if (averageScore >= 4.45) {
             return EnumTier.ONE;
-        } else if (averageScore >= 3.9) {
+        } else if (averageScore >= 4.1) {
             return EnumTier.TWO;
-        } else if (averageScore >= 3.5) {
+        } else if (averageScore >= 3.6) {
             return EnumTier.THREE;
-        } else if (averageScore >= 3.0) {
+        } else if (averageScore >= 3.2) {
             return EnumTier.FOUR;
-        } else if (averageScore >= 2.0) {
+        } else if (averageScore >= 2.2) {
             return EnumTier.FIVE;
         } else {
             return EnumTier.NONE;

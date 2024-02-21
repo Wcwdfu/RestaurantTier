@@ -224,8 +224,8 @@ div.category-list a.unselected:hover {
 
 /* 순위 설명 */
 .rank-description {
-    color: #777;
-    font-size: 12px;
+    color: #333;
+    font-size: 13px;
     margin-bottom: 5px;
 }
 
