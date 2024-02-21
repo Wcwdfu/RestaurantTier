@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (selectedCuisines.length === 0) {
             // 비어있다면 경고창을 띄우고 함수 종료
-            alert("최소 하나의 카테고리를 선택해야 합니다.");
+            alert("최소 하나의 음식 카테고리를 선택해야 합니다.");
             return;
         }
 
