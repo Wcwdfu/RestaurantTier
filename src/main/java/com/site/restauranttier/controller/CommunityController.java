@@ -265,4 +265,12 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
+    // 댓글 입력창 포커스시 로그인 상태 확인
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/api/login/comment-write")
+    public ResponseEntity<String> commentWriteLogin() {
+        return ResponseEntity.ok("로그인이 성공적으로 되어있습니다.");
+
+    }
+
 }

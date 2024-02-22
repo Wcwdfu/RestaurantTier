@@ -8,7 +8,7 @@
                                                                                     th:data-page="${paging.number-1}"><img
               src="/img/community/back.png" class="fs-18 d-xs-none page-arrow"></a></li>
       <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-          th:if="${page >= paging.number-2 and page <= paging.number+2}"
+          th:if="${paging.number <= 4 ? page <= 10 : page >= paging.number - 4 and page <= paging.number + 6}"
           th:classappend="${page == paging.number+1} ? 'active'"
           class="page-item">
         <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}" th:data-page="${page}"></a>
@@ -32,7 +32,7 @@
                                                                                     th:data-page="${paging.number-1}"><img
               src="/img/community/back.png" class="fs-18 d-xs-none page-arrow"></a></li>
       <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-          th:if="${page >= paging.number-2 and page <= paging.number+2}"
+          th:if="${paging.number <= 4 ? page <= 10 : page >= paging.number - 4 and page <= paging.number + 6}"
           th:classappend="${page == paging.number+1} ? 'active'"
           class="page-item">
         <a th:text="${page}" class="page-link" th:href="@{|?cuisine=${cuisine}&situation=${situationQueryParameter}&page=${page-1}|}" th:data-page="${page}"></a>
