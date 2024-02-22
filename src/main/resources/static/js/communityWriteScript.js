@@ -31,11 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 작성 완료 버튼 클릭 리스너
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
-        const activeCategoryItem = document.querySelector('.dropdown-item.active');
-        const category = activeCategoryItem ? activeCategoryItem.textContent : null;
+        var category = form.querySelector('select[name="postCategory"]').value;
         console.log(category)
-        const formData = new FormData(this);
-        formData.append('postCategory', category);
+        const formData = new FormData(form);
         console.log(formData.get("postCategory"))
         fetch('/api/community/post/create', {
             method: 'POST',
