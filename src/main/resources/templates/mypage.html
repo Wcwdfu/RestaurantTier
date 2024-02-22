@@ -162,6 +162,7 @@
                     <div class="evaluation-outer main-evaluation">
                         <span class="category-main-name" th:text="${restaurantEvaluation.getRestaurant().getRestaurantCuisine()}"></span>
                         <span class="category-main-score" th:text="${restaurantEvaluation.getEvaluationScore()} + '/7.0'"></span>
+<!--                        <span class="category-main-score" th:text="${#numbers.formatDecimal(restaurantEvaluation.getEvaluationScore(), 0)} + '/7'"></span>-->
                     </div>
                     <div class="evaluation-outer" th:each="situationEval: ${restaurantEvaluation.getEvaluationItemScoreList()}">
                         <span class="category-name" th:text="${situationEval.getSituation().getSituationName()}"></span>
