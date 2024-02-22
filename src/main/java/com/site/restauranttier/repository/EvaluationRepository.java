@@ -11,4 +11,6 @@ public interface EvaluationRepository extends JpaRepository<Evaluation,Integer>{
     Optional<Evaluation> findByUserAndRestaurant(User user, Restaurant restaurant);
 
     Integer countByRestaurant(Restaurant restaurant);
+
+    Integer countAllByStatus(String status);
 }
