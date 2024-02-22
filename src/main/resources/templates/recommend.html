@@ -5,17 +5,29 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47HQ74QCF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-C47HQ74QCF');
     </script>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T2CX8XG3');</script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-T2CX8XG3');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,8 +58,10 @@
 
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!--상단 탭 fragment 붙여넣기-->
@@ -177,7 +191,7 @@
 
 
             </div>
-            <div class="row" style="display: flex; align-items: center;">
+            <div class="row">
                 <hr class="col">
                 <span class="col">지역</span>
                 <hr class="col">
@@ -197,76 +211,81 @@
                     <button class="col-12">후문</button>
                 </div>
                 <div class="col">
+                    <button class="col-12">정문</button>
+                </div>
+                <div class="col">
                     <button class="col-12">구의역</button>
                 </div>
 
-            </div>
-            <div class="row" style="display: flex; align-items: center;">
-                <hr class="col">
-                <span class="col">후보 기준</span>
-                <hr class="col">
 
-            </div>            <div class="option row row-cols-3 row-cols-sm-5  filter-evaluation">
-                <div class="col">
-                    <button class="col-12 selected">전체</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">평점 높은 집</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">후기 많은 집</button>
-                </div>
             </div>
-
+            <div class="row">
+            <hr class="col">
+            <span class="col">후보 기준</span>
+            <hr class="col">
 
         </div>
+        <div class="option row row-cols-3 row-cols-sm-5  filter-evaluation">
+            <div class="col">
+                <button class="col-12 selected">전체</button>
+            </div>
+            <div class="col">
+                <button class="col-12">평점 높은 집</button>
+            </div>
+            <div class="col">
+                <button class="col-12">후기 많은 집</button>
+            </div>
+        </div>
+
 
     </div>
-    <div class="btn-area">
-        <button id="recommendBtn" class="btn-style">뽑기</button>
-    </div>
+
+</div>
+<div class="btn-area">
+    <button id="recommendBtn" class="btn-style">뽑기</button>
+</div>
 
 
-    <div id="resultPage" class="hidden" >
+<div id="resultPage" class="hidden">
+    <hr>
+    <p id="processingTitle" class="title">
+        맛집을 고르는 중...
+        <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">
+    </p>
+    <hr>
+    <div class="result-img-slideBar">
+
+        <div class="result-animation-list result-animation">
+            <div class="result-img-list"></div>
+            <div class="result-img-list"></div>
+        </div>
+        <div id="SelectedBox"></div>
         <hr>
-        <p id="processingTitle" class="title">
-            맛집을 고르는 중...
-            <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">
-        </p>
-        <hr>
-        <div class="result-img-slideBar">
+    </div>
 
-            <div class="result-animation-list result-animation">
-                <div class="result-img-list"></div>
-                <div class="result-img-list"></div>
-            </div>
-            <div id="SelectedBox"></div>
-            <hr>
+</div>
+
+<div id="resultInfoPage" class="hidden">
+    <div class="resultImgContainer">
+        <div class="image-container">
+            <a id="storeHref" href="">
+                <img id="resultImg" src="/" alt="이미지가 들어올 예정입니다">
+            </a>
         </div>
+        <div id="storeInfo">
 
-    </div>
-
-    <div id="resultInfoPage" class="hidden">
-        <div class="resultImgContainer">
-            <div class="image-container">
-                <a id="storeHref" href="">
-                    <img id="resultImg" src="/" alt="이미지가 들어올 예정입니다">
-                </a>
-            </div>
-            <div id="storeInfo">
-
-            </div>
         </div>
-
-
     </div>
 
-    <div class="btn-area">
-        <button id="restartBtn" class="btn-style2 hidden alt-font">재설정</button>
-        <button id="restartDirectBtn" class="btn-style2 hidden alt-font">다시 뽑기</button>
-    </div>
 
-    </div>
+</div>
+
+<div class="btn-area">
+    <button id="restartBtn" class="btn-style2 hidden alt-font">재설정</button>
+    <button id="restartDirectBtn" class="btn-style2 hidden alt-font">다시 뽑기</button>
+</div>
+
+</div>
 
 </body>
 

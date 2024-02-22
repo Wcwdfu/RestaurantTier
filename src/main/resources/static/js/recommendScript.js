@@ -40,12 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-// 추천하기 버튼 리스너
+    // 뽑기 버튼 리스너
     document.getElementById('recommendBtn').addEventListener('click', function () {
 
 
         document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
-            // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
             if (button.classList.contains('selected')) {
                 selectedCuisines.push(button.textContent);
             }
@@ -53,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         // 지역 데이터 추가
         document.querySelectorAll('.filter-location .col button').forEach(button => {
-            // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
             if (button.classList.contains('selected')) {
                 restaurantLocation = button.textContent
             }
@@ -61,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         // 평가 순 데이터 추가
         document.querySelectorAll('.filter-evaluation .col button').forEach(button => {
-            // 선택되지 않은 버튼일 경우에만 텍스트를 배열에 추가
             if (button.classList.contains('selected')) {
                 restaurantEvaluation = button.textContent
             }
