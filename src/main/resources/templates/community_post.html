@@ -5,17 +5,29 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47HQ74QCF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-C47HQ74QCF');
     </script>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T2CX8XG3');</script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-T2CX8XG3');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -46,8 +58,10 @@
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 <!--상단 탭 fragment 붙여넣기-->
 <header th:replace="~{navbar-new :: navbarFragment}"></header>
@@ -64,8 +78,9 @@
             </div>
         </div>
     </div>
-<!-- 게시글 상세화면   -->
-</section><main id="content">
+    <!-- 게시글 상세화면   -->
+</section>
+<main id="content">
     <div class="post">
         <div class="post-top">
             <h1 class="post-title" th:text="${post.postTitle}" th:data-id="${post.postId}"></h1>
@@ -86,8 +101,9 @@
                         <span th:text="'조회수 '+ ${post.postVisitCount}" class="first-detail">
 
                         </span>
-<!--                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail"></span>-->
-                        <span id="commentCount" class="second-detail" th:text="'댓글 '+ ${#lists.size(post.postCommentList.?[status=='ACTIVE'])}"></span>
+                        <!--                        <span th:text="'댓글 '+ ${post.postCommentList.size()}" class="second-detail"></span>-->
+                        <span id="commentCount" class="second-detail"
+                              th:text="'댓글 '+ ${#lists.size(post.postCommentList.?[status=='ACTIVE'])}"></span>
                         <span th:text="'추천 '+ ${post.likeCount}"
                               class="third-detail" id="postRecommendCount">
 
@@ -95,10 +111,19 @@
                     </div>
                 </div>
             </div>
+
             <!-- 글 삭제 버튼 -->
-            <button th:if="${post.user==user}" type="button" class="post-delete" data-bs-toggle="modal" data-bs-target="#postModal" th:data-id="${post.postId}" th:data-type="post" data-action="postDelete">
+            <button th:if="${post.user==user}" type="button" class="post-delete" data-bs-toggle="modal"
+                    data-bs-target="#postModal" th:data-id="${post.postId}" th:data-type="post"
+                    data-action="postDelete">
                 삭제
             </button>
+            <a type="button" class="post-update"
+               th:href="@{/community/update/{postId}(postId=${post.postId})}"
+               sec:authorize="isAuthenticated()"
+               th:if="${post.user == user}">수정</a>
+
+
         </div>
         <div class="post-body">
             <div>
@@ -136,16 +161,17 @@
         <div class="comment-write">
             <div>
                 <form class="comment-form" action="/api/community/comment/create" method="post">
-                <textarea name="content" class="comment-content" maxlength="300" placeholder="타인의 권리를 침해하거나 명예를 훼손하는 게시물은 제재를 받을 수 있습니다."></textarea>
+                    <textarea name="content" class="comment-content" maxlength="300"
+                              placeholder="타인의 권리를 침해하거나 명예를 훼손하는 게시물은 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
-<!--                        <span type="button">-->
-<!--                            <img src="/img/community/icon-picture.png">-->
-<!--                            <span>-->
-<!--                                사진-->
-<!--                            </span>-->
+                            <!--                        <span type="button">-->
+                            <!--                            <img src="/img/community/icon-picture.png">-->
+                            <!--                            <span>-->
+                            <!--                                사진-->
+                            <!--                            </span>-->
 
-<!--                        </span>-->
+                            <!--                        </span>-->
 
                         </div>
                         <button type="submit">
@@ -193,10 +219,12 @@
                                         <p th:text="${comment.commentBody}"></p>
                                     </div>
                                 </div>
-                                    <ul style="padding-left: 0;">
+                                <ul style="padding-left: 0;">
                                     <li th:if="${comment.user==user}">
                                         <!-- 댓글 삭제 버튼 -->
-                                        <button class="comment-button comment-delete" data-bs-toggle="modal" data-bs-target="#commentModal" th:data-id="${comment.commentId}" th:data-type="comment" data-action="commentDelete">
+                                        <button class="comment-button comment-delete" data-bs-toggle="modal"
+                                                data-bs-target="#commentModal" th:data-id="${comment.commentId}"
+                                                th:data-type="comment" data-action="commentDelete">
                                             삭제
                                         </button>
                                     </li>
@@ -211,50 +239,54 @@
 
 
                         <ul th:if="${not comment.repliesList.isEmpty()}" class="reply-ul">
-                            <li class="comment-li" th:each="reply, loop:${comment.repliesList}" th:data-id="${reply.commentId}">
+                            <li class="comment-li" th:each="reply, loop:${comment.repliesList}"
+                                th:data-id="${reply.commentId}">
                                 <div th:if="${reply.status.equals('ACTIVE')}">
 
-                                <div class="comment-div">
-                                    <div class="reply-mark">
-                                        <img class="reply-image" src="/img/community/reply.png">
-                                    </div>
-                                    <div class="comment-left">
-                                        <button class="comment-up" type="button" th:data-id="${reply.commentId}">
-                                            <img th:if="${reply.likeUserList.contains(user)}"
-                                                 src="/img/community/up-green.png">
-                                            <img th:unless="${reply.likeUserList.contains(user)}"
-                                                 src="/img/community/up.png">
-                                        </button>
-                                        <span th:text="${reply.likeCount}"></span>
-                                        <button class="comment-down" type="button" th:data-id="${reply.commentId}">
-                                            <img th:if="${reply.dislikeUserList.contains(user)}"
-                                                 src="/img/community/down-red.png">
-                                            <img th:unless="${reply.dislikeUserList.contains(user)}"
-                                                 src="/img/community/down.png">
-                                        </button>
-                                    </div>
-                                    <div class="comment-content">
-                                        <div class="comment-name">
-                                            <img src="/img/community/sacred-cow.png">
-                                            <span class="user-name" th:text="${reply.user.userNickname}"></span>
-                                            <span th:text="${reply.calculateTimeAgo()}"></span>
+                                    <div class="comment-div">
+                                        <div class="reply-mark">
+                                            <img class="reply-image" src="/img/community/reply.png">
                                         </div>
-                                        <div class="comment-body">
-                                            <div>
-                                                <p th:text="${reply.commentBody}"></p>
+                                        <div class="comment-left">
+                                            <button class="comment-up" type="button" th:data-id="${reply.commentId}">
+                                                <img th:if="${reply.likeUserList.contains(user)}"
+                                                     src="/img/community/up-green.png">
+                                                <img th:unless="${reply.likeUserList.contains(user)}"
+                                                     src="/img/community/up.png">
+                                            </button>
+                                            <span th:text="${reply.likeCount}"></span>
+                                            <button class="comment-down" type="button" th:data-id="${reply.commentId}">
+                                                <img th:if="${reply.dislikeUserList.contains(user)}"
+                                                     src="/img/community/down-red.png">
+                                                <img th:unless="${reply.dislikeUserList.contains(user)}"
+                                                     src="/img/community/down.png">
+                                            </button>
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-name">
+                                                <img src="/img/community/sacred-cow.png">
+                                                <span class="user-name" th:text="${reply.user.userNickname}"></span>
+                                                <span th:text="${reply.calculateTimeAgo()}"></span>
                                             </div>
+                                            <div class="comment-body">
+                                                <div>
+                                                    <p th:text="${reply.commentBody}"></p>
+                                                </div>
+                                            </div>
+                                            <ul style="padding-left: 0;">
+                                                <li>
+                                                    <!-- 대댓글 삭제 버튼 -->
+                                                    <button class="comment-button comment-delete" data-bs-toggle="modal"
+                                                            data-bs-target="#commentModal"
+                                                            th:data-id="${reply.commentId}" th:data-type="comment"
+                                                            data-action="commentDelete">
+                                                        삭제
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul style="padding-left: 0;">
-                                            <li>
-                                                <!-- 대댓글 삭제 버튼 -->
-                                                <button class="comment-button comment-delete" data-bs-toggle="modal" data-bs-target="#commentModal" th:data-id="${reply.commentId}" th:data-type="comment" data-action="commentDelete">
-                                                    삭제
-                                                </button>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
-                                    </div>
                             </li>
                         </ul>
 
@@ -280,7 +312,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button id="postDeleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">삭제</button>
+                <button id="postDeleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">
+                    삭제
+                </button>
             </div>
         </div>
     </div>
@@ -299,7 +333,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button id="commentDeleteAgreeButton" type="button" class="sure btn btn-primary" data-bs-dismiss="modal">삭제</button>
+                <button id="commentDeleteAgreeButton" type="button" class="sure btn btn-primary"
+                        data-bs-dismiss="modal">삭제
+                </button>
             </div>
         </div>
     </div>

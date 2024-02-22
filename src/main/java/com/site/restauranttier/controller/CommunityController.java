@@ -252,7 +252,7 @@ public class CommunityController {
         return "community_write";
     }
 
-    // 게시글 생성
+    // 게시글 생성 및 수정
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
@@ -272,5 +272,13 @@ public class CommunityController {
         return ResponseEntity.ok("로그인이 성공적으로 되어있습니다.");
 
     }
+    // 게시글 수정
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @GetMapping("/community/update/{postId}")
+    public String postUpdate(Model model, @PathVariable Integer postId) {
+        Post post = postService.getPost(postId);
+        model.addAttribute(post);
 
+        return "community_write";
+    }
 }

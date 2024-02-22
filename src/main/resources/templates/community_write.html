@@ -48,13 +48,24 @@
                 <h1 class="writeText">게시글 작성</h1>
                 <button id="complete-button" type="submit"><img src="/img/community/check.png"></button>
             </div>
-            <select name="postCategory">
-                <option value="" disabled selected hidden>채널 선택</option>
-                <option value="자유게시판">자유게시판</option>
-                <option value="칼럼게시판">칼럼게시판</option>
-                <option value="건의게시판">건의게시판</option>
-            </select>
-            <input name="title" placeholder="제목">
+<!--            <select name="postCategory">-->
+<!--                <option value="" disabled selected hidden>채널 선택</option>-->
+<!--                <option value="자유게시판" selected>자유게시판</option>-->
+<!--                <option value="칼럼게시판">칼럼게시판</option>-->
+<!--                <option value="건의게시판">건의게시판</option>-->
+<!--            </select>-->
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span th:text="${post != null ? post.postCategory : '자유게시판'}">자유게시판</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li class="dropdown-item" th:classappend="${post == null || post.postCategory == '자유게시판'} ? 'active' : ''">자유게시판</li>
+                    <li class="dropdown-item" th:classappend="${post != null and post.postCategory == '칼럼게시판'} ? 'active' : ''">칼럼게시판</li>
+                    <li class="dropdown-item" th:classappend="${post != null and post.postCategory == '건의게시판'} ? 'active' : ''">건의게시판</li>
+                </ul>
+            </div>
+
+            <input name="title" placeholder="제목" th:value="${post != null ? post.postTitle : ''}">
             <div class="post-body">
                 <div class="post-body-inner">
                     <div class="toolbar">
@@ -79,7 +90,7 @@
 <!--                        </button>-->
                     </div>
 
-                    <textarea class="post-content" name="content" maxlength="2000"></textarea>
+                    <textarea class="post-content" name="content" maxlength="2000" th:text="${post != null ? post.postBody : ''}"></textarea>
                 </div>
             </div>
         </form>

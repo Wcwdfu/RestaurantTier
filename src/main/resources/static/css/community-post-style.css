@@ -3,7 +3,8 @@
 section h2 {
     color: var(--main-color);
 }
-.modal{
+
+.modal {
     font-family: 'NanumSquare', sans-serif;
 
 }
@@ -87,6 +88,7 @@ section h2 {
 .post-body > div {
     padding: 24px 16px;
 }
+
 .post-body > div > article > p {
     white-space: pre-wrap; /* 또는 'pre'를 사용해도 됩니다. */
 }
@@ -152,7 +154,6 @@ div > button > img {
 #scrap {
     width: 60px;
 }
-
 
 
 .post-footer {
@@ -237,7 +238,7 @@ div > button > img {
     vertical-align: middle;
     border: 1px solid #46cfa7;
     color: #fff;
-    background-color: var(--main-color) ;
+    background-color: var(--main-color);
 }
 
 .under-content > div > img {
@@ -286,11 +287,12 @@ div > button > img {
     display: flex;
     flex-wrap: wrap;
 }
-.comment-li > div{
+
+.comment-li > div {
     width: 100%;
 }
 
-.comment-div{
+.comment-div {
     width: 100%;
     display: flex;
     padding: 12px 12px 12px 0px;
@@ -379,8 +381,9 @@ div > button > img {
     line-height: 24px;
     white-space: nowrap;
 }
-.user-name{
-    color:black;
+
+.user-name {
+    color: black;
 }
 
 .comment-body > div {
@@ -442,25 +445,47 @@ textarea {
     padding: 5px 10px;
 }
 
-.post-delete{
+.post-delete {
     margin-top: 10px;
-        padding:8px 16px;
-        display: inline-block;
-        text-align: center;
-        height: 32px;
-        font-size: 12px;
-        line-height: 10px;
-        border-width: 1px;
-        border-style: solid;
-        border-image: initial;
-        border-radius: 4px;
-        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
-        vertical-align: middle;
-        border-color: #ff4f4f;
-        color: #ff4f4f;
-        background-color: #FFFFFF;
+    margin-left: 5px;
+
+    padding: 8px 16px;
+    display: inline-block;
+    text-align: center;
+    height: 32px;
+    font-size: 12px;
+    line-height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    vertical-align: middle;
+    border-color: #ff4f4f;
+    color: #ff4f4f;
+    background-color: #FFFFFF;
 
 }
+
+.post-update {
+    margin-top: 10px;
+    padding: 8px 16px;
+    display: inline-block;
+    text-align: center;
+    height: 32px;
+    font-size: 12px;
+    line-height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    vertical-align: middle;
+    border-color: #dddfe4;
+    color: #7b858e;
+    background-color: #FFFFFF;
+}
+
 #content {
     margin: 0 auto 0;
     position: relative;
@@ -469,7 +494,7 @@ textarea {
     flex-direction: column;
 }
 
-@media only screen and (min-width: 1025px){
+@media only screen and (min-width: 1025px) {
     #content {
         width: 80%;
         min-width: 450px;
@@ -477,7 +502,7 @@ textarea {
     }
 }
 
-@media only screen and (max-width: 1024px){
+@media only screen and (max-width: 1024px) {
     #content {
         width: 100%;
 
@@ -485,9 +510,10 @@ textarea {
 }
 
 
-p{
+p {
     margin-bottom: 0;
 }
+
 .comment-content:focus {
     outline: none;
     border: none;
@@ -496,7 +522,7 @@ p{
 
 @media only screen and (max-width: 767px) {
     /* 모바일화면 */
-    .top-banner{
+    .top-banner {
         height: 200px;
     }
 
@@ -504,7 +530,7 @@ p{
 
 @media only screen and (min-width: 768px) {
     /* 태블릿 화면 */
-    .top-banner{
+    .top-banner {
         height: 250px;
     }
 
@@ -513,18 +539,20 @@ p{
 
 @media only screen and (min-width: 1024px) {
     /* pc화면 */
-    .top-banner{
+    .top-banner {
         height: 300px;
     }
 }
 
 .current-page {
-    color: var(--main-color)!important;
+    color: var(--main-color) !important;
 }
-#content{
+
+#content {
     caret-color: transparent;
 }
-textarea{
+
+textarea {
     caret-color: black;
 }
 

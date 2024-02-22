@@ -176,3 +176,6 @@ body{
 textarea, input{
     caret-color: black;
 }
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--main-color);
+}
