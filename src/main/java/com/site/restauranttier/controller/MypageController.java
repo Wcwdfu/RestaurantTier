@@ -81,7 +81,7 @@ public class MypageController {
         User user = customOAuth2UserService.getUser(principal.getName());
 
         //전과 동일한 닉네임
-        if(newNickname.equals(user.getUserNickname())){
+        if(newNickname.toLowerCase().equals(user.getUserNickname().toLowerCase())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("이전과 동일한 닉네임입니다.");
         }
         // 닉네임이 2글자 이하인 경우

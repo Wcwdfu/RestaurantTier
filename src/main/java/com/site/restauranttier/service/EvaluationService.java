@@ -151,26 +151,53 @@ public class EvaluationService {
         }
     }
 
-    public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList() {
-        List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations);
+    // 모든 평가 기록에 대해서 티어를 다시 계산함.
+    public void calculateAllTier() {
+        // 가게 메인 티어 계산
+        List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations, "전체");
+        for (Restaurant restaurant: restaurantList) {
+            if (restaurant.getRestaurantEvaluationCount() >= minNumberOfEvaluations) {
+                EnumTier tier = EnumTier.calculateTierOfRestaurant(restaurant.getRestaurantScoreSum() / restaurant.getRestaurantEvaluationCount());
+                restaurant.setMainTier(tier.getValue());
+            } else {
+                restaurant.setMainTier(-1);
+            }
+            restaurantRepository.save(restaurant);
+        }
+        // 가게 상황 티어 계산
+        List<RestaurantSituationRelation> restaurantSituationRelationList = restaurantSituationRelationRepository.findAll();
+        for (RestaurantSituationRelation restaurantSituationRelation: restaurantSituationRelationList) {
+            if (restaurantSituationRelation.getDataCount() >= minNumberOfEvaluations) {
+                Double AvgScore = restaurantSituationRelation.getScoreSum() / restaurantSituationRelation.getDataCount();
+                restaurantSituationRelation.setSituationTier(EnumTier.calculateSituationTierOfRestaurant(AvgScore).getValue());
+            } else {
+                restaurantSituationRelation.setSituationTier(-1);
+            }
+            restaurantSituationRelationRepository.save(restaurantSituationRelation);
+        }
+    }
+
+    public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList(String position) {
+        List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations, position);
+
+        System.out.println(position);
+        return convertToTierDataClassList(restaurantList);
+    }
+
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisine(String cuisine, String position) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations, position);
 
         return convertToTierDataClassList(restaurantList);
     }
 
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisine(String cuisine) {
-        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations);
-
-        return convertToTierDataClassList(restaurantList);
-    }
-
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListBySituation(Situation situation) {
-        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situation, minNumberOfEvaluations);
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListBySituation(Situation situation, String position) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situation, minNumberOfEvaluations, position);
 
         return convertToTierDataClassList(restaurantList, situation);
     }
 
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisineAndSituation(String cuisine, Situation situation) {
-        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situation, minNumberOfEvaluations);
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisineAndSituation(String cuisine, Situation situation, String position) {
+        List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situation, minNumberOfEvaluations, position);
 
         return convertToTierDataClassList(restaurantList, situation);
     }
