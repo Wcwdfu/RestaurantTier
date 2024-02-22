@@ -38,6 +38,7 @@
       <div class="td-name-outer">
         <span class="td-inner-name" th:text="${restaurantTierData.getRestaurant().getRestaurantName()}"></span>
         <span class="td-inner-type" th:text="${restaurantTierData.getRestaurant().getRestaurantType()}"></span>
+        <span class="td-inner-type" th:text="'위치: ' + ${restaurantTierData.getRestaurant().getRestaurantPosition()}"></span>
       </div>
     </td>
     <td th:unless="${cuisine == '전체' and situation != '전체'}" class="td-center" style="min-width: 42px">

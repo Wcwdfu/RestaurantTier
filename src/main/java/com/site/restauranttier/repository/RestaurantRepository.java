@@ -55,42 +55,52 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer>,
     @Query("SELECT r " +
             "FROM Restaurant r " +
             "WHERE r.status = 'ACTIVE' " +
+            "AND (:position = '전체' OR r.restaurantPosition = :position) " +
             "ORDER BY " +
             "CASE WHEN r.restaurantEvaluationCount >= :dataNum " +
             "THEN CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount " +
             "ELSE CAST(0.0 AS DOUBLE) END DESC")
-    List<Restaurant> getAllRestaurantsOrderedByAvgScore(@Param("dataNum") Integer dataNum);
+    List<Restaurant> getAllRestaurantsOrderedByAvgScore(
+            @Param("dataNum") Integer dataNum,
+            @Param("position") String position
+    );
 
     // 식당의 메인 점수 순으로 cuisine에 해당하는 식당 리스트 반환
     @Query("SELECT r " +
             "FROM Restaurant r " +
             "WHERE r.restaurantCuisine = :cuisine AND r.status = 'ACTIVE' " +
+            "AND (:position = '전체' OR r.restaurantPosition = :position) " +
             "ORDER BY " +
             "CASE WHEN r.restaurantEvaluationCount >= :dataNum " +
             "THEN CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount " +
             "ELSE CAST(0.0 AS DOUBLE) END DESC")
     List<Restaurant> getRestaurantsByCuisineOrderedByAvgScore(
             @Param("cuisine") String cuisine,
-            @Param("dataNum") Integer dataNum
+            @Param("dataNum") Integer dataNum,
+            @Param("position") String position
     );
 
     // 식당의 특정 situation 점수 순으로 situation에 해당하는 식당 리스트 반환
     @Query("SELECT r " +
             "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
             "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum " +
+            "AND (:position = '전체' OR r.restaurantPosition = :position) " +
             "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount DESC")
     List<Restaurant> getRestaurantsBySituationOrderedByAvgScore(
             @Param("situation") Situation situation,
-            @Param("dataNum") Integer dataNum
+            @Param("dataNum") Integer dataNum,
+            @Param("position") String position
     );
 
     @Query("SELECT r " +
             "FROM Restaurant r JOIN r.restaurantSituationRelationList e " +
             "WHERE r.status = 'ACTIVE' AND e.situation = :situation AND e.dataCount >= :dataNum AND r.restaurantCuisine = :cuisine " +
+            "AND (:position = '전체' OR r.restaurantPosition = :position) " +
             "ORDER BY CAST(e.scoreSum AS DOUBLE) / e.dataCount + CAST(r.restaurantScoreSum AS DOUBLE) / r.restaurantEvaluationCount * 5 / 7 DESC")
     List<Restaurant> getRestaurantsByCuisineAndSituationOrderedByAvgScore(
             @Param("cuisine") String cuisine,
             @Param("situation") Situation situation,
-            @Param("dataNum") Integer dataNum
+            @Param("dataNum") Integer dataNum,
+            @Param("position") String position
     );
 }

@@ -4,7 +4,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <link rel="stylesheet" href="/css/topSearch-style.css">
+    <link rel="stylesheet" href="/css/newNavbar-style.css">
     <script type="text/javascript" src="/js/topSearchScript.js" defer></script>
+    <script type="text/javascript" src="/js/newNavbarScript.js" defer></script>
 
     <style>
         #myPage {
@@ -130,9 +132,17 @@
                             <!--<p>Type '/' to search</p>-->
                         </button>
                         <!--마이 페이지 버튼-->
-                        <a class="d-none d-lg-block" href="/user/myPage" sec:authorize="isAuthenticated()">
+                        <button id="myPageToggleButton" class="my-page-button d-none d-lg-block" sec:authorize="isAuthenticated()">
                             <img id="myPage" src="/img/home/account.png" alt="쿠스토랑 마이페이지">
-                        </a>
+                        </button>
+                        <div id="myPageToggleDiv" class="my-menu-div" style="display: none;">
+                            <a href="/user/myPage">마이 페이지</a>
+                            <a href="/user/logout">로그아웃</a>
+                        </div>
+                        <div id="myPageToggleBackdrop"></div>
+                        <!--<a class="d-none d-lg-block" href="/user/myPage" sec:authorize="isAuthenticated()">
+                            <img id="myPage" src="/img/home/account.png" alt="쿠스토랑 마이페이지">
+                        </a>-->
                         <!-- 로그인 버튼 !-->
                         <a href="/user/login" sec:authorize="isAnonymous()"
                            class="login-button d-none d-lg-block btn btn-dark-gray btn-medium btn-box-shadow left-icon btn-switch-text">
