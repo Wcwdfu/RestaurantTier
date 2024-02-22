@@ -1,24 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 드롭다운
-    var dropdownItems = document.querySelectorAll('.dropdown-item');
-
-    // 각 드롭다운 메뉴 항목에 클릭 이벤트 리스너를 추가합니다.
-    dropdownItems.forEach(function (item) {
-        item.addEventListener('click', function () {
-            // 현재 활성화된 항목에서 'active' 클래스를 제거합니다.
-            var currentActive = document.querySelector('.dropdown-item.active');
-            if (currentActive) {
-                currentActive.classList.remove('active');
-            }
-
-            // 클릭된 항목에 'active' 클래스를 추가합니다.
-            this.classList.add('active');
-
-            // 선택된 카테고리의 텍스트를 버튼에 표시합니다.
-            var dropdownButton = document.getElementById('dropdownMenuButton').querySelector('span');
-            dropdownButton.textContent = this.textContent;
-        });
-    })
 
     // 뒤로 가기 버튼에 이벤트 리스너 추가
     var backButton = document.getElementById('back-button');
@@ -32,9 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
         var category = form.querySelector('select[name="postCategory"]').value;
-        console.log(category)
+        if (!category) {
+            alert('카테고리를 선택해주세요.');
+            return;
+        }
         const formData = new FormData(form);
-        console.log(formData.get("postCategory"))
         fetch('/api/community/post/create', {
             method: 'POST',
             body: formData
