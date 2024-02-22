@@ -253,27 +253,39 @@ public class CommunityController {
     }
 
     // 게시글 생성 및 수정
+//    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+//    @PostMapping("/api/community/post/create")
+//    public ResponseEntity<String> postCreate(
+//            @RequestParam(value="title") String title, @RequestParam(value = "postCategory") String postCategory,
+//            @RequestParam(value="content") String content, @RequestParam(value = "postId", required = false) Integer postId,
+//            Model model, Principal principal) {
+//        // 게시글 업데이트
+//        if (postId != null) {
+//            Post existingPost = postService.getPost(postId);
+//            existingPost.setPostTitle(title);
+//            existingPost.setPostBody(content);
+//            existingPost.setPostCategory(postCategory);
+//            postRepository.save(existingPost);
+//        }
+//        // 새 글 생성
+//        else {
+//            Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
+//            User user = customOAuth2UserService.getUser(principal.getName());
+//            postService.create(post, user);
+//        }
+//
+//        return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
+//    }
+    // 게시글 생성
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
-            @RequestParam(value="title") String title, @RequestParam(value = "postCategory") String postCategory,
-            @RequestParam(value="content") String content, @RequestParam(value = "postId", required = false) Integer postId,
+            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
+            @RequestParam("content") String content,
             Model model, Principal principal) {
-        // 게시글 업데이트
-        if (postId != null) {
-            Post existingPost = postService.getPost(postId);
-            existingPost.setPostTitle(title);
-            existingPost.setPostBody(content);
-            existingPost.setPostCategory(postCategory);
-            postRepository.save(existingPost);
-        }
-        // 새 글 생성
-        else {
-            Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
-            User user = customOAuth2UserService.getUser(principal.getName());
-            postService.create(post, user);
-        }
-
+        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
+        User user = customOAuth2UserService.getUser(principal.getName());
+        postService.create(post, user);
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
