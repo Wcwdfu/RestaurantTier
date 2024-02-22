@@ -74,7 +74,7 @@ public class MainController {
         String[] kwList = kw.split(" "); // 검색어 공백 단위로 끊음
         List<Restaurant> restaurantList = restaurantService.searchRestaurants(kwList);
 
-        List<RestaurantTierDataClass> restaurantTierDataClassList = evaluationService.convertToTierDataClassList(restaurantList);
+        List<RestaurantTierDataClass> restaurantTierDataClassList = evaluationService.convertToTierDataClassList(restaurantList, null);
 
         model.addAttribute("restaurantTierData", restaurantTierDataClassList);
 

@@ -15,6 +15,8 @@ public class RestaurantTierDataClass {
     private String ranking;
     private Restaurant restaurant;
     private Integer situationTier;
+    private Boolean isFavorite = false;
+    private Boolean isEvaluation = false;
     private List<RestaurantSituationRelation> restaurantSituationRelationList = new ArrayList<>();
 
     public RestaurantTierDataClass(Restaurant restaurant) {

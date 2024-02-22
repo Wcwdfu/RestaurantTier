@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }, 1000);
 
-        }, 5500);
+        }, 2100);
 
 
     });
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }, 1000);
 
-        }, 5500);
+        }, 2100);
     });
 
 // 셀렉 박스 위치와 가장 가까운 이미지 가져오기
