@@ -355,6 +355,22 @@ tbody > tr > td > div{
     object-fit: cover;
     margin-right: 5px;
 }
+#isFavoriteImg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background-color: #FFFFFF00!important;
+}
+#isEvaluation {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    background-color: #FFFFFF00!important;
+}
 @media only screen and (min-width: 581px) {
     .td-inner-name {
         white-space: nowrap;
