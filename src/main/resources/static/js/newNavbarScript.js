@@ -1,9 +1,14 @@
-document.getElementById('myPageToggleButton').addEventListener('click', function() {
-    toggleMyPageButton()
-});
-document.getElementById('myPageToggleBackdrop').addEventListener('click', function() {
-    toggleMyPageButton()
-});
+const myPageToggleButton = document.getElementById('myPageToggleButton');
+if (myPageToggleButton) {
+    myPageToggleButton.addEventListener('click', function() {
+        toggleMyPageButton()
+    });
+}const myPageToggleBackdrop = document.getElementById('myPageToggleBackdrop');
+if (myPageToggleBackdrop) {
+    myPageToggleBackdrop.addEventListener('click', function() {
+        toggleMyPageButton()
+    });
+}
 function toggleMyPageButton() {
     var toggleDiv = document.getElementById('myPageToggleDiv');
     var toggleBackdrop = document.getElementById('myPageToggleBackdrop');
