@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -180,7 +182,6 @@ public class EvaluationService {
     public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList(String position) {
         List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations, position);
 
-        System.out.println(position);
         return convertToTierDataClassList(restaurantList);
     }
 
@@ -252,6 +253,10 @@ public class EvaluationService {
                 newDataClass.addSituation(restaurantSituationRelation);
             }
         }
+        // situation 순서대로 정렬
+        newDataClass.setRestaurantSituationRelationList(newDataClass.getRestaurantSituationRelationList().stream()
+                .sorted(Comparator.comparing(restaurantSituationRelation -> restaurantSituationRelation.getSituation().getSituationId()))
+                .collect(Collectors.toList()));
     }
 }
 

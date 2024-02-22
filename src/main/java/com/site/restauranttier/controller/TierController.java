@@ -4,6 +4,7 @@ package com.site.restauranttier.controller;
 import com.site.restauranttier.entity.Situation;
 import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.etc.RestaurantTierDataClass;
+import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.SituationRepository;
 import com.site.restauranttier.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 @Controller
 public class TierController {
     private final SituationRepository situationRepository;
+    private final EvaluationRepository evaluationRepository;
     private final EvaluationService evaluationService;
     private final Integer tierPageSize = 40;
 
@@ -60,6 +62,7 @@ public class TierController {
         model.addAttribute("currentPage","tier");
         model.addAttribute("cuisine", cuisine);
         model.addAttribute("position", position);
+        model.addAttribute("evaluationsCount", evaluationRepository.countAllByStatus("ACTIVE"));
         return "tier";
     }
 

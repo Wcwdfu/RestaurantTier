@@ -609,7 +609,7 @@ tbody > tr > td > div > img {
 @media only screen and (max-width: 767px) {
     /* 모바일화면 */
     .top-banner{
-        height: 200px;
+        height: 210px;
     }
 
 }
@@ -617,7 +617,7 @@ tbody > tr > td > div > img {
 @media only screen and (min-width: 768px) {
     /* 모바일화면 */
     .top-banner{
-        height: 250px;
+        height: 265px;
     }
 
 }
@@ -628,4 +628,12 @@ tbody > tr > td > div > img {
     .top-banner{
         height: 300px;
     }
+}
+
+/* 평가 개수 */
+.evaluations-count {
+    font-size: 16px;
+    font-weight: 550;
+    color: #777;
+
 }
