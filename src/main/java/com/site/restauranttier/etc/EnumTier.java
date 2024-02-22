@@ -29,15 +29,15 @@ public enum EnumTier {
     }
 
     public static EnumTier calculateSituationTierOfRestaurant(Double averageScore) {
-        if (averageScore >= 4.45) {
+        if (averageScore >= 4.62) {
             return EnumTier.ONE;
-        } else if (averageScore >= 4.1) {
+        } else if (averageScore >= 4.2) {
             return EnumTier.TWO;
-        } else if (averageScore >= 3.6) {
+        } else if (averageScore >= 3.7) {
             return EnumTier.THREE;
         } else if (averageScore >= 3.2) {
             return EnumTier.FOUR;
-        } else if (averageScore >= 2.2) {
+        } else if (averageScore >= 1.0) {
             return EnumTier.FIVE;
         } else {
             return EnumTier.NONE;

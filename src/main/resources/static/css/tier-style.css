@@ -16,6 +16,7 @@ section h2 {
 @media only screen and (max-width: 1024px) {
     .category-background, main, .search-area, .rank-description {
         padding: 0 10px;
+        margin: 10px 0;
         min-width: 260px;
         width: 100%;
         line-height: normal;
@@ -41,8 +42,7 @@ section h2 {
         width: 70%;
         min-width: 450px;
         max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 10px auto;
         line-height: normal;
         color: black;
     }
@@ -73,23 +73,27 @@ img {
 
 
 /* category 고르기 창 */
-.category-item {
-    margin: 10px 0;
-}
-
 .category-top > button {
-    border: #44444466 solid 1px;
+    border: #55555555 solid 1px;
     height: 45px;
     font-size: 15px;
     font-weight: 550;
 }
+div.tier-description {
+    font-size: 15px;
+    line-height: 22px;
+}
 
 div.category-list {
     border-radius: 0 0 7px 7px;
-    border-bottom: #44444466 solid 1px;
-    border-right: #44444466 solid 1px;
-    border-left: #44444466 solid 1px;
+    border-bottom: #55555555 solid 1px;
+    border-right: #55555555 solid 1px;
+    border-left: #55555555 solid 1px;
     padding: 13px 12px;
+}
+div.category-list-top { /* 바로 덧씌우기 */
+    border-radius: 0;
+    border-bottom: none;
 }
 
 div.category-list > div {
