@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(category)
         var formData = new FormData(this);
         formData.append('postCategory', category);
-
+        console.log(formData.get("postCategory"))
         fetch('/api/community/post/create', {
             method: 'POST',
             body: formData

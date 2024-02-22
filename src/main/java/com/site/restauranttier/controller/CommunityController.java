@@ -257,11 +257,23 @@ public class CommunityController {
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
             @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
-            @RequestParam("content") String content,
+            @RequestParam("content") String content, @RequestParam(value = "postId", required = false) Integer postId,
             Model model, Principal principal) {
-        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
-        User user = customOAuth2UserService.getUser(principal.getName());
-        postService.create(post, user);
+        // 게시글 업데이트
+        if (postId != null) {
+            Post existingPost = postService.getPost(postId);
+            existingPost.setPostTitle(title);
+            existingPost.setPostBody(content);
+            existingPost.setPostCategory(postCategory);
+            postRepository.save(existingPost);
+        }
+        // 새 글 생성
+        else {
+            Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
+            User user = customOAuth2UserService.getUser(principal.getName());
+            postService.create(post, user);
+        }
+
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
@@ -272,6 +284,7 @@ public class CommunityController {
         return ResponseEntity.ok("로그인이 성공적으로 되어있습니다.");
 
     }
+
     // 게시글 수정
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/community/update/{postId}")

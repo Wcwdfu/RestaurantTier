@@ -93,6 +93,8 @@
                     <textarea class="post-content" name="content" maxlength="2000" th:text="${post != null ? post.postBody : ''}"></textarea>
                 </div>
             </div>
+            <input type="hidden" name="postId" th:value="${post != null ? post.postId : ''}">
+
         </form>
 
     </div>
