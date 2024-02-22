@@ -256,8 +256,8 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
-            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
-            @RequestParam("content") String content, @RequestParam(value = "postId", required = false) Integer postId,
+            @RequestParam(value="title") String title, @RequestParam(value = "postCategory") String postCategory,
+            @RequestParam(value="content") String content, @RequestParam(value = "postId", required = false) Integer postId,
             Model model, Principal principal) {
         // 게시글 업데이트
         if (postId != null) {

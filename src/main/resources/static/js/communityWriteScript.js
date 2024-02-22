@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // 작성 완료 버튼 클릭 리스너
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
-        var activeCategoryItem = document.querySelector('.dropdown-item.active');
-        var category = activeCategoryItem ? activeCategoryItem.textContent : null;
+        const activeCategoryItem = document.querySelector('.dropdown-item.active');
+        const category = activeCategoryItem ? activeCategoryItem.textContent : null;
         console.log(category)
-        var formData = new FormData(this);
+        const formData = new FormData(this);
         formData.append('postCategory', category);
         console.log(formData.get("postCategory"))
         fetch('/api/community/post/create', {
