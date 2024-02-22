@@ -8,6 +8,10 @@ section h2 {
 
 }
 
+.third-detail img {
+    width: 24px;
+    height: 24px;
+}
 .post {
     background: white;
     color: black;
