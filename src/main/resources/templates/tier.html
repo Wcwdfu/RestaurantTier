@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-                <div class="situation">
+                <div class="cuisine">
                     <span class="text">상황</span>
                     <div class="buttons scrollable">
                         <a th:class="${situation == '전체' ? 'selected button category' : 'unselected button category'}" data-situation="전체">
@@ -203,6 +203,30 @@
                         <a th:class="${situation == '소개팅' ? 'selected button category' : 'unselected button category'}" data-situation="NINE">
                             <img src="/img/tier/소개팅.png">
                             <span>소개팅</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="position">
+                    <span class="text">위치</span>
+                    <div class="buttons scrollable">
+                        <a th:class="${position == '전체' ? 'selected button category' : 'unselected button category'}" data-position="전체">
+                            <span>전체</span>
+                        </a>
+                        <a th:class="${position == '건입~중문' ? 'selected button category' : 'unselected button category'}" data-position="건입~중문">
+                            <span>건입~중문</span>
+                        </a>
+                        <a th:class="${position == '중문~어대' ? 'selected button category' : 'unselected button category'}" data-position="중문~어대">
+                            <span>중문~어대</span>
+                        </a>
+                        <a th:class="${position == '후문' ? 'selected button category' : 'unselected button category'}" data-position="후문">
+                            <span>후문</span>
+                        </a>
+                        <a th:class="${position == '정문' ? 'selected button category' : 'unselected button category'}" data-position="정문">
+                            <span>정문</span>
+                        </a>
+                        <a th:class="${position == '구의역' ? 'selected button category' : 'unselected button category'}" data-position="구의역">
+                            <span>구의역</span>
                         </a>
                     </div>
                 </div>

@@ -7,14 +7,19 @@ $(document).ready(function () {
     if (!cuisineParam) cuisineParam = '전체';
     let situationParam = urlParams.get('situation');
     if (!situationParam) situationParam = '전체';
+    let positionParam = urlParams.get('position');
+    if (!positionParam) positionParam = '전체';
 
     document.querySelectorAll('.category').forEach(btn => {
         btn.addEventListener('click', function() {
             if (btn.dataset.cuisine) {
-                var apiUrl = `/tier?cuisine=${btn.dataset.cuisine}&situation=${situationParam}`;
+                var apiUrl = `/tier?cuisine=${btn.dataset.cuisine}&situation=${situationParam}&position=${positionParam}`;
                 window.location.href = apiUrl;
             } else if (btn.dataset.situation) {
-                var apiUrl = `/tier?cuisine=${cuisineParam}&situation=${btn.dataset.situation}`;
+                var apiUrl = `/tier?cuisine=${cuisineParam}&situation=${btn.dataset.situation}&position=${positionParam}`;
+                window.location.href = apiUrl;
+            } else if (btn.dataset.position) {
+                var apiUrl = `/tier?cuisine=${cuisineParam}&situation=${situationParam}&position=${btn.dataset.position}`;
                 window.location.href = apiUrl;
             }
         })
