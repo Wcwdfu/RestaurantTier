@@ -185,7 +185,7 @@
                             <div class="comment-content">
                                 <div class="comment-name">
                                     <img th:if="${comment.user.evaluationList.size()<6}" src="/img/community/비둘기.png">
-                                    <img th:if="${comment.user.evaluationList.size()>=6 and reply.user.evaluationList.size()<10}" src="/img/community/오리.png">
+                                    <img th:if="${comment.user.evaluationList.size()>=6 and comment.user.evaluationList.size()<10}" src="/img/community/오리.png">
                                     <img th:if="${comment.user.evaluationList.size()>=10}" src="/img/community/sacred-cow.png">
 
                                     <span class="user-name" th:text="${comment.user.userNickname}"></span>
