@@ -57,18 +57,27 @@ public class MypageController {
 
         // 커뮤나티관련 정보
         //status가 ACTIVE상태인 post/postComment만 list로 새로만들기
+//        List<Post> activePostList = user.getPostList().stream()
+//                .filter(post -> post.getStatus().equals("ACTIVE"))
+//                .toList();
         List<Post> activePostList = user.getPostList().stream()
                 .filter(post -> post.getStatus().equals("ACTIVE"))
+                .sorted(Comparator.comparing(Post::getCreatedAt).reversed()) // 최신 글 순으로 정렬
                 .toList();
 
         List<PostComment> activePostCommentList=user.getPostCommentList().stream()
                         .filter(postComment -> postComment.getStatus().equals("ACTIVE"))
+                        .sorted(Comparator.comparing(PostComment::getCreatedAt).reversed()) // 최신 글 순으로 정렬
                         .toList();
+
+        List<PostScrap> postScraps=user.getScrapList().stream()
+                .sorted(Comparator.comparing(PostScrap::getCreatedAt).reversed())
+                .toList();
 
 
         model.addAttribute("postList",activePostList);
         model.addAttribute("postCommentList",activePostCommentList);
-        model.addAttribute("postScrabList",user.getScrapList());
+        model.addAttribute("postScrabList",postScraps);
 
 
         return "mypage";
