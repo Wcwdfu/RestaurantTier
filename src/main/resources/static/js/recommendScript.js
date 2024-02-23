@@ -2,6 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     //기본값 설정
     var restaurantLocation="전체"
     const selectedCuisines = [];
+    // 초기에 선택되어야 하는 음식 카테고리 리스트
+    const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
+
+    // 모든 cell-button을 순회하며, 조건에 맞는 버튼에 'selected' 클래스 추가
+    document.querySelectorAll('.cell-button').forEach(button => {
+        if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
+            button.classList.add('selected');
+        }
+    });
     // 음식 종류에 대한 클릭 리스너
     document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
