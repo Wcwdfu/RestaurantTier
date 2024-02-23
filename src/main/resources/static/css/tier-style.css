@@ -355,22 +355,46 @@ tbody > tr > td > div{
     object-fit: cover;
     margin-right: 5px;
 }
+/* 즐찾, 평가 표시 아이콘 */
 #isFavoriteImg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     position: absolute;
-    bottom: 50px;
-    right: 50px;
+    top: -2px;
+    left:-7.5px;
     background-color: #FFFFFF00!important;
 }
-#isEvaluation {
-    width: 20px;
-    height: 20px;
+#isEvaluationImg {
+    width: 18px;
+    height: 18px;
     position: absolute;
-    top: 50px;
-    right: 50px;
+    top: -2px;
+    left: 2px;
     background-color: #FFFFFF00!important;
 }
+#isEvaluationImg2 {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: -2px;
+    left:-7.5px;
+    background-color: #FFFFFF00!important;
+}
+@media only screen and (max-width: 500px) {
+    #isFavoriteImg {
+        width: 16px;
+        height: 16px;
+    }
+    #isEvaluationImg {
+        width: 16px;
+        height: 16px;
+    }
+    #isEvaluationImg2 {
+        width: 16px;
+        height: 16px;
+    }
+}
+/* -------------------------- */
 @media only screen and (min-width: 581px) {
     .td-inner-name {
         white-space: nowrap;

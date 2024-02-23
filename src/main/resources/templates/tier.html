@@ -277,11 +277,14 @@
         <tbody id="tierTableBody">
         <tr th:each="restaurantTierData,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierData.getRestaurant().restaurantId})} + '\''">
             <td class="td-rank" th:text="${restaurantTierData.getRanking()}" style="min-width: 32px"></td>
-            <td id="restaurantTierDateNameOuter" class="td-center" th:attr="data-favorite=${restaurantTierData.getIsFavorite()}" style="min-width: 58px; display: flex; align-items: center; justify-content: center; padding-top: 7px; position: relative;">
-                <img id="isFavoriteImg" src="/img/tier/star.png">
-                <img id="isEvaluation" src="/img/tier/check.png">
-                <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
-                <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" data-cuisine="전체" class="td-main-img" src="/img/restaurant/no_img.png">
+            <td id="restaurantTierDateNameOuter" class="td-center" th:attr="data-favorite=${restaurantTierData.getIsFavorite()}" style="min-width: 58px; position: relative;">
+                <div style="width: fit-content; height: fit-content; padding: 0; margin: auto; position: relative;">
+                    <img th:if="${restaurantTierData.getIsEvaluation() and restaurantTierData.getIsFavorite()}" id="isEvaluationImg" src="/img/tier/check.png">
+                    <img th:if="${restaurantTierData.getIsEvaluation() and !restaurantTierData.getIsFavorite()}" id="isEvaluationImg2" src="/img/tier/check.png">
+                    <img th:if="${restaurantTierData.getIsFavorite()}" id="isFavoriteImg" src="/img/tier/star.png">
+                    <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
+                    <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" data-cuisine="전체" class="td-main-img" src="/img/restaurant/no_img.png">
+                </div>
             </td>
             <td class="td-name">
                 <div class="td-name-outer">
