@@ -30,9 +30,14 @@
   <tbody id="tierTableBody">
   <tr th:each="restaurantTierData,loop :${paging}" th:onclick="'window.location.href = \'' + @{/restaurants/{restaurantId}(restaurantId=${restaurantTierData.getRestaurant().restaurantId})} + '\''">
     <td class="td-rank" th:text="${restaurantTierData.getRanking()}" style="min-width: 32px"></td>
-    <td class="td-center" style="min-width: 58px">
-      <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
-      <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" class="td-main-img" src="/img/restaurant/no_img.png">
+    <td id="restaurantTierDateNameOuter" class="td-center" th:attr="data-favorite=${restaurantTierData.getIsFavorite()}" style="min-width: 58px; position: relative;">
+      <div style="width: fit-content; height: fit-content; padding: 0; margin: auto; position: relative;">
+        <img class="favorite-icon restaurant-img-bottom-icon" th:if="${restaurantTierData.getIsEvaluation() and restaurantTierData.getIsFavorite()}" src="/img/tier/check.png">
+        <img class="favorite-icon restaurant-img-top-icon" th:if="${restaurantTierData.getIsEvaluation() and !restaurantTierData.getIsFavorite()}" src="/img/tier/check.png">
+        <img class="favorite-icon restaurant-img-top-icon" th:if="${restaurantTierData.getIsFavorite()}" src="/img/tier/star.png">
+        <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
+        <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" data-cuisine="전체" class="td-main-img" src="/img/restaurant/no_img.png">
+      </div>
     </td>
     <td class="td-name">
       <div class="td-name-outer">

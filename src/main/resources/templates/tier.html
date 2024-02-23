@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="/css/tier-style.css"/>
     <!-- 파비콘 -->
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
     <!-- js   -->
     <script type="text/javascript" src="/js/library/jquery.js"></script>
@@ -279,9 +280,9 @@
             <td class="td-rank" th:text="${restaurantTierData.getRanking()}" style="min-width: 32px"></td>
             <td id="restaurantTierDateNameOuter" class="td-center" th:attr="data-favorite=${restaurantTierData.getIsFavorite()}" style="min-width: 58px; position: relative;">
                 <div style="width: fit-content; height: fit-content; padding: 0; margin: auto; position: relative;">
-                    <img th:if="${restaurantTierData.getIsEvaluation() and restaurantTierData.getIsFavorite()}" id="isEvaluationImg" src="/img/tier/check.png">
-                    <img th:if="${restaurantTierData.getIsEvaluation() and !restaurantTierData.getIsFavorite()}" id="isEvaluationImg2" src="/img/tier/check.png">
-                    <img th:if="${restaurantTierData.getIsFavorite()}" id="isFavoriteImg" src="/img/tier/star.png">
+                    <img class="favorite-icon restaurant-img-bottom-icon" th:if="${restaurantTierData.getIsEvaluation() and restaurantTierData.getIsFavorite()}" src="/img/tier/check.png">
+                    <img class="favorite-icon restaurant-img-top-icon" th:if="${restaurantTierData.getIsEvaluation() and !restaurantTierData.getIsFavorite()}" src="/img/tier/check.png">
+                    <img class="favorite-icon restaurant-img-top-icon" th:if="${restaurantTierData.getIsFavorite()}" src="/img/tier/star.png">
                     <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() != 'no_img'}" class="td-main-img" th:src="${restaurantTierData.getRestaurant().getRestaurantImgUrl()}">
                     <img th:if="${restaurantTierData.getRestaurant().getRestaurantImgUrl() == 'no_img'}" data-cuisine="전체" class="td-main-img" src="/img/restaurant/no_img.png">
                 </div>

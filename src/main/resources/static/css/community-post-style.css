@@ -473,18 +473,20 @@ textarea {
     flex-direction: column;
 }
 
-@media only screen and (min-width: 1025px){
+/* PC */
+@media only screen and (min-width: 1024px) {
     #content {
-        width: 80%;
-        min-width: 450px;
-        max-width: 900px;
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
     }
 }
 
-@media only screen and (max-width: 1024px){
+/* TABLET */
+@media only screen and (max-width: 1023px) {
     #content {
+        padding: 0 var(--mobile-outer-container-side-width);
+        min-width: var(--min-width);
         width: 100%;
-
     }
 }
 
