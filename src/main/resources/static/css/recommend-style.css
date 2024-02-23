@@ -104,15 +104,22 @@
 .option div button {
     border: none;
     color: black;
-    border-radius: 5px;
-    background-color: #F0F0F0;
-    padding: 0;
+    border-radius: 10px;
+    padding: 1rem;
 
+}
+.cell-button{
+    background:none;
+    padding:5px;
+    border-radius: 10px;
+}
+.mobile-cuisine-name{
+    font-family: 'NanumSquare', sans-serif;
+    color: black;
 }
 
 .selected {
-    background-color: darkgray !important;
-    color: white !important;
+    background-color: var(--main-light-color) !important;
 }
 
 
@@ -257,6 +264,9 @@
     .top-banner {
         height: 200px;
     }
+    .mobile-cuisine-name{
+        font-size:10px;
+    }
 
 
 }
@@ -282,13 +292,13 @@
     /* 모바일화면 */
     #mainContents {
         margin: 5px auto;
-        width: 98%;
+        width: 95%;
 
     }
 
     #recommendBtn {
 
-        width: 100%;
+        width: 30%;
     }
 
     .btn-style {
@@ -382,11 +392,14 @@
 @media only screen and (min-width: 992px) {
     /* pc화면 */
     #mainContents {
-        width: 750px;
+        width: 1050px;
 
         margin: 20px auto;
     }
-
+    .col-lg-custom {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
 
     .animation-list {
         width: 4200px;
@@ -426,10 +439,7 @@
         width: 4500px;
     }
 
-    .option div button {
-        width: 110px;
-        height: 40px;
-    }
+
 
     .top-banner {
         height: 300px;
