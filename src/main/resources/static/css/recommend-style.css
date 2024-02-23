@@ -4,7 +4,6 @@
 #mainContents {
     display: flex;
     flex-direction: column;
-    height: auto;
 }
 
 .hidden {
@@ -294,6 +293,7 @@
     #mainContents {
         margin: 0 auto;
         width: 98%;
+        height: 700px;
 
     }
 
@@ -391,7 +391,7 @@
     /* pc화면 */
     #mainContents {
         width: 1050px;
-
+        height: 800px;
         margin: 0 auto;
     }
     .cell-button{
