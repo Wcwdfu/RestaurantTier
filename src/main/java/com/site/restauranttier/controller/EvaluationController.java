@@ -19,23 +19,47 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class EvaluationController {
     private final RestaurantService restaurantService;
     private final EvaluationService evaluationService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-    private final RestaurantRepository restaurantRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     // 평가 페이지 화면
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @GetMapping("/evaluation/{restaurantId}")
-    public String evaluation(Model model, @PathVariable Integer restaurantId) {
+    public String evaluation(
+            Model model,
+            Principal principal,
+            @PathVariable Integer restaurantId
+    ) {
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+        User user = customOAuth2UserService.getUser(principal.getName());
+        Evaluation evaluation = evaluationService.getByUserAndRestaurant(user, restaurant);
+        List<EvaluationItemScore> evaluationItemScoreList = evaluation.getEvaluationItemScoreList();
+
+//        if (evaluationItemScoreList != null) { //상황별 점수매긴거 log로 찍어본 코드
+//            for (EvaluationItemScore itemScore : evaluationItemScoreList) {
+//                Situation situation = itemScore.getSituation();
+//                String situationName = situation.getSituationName();
+//                Integer situationId = situation.getSituationId();
+//
+//                Double score = itemScore.getScore();
+//                logger.info("Situation: " + situationName + "SitId: " + situationId + ", Score: " + score);
+//            }
+//        }
+
         model.addAttribute("restaurant", restaurant);
+        model.addAttribute("eval",evaluation);
+        model.addAttribute("evalItemList",evaluationItemScoreList);
+
+
         return "evaluation";
     }
 
