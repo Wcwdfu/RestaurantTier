@@ -1,16 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
-    //기본값 설정
-    var restaurantLocation="전체"
+    // 기본값 설정
+    var restaurantLocation = "전체";
     const selectedCuisines = [];
     // 초기에 선택되어야 하는 음식 카테고리 리스트
-    // const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
-    //
-    // // 모든 cell-button을 순회하며, 조건에 맞는 버튼에 'selected' 클래스 추가
-    // document.querySelectorAll('.cell-button').forEach(button => {
-    //     if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
-    //         button.classList.add('selected');
-    //     }
-    // });
+    const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
+
+    // 모든 cell-button을 순회하며, 이미지 경로 초기화 및 선택 상태 설정
+    document.querySelectorAll('.cell-button').forEach(button => {
+        const img = button.querySelector('img');
+        // 이미지 경로를 초기화하지 않았으면 초기화 (모든 버튼에 대해 기본 상태 이미지 설정)
+        if (!img.dataset.defaultSrc) {
+            img.dataset.defaultSrc = img.src; // 현재 src를 기본 src로 저장
+            img.dataset.selectedSrc = img.src.replace('.png', '-선택.png'); // 변경된 src를 저장
+        }
+
+        // 기본 이미지로 설정
+        img.src = img.dataset.defaultSrc;
+        button.classList.remove('selected');
+
+        // 초기에 선택된 카테고리에 해당하는 버튼이면, 선택된 상태로 변경
+        if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
+            button.classList.add('selected');
+            img.src = img.dataset.selectedSrc; // 선택된 이미지로 변경
+        }
+    });
+
     // 음식 종류에 대한 클릭 리스너
     document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
@@ -18,42 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // "전체" 버튼 클릭 시 특별 처리
             if (this.dataset.cuisine === "전체") {
+                // 모든 다른 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
                 document.querySelectorAll('.cell-button').forEach(otherButton => {
-                    if (otherButton !== this) {
-                        otherButton.classList.remove('selected');
-                        // 모든 다른 버튼의 이미지를 기본 이미지로 변경
-                        const otherImg = otherButton.querySelector('img');
-                        if (otherImg.dataset.defaultSrc) {
-                            otherImg.src = otherImg.dataset.defaultSrc;
-                        }
-                    }
+                    otherButton.classList.remove('selected');
+                    const otherImg = otherButton.querySelector('img');
+                    otherImg.src = otherImg.dataset.defaultSrc; // 기본 이미지로 변경
                 });
             } else {
-                // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거
+                // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
                 const allButton = document.querySelector('.cell-button[data-cuisine="전체"]');
-                if (allButton) {
-                    allButton.classList.remove('selected');
-                    const allImg = allButton.querySelector('img');
-                    if (allImg.dataset.defaultSrc) {
-                        allImg.src = allImg.dataset.defaultSrc;
-                    }
-                }
+                allButton.classList.remove('selected');
+                const allImg = allButton.querySelector('img');
+                allImg.src = allImg.dataset.defaultSrc; // 기본 이미지로 변경
             }
 
-            // 버튼의 "selected" 클래스를 토글
-            this.classList.toggle('selected');
-
-            // 이미지 경로 업데이트 로직을 조정
-            if (!img.dataset.defaultSrc) {
-                img.dataset.defaultSrc = img.src;
-                img.dataset.selectedSrc = img.src.replace('.png', '-선택.png');
-            }
-
-            // "selected" 클래스의 존재 여부에 따라 이미지 src를 변경
+            // 버튼의 "selected" 클래스를 토글 및 이미지 src 변경
             if (this.classList.contains('selected')) {
-                img.src = img.dataset.selectedSrc;
+                this.classList.remove('selected');
+                img.src = img.dataset.defaultSrc; // 기본 이미지로 변경
             } else {
-                img.src = img.dataset.defaultSrc;
+                this.classList.add('selected');
+                img.src = img.dataset.selectedSrc; // 선택된 이미지로 변경
             }
         });
     });
