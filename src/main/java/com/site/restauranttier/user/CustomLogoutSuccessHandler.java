@@ -23,15 +23,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         clearSession(request);
 
-        /**
-         * prevPage가 존재하는 경우 = 사용자가 직접 /auth/login 경로로 로그인 요청
-         * 기존 Session의 prevPage attribute 제거
-         */
-        /*String prevPage = (String) request.getSession().getAttribute("currentPage");
-        if (prevPage != null) {
-            request.getSession().removeAttribute("currentPage");
-        }*/
-
         String fullURL = request.getHeader("Referer");
         if (fullURL != null && !fullURL.contains("/login")) {
             request.getSession().setAttribute("prevPage", fullURL);
