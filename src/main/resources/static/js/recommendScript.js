@@ -14,40 +14,46 @@ document.addEventListener('DOMContentLoaded', function () {
     // 음식 종류에 대한 클릭 리스너
     document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
-            // 전체버튼일때
+            const img = this.querySelector('img');
+
+            // "전체" 버튼 클릭 시 특별 처리
             if (this.dataset.cuisine === "전체") {
-                // 모든 다른 버튼의 "selected" 클래스 제거
                 document.querySelectorAll('.cell-button').forEach(otherButton => {
                     if (otherButton !== this) {
                         otherButton.classList.remove('selected');
+                        // 모든 다른 버튼의 이미지를 기본 이미지로 변경
+                        const otherImg = otherButton.querySelector('img');
+                        if (otherImg.dataset.defaultSrc) {
+                            otherImg.src = otherImg.dataset.defaultSrc;
+                        }
                     }
                 });
             } else {
                 // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거
-                document.querySelector('.cell-button[data-cuisine="전체"]').classList.remove('selected');
+                const allButton = document.querySelector('.cell-button[data-cuisine="전체"]');
+                if (allButton) {
+                    allButton.classList.remove('selected');
+                    const allImg = allButton.querySelector('img');
+                    if (allImg.dataset.defaultSrc) {
+                        allImg.src = allImg.dataset.defaultSrc;
+                    }
+                }
             }
 
+            // 버튼의 "selected" 클래스를 토글
+            this.classList.toggle('selected');
 
-            // 버튼의 클래스에 "selected"가 있는지 확인
-            const isSelected = button.classList.contains('selected');
-
-            // "selected" 클래스가 있으면 제거하고, 없으면 추가
-            if (isSelected) {
-                button.classList.remove('selected');
-            } else {
-                button.classList.add('selected');
+            // 이미지 경로 업데이트 로직을 조정
+            if (!img.dataset.defaultSrc) {
+                img.dataset.defaultSrc = img.src;
+                img.dataset.selectedSrc = img.src.replace('.png', '-선택.png');
             }
 
-            // 이미지 경로 업데이트
-            const img = this.querySelector('img');
+            // "selected" 클래스의 존재 여부에 따라 이미지 src를 변경
             if (this.classList.contains('selected')) {
-                // 선택된 상태의 이미지로 변경
-                var selectedSrc = img.src.replace('.png', '-선택.png');
-                img.src = selectedSrc;
+                img.src = img.dataset.selectedSrc;
             } else {
-                // 기본 이미지로 변경
-                var defaultSrc = img.src.replace('-선택.png', '.png');
-                img.src = defaultSrc;
+                img.src = img.dataset.defaultSrc;
             }
         });
     });
