@@ -42,23 +42,26 @@ public class EvaluationController {
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         User user = customOAuth2UserService.getUser(principal.getName());
         Evaluation evaluation = evaluationService.getByUserAndRestaurant(user, restaurant);
+
+        if (evaluation != null) {
         List<EvaluationItemScore> evaluationItemScoreList = evaluation.getEvaluationItemScoreList();
 
-//        if (evaluationItemScoreList != null) { //상황별 점수매긴거 log로 찍어본 코드
-//            for (EvaluationItemScore itemScore : evaluationItemScoreList) {
-//                Situation situation = itemScore.getSituation();
-//                String situationName = situation.getSituationName();
-//                Integer situationId = situation.getSituationId();
+//            if (evaluationItemScoreList != null) { //상황별 점수매긴거 log로 찍어본 코드
+//                for (EvaluationItemScore itemScore : evaluationItemScoreList) {
+//                    Situation situation = itemScore.getSituation();
+//                    String situationName = situation.getSituationName();
+//                    Integer situationId = situation.getSituationId();
 //
-//                Double score = itemScore.getScore();
-//                logger.info("Situation: " + situationName + "SitId: " + situationId + ", Score: " + score);
+//                    Double score = itemScore.getScore();
+//                    logger.info("Situation: " + situationName + "SitId: " + situationId + ", Score: " + score);
+//                }
 //            }
-//        }
+
+            model.addAttribute("eval",evaluation);
+            model.addAttribute("evalItemList",evaluationItemScoreList);
+        }
 
         model.addAttribute("restaurant", restaurant);
-        model.addAttribute("eval",evaluation);
-        model.addAttribute("evalItemList",evaluationItemScoreList);
-
 
         return "evaluation";
     }
