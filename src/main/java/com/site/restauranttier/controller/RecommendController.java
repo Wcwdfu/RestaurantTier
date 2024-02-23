@@ -29,7 +29,8 @@ public class RecommendController {
         model.addAttribute("restaurants", restaurants);
 
         model.addAttribute("currentPage", "recommend");
-
+        List<String> cuisines = new ArrayList<>(Arrays.asList("전체","한식","일식","중식","양식","아시안","고기","치킨","술집","햄버거","해산물","분식","샐러드","카페","베이커리","기타"));
+        model.addAttribute("cuisines", cuisines);
         return "recommend";
     }
 

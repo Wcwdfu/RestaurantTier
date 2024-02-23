@@ -141,55 +141,72 @@
 
 <!--            </div>-->
 
-            <div class="option row row-cols-4 row-cols-md-5 row-cols-lg-6 filter-cuisine">
-                <div class="col">
-                    <button class="col-12">한식</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">일식</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">중식</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">양식</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">아시안</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">고기</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">치킨</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">해산물</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">햄버거/피자</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">분식</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">술집</button>
-                </div>
+<!--            <div class="option row row-cols-4 row-cols-md-5 row-cols-lg-6 filter-cuisine">-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">한식</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">일식</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">중식</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">양식</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">아시안</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">고기</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">치킨</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">해산물</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">햄버거/피자</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">분식</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">술집</button>-->
+<!--                </div>-->
 
-                <div class="col">
-                    <button class="col-12">카페/디저트</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">베이커리</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">샐러드</button>
-                </div>
-                <div class="col">
-                    <button class="col-12">기타</button>
-                </div>
+<!--                <div class="col">-->
+<!--                    <button class="col-12">카페/디저트</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">베이커리</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">샐러드</button>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <button class="col-12">기타</button>-->
+<!--                </div>-->
 
 
+<!--            </div>-->
+            <div class="row option">
+                <!-- 음식 이미지 버튼 모아둔 그리드   -->
+                <div class="container fluid icon-grid">
+                    <div class="row mt-2 p-2">
+                        <div class="cell col-3 col-lg-custom" th:each="cuisine : ${cuisines}">
+                            <button class="cell-button col-12" th:attr="data-cuisine=${cuisine}">
+                                <img class="img col-12" th:src="@{/img/recommend/아이콘/{cuisine}.png(cuisine=${cuisine})}" th:alt="'쿠스토랑 건대 맛집 ' + ${cuisine}">
+                            </button>
+                            <div class="mobile-cuisine-name">
+                                <span th:text="${cuisine}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
             <div class="row">
                 <hr class="col">

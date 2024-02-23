@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var restaurantLocation, restaurantEvaluation
     const selectedCuisines = [];
     // 음식 종류에 대한 클릭 리스너
-    document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
+    document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
             // 버튼의 클래스에 "selected"가 있는지 확인
             const isSelected = button.classList.contains('selected');
@@ -16,37 +16,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 위치,평가 카테고리에 대한 클릭 리스너
-
-    document.querySelectorAll('.filter-location, .filter-evaluation').forEach(option => {
-        option.addEventListener('click', function (e) {
-            // 클릭된 요소가 버튼인지 확인
-            if (e.target.tagName === 'BUTTON') {
-                const isSelected = e.target.classList.contains('selected');
-
-                // 클릭된 버튼이 이미 selected 상태인 경우, 해당 버튼에 대해서만 selected 클래스 제거
-                if (isSelected) {
-                    e.target.classList.remove('selected');
-                } else {
-                    // 그렇지 않다면, 현재 row 내의 모든 버튼에서 'selected' 클래스 제거 후,
-                    // 클릭된 버튼에 'selected' 클래스 추가
-                    e.currentTarget.querySelectorAll('button').forEach(button => {
-                        button.classList.remove('selected');
-                    });
-                    e.target.classList.add('selected');
-                }
-            }
-        });
-    });
+    // // 위치,평가 카테고리에 대한 클릭 리스너
+    //
+    // document.querySelectorAll('.filter-location, .filter-evaluation').forEach(option => {
+    //     option.addEventListener('click', function (e) {
+    //         // 클릭된 요소가 버튼인지 확인
+    //         if (e.target.tagName === 'BUTTON') {
+    //             const isSelected = e.target.classList.contains('selected');
+    //
+    //             // 클릭된 버튼이 이미 selected 상태인 경우, 해당 버튼에 대해서만 selected 클래스 제거
+    //             if (isSelected) {
+    //                 e.target.classList.remove('selected');
+    //             } else {
+    //                 // 그렇지 않다면, 현재 row 내의 모든 버튼에서 'selected' 클래스 제거 후,
+    //                 // 클릭된 버튼에 'selected' 클래스 추가
+    //                 e.currentTarget.querySelectorAll('button').forEach(button => {
+    //                     button.classList.remove('selected');
+    //                 });
+    //                 e.target.classList.add('selected');
+    //             }
+    //         }
+    //     });
+    // });
 
 
     // 뽑기 버튼 리스너
     document.getElementById('recommendBtn').addEventListener('click', function () {
 
 
-        document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
+        document.querySelectorAll('.cell-button').forEach(button => {
             if (button.classList.contains('selected')) {
-                selectedCuisines.push(button.textContent);
+                selectedCuisines.push(button.dataset.cuisine);
             }
 
         });
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation
 
         fetch(apiUrl, {
             method: "GET",
