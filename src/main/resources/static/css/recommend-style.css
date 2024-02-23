@@ -518,3 +518,9 @@ footer {
     background-color: var(--main-color); /* 여기서 main color로 설정 */
     color:white;
 }
+#dropdownMenuButton{
+    border: none;
+}
+.mobile-cuisine-name span{
+    white-space: nowrap;
+}
