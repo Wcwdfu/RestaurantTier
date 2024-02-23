@@ -2,11 +2,13 @@
 @import "variables.css";
 /* ------------------- 화면 구성 ----------------- */
 
-@media only screen and (max-width: 1024px) { /* 모바일화면 */
+/* TABLET */
+@media only screen and (max-width: 1023px) {
     #mainContents {
         margin: 10px auto;
-        min-width: 260px;
-        width: 98%;
+        padding: 0 var(--mobile-outer-container-side-width);
+        min-width: var(--min-width);
+        width: 100%;
     }
     .gray-border-circular{
         padding: 10px;
@@ -21,12 +23,12 @@
         padding-left: 10px;
     }
 }
-
-@media only screen and (min-width: 1025px) { /* pc화면 */
+/* PC */
+@media only screen and (min-width: 1024px) {
     #mainContents {
-        width: 75%;
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
         margin: 10px auto;
-        min-width: 450px;
     }
     .gray-border-circular{
         padding: 50px;

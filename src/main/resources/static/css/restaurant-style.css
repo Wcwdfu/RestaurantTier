@@ -59,33 +59,32 @@ li {
 }
 
 /* header 이후 새로운 부분 시작 */
-@media only screen and (max-width: 1024px) {
+/* TABLET */
+@media only screen and (max-width: 1023px) {
     #outerContainer {
-        margin: 110px 10px 0 10px;
-        min-width: 280px;
+        margin: 110px var(--mobile-outer-container-side-width) 0 var(--mobile-outer-container-side-width);
+        min-width: var(--min-width);
         line-height: normal;
         color: black;
     }
 
     header {
-        min-width: 280px;
+        min-width: var(--min-width);
         line-height: normal;
         color: black;
     }
 }
-
-@media only screen and (min-width: 1025px) {
+/* PC */
+@media only screen and (min-width: 1024px) {
     #outerContainer {
-        width: 70%;
-        min-width: 450px;
-        max-width: 900px;
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
         margin-top: 110px;
         line-height: normal;
         color: black;
     }
 
     header {
-        min-width: 450px;
         line-height: normal;
         color: black;
     }

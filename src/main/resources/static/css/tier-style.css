@@ -13,50 +13,30 @@ body{
 section h2 {
     color: var(--main-color);
 }
-@media only screen and (max-width: 1024px) {
+body {
+    /* 태블릿, PC 기준 */
+    --tablet-max-width: 1023px;
+    --pc-min-width: 1024px;
+}
+/* TABLET */
+@media only screen and (max-width: 1023px) {
     .category-background, main, .search-area, .rank-description {
-        padding: 0 10px;
+        padding: 0 var(--mobile-outer-container-side-width);
         margin: 10px 0;
-        min-width: 260px;
+        min-width: var(--min-width);
         width: 100%;
         line-height: normal;
         color: black;
     }
-    #scrollTopBtn {
-        position: fixed;
-        bottom: 30px;
-        z-index: 100;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 50%;
-        border: none;
-        background-color: #eeeeee77;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-    }
 }
-
-@media only screen and (min-width: 1025px) {
+/* PC */
+@media only screen and (min-width: 1024px) {
     .category-background, main, .search-area, .rank-description {
-        width: 70%;
-        min-width: 450px;
-        max-width: 900px;
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
         margin: 10px auto;
         line-height: normal;
         color: black;
-    }
-    #scrollTopBtn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 100;
-        border-radius: 50%;
-        border: none;
-        background-color: #eeeeee77;
-        width: 45px;
-        height: 45px;
-        padding: 0;
     }
 }
 #scrollTopBtn > img {
@@ -356,42 +336,26 @@ tbody > tr > td > div{
     margin-right: 5px;
 }
 /* 즐찾, 평가 표시 아이콘 */
-#isFavoriteImg {
-    width: 18px;
-    height: 18px;
+.restaurant-img-top-icon {
     position: absolute;
-    top: -2px;
+    top: 2px;
     left:-7.5px;
-    background-color: #FFFFFF00!important;
 }
-#isEvaluationImg {
-    width: 18px;
-    height: 18px;
+.restaurant-img-bottom-icon {
     position: absolute;
-    top: -2px;
-    left: 2px;
-    background-color: #FFFFFF00!important;
-}
-#isEvaluationImg2 {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    top: -2px;
+    top: 13px;
     left:-7.5px;
+}
+.favorite-icon {
+    width: 16px;
+    height: 16px;
     background-color: #FFFFFF00!important;
+    border-radius: 50%;
 }
 @media only screen and (max-width: 500px) {
-    #isFavoriteImg {
-        width: 16px;
-        height: 16px;
-    }
-    #isEvaluationImg {
-        width: 16px;
-        height: 16px;
-    }
-    #isEvaluationImg2 {
-        width: 16px;
-        height: 16px;
+    .favorite-icon {
+        width: 15px;
+        height: 15px;
     }
 }
 /* -------------------------- */
