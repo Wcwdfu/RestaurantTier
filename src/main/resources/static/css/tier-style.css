@@ -522,6 +522,7 @@ tbody > tr > td > div{
     }
 }
 .td-situations-outer {
+    height: 100%;
     overflow-x: scroll;
     display: flex;
     justify-content: left;
@@ -534,18 +535,12 @@ tbody > tr > td > div{
     margin-right: 5px;
 }
 @media only screen and (min-width: 631px) {
-    #th-situation {
+    #th-situation, .td-situation {
         display: table-cell;
-    }
-    .td-situation {
-        display: table-row;
     }
 }
 @media only screen and (max-width: 630px) {
-    #th-situation {
-        display: none;
-    }
-    .td-situation {
+    #th-situation, .td-situation {
         display: none;
     }
 }
@@ -639,5 +634,15 @@ tbody > tr > td > div > img {
     font-size: 16px;
     font-weight: 550;
     color: #777;
+}
 
+/* 페이지 컨트롤러 */
+@media only screen and (max-width: 380px) {
+    .page-number-button {
+        min-height: 35px !important;
+        min-width: 35px !important;
+        height: 35px !important;
+        width: 35px !important;
+        line-height: 35px !important;
+    }
 }

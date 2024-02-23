@@ -80,6 +80,39 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+.dropdown-outer {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+.dropdown {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.dropdown button {
+    padding: 6px 13px;
+    border: #666 solid 1px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dropdown span {
+    line-height: 24px;
+    font-size: 15px;
+}
+.dropdown ul {
+    border: #333 solid 1px;
+    line-height: 24px;
+    font-size: 15px;
+}
+.dropdown li:hover {
+    background-color: var(--main-light-color);
+}
+
+.restaurant-evaluation-container-outer {
+    width: 100%;
+}
 .restaurant-evaluation-container {
     cursor: pointer;
     width: 100%;
@@ -130,19 +163,39 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+.restaurant-comment-container {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 9px;
+    margin-bottom: 10px;
+    border: #888 solid 1px;
+    border-radius: 6px;
+}
 .restaurant-comment-section {
     width: 100%;
     display: flex;
     justify-content: left;
 }
+.restaurant-comment-like {
+    width: 50px;
+    margin-right: 7px;
+    text-align: center;
+    color: #222;
+    font-size: 15px;
+}
 .restaurant-comment-body {
     flex: 1;
     font-size: 15px;
     margin-right: 10px;
+    line-height: 24px;
     color: #222;
 }
 .restaurant-comment-date {
-    width: 50px;
+    width: 80px;
+    text-align: right;
     font-size: 13px;
     color: #444;
 }
