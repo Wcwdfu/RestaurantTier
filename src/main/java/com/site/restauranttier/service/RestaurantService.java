@@ -107,12 +107,23 @@ public class RestaurantService {
         }
     }
     // 뽑기 리스트 반환
-    // location이 전체면 그냥 반환
     public List<Restaurant> getRestaurantListByRandomPick(String cuisine, String location) {
-        if(location.equals("전체")) {
-            return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
+        // cuisine 이 전체일 떄
+        if(cuisine.equals("전체")){
+            if(location.equals("전체")) {
+                return restaurantRepository.findByStatus("ACTIVE");
+            }
+            return restaurantRepository.findByStatusAndRestaurantPosition("ACTIVE", location);
         }
-        return restaurantRepository.findByRestaurantCuisineAndStatusAndRestaurantPosition(cuisine, "ACTIVE", location);
+        // cuisine이 전체가 아닐때
+
+        else{
+            if(location.equals("전체")) {
+                return restaurantRepository.findByRestaurantCuisineAndStatus(cuisine, "ACTIVE");
+            }
+            return restaurantRepository.findByRestaurantCuisineAndStatusAndRestaurantPosition(cuisine, "ACTIVE", location);
+        }
+
     }
     // 해당 식당이 방문 상위 몇 퍼센트인지 반환
     public Float getPercentOrderByVisitCount(Restaurant restaurant) {

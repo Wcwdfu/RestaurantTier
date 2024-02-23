@@ -1,41 +1,73 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var restaurantLocation, restaurantEvaluation
+    // 기본값 설정
+    var restaurantLocation = "전체";
     const selectedCuisines = [];
-    // 음식 종류에 대한 클릭 리스너
-    document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
-        button.addEventListener('click', function () {
-            // 버튼의 클래스에 "selected"가 있는지 확인
-            const isSelected = button.classList.contains('selected');
+    // 초기에 선택되어야 하는 음식 카테고리 리스트
+    const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
 
-            // "selected" 클래스가 있으면 제거하고, 없으면 추가
-            if (isSelected) {
-                button.classList.remove('selected');
+    // 모든 cell-button을 순회하며, 이미지 경로 초기화 및 선택 상태 설정
+    document.querySelectorAll('.cell-button').forEach(button => {
+        const img = button.querySelector('img');
+        // 이미지 경로를 초기화하지 않았으면 초기화 (모든 버튼에 대해 기본 상태 이미지 설정)
+        if (!img.dataset.defaultSrc) {
+            img.dataset.defaultSrc = img.src; // 현재 src를 기본 src로 저장
+            img.dataset.selectedSrc = img.src.replace('.png', '-선택.png'); // 변경된 src를 저장
+        }
+
+        // 기본 이미지로 설정
+        img.src = img.dataset.defaultSrc;
+        button.classList.remove('selected');
+
+        // 초기에 선택된 카테고리에 해당하는 버튼이면, 선택된 상태로 변경
+        if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
+            button.classList.add('selected');
+            img.src = img.dataset.selectedSrc; // 선택된 이미지로 변경
+        }
+    });
+
+    // 음식 종류에 대한 클릭 리스너
+    document.querySelectorAll('.cell-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const img = this.querySelector('img');
+
+            // "전체" 버튼 클릭 시 특별 처리
+            if (this.dataset.cuisine === "전체") {
+                // 모든 다른 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
+                document.querySelectorAll('.cell-button').forEach(otherButton => {
+                    otherButton.classList.remove('selected');
+                    const otherImg = otherButton.querySelector('img');
+                    otherImg.src = otherImg.dataset.defaultSrc; // 기본 이미지로 변경
+                });
             } else {
-                button.classList.add('selected');
+                // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
+                const allButton = document.querySelector('.cell-button[data-cuisine="전체"]');
+                allButton.classList.remove('selected');
+                const allImg = allButton.querySelector('img');
+                allImg.src = allImg.dataset.defaultSrc; // 기본 이미지로 변경
+            }
+
+            // 버튼의 "selected" 클래스를 토글 및 이미지 src 변경
+            if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+                img.src = img.dataset.defaultSrc; // 기본 이미지로 변경
+            } else {
+                this.classList.add('selected');
+                img.src = img.dataset.selectedSrc; // 선택된 이미지로 변경
             }
         });
     });
 
-    // 위치,평가 카테고리에 대한 클릭 리스너
+// 드롭다운 항목에 대한 클릭 이벤트 리스너를 추가합니다.
+    document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // 선택된 항목의 텍스트를 변수에 저장합니다.
+            restaurantLocation = this.textContent.trim()
 
-    document.querySelectorAll('.filter-location, .filter-evaluation').forEach(option => {
-        option.addEventListener('click', function (e) {
-            // 클릭된 요소가 버튼인지 확인
-            if (e.target.tagName === 'BUTTON') {
-                const isSelected = e.target.classList.contains('selected');
+            // 버튼의 텍스트를 선택된 항목의 텍스트로 업데이트합니다.
+            // '지역 : ' 접두사를 추가하여 사용자가 선택한 지역을 명확하게 표시합니다.
+            document.querySelector('#dropdownMenuButton span').textContent = '지역 : ' + restaurantLocation;
+            console.log(restaurantLocation)
 
-                // 클릭된 버튼이 이미 selected 상태인 경우, 해당 버튼에 대해서만 selected 클래스 제거
-                if (isSelected) {
-                    e.target.classList.remove('selected');
-                } else {
-                    // 그렇지 않다면, 현재 row 내의 모든 버튼에서 'selected' 클래스 제거 후,
-                    // 클릭된 버튼에 'selected' 클래스 추가
-                    e.currentTarget.querySelectorAll('button').forEach(button => {
-                        button.classList.remove('selected');
-                    });
-                    e.target.classList.add('selected');
-                }
-            }
         });
     });
 
@@ -44,26 +76,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('recommendBtn').addEventListener('click', function () {
 
 
-        document.querySelectorAll('.filter-cuisine .col button').forEach(button => {
+        document.querySelectorAll('.cell-button').forEach(button => {
             if (button.classList.contains('selected')) {
-                selectedCuisines.push(button.textContent);
+                selectedCuisines.push(button.dataset.cuisine);
             }
 
         });
-        // 지역 데이터 추가
-        document.querySelectorAll('.filter-location .col button').forEach(button => {
-            if (button.classList.contains('selected')) {
-                restaurantLocation = button.textContent
-            }
 
-        });
-        // 평가 순 데이터 추가
-        document.querySelectorAll('.filter-evaluation .col button').forEach(button => {
-            if (button.classList.contains('selected')) {
-                restaurantEvaluation = button.textContent
-            }
-
-        });
 
         if (selectedCuisines.length === 0) {
             // 비어있다면 경고창을 띄우고 함수 종료
@@ -71,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation
 
         fetch(apiUrl, {
             method: "GET",
@@ -81,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`${data.status}: ${data.message}`);
+                    throw new Error(`${response.status}: ${response.message}`);
                 }
                 return response.json();
             })
@@ -115,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
 
-
+                document.querySelector(".dropdown").classList.add('hidden')
                 document.getElementById('recommendPage').classList.add('hidden');
                 document.getElementById('recommendBtn').classList.add('hidden');
                 document.getElementById('resultPage').classList.remove('hidden');
@@ -143,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '오늘의 맛집은요..';
+            processingTitle.textContent = '제가 추천드린 가게는요..';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
@@ -256,11 +275,11 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedBox.style.backgroundImage = '';
         const processingTitle = document.getElementById('processingTitle');
 
-        processingTitle.textContent = '맛집을 고르는 중...';
+        processingTitle.innerHTML ='맛집을 고르는 중... <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">'
 
 
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation;
 
         fetch(apiUrl, {
             method: "GET",
@@ -270,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`${data.status}: ${data.message}`);
+                    throw new Error(`${response.status}: ${response.message}`);
                 }
                 return response.json();
             })
@@ -342,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '오늘의 맛집은요..';
+            processingTitle.textContent = '제가 추천드린 가게는요..';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');

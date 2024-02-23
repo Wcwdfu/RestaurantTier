@@ -65,6 +65,10 @@
     width: 20px;
 }
 
+
+
+
+/* 추가 및 수정한 부분 by 임재형 */
 .option-area {
     text-align: center;
     display: flex;
@@ -104,15 +108,21 @@
 .option div button {
     border: none;
     color: black;
-    border-radius: 5px;
-    background-color: #F0F0F0;
-    padding: 0;
+    border-radius: 10px;
 
+}
+.cell-button{
+    background:none;
+    padding:5px;
+    border-radius: 10px;
+}
+.mobile-cuisine-name{
+    font-family: 'NanumSquare', sans-serif;
+    color: black;
 }
 
 .selected {
-    background-color: darkgray !important;
-    color: white !important;
+    background-color: #eee; !important;
 }
 
 
@@ -126,9 +136,8 @@
 .btn-style {
     width: 100%;
     height: 50px;
-    border: 0.5px solid black;
+    border: none;
     border-radius: 5px;
-    font-size: 20px;
     color: white;
 
     background-color: var(--main-color);
@@ -257,6 +266,9 @@
     .top-banner {
         height: 200px;
     }
+    .mobile-cuisine-name{
+        font-size:10px;
+    }
 
 
 }
@@ -281,15 +293,12 @@
 @media only screen and (max-width: 991px) {
     /* 모바일화면 */
     #mainContents {
-        margin: 5px auto;
+        margin: 0 auto;
         width: 98%;
 
     }
 
-    #recommendBtn {
 
-        width: 100%;
-    }
 
     .btn-style {
         height: 40px;
@@ -382,11 +391,17 @@
 @media only screen and (min-width: 992px) {
     /* pc화면 */
     #mainContents {
-        width: 750px;
+        width: 1050px;
 
-        margin: 20px auto;
+        margin: 0 auto;
     }
-
+    .cell-button{
+        padding:1rem;
+    }
+    .col-lg-custom {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
 
     .animation-list {
         width: 4200px;
@@ -426,10 +441,7 @@
         width: 4500px;
     }
 
-    .option div button {
-        width: 110px;
-        height: 40px;
-    }
+
 
     .top-banner {
         height: 300px;
@@ -489,4 +501,21 @@ footer {
     margin: 0;
     display: flex;
     align-items: center;
+}
+#recommendBtn {
+
+    width: 30%;
+    max-width: 200px;
+}
+.dropdown{
+    margin-left: 2rem;
+}
+
+/* 드롭다운*/
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--main-color);
+}
+.dropdown-item:hover {
+    background-color: var(--main-color); /* 여기서 main color로 설정 */
+    color:white;
 }
