@@ -1,5 +1,6 @@
 package com.site.restauranttier.service;
 
+import com.site.restauranttier.controller.TierController;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
 import com.site.restauranttier.etc.EnumTier;
@@ -210,7 +211,8 @@ public class EvaluationService {
         for (int i = 0; i < restaurantList.size(); i++) {
             Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant);
-            //injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant);
+            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i);
+            //
             if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
                 newDataClass.setRanking("-");
                 resultList.add(newDataClass);
@@ -230,7 +232,7 @@ public class EvaluationService {
             Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant, getSituationTier(restaurant, situation));
             newDataClass.setRanking((i + 1) + "");
-            //injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant);
+            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i);
             if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
                 resultList.add(newDataClass);
             } else { // 평가 데이터가 충분히 있는 경우
@@ -241,20 +243,25 @@ public class EvaluationService {
         return resultList;
     }
 
-    private void injectIsFavoriteIsEvaluation(Principal principal, RestaurantTierDataClass newDataClass, Restaurant restaurant) {
+    private void injectIsFavoriteIsEvaluation(Principal principal, RestaurantTierDataClass newDataClass, Restaurant restaurant, int index) {
         if (principal == null) {
             newDataClass.setIsEvaluation(false);
             newDataClass.setIsFavorite(false);
             return;
         }
-        User user = customOAuth2UserService.getUser(principal.getName());
-        // 로그인 된 경우에 즐찾, 평가 여부 저장
-        // 평가 여부
-        Optional<Evaluation> evaluationOptional = evaluationRepository.findByUserAndRestaurant(user, restaurant);
-        newDataClass.setIsEvaluation(evaluationOptional.isPresent());
-        // 즐겨찾기 여부
-        Optional<RestaurantFavorite> favoriteOptional = restaurantFavoriteRepository.findByUserAndRestaurant(user, restaurant);
-        newDataClass.setIsFavorite(favoriteOptional.isPresent());
+        if ( // 현재 페이지만 연산
+                index >= TierController.tierPageSize * (TierController.currentTierPage)
+                        && index < TierController.tierPageSize * (TierController.currentTierPage + 1)
+        ) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            // 로그인 된 경우에 즐찾, 평가 여부 저장
+            // 평가 여부
+            Optional<Evaluation> evaluationOptional = evaluationRepository.findByUserAndRestaurant(user, restaurant);
+            newDataClass.setIsEvaluation(evaluationOptional.isPresent());
+            // 즐겨찾기 여부
+            Optional<RestaurantFavorite> favoriteOptional = restaurantFavoriteRepository.findByUserAndRestaurant(user, restaurant);
+            newDataClass.setIsFavorite(favoriteOptional.isPresent());
+        }
     }
 
     private Integer getSituationTier(Restaurant restaurant, Situation situation) {

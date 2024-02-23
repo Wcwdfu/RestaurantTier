@@ -26,7 +26,9 @@ public class TierController {
     private final SituationRepository situationRepository;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationService evaluationService;
-    private final Integer tierPageSize = 40;
+
+    public static final Integer tierPageSize = 40;
+    public static Integer currentTierPage;
 
     // 티어표 화면
     @GetMapping("/tier")
@@ -38,6 +40,7 @@ public class TierController {
             @RequestParam(value = "position", required = false, defaultValue = "전체") String position,
             Principal principal
     ) {
+        TierController.currentTierPage = page;
         Pageable pageable = PageRequest.of(page, tierPageSize);
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList(position, principal);
@@ -120,6 +123,7 @@ public class TierController {
             @RequestParam(value = "position", required = false, defaultValue = "전체") String position,
             Principal principal
     ) {
+        TierController.currentTierPage = page;
         Pageable pageable = PageRequest.of(page, tierPageSize);
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체
             List<RestaurantTierDataClass> restaurantList = evaluationService.getAllRestaurantTierDataClassList(position, principal);
