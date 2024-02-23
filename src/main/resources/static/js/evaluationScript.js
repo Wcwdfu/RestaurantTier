@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
             comment.style.fontWeight = 'bold';
         } else if (selectedIndex > 4) {
             comment.style.color = '#0F6341';
-            comment.style.fontWeight = 'normal';
-        } else if (selectedIndex > 2) {
+            comment.style.fontWeight = '500';
+        } else if (selectedIndex > 3) {
             comment.style.color = '#000';
             comment.style.fontWeight = 'normal';
         } else {

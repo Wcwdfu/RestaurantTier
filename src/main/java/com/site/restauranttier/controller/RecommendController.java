@@ -34,8 +34,6 @@ public class RecommendController {
     }
 
     // 메뉴 리스트 받아오기
-    // 한식, 일식, 중식
-    // /api/recommend?cuisine=한식-일식-중식
     @GetMapping("/api/recommend")
     public ResponseEntity<List<Restaurant>> getRestaurantListForCuisine(
             @RequestParam(value = "cuisine", defaultValue = "전체") String cuisine, @RequestParam(value = "location",defaultValue = "전체") String location, @RequestParam(value = "evaluation",defaultValue = "전체") String evaluation
