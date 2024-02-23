@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var restaurantLocation="전체"
     const selectedCuisines = [];
     // 초기에 선택되어야 하는 음식 카테고리 리스트
-    const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
-
-    // 모든 cell-button을 순회하며, 조건에 맞는 버튼에 'selected' 클래스 추가
-    document.querySelectorAll('.cell-button').forEach(button => {
-        if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
-            button.classList.add('selected');
-        }
-    });
+    // const initialSelectedCuisines = ["한식", "일식", "중식", "양식", "아시안", "고기", "치킨", "햄버거", "분식", "해산물"];
+    //
+    // // 모든 cell-button을 순회하며, 조건에 맞는 버튼에 'selected' 클래스 추가
+    // document.querySelectorAll('.cell-button').forEach(button => {
+    //     if (initialSelectedCuisines.includes(button.dataset.cuisine)) {
+    //         button.classList.add('selected');
+    //     }
+    // });
     // 음식 종류에 대한 클릭 리스너
     document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
@@ -36,6 +36,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.classList.remove('selected');
             } else {
                 button.classList.add('selected');
+            }
+
+            // 이미지 경로 업데이트
+            const img = this.querySelector('img');
+            if (this.classList.contains('selected')) {
+                // 선택된 상태의 이미지로 변경
+                var selectedSrc = img.src.replace('.png', '-선택.png');
+                img.src = selectedSrc;
+            } else {
+                // 기본 이미지로 변경
+                var defaultSrc = img.src.replace('-선택.png', '.png');
+                img.src = defaultSrc;
             }
         });
     });
