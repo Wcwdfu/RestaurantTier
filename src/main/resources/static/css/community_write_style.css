@@ -122,20 +122,20 @@ body {
     background-color: #f9f6f3;
 }
 
+/* PC */
 @media only screen and (min-width: 1024px) {
     body {
-        width: 800px;
-
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
     }
-
 }
 
+/* TABLET */
 @media only screen and (max-width: 1023px) {
     body {
+        min-width: var(--min-width);
         width: 100%;
     }
-
-
 }
 
 
