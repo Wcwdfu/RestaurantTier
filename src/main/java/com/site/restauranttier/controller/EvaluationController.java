@@ -1,14 +1,14 @@
 package com.site.restauranttier.controller;
 
+import com.google.gson.Gson;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.JsonData;
-import com.site.restauranttier.repository.RestaurantRepository;
+import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.service.*;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,7 +27,8 @@ public class EvaluationController {
     private final RestaurantService restaurantService;
     private final EvaluationService evaluationService;
     private final CustomOAuth2UserService customOAuth2UserService;
-
+    private final EvaluationRepository evaluationRepository;
+    Gson gson = new Gson();
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -41,24 +42,23 @@ public class EvaluationController {
     ) {
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         User user = customOAuth2UserService.getUser(principal.getName());
-        Evaluation evaluation = evaluationService.getByUserAndRestaurant(user, restaurant);
-        List<EvaluationItemScore> evaluationItemScoreList = evaluation.getEvaluationItemScoreList();
+        Optional<Evaluation> evaluation = evaluationRepository.findByUserAndRestaurant(user, restaurant);
 
-//        if (evaluationItemScoreList != null) { //상황별 점수매긴거 log로 찍어본 코드
-//            for (EvaluationItemScore itemScore : evaluationItemScoreList) {
-//                Situation situation = itemScore.getSituation();
-//                String situationName = situation.getSituationName();
-//                Integer situationId = situation.getSituationId();
-//
-//                Double score = itemScore.getScore();
-//                logger.info("Situation: " + situationName + "SitId: " + situationId + ", Score: " + score);
-//            }
-//        }
+        Map<Integer, Double> situationEvaluationData = new HashMap<>();
+        Double mainScore = 0.0;
+
+        if (evaluation.isPresent()) {
+            List<EvaluationItemScore> evaluationItemScoreList = evaluation.get().getEvaluationItemScoreList();
+            //상황 데이터 Map에 추가
+            for (EvaluationItemScore evaluationItemScore: evaluationItemScoreList) {
+                situationEvaluationData.put(evaluationItemScore.getSituation().getSituationId(), evaluationItemScore.getScore());
+            }
+            mainScore = evaluation.get().getEvaluationScore();
+        }
+        model.addAttribute("situationJson", gson.toJson(situationEvaluationData));
+        model.addAttribute("mainScore", mainScore);
 
         model.addAttribute("restaurant", restaurant);
-        model.addAttribute("eval",evaluation);
-        model.addAttribute("evalItemList",evaluationItemScoreList);
-
 
         return "evaluation";
     }
