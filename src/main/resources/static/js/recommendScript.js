@@ -1,9 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var restaurantLocation, restaurantEvaluation
+    //기본값 설정
+    var restaurantLocation="전체"
     const selectedCuisines = [];
     // 음식 종류에 대한 클릭 리스너
     document.querySelectorAll('.cell-button').forEach(button => {
         button.addEventListener('click', function () {
+            // 전체버튼일때
+            if (this.dataset.cuisine === "전체") {
+                // 모든 다른 버튼의 "selected" 클래스 제거
+                document.querySelectorAll('.cell-button').forEach(otherButton => {
+                    if (otherButton !== this) {
+                        otherButton.classList.remove('selected');
+                    }
+                });
+            } else {
+                // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거
+                document.querySelector('.cell-button[data-cuisine="전체"]').classList.remove('selected');
+            }
+
+
             // 버튼의 클래스에 "selected"가 있는지 확인
             const isSelected = button.classList.contains('selected');
 
@@ -16,28 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // // 위치,평가 카테고리에 대한 클릭 리스너
-    //
-    // document.querySelectorAll('.filter-location, .filter-evaluation').forEach(option => {
-    //     option.addEventListener('click', function (e) {
-    //         // 클릭된 요소가 버튼인지 확인
-    //         if (e.target.tagName === 'BUTTON') {
-    //             const isSelected = e.target.classList.contains('selected');
-    //
-    //             // 클릭된 버튼이 이미 selected 상태인 경우, 해당 버튼에 대해서만 selected 클래스 제거
-    //             if (isSelected) {
-    //                 e.target.classList.remove('selected');
-    //             } else {
-    //                 // 그렇지 않다면, 현재 row 내의 모든 버튼에서 'selected' 클래스 제거 후,
-    //                 // 클릭된 버튼에 'selected' 클래스 추가
-    //                 e.currentTarget.querySelectorAll('button').forEach(button => {
-    //                     button.classList.remove('selected');
-    //                 });
-    //                 e.target.classList.add('selected');
-    //             }
-    //         }
-    //     });
-    // });
+// 드롭다운 항목에 대한 클릭 이벤트 리스너를 추가합니다.
+    document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // 선택된 항목의 텍스트를 변수에 저장합니다.
+            restaurantLocation = this.textContent.trim()
+
+            // 버튼의 텍스트를 선택된 항목의 텍스트로 업데이트합니다.
+            // '지역 : ' 접두사를 추가하여 사용자가 선택한 지역을 명확하게 표시합니다.
+            document.querySelector('#dropdownMenuButton span').textContent = '지역 : ' + restaurantLocation;
+            console.log(restaurantLocation)
+
+        });
+    });
 
 
     // 뽑기 버튼 리스너
@@ -50,20 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
         });
-        // 지역 데이터 추가
-        document.querySelectorAll('.filter-location .col button').forEach(button => {
-            if (button.classList.contains('selected')) {
-                restaurantLocation = button.textContent
-            }
 
-        });
-        // 평가 순 데이터 추가
-        document.querySelectorAll('.filter-evaluation .col button').forEach(button => {
-            if (button.classList.contains('selected')) {
-                restaurantEvaluation = button.textContent
-            }
-
-        });
 
         if (selectedCuisines.length === 0) {
             // 비어있다면 경고창을 띄우고 함수 종료
@@ -71,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') // + "&location=" + restaurantLocation
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation
 
         fetch(apiUrl, {
             method: "GET",
@@ -81,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`${data.status}: ${data.message}`);
+                    throw new Error(`${response.status}: ${response.message}`);
                 }
                 return response.json();
             })
@@ -115,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
 
-
+                document.querySelector(".dropdown").classList.add('hidden')
                 document.getElementById('recommendPage').classList.add('hidden');
                 document.getElementById('recommendBtn').classList.add('hidden');
                 document.getElementById('resultPage').classList.remove('hidden');
@@ -260,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation + "&evaluation=" + restaurantEvaluation;
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation;
 
         fetch(apiUrl, {
             method: "GET",
@@ -270,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`${data.status}: ${data.message}`);
+                    throw new Error(`${response.status}: ${response.message}`);
                 }
                 return response.json();
             })

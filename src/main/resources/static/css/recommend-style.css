@@ -65,6 +65,10 @@
     width: 20px;
 }
 
+
+
+
+/* 추가 및 수정한 부분 by 임재형 */
 .option-area {
     text-align: center;
     display: flex;
@@ -105,7 +109,6 @@
     border: none;
     color: black;
     border-radius: 10px;
-    padding: 1rem;
 
 }
 .cell-button{
@@ -135,7 +138,6 @@
     height: 50px;
     border: 0.5px solid black;
     border-radius: 5px;
-    font-size: 20px;
     color: white;
 
     background-color: var(--main-color);
@@ -287,15 +289,12 @@
         height: 300px;
     }
 }
-#recommendBtn {
 
-    width: 30%;
-}
 @media only screen and (max-width: 991px) {
     /* 모바일화면 */
     #mainContents {
-        margin: 5px auto;
-        width: 95%;
+        margin: 0 auto;
+        width: 98%;
 
     }
 
@@ -394,7 +393,10 @@
     #mainContents {
         width: 1050px;
 
-        margin: 20px auto;
+        margin: 0 auto;
+    }
+    .cell-button{
+        padding:1rem;
     }
     .col-lg-custom {
         flex: 0 0 12.5%;
@@ -499,4 +501,21 @@ footer {
     margin: 0;
     display: flex;
     align-items: center;
+}
+#recommendBtn {
+
+    width: 30%;
+    max-width: 200px;
+}
+.dropdown{
+    margin-left: 2rem;
+}
+
+/* 드롭다운*/
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--main-color);
+}
+.dropdown-item:hover {
+    background-color: var(--main-color); /* 여기서 main color로 설정 */
+    color:white;
 }

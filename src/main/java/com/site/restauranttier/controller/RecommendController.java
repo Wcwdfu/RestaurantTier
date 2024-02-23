@@ -29,7 +29,8 @@ public class RecommendController {
         model.addAttribute("restaurants", restaurants);
 
         model.addAttribute("currentPage", "recommend");
-        List<String> cuisines = new ArrayList<>(Arrays.asList("전체","한식","일식","중식","양식","아시안","고기","치킨","술집","햄버거","해산물","분식","샐러드","카페","베이커리","기타"));
+        List<String> cuisines = new ArrayList<>(Arrays.asList("한식","일식","중식","양식","아시안","고기","치킨","햄버거","분식","해산물","술집","샐러드","카페","베이커리","기타","전체"));
+
         model.addAttribute("cuisines", cuisines);
         return "recommend";
     }
@@ -44,6 +45,12 @@ public class RecommendController {
         List<Restaurant> combinedRestaurantList = new ArrayList<>();
         // 음식 종류마다 location 과 일치하는 식당 리스트 반환해서 combinedRestaurantList에 추가
         for (String item : cuisinesList) {
+            if(item.equals("햄버거")){
+                item="햄버거/피자";
+            }
+            if (item.equals("카페")) {
+                item="카페/디저트";
+            }
             List<Restaurant> retaurantList = restaurantService.getRestaurantListByRandomPick(item,location);
             combinedRestaurantList.addAll(retaurantList);
         }

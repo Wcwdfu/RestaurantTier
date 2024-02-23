@@ -103,4 +103,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer>,
             @Param("dataNum") Integer dataNum,
             @Param("position") String position
     );
+
+    List<Restaurant> findByStatusAndRestaurantPosition(String status, String restaurantPosition);
 }
