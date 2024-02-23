@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -130,9 +132,22 @@ public class RestaurantService {
         return restaurantRepository.getPercentOrderByVisitCount(restaurant);
     }
     // 식당 방문 카운트 1 증가
+    // 식당 방문 카운트 1 증가(5분에 최대한번)
+//    private Map<Integer, LocalDateTime> lastUpdateMap = new HashMap<>(); // 식당별로 마지막 업데이트 시간을 저장하기 위한 맵
     public void plusVisitCount(Restaurant restaurant) {
         restaurant.setVisitCount(restaurant.getVisitCount() + 1);
         restaurantRepository.save(restaurant);
+
+//        Integer restaurantId = restaurant.getRestaurantId();
+//        LocalDateTime lastUpdate = lastUpdateMap.getOrDefault(restaurantId, LocalDateTime.MIN); // 해당 식당의 마지막 업데이트 시간 가져오기
+//        LocalDateTime now = LocalDateTime.now();
+//
+//        // 마지막 업데이트 시간부터 5분이 지났는지 확인
+//        if (Duration.between(lastUpdate, now).toMinutes() >= 5) {
+//            restaurant.setVisitCount(restaurant.getVisitCount() + 1);
+//            restaurantRepository.save(restaurant);
+//            lastUpdateMap.put(restaurantId, now); // 업데이트된 시간을 맵에 저장
+//        }
     }
 
     // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘

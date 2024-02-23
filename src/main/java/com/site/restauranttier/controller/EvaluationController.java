@@ -57,7 +57,6 @@ public class EvaluationController {
         }
         model.addAttribute("situationJson", gson.toJson(situationEvaluationData));
         model.addAttribute("mainScore", mainScore);
-
         model.addAttribute("restaurant", restaurant);
 
         return "evaluation";
