@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation
+        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') // + "&location=" + restaurantLocation
 
         fetch(apiUrl, {
             method: "GET",

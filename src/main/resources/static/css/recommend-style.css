@@ -287,7 +287,10 @@
         height: 300px;
     }
 }
+#recommendBtn {
 
+    width: 30%;
+}
 @media only screen and (max-width: 991px) {
     /* 모바일화면 */
     #mainContents {
@@ -296,10 +299,7 @@
 
     }
 
-    #recommendBtn {
 
-        width: 30%;
-    }
 
     .btn-style {
         height: 40px;
