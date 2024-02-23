@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }, 1000);
 
-        }, 2100);
+        }, 2300);
 
 
     });
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //재설정 버튼 로직
     document.getElementById('restartBtn').addEventListener('click', function () {
-        window.location.reload(); // 페이지 새로고침
+        location.href = location.href; // 현재 URL로 페이지 새로고침
     });
 
 

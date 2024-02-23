@@ -4,7 +4,6 @@
 #mainContents {
     display: flex;
     flex-direction: column;
-    height: auto;
 }
 
 .hidden {
@@ -68,7 +67,6 @@
 
 
 
-/* 추가 및 수정한 부분 by 임재형 */
 .option-area {
     text-align: center;
     display: flex;
@@ -295,6 +293,7 @@
     #mainContents {
         margin: 0 auto;
         width: 98%;
+        height: 700px;
 
     }
 
@@ -392,7 +391,7 @@
     /* pc화면 */
     #mainContents {
         width: 1050px;
-
+        height: 800px;
         margin: 0 auto;
     }
     .cell-button{
@@ -518,4 +517,10 @@ footer {
 .dropdown-item:hover {
     background-color: var(--main-color); /* 여기서 main color로 설정 */
     color:white;
+}
+#dropdownMenuButton{
+    border: none;
+}
+.mobile-cuisine-name span{
+    white-space: nowrap;
 }
