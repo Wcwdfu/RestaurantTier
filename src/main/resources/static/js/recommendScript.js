@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedBox.style.backgroundImage = '';
         const processingTitle = document.getElementById('processingTitle');
 
-        processingTitle.textContent = '맛집을 고르는 중...';
+        processingTitle.innerHTML ='맛집을 고르는 중... <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">'
 
 
 
