@@ -523,7 +523,7 @@ tbody > tr > td > div{
 }
 .td-situations-outer {
     height: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     display: flex;
     justify-content: left;
     align-items: center;

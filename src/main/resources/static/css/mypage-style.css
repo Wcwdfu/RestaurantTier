@@ -130,9 +130,12 @@
     border-radius: 5px;
     width: 90px;
     height: 40px;
+    font-size: 16px;
 }
 #countInfo p{
     margin: 15px 0;
+    font-size: 16px;
+    color: #555;
 }
 
 /*----------------- 로그아웃 버튼 ---------------*/
