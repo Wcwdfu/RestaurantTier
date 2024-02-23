@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     // ----------(first) 메인 평가 선택 로직---------- //
 
     var stars = document.querySelectorAll(".stars");
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (selectedIndex == 0) {
-            comment.textContent = "장사를 왜 하는지 모르겠어요";
+            comment.textContent = "다시 올 일은 없을 것 같습니다";
         } else if (selectedIndex == 1) {
             comment.textContent = "음.. 다시 오고싶다는 생각은 딱히.. ";
         } else if (selectedIndex == 2) {
@@ -145,6 +144,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // 평가 데이터에서 해당 키워드 평가 점수를 리셋
         var keywordIndex = Array.from(document.querySelectorAll('.keywordEvaluateArea')).indexOf(area);
         evaluationData.barRatings[keywordIndex] = undefined;
+
+        // 바 색깔 원상태로
+        var evaluationBars = area.querySelectorAll('.picked-bar');
+        evaluationBars.forEach(function (bar) {
+            bar.classList.remove('picked-bar');
+        })
+        var evaluationCircles = area.querySelectorAll('.color-circle');
+        evaluationCircles.forEach(function (bar) {
+            bar.classList.remove('color-circle');
+        })
     }
 
     // ---- 바형 ui에서 선택 효과 로직 ---- //
@@ -330,4 +339,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return urlSegments[urlSegments.length - 1]; // 마지막 세그먼트가 ID라고 가정
     }
 
+
+
+    /* 이전에 평가한 데이터가 있을 경우 버튼을 누르게 함. */
+    var situationJsonElement = document.getElementById('situationJson');
+    var situationJson = situationJsonElement.getAttribute('data-situationJson');
+    const situationData = JSON.parse(situationJson);
+    const mainScore = situationJsonElement.getAttribute('data-mainScore');
+    var mainStars = document.querySelectorAll('.stars');
+    mainStars[mainScore - 1].click();
+    var situationButtons = document.querySelectorAll('#keywordList button');
+    var lvContainers = document.querySelectorAll('.lv-container');
+    for (var key in situationData) {
+        if (situationData.hasOwnProperty(key)) {
+            situationButtons[key - 1].click();
+            lvContainers[key - 1].querySelector('.lv' + situationData[key]).click();
+        }
+    }
 });
