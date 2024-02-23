@@ -524,6 +524,7 @@ tbody > tr > td > div{
 .td-situations-outer {
     height: 100%;
     overflow-x: auto;
+    white-space: nowrap;
     display: flex;
     justify-content: left;
     align-items: center;

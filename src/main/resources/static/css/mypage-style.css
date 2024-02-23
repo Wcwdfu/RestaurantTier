@@ -122,6 +122,7 @@
     font-size: 12px;
 }
 #saveBtnArea{
+    width: fit-content;
     display: flex;
     justify-content: flex-end;
 }
@@ -130,7 +131,7 @@
     border-radius: 5px;
     width: 90px;
     height: 40px;
-    font-size: 16px;
+    font-size: 15px;
 }
 #countInfo p{
     margin: 15px 0;
