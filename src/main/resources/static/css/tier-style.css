@@ -639,5 +639,15 @@ tbody > tr > td > div > img {
     font-size: 16px;
     font-weight: 550;
     color: #777;
+}
 
+/* 페이지 컨트롤러 */
+@media only screen and (max-width: 380px) {
+    .page-number-button {
+        min-height: 35px !important;
+        min-width: 35px !important;
+        height: 35px !important;
+        width: 35px !important;
+        line-height: 35px !important;
+    }
 }
