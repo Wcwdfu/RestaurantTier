@@ -169,6 +169,17 @@ footer{
 
 }
 
+@media only screen and (min-width: 1600px) {
+
+
+
+    .button-grid{
+        width: 1100px;
+    }
+
+
+}
+
 
 @media only screen and (min-width: 2000px) {
     .button-grid{
