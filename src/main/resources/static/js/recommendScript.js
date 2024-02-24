@@ -176,9 +176,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setTimeout(function () {
                     resultImgSlideBar.classList.add('hidden');
-                }, 1000);
+                }, 500);
 
-            }, 1000);
+            }, 500);
 
         }, 2300);
 
@@ -375,9 +375,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setTimeout(function () {
                     resultImgSlideBar.classList.add('hidden');
-                }, 1000);
+                }, 500);
 
-            }, 1000);
+            }, 500);
 
         }, 2300);
     });

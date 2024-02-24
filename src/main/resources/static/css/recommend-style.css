@@ -148,7 +148,7 @@
 .btn-style2 {
     width: 150px;
     height: 50px;
-    border: 0.5px solid black;
+    border: none;
     border-radius: 5px;
     color: white;
 
@@ -174,7 +174,7 @@
     margin-bottom: 1px;
     position: relative;
     opacity: 1;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 #SelectedBox {
@@ -216,7 +216,7 @@
     display: flex;
     justify-content: center;
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 0.5s;
 
     margin-top: 3rem;
 }
@@ -244,14 +244,14 @@
 
 #restartBtn {
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 0.5s;
 
     margin: 10px;
 }
 
 #restartDirectBtn {
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 0.5s;
 
     margin: 10px;
 }

@@ -55,21 +55,21 @@ public class RecommendController {
             combinedRestaurantList.addAll(retaurantList);
         }
 
-        // 조건에 맞게 정렬, 전체면 그대로
-        if (evaluation.equals("평점 높은 순")) {
-            combinedRestaurantList = combinedRestaurantList.stream()
-                    .sorted(Comparator.comparingDouble((Restaurant r) -> r.getRestaurantScoreSum() / (double) r.getRestaurantEvaluationCount()).reversed())
-                    .collect(Collectors.toList());
-        } else if (evaluation.equals("후기 많은 순")) {
-            combinedRestaurantList = combinedRestaurantList.stream()
-                    .sorted(Comparator.comparingInt((Restaurant r) -> r.getEvaluationList().size()).reversed())
-                    .collect(Collectors.toList());
-        }
-        // 조건에 맞게 상위 100개 선택
-        List<Restaurant> top100List = combinedRestaurantList.stream().limit(100).collect(Collectors.toList());
+        // 뽑기 후보 기준 로직 제거
+//        if (evaluation.equals("평점 높은 순")) {
+//            combinedRestaurantList = combinedRestaurantList.stream()
+//                    .sorted(Comparator.comparingDouble((Restaurant r) -> r.getRestaurantScoreSum() / (double) r.getRestaurantEvaluationCount()).reversed())
+//                    .collect(Collectors.toList());
+//        } else if (evaluation.equals("후기 많은 순")) {
+//            combinedRestaurantList = combinedRestaurantList.stream()
+//                    .sorted(Comparator.comparingInt((Restaurant r) -> r.getEvaluationList().size()).reversed())
+//                    .collect(Collectors.toList());
+//        }
+//        // 조건에 맞게 상위 100개 선택
+//        List<Restaurant> top100List = combinedRestaurantList.stream().limit(100).collect(Collectors.toList());
 
-        // 상위 100개 중에서 랜덤으로 30개 선택
-        return new ResponseEntity<>(getRandomSubList(top100List, 30), HttpStatus.OK);
+        // 랜덤으로 30개 선택
+        return new ResponseEntity<>(getRandomSubList(combinedRestaurantList, 30), HttpStatus.OK);
 
     }
 
