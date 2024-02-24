@@ -31,6 +31,7 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     <script src="/js/communityWriteScript.js"></script>
+    <script src="https://cdn.tiny.cloud/1/digg1r45hnwpvnziectokoy8wzl63w48rw4t7rxio2tgwkue/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
 </head>
 <body>
@@ -58,11 +59,25 @@
             <div class="post-body">
                 <div class="post-body-inner">
                     <div class="toolbar">
-                        <!-- 이미지 업로드 버튼 -->
-                        <button type="button" onclick="document.getElementById('imageInput').click();">
-                            <img src="/img/community/pictures.png">
-                        </button>
-                        <input type="file" id="imageInput" style="display:none" onchange="previewImage(this);" accept="image/*">
+                            <!-- 텍스트 편집 기호 !-->
+<!--                        <button type="button" onclick="openImageDialog()">-->
+<!--                            <img src="/img/community/pictures.png">-->
+<!--                        </button>-->
+<!--                        <input type="file" id="imageInput" style="display:none" onchange="insertImage()">-->
+
+<!--                        <button type="button">-->
+<!--                            <img src="/img/community/b.png">-->
+<!--                        </button>-->
+
+<!--                        <button type="button">-->
+<!--                            <img src="/img/community/italic-font.png">-->
+<!--                        </button>-->
+<!--                        <button type="button">-->
+<!--                            <img src="/img/community/letter-h.png">-->
+<!--                        </button>-->
+<!--                        <button type="button">-->
+<!--                            <img src="/img/community/text-editor.png">-->
+<!--                        </button>-->
                     </div>
 
                     <textarea class="post-content" name="content" maxlength="2000"></textarea>
