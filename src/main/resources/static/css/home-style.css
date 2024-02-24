@@ -84,7 +84,9 @@ main {
 body {
     caret-color: transparent;
 }
-
+.home-grid{
+    padding: 0 6% 6%;
+}
 /*img:hover {
     filter: brightness(50%); !* 마우스 오버 시 이미지 어둡게 *!
 }*/
