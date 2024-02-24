@@ -295,7 +295,8 @@
                 </div>
             </td>
             <td th:unless="${cuisine == '전체' and situation != '전체'}" class="td-center" style="min-width: 42px">
-                <img class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
+                <img th:if="${restaurantTierData.getRestaurant().getMainTier() > 0}" class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
+                <span th:if="${restaurantTierData.getRestaurant().getMainTier() < 1}" style="padding-right: 10px;">-</span>
             </td>
             <td th:if="${situation != '전체'}" class="td-center" style="min-width: 42px">
                 <img th:unless="${restaurantTierData.getSituationTier() == 0}" class="td-tier-img" th:src="'/img/tier/'+${restaurantTierData.getSituationTier()}+'tier.png'">
