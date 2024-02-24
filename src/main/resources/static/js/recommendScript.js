@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }, 1000);
 
-        }, 2100);
+        }, 2300);
     });
 
 // 셀렉 박스 위치와 가장 가까운 이미지 가져오기

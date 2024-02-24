@@ -484,7 +484,6 @@ textarea {
 /* TABLET */
 @media only screen and (max-width: 1023px) {
     #content {
-        padding: 0 var(--mobile-outer-container-side-width);
         min-width: var(--min-width);
         width: 100%;
     }
