@@ -487,8 +487,9 @@ div.basic-info > div.texts > span {
 }
 .like-div > button {
     height: 15px;
-    weight: 15px;
+    width: 15px;
     border: none;
+    background-color: #00000000;
 }
 .comment-up > img, .comment-down > img {
     width: 100%;
