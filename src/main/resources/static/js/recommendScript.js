@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '제가 추천드린 가게는요..';
+            processingTitle.textContent = '사진을 누르면 해당 식당 페이지로 이동합니다';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (matchedData.restaurantImgUrl !== "no_img" && matchedData.restaurantImgUrl !== "no_restaurant") {
                         resultImg.src = matchedData.restaurantImgUrl;
                     } else {
-                        resultImg.src = "/img/restaurant/no_img.png";
+                        resultImg.src = "/img/recommend/no_img.png";
                     }
                     storeHref.href = restaurantUrl;
 
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '제가 추천드린 가게는요..';
+            processingTitle.textContent = '사진을 누르면 해당 식당 페이지로 이동합니다';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
