@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +38,7 @@ public class UserController {
     private final UserService userService;
     private final HttpSession httpSesseion;
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final List<String> loginImgUrlList = List.of(
             "/img/login/food1.jpg",
             "/img/login/food1.jpg",
@@ -58,8 +61,9 @@ public class UserController {
             HttpServletRequest request
     ) {
         String uri = request.getHeader("Referer");
-        System.out.println(uri);
+        log.info("아아아아 : " + uri);
         if (uri != null && !uri.contains("/login")) {
+            log.info("이이이이 : " + uri);
             request.getSession().setAttribute("prevPage", uri);
         }
         String imgUrl = selectRandomString(loginImgUrlList);
