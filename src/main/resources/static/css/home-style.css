@@ -13,6 +13,9 @@ html{
     min-height: 100vh; /* 화면의 전체 높이 */
 }
 
+.slider-row{
+    padding:0 3rem 0;
+}
 .row .col .position-absolute {
     font-weight: bold;
 }
