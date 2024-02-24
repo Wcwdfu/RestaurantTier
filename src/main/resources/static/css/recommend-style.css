@@ -125,7 +125,8 @@
 
 
 .btn-area {
-    margin: 20px;
+    margin:2rem auto 0;
+    width: 300px;
     display: flex;
     justify-content: center;
 
@@ -146,7 +147,7 @@
 }
 
 .btn-style2 {
-    width: 150px;
+    width: 130px;
     height: 50px;
     border: none;
     border-radius: 5px;
@@ -183,7 +184,7 @@
     left: 50%;
     transform: translate(-50%, -50%); /* 요소의 중심을 부모 요소의 가운데로 이동 */
 
-    border: 4px solid var(--main-color);
+    border: 3px solid var(--main-color);
     border-radius: 4px;
 
     background-size: cover; /* 배경 이미지를 요소의 크기에 맞게 늘리거나 축소하여 보여줌 */
@@ -243,17 +244,18 @@
 /*----------------------- 다시하기 버튼 UI ------------------------*/
 
 #restartBtn {
+    margin-right: 10px;
+
     opacity: 0;
     transition: opacity 0.5s;
 
-    margin: 10px;
 }
 
 #restartDirectBtn {
+    margin-left: 10px;
+
     opacity: 0;
     transition: opacity 0.5s;
-
-    margin: 10px;
 }
 
 
