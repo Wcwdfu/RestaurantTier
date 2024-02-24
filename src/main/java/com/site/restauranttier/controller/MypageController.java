@@ -98,8 +98,8 @@ public class MypageController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 2자 이상이어야 합니다.");
         }
         // 닉네임이 10자 이상인 경우
-        if (newNickname.length() > 15) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 15자 이하여야 합니다.");
+        if (newNickname.length() > 10) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 10자 이하여야 합니다.");
         }
         // 닉네임이 이미 존재하는 경우
         Optional<User> userOptional =  userRepository.findByUserNickname(newNickname);
