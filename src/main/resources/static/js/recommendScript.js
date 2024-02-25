@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '사진을 누르면 해당 식당 페이지로 이동합니다';
+            processingTitle.textContent = '사진을 누르면 해당 가게 페이지로 이동합니다';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultInfoPage = document.getElementById('resultInfoPage');
             resultInfoPage.style.opacity = 1;
             const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '사진을 누르면 해당 식당 페이지로 이동합니다';
+            processingTitle.textContent = '사진을 누르면 해당 가게 페이지로 이동합니다';
 
             setTimeout(function () {
                 const restartBtn = document.getElementById('restartBtn');
@@ -402,10 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        if (closestImage) {
-            // 가장 가까운 이미지의 src 속성 사용
-            // 여기서 추가 작업을 수행할 수 있습니다. 예를 들어, 해당 이미지를 강조 표시하거나 정보를 표시하는 등
-        }
+
         return closestImage
     }
 
