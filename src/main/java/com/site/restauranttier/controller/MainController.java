@@ -57,6 +57,12 @@ public class MainController {
         model.addAttribute("currentPage","home");
         return "home";
     }
+    // 순위
+    @GetMapping("/ranking")
+    public String ranking(Model model) {
+        model.addAttribute("currentPage","ranking");
+        return "ranking";
+    }
 
 
 
