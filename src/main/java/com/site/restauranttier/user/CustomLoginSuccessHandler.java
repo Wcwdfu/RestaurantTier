@@ -29,7 +29,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
          * prevPage가 존재하는 경우 = 사용자가 직접 /auth/login 경로로 로그인 요청
          * 기존 Session의 prevPage attribute 제거
          */
-        String prevPage = (String) request.getSession().getAttribute("prevPage");
+        /*String prevPage = (String) request.getSession().getAttribute("prevPage");
         if (prevPage != null) {
             request.getSession().removeAttribute("prevPage");
         }
@@ -43,6 +43,19 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 uri = "/";
             } else {
                 uri = prevPage;
+            }
+        }*/
+
+        String prevRequestUrl = (String) request.getSession().getAttribute("currentUrl");
+        if (prevRequestUrl != null) {
+            request.getSession().removeAttribute("currentUrl");
+        }
+        String uri = "/";
+        if (prevRequestUrl != null && !prevRequestUrl.isEmpty()) {
+            if (prevRequestUrl.contains("/auth/join")) {
+                uri = "/";
+            } else {
+                uri = prevRequestUrl;
             }
         }
 

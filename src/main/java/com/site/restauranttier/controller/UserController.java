@@ -61,9 +61,7 @@ public class UserController {
             HttpServletRequest request
     ) {
         String uri = request.getHeader("Referer");
-        log.info("아아아아 : " + uri);
         if (uri != null && !uri.contains("/login")) {
-            log.info("이이이이 : " + uri);
             request.getSession().setAttribute("prevPage", uri);
         }
         String imgUrl = selectRandomString(loginImgUrlList);
