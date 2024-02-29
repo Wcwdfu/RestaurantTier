@@ -53,12 +53,38 @@ section h2 {
     color: var(--main-color);
 }
 
+/* 내 정보 설명 */
+.user-description-outer {
+    margin-bottom: 10px;
+}
+.user-description {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.green-rectangle {
+    margin: 3px;
+    padding: 6px 13px;
+    border: var(--main-color) solid 3px;
+}
+.span-outer {
+    margin-left: 4px;
+    font-size: 14px;
+}
+
 /* 표 */
-#tierTable {
+.tier-table {
     width: 100%;
 }
 th {
     padding: 4px;
+}
+tr {
+    margin-bottom: 4px;
+}
+.my-rank {
+    border: var(--main-color) solid 3px;
+    border-radius: 4px;
 }
 .rank-first {
     background-color: #FFD700;
