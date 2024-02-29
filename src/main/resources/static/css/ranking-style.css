@@ -1,33 +1,80 @@
-/* 리스트의 아이템 중 클릭 상태인 것(랭크) */
-div.header-bottom ul.menu-list > li > a > div.rank {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
+@import "variables.css";
+
+ul li a.nav-link:nth-of-type(4) {
+    opacity: 0.6;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier:hover,.home:hover,.community:hover,.recommend:hover {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    border-bottom: 3px solid #FFF;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
+
+/* 시작 */
+body{
+    caret-color: transparent;
 }
-/* 리스트의 아이템 중 클릭 상태가 아닌 것(랭크 제외 나머지) */
-.tier, .home,.community,.recommend{
-    display: flex;
-    align-items: center;
-    color: #B3CDFF;
-    border-bottom: 3px solid transparent;
-    font-size: 15px;
-    box-sizing: border-box;
-    line-height: 22px;
-    padding: 6px 0 5px;
+/* TABLET */
+@media only screen and (max-width: 1023px) {
+    .ranking-container {
+        margin: 110px var(--mobile-outer-container-side-width) 0 var(--mobile-outer-container-side-width);
+        min-width: var(--min-width);
+        line-height: normal;
+        color: black;
+    }
+}
+/* PC */
+@media only screen and (min-width: 1024px) {
+    .ranking-container {
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
+        margin: 10px auto;
+        line-height: normal;
+        color: black;
+    }
+}
+
+/*배너 높이*/
+@media only screen and (max-width: 767px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 210px;
+    }
+
+}
+@media only screen and (min-width: 768px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 265px;
+    }
+
+}
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
+    }
+}
+section h2 {
+    color: var(--main-color);
+}
+
+/* 표 */
+#tierTable {
+    width: 100%;
+}
+th {
+    padding: 4px;
+}
+.rank-first {
+    background-color: #FFD700;
+    font-weight: 800;
+}
+.rank-second {
+    background-color: #C0C0C0;
+    font-weight: 600;
+}
+.rank-third {
+    background-color: #CD7F32;
+}
+td {
+    padding: 4px 0;
+    border-top: #ccc solid 1px;
+}
+.td-rank {
+    padding-left: 10px;
 }
