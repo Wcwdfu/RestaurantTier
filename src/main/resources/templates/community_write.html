@@ -5,17 +5,29 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47HQ74QCF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-C47HQ74QCF');
     </script>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T2CX8XG3');</script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-T2CX8XG3');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -31,18 +43,21 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     <script src="/js/communityWriteScript.js"></script>
-    <script src="https://cdn.tiny.cloud/1/digg1r45hnwpvnziectokoy8wzl63w48rw4t7rxio2tgwkue/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/digg1r45hnwpvnziectokoy8wzl63w48rw4t7rxio2tgwkue/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
 
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 <main>
 
     <div>
-        <form method="post" action="/api/community/post/create">
+        <form method="post" action="/api/community/post/create" enctype="multipart/form-data">
             <div class="top-banner">
                 <button id="back-button" type="button"><img src="/img/community/back-button.png"></button>
 
@@ -59,31 +74,33 @@
             <div class="post-body">
                 <div class="post-body-inner">
                     <div class="toolbar">
-                            <!-- 텍스트 편집 기호 !-->
-<!--                        <button type="button" onclick="openImageDialog()">-->
-<!--                            <img src="/img/community/pictures.png">-->
-<!--                        </button>-->
-<!--                        <input type="file" id="imageInput" style="display:none" onchange="insertImage()">-->
+                        <!-- 텍스트 편집 기호 !-->
+                        <input type="file" id="imageInput" name="image" style="display: none;">
+                        <button type="button" onclick="document.getElementById('imageInput').click()"><img
+                                src="/img/community/pictures.png">
+                        </button>
 
-<!--                        <button type="button">-->
-<!--                            <img src="/img/community/b.png">-->
-<!--                        </button>-->
 
-<!--                        <button type="button">-->
-<!--                            <img src="/img/community/italic-font.png">-->
-<!--                        </button>-->
-<!--                        <button type="button">-->
-<!--                            <img src="/img/community/letter-h.png">-->
-<!--                        </button>-->
-<!--                        <button type="button">-->
-<!--                            <img src="/img/community/text-editor.png">-->
-<!--                        </button>-->
+                        <!--                        <input type="file" id="imageInput" style="display:none" onchange="insertImage()">-->
+
+                        <!--                        <button type="button">-->
+                        <!--                            <img src="/img/community/b.png">-->
+                        <!--                        </button>-->
+
+                        <!--                        <button type="button">-->
+                        <!--                            <img src="/img/community/italic-font.png">-->
+                        <!--                        </button>-->
+                        <!--                        <button type="button">-->
+                        <!--                            <img src="/img/community/letter-h.png">-->
+                        <!--                        </button>-->
+                        <!--                        <button type="button">-->
+                        <!--                            <img src="/img/community/text-editor.png">-->
+                        <!--                        </button>-->
                     </div>
 
                     <textarea class="post-content" name="content" maxlength="2000"></textarea>
                 </div>
             </div>
-            <input type="hidden" name="postId" th:value="${post != null ? post.postId : ''}">
 
         </form>
 
@@ -94,9 +111,9 @@
 
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 <script type="text/javascript">
-    if(!wcs_add) var wcs_add = {};
+    if (!wcs_add) var wcs_add = {};
     wcs_add["wa"] = "14b5af05d120a20";
-    if(window.wcs) {
+    if (window.wcs) {
         wcs_do();
     }
 </script>

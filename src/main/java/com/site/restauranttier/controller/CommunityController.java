@@ -1,10 +1,8 @@
 package com.site.restauranttier.controller;
 
-import com.site.restauranttier.entity.Post;
-import com.site.restauranttier.entity.PostComment;
-import com.site.restauranttier.entity.PostScrap;
-import com.site.restauranttier.entity.User;
+import com.site.restauranttier.entity.*;
 import com.site.restauranttier.repository.PostCommentRepository;
+import com.site.restauranttier.repository.PostPhotoRepository;
 import com.site.restauranttier.repository.PostRepository;
 import com.site.restauranttier.repository.PostScrapRepository;
 import com.site.restauranttier.service.*;
@@ -21,7 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -36,7 +36,11 @@ public class CommunityController {
     private final PostCommentRepository postCommentRepository;
     private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
+    private final PostPhotoRepository postPhotoRepository;
+    private final LocalStorageService localStorageService;
+
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
 
     // 커뮤니티 메인 화면
     @GetMapping("/community")
@@ -259,10 +263,22 @@ public class CommunityController {
     public ResponseEntity<String> postCreate(
             @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
             @RequestParam("content") String content,
-            Model model, Principal principal) {
+            Model model, Principal principal, @RequestParam("image") Optional<MultipartFile> imageFile) throws IOException {
+       logger.info(imageFile.toString());
         Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
         User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);
+
+        // 이미지 파일 처리
+        if (imageFile.isPresent()) {
+            String photoImgUrl = localStorageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
+            PostPhoto postPhoto = new PostPhoto(photoImgUrl, "ACTIVE");
+            postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
+            post.setPostPhoto(postPhoto);
+            postPhotoRepository.save(postPhoto); // 이미지 정보 저장
+            postRepository.save(post);
+        }
+
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 

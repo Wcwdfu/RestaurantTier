@@ -45,8 +45,9 @@ public class Post {
     @OneToMany(mappedBy = "post")
     List<PostScrap> postScrapList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    List<PostPhoto> postPhotoList = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name="post_photo_id")
+    PostPhoto postPhoto;
 
     public Post() {
 
