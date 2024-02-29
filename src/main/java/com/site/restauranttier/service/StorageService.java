@@ -1,0 +1,39 @@
+package com.site.restauranttier.service;
+
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
+
+@Service
+public class StorageService {
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+    @Autowired
+    private AmazonS3Client amazonS3Client;
+
+    public String storeImage(MultipartFile file) throws IOException {
+        try {
+            String fileName = file.getOriginalFilename();
+            String fileUrl = "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + fileName;
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(file.getContentType());
+            metadata.setContentLength(file.getSize());
+            // s3에 저장
+            amazonS3Client.putObject(bucket, fileName, file.getInputStream(), metadata);
+            return fileUrl;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "이미지 저장 오류 발생";
+        }
+    }
+}
+

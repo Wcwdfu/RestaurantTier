@@ -37,7 +37,7 @@ public class CommunityController {
     private final PostScrapRepository postScrapRepository;
     private final PostScrapService postScrapService;
     private final PostPhotoRepository postPhotoRepository;
-    private final LocalStorageService localStorageService;
+    private final StorageService storageService;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -271,7 +271,7 @@ public class CommunityController {
 
         // 이미지 파일 처리
         if (imageFile.isPresent()) {
-            String photoImgUrl = localStorageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
+            String photoImgUrl = storageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
             PostPhoto postPhoto = new PostPhoto(photoImgUrl, "ACTIVE");
             postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
             post.setPostPhoto(postPhoto);
