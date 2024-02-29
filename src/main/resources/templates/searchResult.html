@@ -96,7 +96,8 @@
                 </div>
             </td>
             <td class="td-center" style="min-width: 42px">
-                <img class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
+                <img th:if="${restaurantTierData.getRestaurant().getMainTier() > 0}" class="td-tier-img" th:src="${restaurantTierData.getRestaurant().getTierImgUrl(restaurantTierData.getRestaurant().getMainTier())}">
+                <span th:if="${restaurantTierData.getRestaurant().getMainTier() < 1}" style="padding-right: 10px;">-</span>
             </td>
             <td style="min-width: 46px">
                 <div class="td-cuisine-outer">

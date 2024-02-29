@@ -18,11 +18,15 @@ public class MyInterceptor implements HandlerInterceptor {
         // 상대적인 URL 생성
         String relativeUrl = requestURI.substring(contextPath.length());
 
-        if (!relativeUrl.startsWith("/img")
-                && !relativeUrl.startsWith("/css")
-                && !relativeUrl.startsWith("/js")
-                && !relativeUrl.startsWith("/api")
-                && !relativeUrl.startsWith("/user")) {
+        if (relativeUrl.startsWith("/home")
+                || relativeUrl.equals("/")
+                || relativeUrl.startsWith("/recommend")
+                || relativeUrl.startsWith("/tier")
+                || relativeUrl.startsWith("/community")
+                || relativeUrl.startsWith("/user/myPage")
+                || relativeUrl.startsWith("/ranking")
+                || relativeUrl.startsWith("/restaurant")
+                || relativeUrl.startsWith("/search")){
             request.getSession().setAttribute("currentUrl", requestURL);
         }
 
