@@ -73,6 +73,14 @@
 </section>
 
     <div class="ranking-container">
+        <div th:if="${myRank != null}" class="user-description-outer">
+            <div class="user-description">
+                <div class="green-rectangle"></div>
+                <div class="span-outer">
+                    <span>내 정보</span>
+                </div>
+            </div>
+        </div>
         <table id="tierTable" class="tier-table">
             <colgroup>
                 <col>
@@ -87,6 +95,11 @@
             </tr>
             </thead>
             <tbody id="tierTableBody">
+                <tr th:if="${myRank != null}" class="my-rank">
+                    <td class="td-rank" th:text="${myRank.getRank()}"></td>
+                    <td th:text="${myRank.getUser().getUserNickname()}"></td>
+                    <td th:text="${myRank.getUser().getEvaluationList().size()} + '개'"></td>
+                </tr>
                 <tr th:each="userRank :${rankList}"
                     th:class="${userRank.getRank() == 1 ? 'rank-first' :
                     (userRank.getRank() == 2 ? 'rank-second' :

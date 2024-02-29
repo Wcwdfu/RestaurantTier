@@ -24,15 +24,29 @@ public class RankingController {
             Model model,
             Principal principal
     ) {
-        if (principal != null) {
-            User user = customOAuth2UserService.getUser(principal.getName());
-            model.addAttribute("user", user);
-        }
 
         // 평가 1개 이상한 유저 리스트
         List<User> userList = userRepository.findUsersWithEvaluationCountDescending();
         // 순위 리스트
-        model.addAttribute("rankList", calculateRank(userList));
+        List<UserRank> userRankList = calculateRank(userList);
+        model.addAttribute("rankList", userRankList);
+        // 로그인 상태일 경우
+        if (principal != null) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            boolean isAdded = false;
+            for (UserRank userRank :
+                    userRankList) {
+                if (userRank.getUser().equals(user)) {
+                    model.addAttribute("myRank", userRank);
+                    isAdded = true;
+                }
+            }
+            if (!isAdded) {
+                model.addAttribute("myRank", null);
+            }
+        } else {
+            model.addAttribute("myRank", null);
+        }
 
         return "ranking";
     }
