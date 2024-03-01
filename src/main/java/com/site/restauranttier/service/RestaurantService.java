@@ -151,21 +151,19 @@ public class RestaurantService {
 //        }
     }
 
-    // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘
+    // 인기 식당 반환
+
     public List<Restaurant> getTopRestaurants() {
         // 모든 'ACTIVE' 상태의 식당을 불러온다.
         List<Restaurant> restaurants = restaurantRepository.findByStatus("ACTIVE");
 
-        // 모든 식당 중 평가 점수의 평균이 가장 높은 식당을 찾아서 반환 (단일 식당을 리스트로 반환)
+        // 평가 데이터가 evaluationCount개 이상 있는 식당을 필터링하고,
+        // calculateAverageScore 메소드를 사용하여 평균 평가 점수를 기준으로 내림차순 정렬하여 상위 15개를 추출
         return restaurants.stream()
-                .filter(r -> r.getEvaluationList().size()>=evaluationCount) // 평가데이터가 2개 이상 있는 식당만 필터링
-                .max(Comparator.comparingDouble(r ->
-                        r.getEvaluationList().stream()
-                                .mapToDouble(Evaluation::getEvaluationScore)
-                                .average()
-                                .orElse(0)))
-                .map(Collections::singletonList) // Optional<Restaurant>을 List<Restaurant>으로 변환
-                .orElseGet(Collections::emptyList); // 평가가 하나도 없는 경우 빈 리스트 반환
+                .filter(r -> r.getEvaluationList().size() >= evaluationCount)
+                .sorted(Comparator.comparingDouble(Restaurant::calculateAverageScore).reversed()) // 평균 점수에 따라 내림차순 정렬
+                .limit(15) // 상위 15개만 추출
+                .collect(Collectors.toList()); // 리스트로 수집
     }
 
 }

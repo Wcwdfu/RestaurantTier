@@ -1,9 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     var textareaHeight = document.querySelector(".post-body-inner").clientHeight;
     // 편집기 초기화 (pc)
+    // 지금 뒤에 pc버젼 미디어쿼리 작동안됨 (이유 모르겠음)
+
     var tinyEditor = tinymce.init({
         selector: "#tiny-editor",
-        content_style: 'p { margin:0; }',
+        content_style: `p{
+        margin:0
+        }
+    @media (max-width: 1023px) {
+      img { max-width: 100%;  max-height: 100%; }
+    }
+    @media (min-width: 1024px) {
+      img { max-width:80%; max-height:400px; }
+    }
+    `,
         min_height: textareaHeight,
         max_height: textareaHeight,
         menubar: false,

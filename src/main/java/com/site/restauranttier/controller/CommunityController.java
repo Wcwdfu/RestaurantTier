@@ -8,6 +8,10 @@ import com.site.restauranttier.repository.PostScrapRepository;
 import com.site.restauranttier.service.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.IOException;
 import java.security.Principal;
@@ -261,24 +266,36 @@ public class CommunityController {
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/community/post/create")
     public ResponseEntity<String> postCreate(
-            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
+            @RequestParam("title") String title,
+            @RequestParam("postCategory") String postCategory,
             @RequestParam("content") String content,
-            Model model, Principal principal, @RequestParam("image") Optional<MultipartFile> imageFile) throws IOException {
-        logger.info(imageFile.toString());
+            Principal principal) throws IOException {
+
+        // 게시글 객체 생성
         Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
         User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);
 
-        // 이미지 파일 처리
-        if (imageFile.isPresent()) {
-            String photoImgUrl = storageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
-            PostPhoto postPhoto = new PostPhoto(photoImgUrl, "ACTIVE");
-            postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
-            // post의 이미지 리스트에 추가
-            post.getPostPhotoList().add(postPhoto);
-            postPhotoRepository.save(postPhoto); // 이미지 정보 저장
-            postRepository.save(post);
+        // TinyMCE 컨텐츠에서 <img> 태그를 파싱
+        Document doc = Jsoup.parse(content);
+        Elements imgTags = doc.select("img");
+
+        // 각 <img> 태그에 대해 이미지 생성하고 post에 추가
+        for (Element img : imgTags) {
+            String imgUrl = img.attr("src");
+            // 여기서 이미지 URL의 유효성을 검사하고 필요한 처리를 수행하세요.
+
+            // 이미지 파일 처리
+            if (imgUrl != null && !imgUrl.isEmpty()) {
+                PostPhoto postPhoto = new PostPhoto(imgUrl, "ACTIVE");
+                postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
+                post.getPostPhotoList().add(postPhoto); // post의 이미지 리스트에 추가
+                postPhotoRepository.save(postPhoto); // 이미지 정보 저장
+            }
         }
+
+        // 게시글 정보 저장
+        postRepository.save(post);
 
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
