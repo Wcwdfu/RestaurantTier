@@ -58,14 +58,6 @@ public class MainController {
         model.addAttribute("currentPage","home");
         return "home";
     }
-    // 순위 화면
-    @GetMapping("/ranking")
-    public String ranking(Model model) {
-        model.addAttribute("currentPage","ranking");
-        return "ranking";
-    }
-
-
 
 
     // 검색 결과 화면

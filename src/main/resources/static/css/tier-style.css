@@ -580,30 +580,6 @@ tbody > tr > td > div > img {
 .page-item.disabled > .page-link {
     pointer-events: none; /* 클릭 이벤트 비활성화 */
 }
-/*배너 높이*/
-@media only screen and (max-width: 767px) {
-    /* 모바일화면 */
-    .top-banner{
-        height: 200px;
-    }
-
-}
-
-@media only screen and (min-width: 768px) {
-    /* 모바일화면 */
-    .top-banner{
-        height: 250px;
-    }
-
-}
-
-
-@media only screen and (min-width: 1024px) {
-    /* pc화면 */
-    .top-banner{
-        height: 300px;
-    }
-}
 
 /*배너 높이*/
 @media only screen and (max-width: 767px) {
@@ -613,7 +589,6 @@ tbody > tr > td > div > img {
     }
 
 }
-
 @media only screen and (min-width: 768px) {
     /* 모바일화면 */
     .top-banner{
@@ -621,8 +596,6 @@ tbody > tr > td > div > img {
     }
 
 }
-
-
 @media only screen and (min-width: 1024px) {
     /* pc화면 */
     .top-banner{
