@@ -53,7 +53,6 @@ public class MainController {
     // 홈 화면
     @GetMapping("/")
     public String root(Model model, Principal principal) {
-        // 1티어 불러오기
         List<Restaurant> restaurants = restaurantService.getTopRestaurants();
         model.addAttribute("restaurants",restaurants);
         model.addAttribute("currentPage","home");

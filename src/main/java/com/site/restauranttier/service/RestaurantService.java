@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class RestaurantService {
-
+    // 슬라이더에 나오는 식당들의 평가 수 기준 (현재 2이상)
+    public static final Integer evaluationCount = 2;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMenuRepository restaurantmenuRepository;
 
@@ -150,16 +151,21 @@ public class RestaurantService {
 //        }
     }
 
+    // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘
     public List<Restaurant> getTopRestaurants() {
         // 모든 'ACTIVE' 상태의 식당을 불러온다.
         List<Restaurant> restaurants = restaurantRepository.findByStatus("ACTIVE");
 
-        // mainTier가 1또는 2인 식당들을 필터링
-        List<Restaurant> topRestaurants = restaurants.stream()
-                .filter(r -> r.getMainTier() != null && (r.getMainTier() == 1 || r.getMainTier()==2))
-                .collect(Collectors.toList());
-
-        return topRestaurants;
+        // 모든 식당 중 평가 점수의 평균이 가장 높은 식당을 찾아서 반환 (단일 식당을 리스트로 반환)
+        return restaurants.stream()
+                .filter(r -> r.getEvaluationList().size()>=evaluationCount) // 평가데이터가 2개 이상 있는 식당만 필터링
+                .max(Comparator.comparingDouble(r ->
+                        r.getEvaluationList().stream()
+                                .mapToDouble(Evaluation::getEvaluationScore)
+                                .average()
+                                .orElse(0)))
+                .map(Collections::singletonList) // Optional<Restaurant>을 List<Restaurant>으로 변환
+                .orElseGet(Collections::emptyList); // 평가가 하나도 없는 경우 빈 리스트 반환
     }
 
 }

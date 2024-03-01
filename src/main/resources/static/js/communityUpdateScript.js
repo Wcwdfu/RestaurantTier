@@ -3,14 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // 편집기 초기화 (pc)
     var tinyEditor = tinymce.init({
         selector: "#tiny-editor",
+        content_style: 'p { margin:0; }',
         min_height: textareaHeight,
         max_height: textareaHeight,
         menubar: false,
+        statusbar:false,
         paste_as_text: true,
         fullpage_default_font_size: "14px",
         branding: false,
         plugins: "autolink code link autoresize paste contextmenu image preview",
-        toolbar: "custom_image link | undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify",
+        toolbar: "custom_image | undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify",
         fontsize_formats: '10px 12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px',
         setup: function (editor) {
             // 사용자 정의 버튼 (이미지 업로드)
