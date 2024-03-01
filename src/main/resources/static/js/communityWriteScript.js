@@ -1,10 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-    // 편집기 초기화
+    var textareaHeight = document.querySelector(".post-body-inner").clientHeight;
+    // 편집기 초기화 (pc)
     var tinyEditor = tinymce.init({
         selector: "#tiny-editor",
-        min_height: 500,
-        max_height: 1000,
+        min_height: textareaHeight,
+        max_height: textareaHeight,
         menubar: false,
         paste_as_text: true,
         fullpage_default_font_size: "14px",
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plugins: "autolink code link autoresize paste contextmenu image preview",
         toolbar: "custom_image link | undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify",
         fontsize_formats: '10px 12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px',
-        setup: function(editor) {
+        setup: function (editor) {
             // 사용자 정의 버튼 (이미지 업로드)
             editor.ui.registry.addButton('custom_image', {
                 icon: 'image',
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         multiple: false,
                         accept: '.jpg, .png',
                         callback: function (data) {
-                            if (data.rs_status === 0) {
+                            if (data.rs_st === 0) {
                                 var fileInfo = data.rs_data;
                                 tinymce.execCommand('mceInsertContent', false,
                                     /**
@@ -34,8 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             });
-        }
+        },
+
     });
+
 
     // 뒤로 가기 버튼에 이벤트 리스너 추가
     var backButton = document.getElementById('back-button');
@@ -59,25 +61,21 @@ document.addEventListener('DOMContentLoaded', function () {
         var formData = new FormData(form);
         formData.append('content', content); // 폼 데이터에 에디터 내용 추가
 
-        // FormData에 이미지와 다른 데이터가 제대로 포함되었는지 확인
-        console.log(formData.get('content')); // 에디터 내용 로깅
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]);
-        }
+
         fetch('/api/community/post/create', {
             method: 'POST',
             body: formData
         }).then(response => {
-            if(response.redirected)
+            if (response.redirected)
                 window.location.href = "/user/login";
             return response;
         })
             .then(data => {
-                window.location.href="/community"
+                window.location.href = "/community"
             }).catch(error => {
             alert(error.message)
             console.error('Error:', error);
-            window.location.href="/community"
+            window.location.href = "/community"
 
         });
     });
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //     input.setAttribute('multiple', 'multiple');
         // }
 
-        input.onchange = function() {
+        input.onchange = function () {
             var files = this.files;
             var formData = new FormData();
             formData.append('image', files[0]); // 첫 번째 선택된 파일만 처리
@@ -114,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         input.click(); // 사용자가 파일을 선택할 수 있게 파일 입력 창을 열음
     }
-
 
 
 });

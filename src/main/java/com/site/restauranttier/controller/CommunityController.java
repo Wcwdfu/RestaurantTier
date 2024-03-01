@@ -302,7 +302,7 @@ public class CommunityController {
             fileInfo.put("orgFilename", imageFile.getOriginalFilename());
 
             Map<String, Object> response = new HashMap<>();
-            response.put("rs_status", 0); // 성공 상태 코드
+            response.put("rs_st", 0); // 성공 상태 코드
             response.put("rs_data", fileInfo);
 
             return ResponseEntity.ok(response);

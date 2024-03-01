@@ -11,15 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-
 @Service
 public class StorageService {
-
+// 커뮤니티 이미지 저장 서비
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
     @Autowired
     private AmazonS3Client amazonS3Client;
-
+    // 아마존 s3에 이미지 저장하는 함수
     public String storeImage(MultipartFile file) throws IOException {
         try {
             String fileName = file.getOriginalFilename();

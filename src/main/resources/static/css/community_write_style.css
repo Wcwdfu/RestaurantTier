@@ -87,7 +87,7 @@ main div input {
 
 .post-body-inner {
     /*border: solid 1px #dddfe4;*/
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 .toolbar {
