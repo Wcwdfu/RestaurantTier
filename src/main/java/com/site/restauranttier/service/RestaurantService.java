@@ -156,22 +156,9 @@ public class RestaurantService {
         // 필요한 데이터만 가져오는 쿼리 메서드를 정의하여 사용
         List<Restaurant> restaurants = restaurantRepository.findByStatus("ACTIVE");
 
-        // 각 식당의 평균 평가 점수를 기준으로 Cuisine 별로 최고 점수의 식당을 찾는다.
-        Map<String, Optional<Restaurant>> topRestaurantsByCuisine = restaurants.stream()
-                .collect(Collectors.groupingBy(
-                        Restaurant::getRestaurantCuisine,
-                        Collectors.maxBy(Comparator.comparingDouble(r ->
-                                r.getEvaluationList().stream()
-                                        .mapToDouble(Evaluation::getEvaluationScore)
-                                        .average()
-                                        .orElse(0)
-                        ))
-                ));
 
-        // Optional<Restaurant>을 처리하여 실제 Restaurant 객체만 필터링하고 리스트로 반환
-        return topRestaurantsByCuisine.values().stream()
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+        return restaurants.stream()
+                .filter(r -> r.getMainTier() != null && r.getMainTier() == 1 ) // mainTier가 1인 요소만 필터링
                 .collect(Collectors.toList());
     }
 }
