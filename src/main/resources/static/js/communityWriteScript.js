@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
             var files = this.files;
             var formData = new FormData();
             formData.append('image', files[0]); // 첫 번째 선택된 파일만 처리
-
             fetch('/api/upload/image', {
                 method: 'POST',
                 body: formData

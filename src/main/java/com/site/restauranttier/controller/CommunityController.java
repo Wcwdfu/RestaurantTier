@@ -274,7 +274,8 @@ public class CommunityController {
             String photoImgUrl = storageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
             PostPhoto postPhoto = new PostPhoto(photoImgUrl, "ACTIVE");
             postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
-            post.setPostPhoto(postPhoto);
+            // post의 이미지 리스트에 추가
+            post.getPostPhotoList().add(postPhoto);
             postPhotoRepository.save(postPhoto); // 이미지 정보 저장
             postRepository.save(post);
         }
@@ -332,6 +333,8 @@ public class CommunityController {
             Map<String, Object> response = new HashMap<>();
             response.put("rs_st", 0); // 성공 상태 코드
             response.put("rs_data", fileInfo);
+
+
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

@@ -123,8 +123,8 @@
             </div>
 
             <!-- 게시글에 사진이 있으면 썸네일 표시 -->
-            <img class="postImage" th:if="${post.postPhoto}"
-                 th:src="${post.postPhoto.photoImgUrl}"/>
+            <img class="postImage" th:if="${!post.postPhotoList.isEmpty()}"
+                 th:src="${post.postPhotoList[0].photoImgUrl}"/>
         </li>
     </ul>
 

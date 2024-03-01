@@ -18,7 +18,8 @@ public class PostPhoto {
         this.status = status;
     }
 
-    @OneToOne(mappedBy = "postPhoto")
+    @ManyToOne
+    @JoinColumn(name="post_id")
     Post post;
 
     String photoImgUrl;
