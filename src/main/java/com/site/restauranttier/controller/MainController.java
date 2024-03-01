@@ -59,6 +59,12 @@ public class MainController {
         return "home";
     }
 
+    // 이용약관
+    @GetMapping("/terms_of_use")
+    public String terms_of_use(){
+        return "terms_of_use";
+    }
+
 
     // 검색 결과 화면
     @GetMapping("/search")
