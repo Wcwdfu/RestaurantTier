@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var textareaHeight = document.querySelector(".post-body-inner").clientHeight;
     // 편집기 초기화 (pc)
-    var tinyEditor = tinymce.init({
+    tinymce.init({
         selector: "#tiny-editor",
         content_style: 'p { margin:0; }',
         min_height: textareaHeight,
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 onAction: function () {
                     documentUpload({
                         multiple: false,
-                        accept: '.jpg, .png',
                         callback: function (data) {
                             if (data.rs_st === 0) {
                                 var fileInfo = data.rs_data;
@@ -36,8 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             });
-        },
-
+        }
     });
 
 
@@ -87,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // 입력: options 객체, 내부에는 multiple, accept, callback 함수가 포함됨
         var input = document.createElement('input');
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', options.accept);
+        input.setAttribute('accept', 'image/jpeg, image/png, image/gif, image/bmp, image/tiff, image/webp');
         // // 이미지가 여러개면 아래 사용
         // if (options.multiple) {
         //     input.setAttribute('multiple', 'multiple');
