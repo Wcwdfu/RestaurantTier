@@ -458,6 +458,27 @@ textarea {
         background-color: #FFFFFF;
 
 }
+.post-update{
+    margin-right: 5px;
+    margin-top: 10px;
+    padding:8px 16px;
+    display: inline-block;
+    text-align: center;
+    height: 32px;
+    font-size: 12px;
+    /*line height delete와 다름 */
+    line-height: 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    vertical-align: middle;
+    border-color: var(--main-color);
+    color: var(--main-color);
+    background-color: #FFFFFF;
+
+}
 #content {
     margin: 0 auto 0;
     position: relative;

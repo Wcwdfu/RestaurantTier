@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -266,6 +265,41 @@ public class CommunityController {
             @RequestParam("content") String content,
             Model model, Principal principal, @RequestParam("image") Optional<MultipartFile> imageFile) throws IOException {
        logger.info(imageFile.toString());
+        Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
+        User user = customOAuth2UserService.getUser(principal.getName());
+        postService.create(post, user);
+
+        // 이미지 파일 처리
+        if (imageFile.isPresent()) {
+            String photoImgUrl = storageService.storeImage(imageFile.get()); // 이미지 저장 서비스 호출
+            PostPhoto postPhoto = new PostPhoto(photoImgUrl, "ACTIVE");
+            postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
+            post.setPostPhoto(postPhoto);
+            postPhotoRepository.save(postPhoto); // 이미지 정보 저장
+            postRepository.save(post);
+        }
+
+        return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
+    }
+
+    //게시글 수정화면
+    @GetMapping("/community/post/update")
+    public String postUpdatePage(@RequestParam String postId, Model model){
+        logger.info(postId);
+        Post post = postService.getPost(Integer.valueOf(postId));
+        model.addAttribute("post",post);
+        logger.info(post.toString());
+
+        return "community_update";
+    }
+    // 게시글 수정
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PostMapping("/api/community/post/update")
+    public ResponseEntity<String> postUpdate(
+            @RequestParam("title") String title, @RequestParam("postCategory") String postCategory,
+            @RequestParam("content") String content,
+            Model model, Principal principal, @RequestParam("image") Optional<MultipartFile> imageFile) throws IOException {
+        logger.info(imageFile.toString());
         Post post = new Post(title, content, postCategory, "ACTIVE", LocalDateTime.now());
         User user = customOAuth2UserService.getUser(principal.getName());
         postService.create(post, user);

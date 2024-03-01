@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.history.back();
         });
     }
-    // 작성 완료 버튼 리스너 추가 (추가적인 로직이 필요하다면 여기에 작성)
+    // 수정 완료 버튼 리스너 추가
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('content', content); // 폼 데이터에 에디터 내용 추가
 
 
-        fetch('/api/community/post/create', {
+        fetch('/api/community/post/update', {
             method: 'POST',
             body: formData
         }).then(response => {

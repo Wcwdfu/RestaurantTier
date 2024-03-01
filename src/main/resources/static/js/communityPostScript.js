@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     // 댓글 입력 창 focus 시 로그인 상태 확인
     document.querySelector(".comment-content").addEventListener("focus",
         function () {

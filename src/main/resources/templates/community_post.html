@@ -117,6 +117,12 @@
                     </div>
                 </div>
             </div>
+            <!-- 글 수정 버튼 -->
+            <a th:href="'/community/post/update?postId=' + ${post.postId}" th:if="${post.user==user}" type="button" class="post-update" th:data-id="${post.postId}">
+                수정
+            </a>
+
+
             <!-- 글 삭제 버튼 -->
             <button th:if="${post.user==user}" type="button" class="post-delete" data-bs-toggle="modal"
                     data-bs-target="#postModal" th:data-id="${post.postId}" th:data-type="post"
