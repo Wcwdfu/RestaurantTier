@@ -26,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -51,8 +52,9 @@ public class MainController {
 
     // 홈 화면
     @GetMapping("/")
-    public String root(Model model) {
-        List<Restaurant> restaurants = restaurantService.getTopRestaurantsByCuisine();
+    public String root(Model model, Principal principal) {
+        // 1티어 불러오기
+        List<Restaurant> restaurants = restaurantService.getTopRestaurants();
         model.addAttribute("restaurants",restaurants);
         model.addAttribute("currentPage","home");
         return "home";

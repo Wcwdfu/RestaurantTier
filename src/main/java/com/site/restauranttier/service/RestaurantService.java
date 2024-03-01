@@ -150,15 +150,16 @@ public class RestaurantService {
 //        }
     }
 
-    // 인기 식당 반환 (모두 0이면 db의 가장 처음 요소 뽑힘
-    public List<Restaurant> getTopRestaurantsByCuisine() {
-        // 모든 식당을 불러온다. 실제로는 repository에서 findAll()을 사용하거나,
-        // 필요한 데이터만 가져오는 쿼리 메서드를 정의하여 사용
+    public List<Restaurant> getTopRestaurants() {
+        // 모든 'ACTIVE' 상태의 식당을 불러온다.
         List<Restaurant> restaurants = restaurantRepository.findByStatus("ACTIVE");
 
-
-        return restaurants.stream()
-                .filter(r -> r.getMainTier() != null && r.getMainTier() == 1 ) // mainTier가 1인 요소만 필터링
+        // mainTier가 1또는 2인 식당들을 필터링
+        List<Restaurant> topRestaurants = restaurants.stream()
+                .filter(r -> r.getMainTier() != null && (r.getMainTier() == 1 || r.getMainTier()==2))
                 .collect(Collectors.toList());
+
+        return topRestaurants;
     }
+
 }
