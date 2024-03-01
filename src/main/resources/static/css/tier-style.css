@@ -20,7 +20,7 @@ body {
 }
 /* TABLET */
 @media only screen and (max-width: 1023px) {
-    .category-background, main, .search-area, .rank-description {
+    .category-background, main, .map-open-button-outer, .search-area, .rank-description {
         padding: 0 var(--mobile-outer-container-side-width);
         margin: 10px 0;
         min-width: var(--min-width);
@@ -31,7 +31,7 @@ body {
 }
 /* PC */
 @media only screen and (min-width: 1024px) {
-    .category-background, main, .search-area, .rank-description {
+    .category-background, main, .map-open-button-outer, .search-area, .rank-description {
         width: var(--pc-outer-container-width);
         max-width: var(--max-width);
         margin: 10px auto;
@@ -619,4 +619,57 @@ tbody > tr > td > div > img {
         width: 35px !important;
         line-height: 35px !important;
     }
+}
+
+
+/* 네이버 지도 */
+#mapOpenButton {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    background-color: var(--main-color);
+    color: #FFF;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+}
+.map-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+}
+.map-area > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 5px;
+}
+#mapCloseButton {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    margin: 0;
+    height: 30px;
+    width: 50px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--main-color);
+    color: #FFF;
+    border-radius: 5px;
+}
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 7px;
+}
+#mapMarker {
+    font-size: 5px;
+    color: #FF0;
 }
