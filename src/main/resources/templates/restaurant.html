@@ -73,7 +73,7 @@
                 <span id="restaurantType" th:text="${restaurant.restaurantType}"></span>
                 <span id="restaurantAddress" th:text="${restaurant.restaurantAddress}"></span>
                 <span id="restaurantTel" th:text="${restaurant.restaurantTel}"></span>
-                <a id="naverMapLink" th:href="${restaurant.getRestaurantUrl()}">네이버 지도로 이동하기</a>
+                <a id="naverMapLink" target="_blank" th:href="${restaurant.getRestaurantUrl()}">네이버 지도로 이동하기</a>
             </div>
         </div>
         <div>

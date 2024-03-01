@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -55,11 +56,6 @@ public class MypageController {
                         .toList();
         model.addAttribute("restaurantCommentList", activeRestaurantCommentList);
 
-        // 커뮤나티관련 정보
-        //status가 ACTIVE상태인 post/postComment만 list로 새로만들기
-//        List<Post> activePostList = user.getPostList().stream()
-//                .filter(post -> post.getStatus().equals("ACTIVE"))
-//                .toList();
         List<Post> activePostList = user.getPostList().stream()
                 .filter(post -> post.getStatus().equals("ACTIVE"))
                 .sorted(Comparator.comparing(Post::getCreatedAt).reversed()) // 최신 글 순으로 정렬
@@ -89,6 +85,11 @@ public class MypageController {
         String newNickname=requestBody.get("newNickname");
         User user = customOAuth2UserService.getUser(principal.getName());
 
+        // 닉네임 변경 후 30일이 안 지났는지 확인
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
+        if (user.getUpdatedAt().isAfter(thirtyDaysAgo)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("닉네임을 변경한 지 30일이 지나지 않아 변경할 수 없습니다.");
+        }
         //전과 동일한 닉네임
         if(newNickname.toLowerCase().equals(user.getUserNickname().toLowerCase())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("이전과 동일한 닉네임입니다.");
@@ -108,6 +109,7 @@ public class MypageController {
         }
 
         user.setUserNickname(newNickname);
+        user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
 
         return ResponseEntity.ok().build();
