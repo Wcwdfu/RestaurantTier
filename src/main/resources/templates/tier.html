@@ -44,7 +44,8 @@
     <script type="text/javascript" src="/js/library/vendors.min.js"></script>
     <script type="text/javascript" src="/js/library/main.js"></script>
     <script src="/js/tierScript.js" defer></script>
-
+    <script src="/js/tierMapScript.js" defer></script>
+    <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gifrujmoep"></script>
 
 </head>
 <body>
@@ -238,6 +239,15 @@
         </div>
     </div>
 </div>
+<div class="map-open-button-outer">
+    <button id="mapOpenButton">지도로 보기</button>
+</div>
+<div id="mapArea" class="map-area">
+    <div>
+        <div id="map"></div>
+        <button id="mapCloseButton">닫기</button>
+    </div>
+</div>
 <div class="search-area">
     <div class="search-container">
         <div id="spinner" style="display: none" class="spinner-border text-success" role="status">
@@ -333,5 +343,9 @@
 <!--footer-->
 <footer th:replace="~{footer::footerFragment}">
 </footer>
+<!-- 자바스크립트 데이터 전달용 태그 -->
+<div id="mapInfo"
+     th:attr="data-latitude=${mapLatitude}, data-longitude=${mapLongitude}, data-zoom=${mapZoom}, data-restaurantList=${restaurantList}">
+</div>
 
 </html>

@@ -44,6 +44,7 @@ public class Restaurant {
     private String restaurantLongitude;
 
     private String status;
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     public Restaurant(String restaurantName, String restaurantType, String restaurantUrl, Integer visitCount,String restaurantCuisine, String status, LocalDateTime createdAt) {
@@ -56,6 +57,7 @@ public class Restaurant {
         this.createdAt = createdAt;
     }
 
+    @JsonIgnore
     private LocalDateTime updatedAt;
 
 
