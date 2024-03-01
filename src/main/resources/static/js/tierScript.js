@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // --------------- 클릭된 종류 버튼 효과 ----------------------------
-        // 현재 URL에서 쿼리 스트링 추출
+    // 현재 URL에서 쿼리 스트링 추출
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     let cuisineParam = urlParams.get('cuisine');
@@ -75,21 +75,19 @@ $(document).ready(function () {
         });
     }
 
+
     // 검색 로직
     const pageController = document.getElementById('pageController');
     const tierTableBody = document.getElementById('tierTableBody');
     const searchInput = document.getElementById('searchInput');
     searchInput.value = '';
     const spinner = document.getElementById('spinner');
-    let newTrElements;
     var prevInput = '';
     var currentUrl = window.location.href;
     var baseUrl = window.location.origin;
     var relativeUrl = currentUrl.replace(baseUrl, '');
     var lastInputType = 0; // 0이면 빈칸, 1이면 입력
-    var isListApiProcessing = false;
     let timer;
-
     function showSpinner() { // Spinner 표시
         const spinnerDisplay = spinner.style.display;
         if (spinnerDisplay === 'none') {
@@ -99,9 +97,34 @@ $(document).ready(function () {
     function hideSpinner() { // Spinner 안보이게
         spinner.style.display = 'none';
     }
+    // 검색 데이터 미리 불러오기
+    let newTrElements;
+    let isRestaurantDataLoading = true;
+    loadRestaurantList();
+    function loadRestaurantList() {
+        const apiUrl = "/api/list" + relativeUrl;
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                newTrElements = doc.querySelectorAll('tr');
+                isRestaurantDataLoading = false;
+            })
+            .catch(error => {
+                // 오류 처리
+                console.error('Error fetching data:', error);
+                location.reload();
+            });
+    }
 
     searchInput.addEventListener('input', function(event) {
-        const inputValue = event.target.value;
+        let inputValue = event.target.value;
         showSpinner();
         if (prevInput !== '' && inputValue === '') { // 이전에 검색창에 내용이 있었다가 다지워서 빈칸이 된 경우 -> page 원상복귀
             tierTableBody.innerHTML = '';
@@ -118,7 +141,6 @@ $(document).ready(function () {
                     if (html && lastInputType === 0) {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(html, 'text/html');
-
                         const tbodyContent = doc.querySelector('tbody').innerHTML;
                         tierTableBody.innerHTML = tbodyContent;
 
@@ -131,42 +153,28 @@ $(document).ready(function () {
                     console.error('Error fetching data:', error);
                 });
 
-            pageController.style.display = 'flex';
-        } else if (prevInput === '') { // 이전에 검색창에 내용이 없었던 경우 -> page가 아닌 list로 불러옴
-            tierTableBody.innerHTML = '';
-            isListApiProcessing = true;
-            lastInputType = 1;
-            const apiUrl = "/api/list" + relativeUrl;
-            fetch(apiUrl)
-                .then(response => {
-                    if (lastInputType === 1) {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.text();
-                    }
-                })
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    newTrElements = doc.querySelectorAll('tr');
-                    filterTableBody(newTrElements, inputValue);
-                    isListApiProcessing = false;
-                })
-                .catch(error => {
-                    // 오류 처리
-                    console.error('Error fetching data:', error);
-                    isListApiProcessing = false;
-                });
+            pageController.style.display = 'flex'; // 페이지 컨트롤러 다시 보이게
         } else {
+            lastInputType = 1;
             timer = setTimeout(function() {
                 if (lastInputType !== 0) {
                     pageController.style.display = 'none';
+                    tierTableBody.innerHTML = '';
                     lastInputType = 1;
-                    if (lastInputType === 1 && !isListApiProcessing) {
+                    if (lastInputType === 1 && !isRestaurantDataLoading) {
                         filterTableBody(newTrElements, inputValue);
+                    } else if (isRestaurantDataLoading) {
+                        // 0.1초마다 체크하여 filterTableBody 함수 실행
+                        let interval = setInterval(function() {
+                            if (!isRestaurantDataLoading) {
+                                clearInterval(interval); // 데이터 로딩이 완료되면 setInterval 종료
+                                if (lastInputType === 1) {
+                                    filterTableBody(newTrElements, searchInput.value);
+                                }
+                            }
+                        }, 100);
                     }
-                } // 검색 결과를 보여주는거는 0.4초가 지나야 필터링 해줌. 이게 핵심임.
+                } // 검색 결과를 보여주는건 0.4초가 지나야 필터링 해줌.
             }, 400);
         }
         scheduleBlurEvent();
@@ -212,7 +220,7 @@ $(document).ready(function () {
             clearTimeout(timerForBlur);
         }
         // 새로운 타이머 설정
-        timerForBlur = setTimeout(searchInputBlur, 1200);
+        timerForBlur = setTimeout(searchInputBlur, 2000);
     }
 });
 

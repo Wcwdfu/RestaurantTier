@@ -11,7 +11,7 @@ body{
 /* TABLET */
 @media only screen and (max-width: 1023px) {
     .ranking-container {
-        margin: 110px var(--mobile-outer-container-side-width) 0 var(--mobile-outer-container-side-width);
+        margin: 0 var(--mobile-outer-container-side-width);
         min-width: var(--min-width);
         line-height: normal;
         color: black;
@@ -28,27 +28,6 @@ body{
     }
 }
 
-/*배너 높이*/
-@media only screen and (max-width: 767px) {
-    /* 모바일화면 */
-    .top-banner{
-        height: 210px;
-    }
-
-}
-@media only screen and (min-width: 768px) {
-    /* 모바일화면 */
-    .top-banner{
-        height: 265px;
-    }
-
-}
-@media only screen and (min-width: 1024px) {
-    /* pc화면 */
-    .top-banner{
-        height: 300px;
-    }
-}
 section h2 {
     color: var(--main-color);
 }
@@ -87,15 +66,15 @@ tr {
     border-radius: 4px;
 }
 .rank-first {
-    background-color: #FFD700;
+    background-color: rgba(255, 220, 31, 0.75);
     font-weight: 800;
 }
 .rank-second {
-    background-color: #C0C0C0;
+    background-color: rgba(192, 192, 192, 0.75);
     font-weight: 600;
 }
 .rank-third {
-    background-color: #CD7F32;
+    background-color: rgba(246, 164, 86, 0.91);
 }
 td {
     padding: 4px 0;
@@ -103,4 +82,33 @@ td {
 }
 .td-rank {
     padding-left: 10px;
+}
+.td-eval-count > div {
+    width: 50px;
+    text-align: right;
+}
+
+
+
+
+/*배너 높이*/
+@media only screen and (max-width: 767px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 210px;
+    }
+
+}
+@media only screen and (min-width: 768px) {
+    /* 모바일화면 */
+    .top-banner{
+        height: 265px;
+    }
+
+}
+@media only screen and (min-width: 1024px) {
+    /* pc화면 */
+    .top-banner{
+        height: 300px;
+    }
 }

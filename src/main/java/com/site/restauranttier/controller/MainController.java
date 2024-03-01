@@ -62,7 +62,11 @@ public class MainController {
 
     // 검색 결과 화면
     @GetMapping("/search")
-    public String search(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+    public String search(
+            Model model,
+            @RequestParam(value = "kw", defaultValue = "") String kw,
+            Principal principal
+    ) {
         if (kw.isEmpty()) {
             model.addAttribute("kw", "입력된 검색어가 없습니다.");
             return "searchResult";
@@ -73,7 +77,7 @@ public class MainController {
         String[] kwList = kw.split(" "); // 검색어 공백 단위로 끊음
         List<Restaurant> restaurantList = restaurantService.searchRestaurants(kwList);
 
-        List<RestaurantTierDataClass> restaurantTierDataClassList = evaluationService.convertToTierDataClassList(restaurantList, null);
+        List<RestaurantTierDataClass> restaurantTierDataClassList = evaluationService.convertToTierDataClassList(restaurantList, principal, 0, true);
 
         model.addAttribute("restaurantTierData", restaurantTierDataClassList);
 
