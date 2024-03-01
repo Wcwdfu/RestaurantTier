@@ -87,7 +87,7 @@ public class MypageController {
 
         // 닉네임 변경 후 30일이 안 지났는지 확인
         LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
-        if (user.getUpdatedAt().isAfter(thirtyDaysAgo)) {
+        if (user.getUpdatedAt() != null && user.getUpdatedAt().isAfter(thirtyDaysAgo)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("닉네임을 변경한 지 30일이 지나지 않아 변경할 수 없습니다.");
         }
         //전과 동일한 닉네임
