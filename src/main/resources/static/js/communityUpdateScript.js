@@ -5,16 +5,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var tinyEditor = tinymce.init({
         selector: "#tiny-editor",
+        //     content_style: `p{
+        //     margin:0
+        //     }
+        // @media (max-width: 1023px) {
+        //   img { max-width: 100%;  max-height: 100%; }
+        // }
+        // @media (min-width: 1024px) {
+        //   img { max-width:80%; max-height:400px; }
+        // }
+        // `,
         content_style: `p{
-        margin:0
+            margin:0
+            }
+        img{
+        max-width:100%; max-height:400px;
         }
-    @media (max-width: 1023px) {
-      img { max-width: 100%;  max-height: 100%; }
-    }
-    @media (min-width: 1024px) {
-      img { max-width:80%; max-height:400px; }
-    }
-    `,
+        `,
         min_height: textareaHeight,
         max_height: textareaHeight,
         menubar: false,
