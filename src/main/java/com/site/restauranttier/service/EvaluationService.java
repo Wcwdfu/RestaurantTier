@@ -181,37 +181,37 @@ public class EvaluationService {
         }
     }
 
-    public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList(String position, Principal principal) {
+    public List<RestaurantTierDataClass> getAllRestaurantTierDataClassList(String position, Principal principal, int page, Boolean isSearching) {
         List<Restaurant> restaurantList = restaurantRepository.getAllRestaurantsOrderedByAvgScore(minNumberOfEvaluations, position);
 
-        return convertToTierDataClassList(restaurantList, principal);
+        return convertToTierDataClassList(restaurantList, principal, page, isSearching);
     }
 
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisine(String cuisine, String position, Principal principal) {
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisine(String cuisine, String position, Principal principal, int page, Boolean isSearching) {
         List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineOrderedByAvgScore(cuisine, minNumberOfEvaluations, position);
 
-        return convertToTierDataClassList(restaurantList, principal);
+        return convertToTierDataClassList(restaurantList, principal, page, isSearching);
     }
 
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListBySituation(Situation situation, String position, Principal principal) {
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListBySituation(Situation situation, String position, Principal principal, int page, Boolean isSearching) {
         List<Restaurant> restaurantList = restaurantRepository.getRestaurantsBySituationOrderedByAvgScore(situation, minNumberOfEvaluations, position);
 
-        return convertToTierDataClassList(restaurantList, situation, principal);
+        return convertToTierDataClassList(restaurantList, situation, principal, page, isSearching);
     }
 
-    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisineAndSituation(String cuisine, Situation situation, String position, Principal principal) {
+    public List<RestaurantTierDataClass> getRestaurantTierDataClassListByCuisineAndSituation(String cuisine, Situation situation, String position, Principal principal, int page, Boolean isSearching) {
         List<Restaurant> restaurantList = restaurantRepository.getRestaurantsByCuisineAndSituationOrderedByAvgScore(cuisine, situation, minNumberOfEvaluations, position);
 
-        return convertToTierDataClassList(restaurantList, situation, principal);
+        return convertToTierDataClassList(restaurantList, situation, principal, page, isSearching);
     }
 
     // 그냥 Restaurant 리스트를 RestaurantTierDataClass 리스트로 변경 ver1
-    public List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Principal principal) {
+    public List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Principal principal, int page, Boolean isSearching) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
         for (int i = 0; i < restaurantList.size(); i++) {
             Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant);
-            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i);
+            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i, page, isSearching);
             //
             if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
                 newDataClass.setRanking("-");
@@ -226,13 +226,13 @@ public class EvaluationService {
     }
 
     // 그냥 Restaurant 리스트를 RestaurantTierDataClass 리스트로 변경. ver2: situation이 선택된 경우.
-    private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Situation situation, Principal principal) {
+    private List<RestaurantTierDataClass> convertToTierDataClassList(List<Restaurant> restaurantList, Situation situation, Principal principal, int page, Boolean isSearching) {
         List<RestaurantTierDataClass> resultList = new ArrayList<>();
         for (int i = 0; i < restaurantList.size(); i++) {
             Restaurant restaurant = restaurantList.get(i);
             RestaurantTierDataClass newDataClass = new RestaurantTierDataClass(restaurant, getSituationTier(restaurant, situation));
             newDataClass.setRanking((i + 1) + "");
-            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i);
+            injectIsFavoriteIsEvaluation(principal, newDataClass, restaurant, i, page, isSearching);
             if (restaurant.getRestaurantEvaluationCount() < minNumberOfEvaluations) { // 평가 데이터 부족
                 resultList.add(newDataClass);
             } else { // 평가 데이터가 충분히 있는 경우
@@ -243,16 +243,27 @@ public class EvaluationService {
         return resultList;
     }
 
-    private void injectIsFavoriteIsEvaluation(Principal principal, RestaurantTierDataClass newDataClass, Restaurant restaurant, int index) {
+    private void injectIsFavoriteIsEvaluation(Principal principal, RestaurantTierDataClass newDataClass, Restaurant restaurant, int index, int page, Boolean isSearching) {
         if (principal == null) {
             newDataClass.setIsEvaluation(false);
             newDataClass.setIsFavorite(false);
             return;
         }
         if ( // 현재 페이지만 연산
-                index >= TierController.tierPageSize * (TierController.currentTierPage)
-                        && index < TierController.tierPageSize * (TierController.currentTierPage + 1)
+                index >= TierController.tierPageSize * page
+                        && index < TierController.tierPageSize * (page + 1)
         ) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            // 로그인 된 경우에 즐찾, 평가 여부 저장
+            // 평가 여부
+            Optional<Evaluation> evaluationOptional = evaluationRepository.findByUserAndRestaurant(user, restaurant);
+            newDataClass.setIsEvaluation(evaluationOptional.isPresent());
+            // 즐겨찾기 여부
+            Optional<RestaurantFavorite> favoriteOptional = restaurantFavoriteRepository.findByUserAndRestaurant(user, restaurant);
+            newDataClass.setIsFavorite(favoriteOptional.isPresent());
+            return;
+        }
+        if (isSearching) {
             User user = customOAuth2UserService.getUser(principal.getName());
             // 로그인 된 경우에 즐찾, 평가 여부 저장
             // 평가 여부
