@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -281,6 +282,22 @@ public class CommunityController {
 
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
+
+    // 이미지 업로드 시 미리보기
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PostMapping("/api/upload/image")
+    public ResponseEntity<?> imageUpload(Principal principal, @RequestParam("image") MultipartFile imageFile) throws IOException {
+        if (imageFile.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("파일이 없습니다.");
+        }
+
+        String photoImgUrl = storageService.storeImage(imageFile); // 이미지 저장 서비스 호출
+        Map<String, String> response = new HashMap<>();
+        response.put("fileUrl", photoImgUrl);
+        logger.info(response.get("fileUrl"));
+        return ResponseEntity.ok(response);
+    }
+
 
     // 댓글 입력창 포커스시 로그인 상태 확인
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
