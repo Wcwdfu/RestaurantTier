@@ -98,7 +98,11 @@
                 <tr th:if="${myRank != null}" class="my-rank">
                     <td class="td-rank" th:text="${myRank.getRank()}"></td>
                     <td th:text="${myRank.getUser().getUserNickname()}"></td>
-                    <td th:text="${myRank.getUser().getEvaluationList().size()} + '개'"></td>
+                    <td class="td-eval-count">
+                        <div>
+                            <span th:text="${myRank.getUser().getEvaluationList().size()} + '개'"></span>
+                        </div>
+                    </td>
                 </tr>
                 <tr th:each="userRank :${rankList}"
                     th:class="${userRank.getRank() == 1 ? 'rank-first' :
@@ -106,7 +110,11 @@
                     (userRank.getRank() == 3 ? 'rank-third' : ''))}">
                     <td class="td-rank" th:text="${userRank.getRank()}"></td>
                     <td th:text="${userRank.getUser().getUserNickname()}"></td>
-                    <td th:text="${userRank.getUser().getEvaluationList().size()} + '개'"></td>
+                    <td class="td-eval-count">
+                        <div>
+                            <span th:text="${userRank.getUser().getEvaluationList().size()} + '개'"></span>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

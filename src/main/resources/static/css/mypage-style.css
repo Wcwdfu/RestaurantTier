@@ -1,201 +1,259 @@
+/* 여기 수정 */
 @import "variables.css";
-* {
-    font-family: 'NanumSquare', sans-serif;
+/* ------------------- 화면 구성 ----------------- */
+
+/* TABLET */
+@media only screen and (max-width: 1023px) {
+    #mainContents {
+        margin: 10px auto;
+        padding: 0 var(--mobile-outer-container-side-width);
+        min-width: var(--min-width);
+        width: 100%;
+    }
+    .gray-border-circular{
+        padding: 10px;
+    }
+    #nickname{
+        padding: 5px;
+    }
+    #area1Top p{
+        width: 120px;
+    }
+    #nicknameComment{
+        padding-left: 10px;
+    }
 }
-/* 저장된 맛집 */
-#area2Contents {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* PC */
+@media only screen and (min-width: 1024px) {
+    #mainContents {
+        width: var(--pc-outer-container-width);
+        max-width: var(--max-width);
+        margin: 10px auto;
+    }
+    .gray-border-circular{
+        padding: 50px;
+    }
+    #area1Top p{
+        width: 180px;
+    }
+    #nicknameComment{
+        padding-left: 200px;
+    }
 }
-.restaurant-favorite-container {
+/* ------------------- 화면 구성 ----------------- */
+.hr{
+    margin: 0;
+    text-align: center;
+}
+#navBar{
+    overflow-x: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    margin-top: 110px;
+    text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+#navBar div{
+    display: inline-block;
+}
+.navbar-title{
     cursor: pointer;
-    width: 100%;
+}
+.navbar-title p{
+    margin: 10px 20px;
+}
+.selected{
+    color: #0a3622;
+    border-bottom: 2px solid #0a3622;
+}
+.hidden{
+    display: none;
+}
+.gray-border-circular{
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 5px;
+}
+/*----------------- 내정보 영역(Area1) ---------------*/
+.margin25px{
+    margin-bottom:50px;
+}
+#area1Top p{
+    color: black;
+    margin: 10px;
+}
+#area1Contents div{
+    margin-bottom: 15px;
+}
+#profileImgArea{
+    display: flex;
+    max-width: 800px;
+}
+#profileimg{
+    width: 150px;
+    height: 150px;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+#emailArea {
     display: flex;
     align-items: center;
-    padding: 5px 9px;
-    margin-bottom: 10px;
-    border: #888 solid 1px;
-    border-radius: 6px;
+    max-width: 800px;
 }
-.restaurant-img {
-    width: 50px;
-    min-width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    margin-right: 7px;
-}
-.restaurant-info {
-    display: flex;
+#emailArea > span {
     flex: 1;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 7px;
 }
-.restaurant-name {
+#nicknameArea{
+    display: flex;
+    max-width: 800px;
+}
+#nickname{
+    width: 60%;
+    border-radius: 5px;
+    margin-right: 15px;
+    flex: 1;
+}
+#nicknameComment{
+    width: 100%;
+    color: gray;
+    font-size: 12px;
+}
+#saveBtnArea{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#saveBtn{
+    border: none;
+    border-radius: 5px;
+    width: 90px;
+    height: 40px;
+    font-size: 15px;
+}
+#countInfo p{
+    margin: 15px 0;
     font-size: 16px;
-    color: black;
+    color: #555;
+}
+
+/*----------------- 로그아웃 버튼 ---------------*/
+
+#logoutBtn{
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: #FFF;
+
+    width: 100%;
+    height: 42px;
+}
+
+/*----------------- 내가 작성한 게시글 영역(Area5) ---------------*/
+
+.postul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0;
+    border-top: 1px solid white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.postli {
+    width: 100%;
+    display: flex;
+    height: 77px;
+    align-items: center;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 14px;
+    background: white;
+    border-top: 1px solid #ebeef1;
+    position: relative;
+}
+.recommend-tab{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: center;
+    font-size: 14px;
+    color: gray;
     white-space: nowrap;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    text-align: center;
+
+    flex-shrink: 0;
+}
+.recommend-tab img{
+    width: 14px;
+    height: 14px;
+}
+.postBox{
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-right: 12px;
+}
+
+.postLink {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.comment-count{
+    color: #d51f0f !important;
+    margin-left: 2px;
+    margin-bottom: 2px;
+}
+
+.underLink{
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    color: #8b99a6;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-@media only screen and (max-width: 490px) {
-    .restaurant-name {
-        width: 239px;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .restaurant-name {
-        width: 205px;
-    }
-}
-@media only screen and (max-width: 370px) {
-    .restaurant-name {
-        width: 190px;
-    }
-}
-@media only screen and (max-width: 340px) {
-    .restaurant-name {
-        width: 170px;
-    }
-}
-@media only screen and (max-width: 310px) {
-    .restaurant-name {
-        width: 150px;
-    }
-}
-.restaurant-type {
-    font-size: 12px;
-    color: #444;
-}
-.restaurant-cuisine-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    margin-right: 7px;
-}
-/* 평가 모음 */
-#area3Contents {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.dropdown-outer {
+    white-space: nowrap;
     width: 100%;
-    display: flex;
-    justify-content: left;
+    height: 24px;
 }
-.dropdown {
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-.dropdown button {
-    padding: 6px 13px;
-    border: #666 solid 1px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.dropdown span {
+.underLink > span{
+    float: left;
+    padding-left: 8px;
     line-height: 24px;
-    font-size: 15px;
-}
-.dropdown ul {
-    border: #333 solid 1px;
-    line-height: 24px;
-    font-size: 15px;
-}
-.dropdown li:hover {
-    background-color: var(--main-light-color);
-}
-
-.restaurant-evaluation-container-outer {
-    width: 100%;
-}
-.restaurant-evaluation-container {
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 9px;
-    margin-bottom: 10px;
-    border: #888 solid 1px;
-    border-radius: 6px;
-}
-.evaluation-restaurant-info {
-    width: 100%;
+    white-space: nowrap;
     display: flex;
     align-items: center;
 }
-/* 평가 점수 부분 */
-.evaluation-outer {
-    display: flex;
-
+.category{
+    padding-left: 0 !important;
 }
-.category-main-name {
-    width: 70px;
-    font-size: 15px;
-    color: #222;
+.createdAt::before, .author::before{
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #ebeef1;
+    height: 12px;
+    content: "";
+    margin-right: 8px;
 }
-.category-main-score {
-    text-align: center;
-    width: 70px;
-    font-size: 16px;
-    color: #000;
-    font-weight: 550;
-}
-.category-name {
-    width: 70px;
-    font-size: 14px;
-    color: #444;
-}
-.category-score {
-    text-align: center;
-    width: 70px;
-    font-size: 15px;
-    color: #000;
-}
-/* 댓글 내용 */
-#area4Contents {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.restaurant-comment-container {
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 9px;
-    margin-bottom: 10px;
-    border: #888 solid 1px;
-    border-radius: 6px;
-}
-.restaurant-comment-section {
-    width: 100%;
-    display: flex;
-    justify-content: left;
-}
-.restaurant-comment-like {
-    width: 50px;
-    margin-right: 7px;
-    text-align: center;
-    color: #222;
-    font-size: 15px;
-}
-.restaurant-comment-body {
+#author{
     flex: 1;
-    font-size: 15px;
-    margin-right: 10px;
-    line-height: 24px;
-    color: #222;
-}
-.restaurant-comment-date {
-    width: 80px;
-    text-align: right;
-    font-size: 13px;
-    color: #444;
+    overflow: hidden;
 }
