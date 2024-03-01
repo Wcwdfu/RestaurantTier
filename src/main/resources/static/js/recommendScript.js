@@ -32,12 +32,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // "전체" 버튼 클릭 시 특별 처리
             if (this.dataset.cuisine === "전체") {
-                // 모든 다른 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
-                document.querySelectorAll('.cell-button').forEach(otherButton => {
-                    otherButton.classList.remove('selected');
-                    const otherImg = otherButton.querySelector('img');
-                    otherImg.src = otherImg.dataset.defaultSrc; // 기본 이미지로 변경
-                });
+                if (this.classList.contains('selected')) {
+                    // "전체" 버튼이 이미 선택된 상태였다면, 해당 버튼만 선택 해제하고 기본 이미지로 변경
+                    this.classList.remove('selected');
+                    img.src = img.dataset.defaultSrc; // 기본 이미지로 변경
+                    return; // 추가 처리 없이 함수 종료
+                } else {
+                    // 모든 다른 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
+                    document.querySelectorAll('.cell-button').forEach(otherButton => {
+                        otherButton.classList.remove('selected');
+                        const otherImg = otherButton.querySelector('img');
+                        otherImg.src = otherImg.dataset.defaultSrc; // 기본 이미지로 변경
+                    });
+                }
+
             } else {
                 // 다른 카테고리 버튼 클릭 시 "전체" 버튼의 "selected" 클래스 제거 및 기본 이미지로 변경
                 const allButton = document.querySelector('.cell-button[data-cuisine="전체"]');
@@ -59,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 드롭다운 항목에 대한 클릭 이벤트 리스너를 추가합니다.
     document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             // 선택된 항목의 텍스트를 변수에 저장합니다.
             restaurantLocation = this.textContent.trim()
 
@@ -209,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     const restaurantImageUrl = matchedData.restaurantImgUrl;
 
 
-
                     // 식당 점수
                     let score = 0.0
                     score = (matchedData.restaurantScoreSum / matchedData.restaurantEvaluationCount) / 7.0 * 10.0;
@@ -263,150 +270,150 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //재설정 버튼 로직
-    document.getElementById('restartBtn').addEventListener('click', function () {
-        location.href = location.href; // 현재 URL로 페이지 새로고침
-    });
-
-
-//바로 다시하기 버튼 로직
-    document.getElementById('restartDirectBtn').addEventListener('click', function () {
-        //select 박스 초기화
-        const selectedBox = document.getElementById('SelectedBox');
-        selectedBox.style.backgroundImage = '';
-        const processingTitle = document.getElementById('processingTitle');
-
-        processingTitle.innerHTML ='맛집을 고르는 중... <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">'
-
-
-
-        const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation;
-
-        fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`${response.status}: ${response.message}`);
-                }
-                return response.json();
-            })
-
-            .then(data => {
-                // 데이터가 비어 있는 경우
-                if (!data || data.length === 0) {
-                    alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
-                    window.location.reload(); // 페이지 새로고침
-                    return;
-                }
-                var restaurantList = data
-                const imgDivs = document.querySelectorAll('.result-img-list');
-                imgDivs.forEach(imgDiv => {
-                    while (imgDiv.firstChild) {
-                        imgDiv.removeChild(imgDiv.firstChild);
-                    }
-                    restaurantList.forEach(restaurant => {
-                        const imgElement = document.createElement('img');
-                        if (restaurant.restaurantImgUrl !== "no_img" && restaurant.restaurantImgUrl !== "no_restaurant") {
-                            imgElement.src = restaurant.restaurantImgUrl;
-                        } else {
-                            imgElement.src = "/img/recommend/no_img.png";
-                        }
-
-
-                        // 레스토랑 id를 data 속성으로 추가
-                        imgElement.setAttribute('data-id', restaurant.restaurantId);
-
-                        imgDiv.appendChild(imgElement);
-                    });
-                });
-
-
-                // 결과 페이지 가리기
-                document.getElementById('resultInfoPage').classList.add('hidden');
-
-                // 슬라이더 시작
-                const resultImgSlideBar = document.querySelector('.result-img-slideBar');
-                resultImgSlideBar.style.opacity = 1;
-                
-                // 스크롤 이미지슬라이드바로 올리기
-                const element = document.querySelector('.result-img-slideBar');
-                element.classList.remove('hidden');
-                element.scrollIntoView({
-                    block: 'center', // 수직 방향으로 중앙에 위치
-                    inline: 'center' // 수평 방향으로 중앙에 위치 (필요한 경우)
-                });
-                // 버튼 삭제
-                const restartDirectBtn = document.getElementById('restartDirectBtn');
-                const restartBtn = document.getElementById('restartBtn');
-
-                restartDirectBtn.classList.add("hidden")
-                restartBtn.classList.add("hidden")
-
-
-            })
-            .catch(error => {
-                console.error("Error adding comment:", error);
-            });
-
-        const storeHref = document.getElementById('storeHref');
-        storeHref.removeAttribute('href');
-
-        // 멈춘 뒤 멈춘 자리의 사진 데이터 정보 띄우기
-        setTimeout(function () {
-            matchingdata();
-            document.getElementById('resultInfoPage').classList.remove('hidden');
-            const resultInfoPage = document.getElementById('resultInfoPage');
-            resultInfoPage.style.opacity = 1;
-            const processingTitle = document.getElementById('processingTitle');
-            processingTitle.textContent = '사진을 누르면 해당 가게 페이지로 이동합니다';
-
-            setTimeout(function () {
-                const restartBtn = document.getElementById('restartBtn');
-                restartBtn.classList.remove("hidden")
-                const restartDirectBtn = document.getElementById('restartDirectBtn');
-                restartDirectBtn.classList.remove("hidden")
-
-                const resultImgSlideBar = document.querySelector('.result-img-slideBar');
-                resultImgSlideBar.style.opacity = 0;
-
-
-                setTimeout(function () {
-                    resultImgSlideBar.classList.add('hidden');
-                }, 500);
-
-            }, 500);
-
-        }, 2300);
-    });
-
-// 셀렉 박스 위치와 가장 가까운 이미지 가져오기
-    function findClosestImageToSelectBox() {
-        const selectBox = document.querySelector('#SelectedBox'); // .select-box 요소 선택
-        const images = document.querySelectorAll('.result-img-list > img'); // 모든 .img_box 요소 선택
-        const selectBoxRect = selectBox.getBoundingClientRect(); // .select-box의 위치 정보
-
-        let closestImage = null;
-        let minDistance = Infinity;
-
-        images.forEach((image) => {
-            const imageRect = image.getBoundingClientRect(); // 각 이미지의 위치 정보
-            // .select-box와 이미지 중심점 사이의 거리 계산
-            const distance = Math.sqrt(Math.pow(imageRect.x - selectBoxRect.x, 2) + Math.pow(imageRect.y - selectBoxRect.y, 2));
-
-            if (distance < minDistance) {
-                closestImage = image; // 가장 가까운 이미지 업데이트
-                minDistance = distance;
-            }
+        document.getElementById('restartBtn').addEventListener('click', function () {
+            location.href = location.href; // 현재 URL로 페이지 새로고침
         });
 
 
-        return closestImage
-    }
+//바로 다시하기 버튼 로직
+        document.getElementById('restartDirectBtn').addEventListener('click', function () {
+            //select 박스 초기화
+            const selectedBox = document.getElementById('SelectedBox');
+            selectedBox.style.backgroundImage = '';
+            const processingTitle = document.getElementById('processingTitle');
 
-}})
+            processingTitle.innerHTML = '맛집을 고르는 중... <img class="title-icon" src="/img/recommend/wondering.png" alt="wondering_img">'
+
+
+            const apiUrl = "/api/recommend?cuisine=" + selectedCuisines.join('-') + "&location=" + restaurantLocation;
+
+            fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`${response.status}: ${response.message}`);
+                    }
+                    return response.json();
+                })
+
+                .then(data => {
+                    // 데이터가 비어 있는 경우
+                    if (!data || data.length === 0) {
+                        alert("해당 조건에 맞는 맛집이 존재하지 않습니다.");
+                        window.location.reload(); // 페이지 새로고침
+                        return;
+                    }
+                    var restaurantList = data
+                    const imgDivs = document.querySelectorAll('.result-img-list');
+                    imgDivs.forEach(imgDiv => {
+                        while (imgDiv.firstChild) {
+                            imgDiv.removeChild(imgDiv.firstChild);
+                        }
+                        restaurantList.forEach(restaurant => {
+                            const imgElement = document.createElement('img');
+                            if (restaurant.restaurantImgUrl !== "no_img" && restaurant.restaurantImgUrl !== "no_restaurant") {
+                                imgElement.src = restaurant.restaurantImgUrl;
+                            } else {
+                                imgElement.src = "/img/recommend/no_img.png";
+                            }
+
+
+                            // 레스토랑 id를 data 속성으로 추가
+                            imgElement.setAttribute('data-id', restaurant.restaurantId);
+
+                            imgDiv.appendChild(imgElement);
+                        });
+                    });
+
+
+                    // 결과 페이지 가리기
+                    document.getElementById('resultInfoPage').classList.add('hidden');
+
+                    // 슬라이더 시작
+                    const resultImgSlideBar = document.querySelector('.result-img-slideBar');
+                    resultImgSlideBar.style.opacity = 1;
+
+                    // 스크롤 이미지슬라이드바로 올리기
+                    const element = document.querySelector('.result-img-slideBar');
+                    element.classList.remove('hidden');
+                    element.scrollIntoView({
+                        block: 'center', // 수직 방향으로 중앙에 위치
+                        inline: 'center' // 수평 방향으로 중앙에 위치 (필요한 경우)
+                    });
+                    // 버튼 삭제
+                    const restartDirectBtn = document.getElementById('restartDirectBtn');
+                    const restartBtn = document.getElementById('restartBtn');
+
+                    restartDirectBtn.classList.add("hidden")
+                    restartBtn.classList.add("hidden")
+
+
+                })
+                .catch(error => {
+                    console.error("Error adding comment:", error);
+                });
+
+            const storeHref = document.getElementById('storeHref');
+            storeHref.removeAttribute('href');
+
+            // 멈춘 뒤 멈춘 자리의 사진 데이터 정보 띄우기
+            setTimeout(function () {
+                matchingdata();
+                document.getElementById('resultInfoPage').classList.remove('hidden');
+                const resultInfoPage = document.getElementById('resultInfoPage');
+                resultInfoPage.style.opacity = 1;
+                const processingTitle = document.getElementById('processingTitle');
+                processingTitle.textContent = '사진을 누르면 해당 가게 페이지로 이동합니다';
+
+                setTimeout(function () {
+                    const restartBtn = document.getElementById('restartBtn');
+                    restartBtn.classList.remove("hidden")
+                    const restartDirectBtn = document.getElementById('restartDirectBtn');
+                    restartDirectBtn.classList.remove("hidden")
+
+                    const resultImgSlideBar = document.querySelector('.result-img-slideBar');
+                    resultImgSlideBar.style.opacity = 0;
+
+
+                    setTimeout(function () {
+                        resultImgSlideBar.classList.add('hidden');
+                    }, 500);
+
+                }, 500);
+
+            }, 2300);
+        });
+
+// 셀렉 박스 위치와 가장 가까운 이미지 가져오기
+        function findClosestImageToSelectBox() {
+            const selectBox = document.querySelector('#SelectedBox'); // .select-box 요소 선택
+            const images = document.querySelectorAll('.result-img-list > img'); // 모든 .img_box 요소 선택
+            const selectBoxRect = selectBox.getBoundingClientRect(); // .select-box의 위치 정보
+
+            let closestImage = null;
+            let minDistance = Infinity;
+
+            images.forEach((image) => {
+                const imageRect = image.getBoundingClientRect(); // 각 이미지의 위치 정보
+                // .select-box와 이미지 중심점 사이의 거리 계산
+                const distance = Math.sqrt(Math.pow(imageRect.x - selectBoxRect.x, 2) + Math.pow(imageRect.y - selectBoxRect.y, 2));
+
+                if (distance < minDistance) {
+                    closestImage = image; // 가장 가까운 이미지 업데이트
+                    minDistance = distance;
+                }
+            });
+
+
+            return closestImage
+        }
+
+    }
+})
 
 
 
