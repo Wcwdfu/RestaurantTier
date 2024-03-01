@@ -1,9 +1,5 @@
 @import "variables.css";
-html,
-body{
-    width:100%;
-    overflow-x:hidden;
-}
+
 #postSearch{
     width: 70px;
     border-radius: 0 5px 5px 0;
@@ -67,9 +63,7 @@ body {
 
 
 .postLink {
-    overflow: hidden;
-    width: 70%;
-    text-overflow: clip;
+    text-overflow: ellipsis;
     white-space: nowrap;
     text-decoration: none;
     color: black;
@@ -133,14 +127,10 @@ body {
 #creatdAt{
 
 }
-#author {
-    display: inline-block;
+#author{
+    flex: 1;
     overflow: hidden;
-    white-space: nowrap; /* 텍스트를 한 줄로 만듦 */
-    text-overflow: clip; /* 오버플로된 텍스트를 말줄임표로 표시 */
 }
-
-
 
 .underLink > span{
     float: left;
@@ -191,6 +181,7 @@ body {
 /* TABLET */
 @media only screen and (max-width: 1023px) {
     #content {
+        padding: 0 var(--mobile-outer-container-side-width);
         min-width: var(--min-width);
         width: 100%;
     }
