@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.history.back();
         });
     }
-
+    //게시글 수정 시작 전 백업
     // 작성 완료 버튼 리스너 추가 (추가적인 로직이 필요하다면 여기에 작성)
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
