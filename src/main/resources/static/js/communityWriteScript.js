@@ -38,40 +38,71 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    tinymce.init({
-        selector: '.toolbar',  // 적용할 요소 선택
-        plugins: 'image',  // 이미지 플러그인 활성화
-        toolbar: 'image',  // 이미지 툴바 추가
-        images_upload_url: '/api/upload/image',  // 이미지를 업로드할 서버의 엔드포인트
-        // 서버로부터 반환된 이미지 URL을 편집기에 삽입하는 처리
-        images_upload_handler: function (blobInfo, success, failure) {
-            var formData = new FormData();
-            formData.append('image', blobInfo.blob(), blobInfo.filename());
+    var tinyEditor = tinymce.init({
+        selector: ".tiny-editor",
+        min_height: 500,
+        max_height: 3000,
+        menubar: false,
+        paste_as_text: true,
+        fullpage_default_font_size: "14px",
+        branding: false,
+        plugins: "autolink code link autoresize paste contextmenu image preview",
+        toolbar: "undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link custom_image | code preview",
+        fontsize_formats: '10px 12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px',
+        setup: function(editor) {
+            editor.ui.registry.addButton('custom_image', {
+                icon: 'image',
+                tooltip: 'insert Image',
+                onAction: function () {
+                    documentUpload({
+                        multiple: false,
+                        accept: '.jpg, .png',
+                        callback: function (data) {
+                            if (data.rs_st === 0) {
+                                var fileInfo = data.rs_data;
+                                tinymce.execCommand('mceInsertContent', false,
+                                    /**
+                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                                     **/
+                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+    function documentUpload(options) {
+        // 입력: options 객체, 내부에는 multiple, accept, callback 함수가 포함됨
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', options.accept);
+        if (options.multiple) {
+            input.setAttribute('multiple', 'multiple');
+        }
 
+        input.onchange = function() {
+            var files = this.files;
+            var formData = new FormData();
+            formData.append('image', files[0]); // 첫 번째 선택된 파일만 처리
+
+            // Fetch API를 사용하여 서버로 파일을 비동기로 전송
             fetch('/api/upload/image', {
                 method: 'POST',
                 body: formData
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                .then(response => response.json())
+                .then(data => {
+                    if (typeof options.callback === 'function') {
+                        options.callback(data); // 서버로부터 받은 응답을 callback 함수에 전달
                     }
-                    console.log("json 변환 전")
-
-                    return response.json();
                 })
-                .then(result => {
-                    console.log("json 변환 후")
-                    console.log(result)
+                .catch(error => console.error('Error:', error));
+        };
 
-                    success(result.fileUrl); // 'result.fileUrl'는 서버로부터 반환된 이미지 URL
-                })
-                .catch(error => {
-                    failure(error.message); // 오류 처리
-                });
-        }
+        input.click(); // 사용자가 파일을 선택할 수 있게 파일 입력 창을 열음
+    }
 
-    });
 
 
 });

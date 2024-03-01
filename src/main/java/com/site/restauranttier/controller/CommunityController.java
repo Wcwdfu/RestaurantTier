@@ -283,19 +283,31 @@ public class CommunityController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    // 이미지 업로드 시 미리보기
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/upload/image")
     public ResponseEntity<?> imageUpload(Principal principal, @RequestParam("image") MultipartFile imageFile) throws IOException {
         if (imageFile.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("파일이 없습니다.");
+            return ResponseEntity.badRequest().body(Map.of("rs_st", -1, "rs_msg", "파일이 없습니다."));
         }
 
-        String photoImgUrl = storageService.storeImage(imageFile); // 이미지 저장 서비스 호출
-        Map<String, String> response = new HashMap<>();
-        response.put("fileUrl", photoImgUrl);
-        logger.info(response.get("fileUrl"));
-        return ResponseEntity.ok(response);
+        try {
+            // StorageService를 통해 이미지를 S3에 저장하고, URL을 받아옵니다.
+            String imageUrl = storageService.storeImage(imageFile);
+            String thumbnailUrl = imageUrl; // 실제로는 썸네일 URL을 생성하거나 처리해야 할 수 있습니다.
+
+            Map<String, Object> fileInfo = new HashMap<>();
+            fileInfo.put("thumbnailPath", thumbnailUrl);
+            fileInfo.put("fullPath", imageUrl);
+            fileInfo.put("orgFilename", imageFile.getOriginalFilename());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("rs_st", 0); // 성공 상태 코드
+            response.put("rs_data", fileInfo);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("rs_st", -1, "rs_msg", "이미지 업로드 실패"));
+        }
     }
 
 
