@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var tinyEditor = tinymce.init({
         selector: "#tiny-editor",
         min_height: 500,
-        max_height: 3000,
+        max_height: 1000,
         menubar: false,
         paste_as_text: true,
         fullpage_default_font_size: "14px",
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     /**
                                      "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
                                      **/
-                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "'>");
                             }
                         }
                     });
@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             var formData = new FormData();
             formData.append('image', files[0]); // 첫 번째 선택된 파일만 처리
 
-            // Fetch API를 사용하여 서버로 파일을 비동기로 전송
             fetch('/api/upload/image', {
                 method: 'POST',
                 body: formData

@@ -282,6 +282,7 @@ public class CommunityController {
 
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
+
     // 이미지 업로드 (미리보기)
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/upload/image")
