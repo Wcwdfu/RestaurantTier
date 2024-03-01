@@ -286,10 +286,11 @@
         </div>
 
     </div>
+
+
     <div class="btn-area">
         <button id="recommendBtn" class="btn-style">뽑기</button>
     </div>
-
 
 
     <div id="resultPage" class="hidden">
@@ -319,12 +320,11 @@
                 </a>
             </div>
             <div id="storeInfo">
-
             </div>
         </div>
 
-
     </div>
+
     <div class="btn-area">
         <button id="restartBtn" class="btn-style2 hidden alt-font">재설정</button>
         <button id="restartDirectBtn" class="btn-style2 hidden alt-font">다시 뽑기</button>
@@ -334,6 +334,9 @@
 
 </div>
 
+
+<footer th:replace="~{footer :: footerFragment}"></footer>
+
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 <script type="text/javascript">
     if(!wcs_add) var wcs_add = {};
@@ -342,8 +345,9 @@
         wcs_do();
     }
 </script>
+
 </body>
 
-<footer th:replace="~{footer :: footerFragment}"></footer>
+
 
 </html>

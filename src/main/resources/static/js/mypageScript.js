@@ -70,25 +70,13 @@ document.getElementById('saveBtn').addEventListener('click',function (){
             if (response.ok) {
                 // 변경 성공 시 동작할 코드
                 alert("닉네임 변경 성공")
-            } else if (response.status === 400) {
-                // 닉네임이 긴 경우
-                return response.text().then(errorMessege => {
-                    alert(errorMessege);
-                })
-            } else if (response.status === 409) {
-                // 닉네임이 존재하는 경우
+            } else {
+                //
                 return response.text().then(errorMessage => {
                     alert(errorMessage);
                 })
-            } else {
-                // 그 외의 경우
-                alert("닉네임 변경 실패")
-                //console.error("닉네임 변경 실패");
             }
         })
-        /*.catch(error => {
-            console.error('Error:', error);
-        });*/
 })
 
 //logout

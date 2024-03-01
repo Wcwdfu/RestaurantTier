@@ -74,6 +74,7 @@ const feedbackButton = document.getElementById('feedbackButton');
 const feedbackTextarea = document.getElementById('feedbackTextarea');
 const modal = new bootstrap.Modal(document.getElementById('exampleModalFeedback'));
 var isFeedbackWindowOpen = false;
+
 function setIsFeedbackWindowOpenFalse() {
     isFeedbackWindowOpen = false;
 }
