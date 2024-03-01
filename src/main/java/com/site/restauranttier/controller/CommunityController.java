@@ -282,7 +282,7 @@ public class CommunityController {
 
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
-
+    // 이미지 업로드 (미리보기)
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
     @PostMapping("/api/upload/image")
     public ResponseEntity<?> imageUpload(Principal principal, @RequestParam("image") MultipartFile imageFile) throws IOException {
@@ -301,7 +301,7 @@ public class CommunityController {
             fileInfo.put("orgFilename", imageFile.getOriginalFilename());
 
             Map<String, Object> response = new HashMap<>();
-            response.put("rs_st", 0); // 성공 상태 코드
+            response.put("rs_status", 0); // 성공 상태 코드
             response.put("rs_data", fileInfo);
 
             return ResponseEntity.ok(response);

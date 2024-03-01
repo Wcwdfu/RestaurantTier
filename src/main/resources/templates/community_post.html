@@ -98,7 +98,7 @@
                         <img th:if="${post.user.evaluationList.size()<10}"
                              src="/img/community/소1.png">
                         <img th:if="${post.user.evaluationList.size()>=10}" src="/img/community/소3.png">
-                        <span th:text="${post.user.userNickname} " >
+                        <span th:text="${post.user.userNickname} ">
                         </span>
                         </span>
 
@@ -127,8 +127,8 @@
         <div class="post-body">
             <div>
                 <article>
-                    <p th:text="${post.postBody}">
-                        <img src="/img/community/post_hidden.png"></p>
+                    <p th:utext="${post.postBody}">
+                    </p>
                 </article>
             </div>
         </div>
@@ -305,9 +305,9 @@
 
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 <script type="text/javascript">
-    if(!wcs_add) var wcs_add = {};
+    if (!wcs_add) var wcs_add = {};
     wcs_add["wa"] = "14b5af05d120a20";
-    if(window.wcs) {
+    if (window.wcs) {
         wcs_do();
     }
 </script>

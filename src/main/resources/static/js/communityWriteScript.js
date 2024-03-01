@@ -1,5 +1,42 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 편집기 초기화
+    var tinyEditor = tinymce.init({
+        selector: "#tiny-editor",
+        min_height: 500,
+        max_height: 3000,
+        menubar: false,
+        paste_as_text: true,
+        fullpage_default_font_size: "14px",
+        branding: false,
+        plugins: "autolink code link autoresize paste contextmenu image preview",
+        toolbar: "custom_image link | undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify",
+        fontsize_formats: '10px 12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px',
+        setup: function(editor) {
+            // 사용자 정의 버튼 (이미지 업로드)
+            editor.ui.registry.addButton('custom_image', {
+                icon: 'image',
+                tooltip: 'insert Image',
+                onAction: function () {
+                    documentUpload({
+                        multiple: false,
+                        accept: '.jpg, .png',
+                        callback: function (data) {
+                            if (data.rs_status === 0) {
+                                var fileInfo = data.rs_data;
+                                tinymce.execCommand('mceInsertContent', false,
+                                    /**
+                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                                     **/
+                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+
     // 뒤로 가기 버튼에 이벤트 리스너 추가
     var backButton = document.getElementById('back-button');
     if (backButton) {
@@ -17,9 +54,16 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('카테고리를 선택해주세요.');
             return;
         }
-
+        // TinyMCE 에디터의 내용 가져오기
+        var content = tinymce.get('tiny-editor').getContent();
         var formData = new FormData(form);
-        console.log(formData.image)
+        formData.append('content', content); // 폼 데이터에 에디터 내용 추가
+
+        // FormData에 이미지와 다른 데이터가 제대로 포함되었는지 확인
+        console.log(formData.get('content')); // 에디터 내용 로깅
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]);
+        }
         fetch('/api/community/post/create', {
             method: 'POST',
             body: formData
@@ -38,48 +82,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    var tinyEditor = tinymce.init({
-        selector: ".tiny-editor",
-        min_height: 500,
-        max_height: 3000,
-        menubar: false,
-        paste_as_text: true,
-        fullpage_default_font_size: "14px",
-        branding: false,
-        plugins: "autolink code link autoresize paste contextmenu image preview",
-        toolbar: "undo redo | fontsizeselect | forecolor | bold italic strikethrough underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link custom_image | code preview",
-        fontsize_formats: '10px 12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px',
-        setup: function(editor) {
-            editor.ui.registry.addButton('custom_image', {
-                icon: 'image',
-                tooltip: 'insert Image',
-                onAction: function () {
-                    documentUpload({
-                        multiple: false,
-                        accept: '.jpg, .png',
-                        callback: function (data) {
-                            if (data.rs_st === 0) {
-                                var fileInfo = data.rs_data;
-                                tinymce.execCommand('mceInsertContent', false,
-                                    /**
-                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
-                                     **/
-                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    });
+
+    // 동적으로 input[type=file]을 생성하여 이미지를 업로드하고 그 주소를 콜백함수에 리턴
     function documentUpload(options) {
         // 입력: options 객체, 내부에는 multiple, accept, callback 함수가 포함됨
         var input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', options.accept);
-        if (options.multiple) {
-            input.setAttribute('multiple', 'multiple');
-        }
+        // // 이미지가 여러개면 아래 사용
+        // if (options.multiple) {
+        //     input.setAttribute('multiple', 'multiple');
+        // }
 
         input.onchange = function() {
             var files = this.files;
