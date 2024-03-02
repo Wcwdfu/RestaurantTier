@@ -98,6 +98,7 @@ public class CommunityController {
     @Transactional
     public ResponseEntity<String> postDelete(@RequestParam String postId) {
         Post post = postService.getPost(Integer.valueOf(postId));
+
         //게시글 지워지면 그 게시글의 댓글들도 DELETED 상태로 변경
         List<PostComment> comments = post.getPostCommentList();
         for (PostComment comment : comments) {
@@ -110,7 +111,12 @@ public class CommunityController {
         //게시글 지워지면 그 게시글의 scrab정보들도 다 지워야함
         List<PostScrap> scraps = post.getPostScrapList();
         postScrapRepository.deleteAll(scraps);
-
+        // 사진 삭제
+        List<PostPhoto> existingPhotos = post.getPostPhotoList();
+        if (existingPhotos != null) {
+            postPhotoRepository.deleteAll(existingPhotos);
+            post.setPostPhotoList(null); // 기존 리스트 연결 해제
+        }
         // 글 삭제
         post.setStatus("DELETED");
         return ResponseEntity.ok("post delete complete");
@@ -327,7 +333,7 @@ public class CommunityController {
         // 기존 연관된 사진 정보 삭제
         List<PostPhoto> existingPhotos = post.getPostPhotoList();
         if (existingPhotos != null) {
-            postPhotoRepository.deleteAll(existingPhotos); // 이 메소드는 PostPhotoRepository에 구현해야 할 수도 있습니다.
+            postPhotoRepository.deleteAll(existingPhotos);
             post.setPostPhotoList(null); // 기존 리스트 연결 해제
         }
 
