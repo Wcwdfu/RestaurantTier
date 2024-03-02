@@ -21,8 +21,8 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>쿠스토랑 - 티어</title>
     <meta charset="UTF-8"/>
-<!--    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="/css/navbar-style.css">-->
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- 아이콘  -->
@@ -345,7 +345,11 @@
 </footer>
 <!-- 자바스크립트 데이터 전달용 태그 -->
 <div id="mapInfo"
-     th:attr="data-latitude=${mapLatitude}, data-longitude=${mapLongitude}, data-zoom=${mapZoom}, data-restaurantList=${restaurantList}">
+     th:attr="data-latitude=${mapLatitude},
+     data-longitude=${mapLongitude},
+     data-zoom=${mapZoom},
+     data-restaurantList=${restaurantList},
+     data-favoriteRestaurantIdList=${favoriteRestaurantList}">
 </div>
 
 </html>

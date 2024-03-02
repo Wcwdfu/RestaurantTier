@@ -639,7 +639,7 @@ tbody > tr > td > div > img {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 999;
+    z-index: 9900;
     display: none;
     justify-content: center;
     align-items: center;
@@ -656,13 +656,15 @@ tbody > tr > td > div > img {
     top: 17px;
     right: 17px;
     margin: 0;
-    height: 30px;
-    width: 50px;
+    height: fit-content;
+    width: fit-content;
     font-size: 15px;
+    line-height: 15px;
     border: none;
     background-color: var(--main-color);
     color: #FFF;
     border-radius: 5px;
+    padding: 8px 12px;
 }
 #map {
     height: 100%;
@@ -675,23 +677,4 @@ tbody > tr > td > div > img {
 }
 .prevent-scroll {
     overflow: hidden;
-}
-/* 지도 티어 아이콘 */
-.map-icon-outer {
-    border-radius: 50%;
-}
-.map-icon-tier1 {
-    background-color: var(--tier1-color);
-}
-.map-icon-tier2 {
-    background-color: var(--tier2-color);
-}
-.map-icon-tier3 {
-    background-color: var(--tier3-color);
-}
-.map-icon-tier4 {
-    background-color: var(--tier4-color);
-}
-.map-icon-tier5 {
-    background-color: var(--tier5-color);
 }
