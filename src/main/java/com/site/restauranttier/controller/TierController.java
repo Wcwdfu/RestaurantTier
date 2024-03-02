@@ -36,7 +36,7 @@ public class TierController {
     // 인덱스 0번.전체 | 1번.건입~중문 | 2번.중문~어대 | 3번.후문 | 4번.정문 | 5번.구의역
     private float[] latitudeArray = {37.542318f, 37.541518f, 37.545520f, 37.545750f, 37.538512f, 37.537962f};
     private float[] longitudeArray = {127.076467f, 127.069190f, 127.069550f, 127.076875f, 127.077239f, 127.085855f};
-    private int[] zoomArray = {15, 16, 16, 17, 16, 16};
+    private int[] zoomArray = {15, 15, 15, 15, 15, 15};
     private int getPositionIndex(String position) {
         if (position.equals("전체"))
             return 0;
