@@ -4,7 +4,6 @@ var longitude = parseFloat(mapInfo.getAttribute('data-longitude'));
 var mapZoom = parseInt(mapInfo.getAttribute('data-zoom'));
 var restaurantList = JSON.parse(mapInfo.getAttribute('data-restaurantList'));
 var favoriteRestaurantList = JSON.parse(mapInfo.getAttribute('data-favoriteRestaurantIdList'));
-console.log(favoriteRestaurantList);
 // 네이버 지도
 var map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(latitude, longitude),
@@ -21,11 +20,26 @@ var bounds = map.getBounds(), // 마커가 현재 화면에서만 표시되도�
     latSpan = northEast.lat() - southWest.lat();
 
 // 마커 생성
+if (!favoriteRestaurantList) { // 로그인 안돼서 즐찾 정보가 안 넘어온 경우 임시로 빈 리스트
+    favoriteRestaurantList = [];
+}
 for (var i = 0; i < restaurantList.length; i++) {
     let restaurant = restaurantList[i].restaurant;
     var marker;
-    tierRestaurantCount++;
-    if (restaurant.mainTier === 1) {
+    if (favoriteRestaurantList.includes(restaurant.restaurantId)) {
+        marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
+            icon: {
+                url: '/img/tier/star.png',
+                size: new naver.maps.Size(25, 25),
+                scaledSize: new naver.maps.Size(25, 25),
+                origin: new naver.maps.Point(0, 0),
+                anchor: new naver.maps.Point(12, 25)
+            },
+            zIndex: 9999
+        });
+        tierRestaurantCount++;
+    } else if (restaurant.mainTier === 1) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
             icon: {
@@ -35,8 +49,9 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 25)
             },
-            zIndex: 9999
+            zIndex: 9998
         });
+        tierRestaurantCount++;
     } else if (restaurant.mainTier === 2) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
@@ -47,8 +62,9 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 25)
             },
-            zIndex: 9998
+            zIndex: 9997
         });
+        tierRestaurantCount++;
     } else if (restaurant.mainTier === 3) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
@@ -59,8 +75,9 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 25)
             },
-            zIndex: 9997
+            zIndex: 9996
         });
+        tierRestaurantCount++;
     } else if (restaurant.mainTier === 4) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
@@ -71,8 +88,9 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 25)
             },
-            zIndex: 9996
+            zIndex: 9995
         });
+        tierRestaurantCount++;
     } else if (restaurant.mainTier === 5) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
@@ -83,14 +101,14 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 25)
             },
-            zIndex: 9995
+            zIndex: 9994
         });
+        tierRestaurantCount++;
     } else if (restaurant.mainTier === -1) {
         marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(restaurant.restaurantLatitude, restaurant.restaurantLongitude),
-            zIndex: 9994
+            zIndex: 9993
         });
-        tierRestaurantCount--;
     }
     markers.push(marker);
 }
