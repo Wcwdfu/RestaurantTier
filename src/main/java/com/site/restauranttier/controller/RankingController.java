@@ -47,7 +47,7 @@ public class RankingController {
         } else {
             model.addAttribute("myRank", null);
         }
-
+        model.addAttribute("currentPage","ranking");
         return "ranking";
     }
 

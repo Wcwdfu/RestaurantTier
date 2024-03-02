@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -320,11 +321,61 @@ public class CommunityController {
             @RequestParam String postCategory,
             @RequestParam String content
     ) {
+
+
         Post post = postService.getPost(Integer.valueOf(postId));
+        // 기존 연관된 사진 정보 삭제
+        List<PostPhoto> existingPhotos = post.getPostPhotoList();
+        if (existingPhotos != null) {
+            postPhotoRepository.deleteAll(existingPhotos); // 이 메소드는 PostPhotoRepository에 구현해야 할 수도 있습니다.
+            post.setPostPhotoList(null); // 기존 리스트 연결 해제
+        }
+
+        // 새로운 사진 정보 처리 로직 (기존 로직 유지)
+        List<PostPhoto> newPhotoList = new ArrayList<>();
+        Document doc = Jsoup.parse(content);
+        Elements imgTags = doc.select("img");
+        for (Element img : imgTags) {
+            String imgUrl = img.attr("src");
+            if (!imgUrl.isEmpty()) {
+                PostPhoto postPhoto = new PostPhoto(imgUrl, "ACTIVE");
+                postPhoto.setPost(post);
+                newPhotoList.add(postPhoto);
+                postPhotoRepository.save(postPhoto);
+            }
+        }
+        post.setPostPhotoList(newPhotoList);
         post.setPostTitle(title);
         post.setPostCategory(postCategory);
         post.setPostBody(content);
         postRepository.save(post);
+
+//        List<PostPhoto> newPhotoList = new ArrayList<>();
+//        // TinyMCE 컨텐츠에서 <img> 태그를 파싱
+//        Document doc = Jsoup.parse(content);
+//        Elements imgTags = doc.select("img");
+//
+//        // 각 <img> 태그에 대해 이미지 생성하고 post에 추가
+//        for (Element img : imgTags) {
+//            String imgUrl = img.attr("src");
+//
+//            // 이미지 파일 처리
+//            if (!imgUrl.isEmpty()) {
+//                PostPhoto postPhoto = new PostPhoto(imgUrl, "ACTIVE");
+//                postPhoto.setPost(post); // 게시글과 이미지 연관관계 설정
+//                newPhotoList.add(postPhoto); // post의 이미지 리스트에 추가
+//                postPhotoRepository.save(postPhoto); // 이미지 정보 저장
+//            }
+//        }
+//
+//        post.setPostPhotoList(newPhotoList);
+//        post.setPostTitle(title);
+//        post.setPostCategory(postCategory);
+//        post.setPostBody(content);
+//
+//
+//        postRepository.save(post);
+
 
         return ResponseEntity.ok("글이 성공적으로 수정되었습니다.");
     }
