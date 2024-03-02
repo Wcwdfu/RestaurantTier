@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 public class RestaurantTierDataClass {
-    @JsonIgnore
     private String ranking;
     private Restaurant restaurant;
     @JsonIgnore
