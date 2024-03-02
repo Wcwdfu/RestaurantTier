@@ -4,11 +4,14 @@ package com.site.restauranttier.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.site.restauranttier.entity.RestaurantFavorite;
 import com.site.restauranttier.entity.Situation;
+import com.site.restauranttier.entity.User;
 import com.site.restauranttier.etc.EnumSituation;
 import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.EvaluationRepository;
 import com.site.restauranttier.repository.SituationRepository;
+import com.site.restauranttier.service.CustomOAuth2UserService;
 import com.site.restauranttier.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,6 +34,7 @@ public class TierController {
     private final SituationRepository situationRepository;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationService evaluationService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     public static final Integer tierPageSize = 40;
     // 티어표 지도 중앙 좌표
@@ -77,6 +82,14 @@ public class TierController {
         model.addAttribute("mapLatitude", latitudeArray[positionIndex]);
         model.addAttribute("mapLongitude", longitudeArray[positionIndex]);
         model.addAttribute("mapZoom", zoomArray[positionIndex]);
+        if (principal != null) {
+            User user = customOAuth2UserService.getUser(principal.getName());
+            List<Integer> favoriteRestaurantIdList = new ArrayList<>();
+            for (RestaurantFavorite favorite : user.getRestaurantFavoriteList()) {
+                favoriteRestaurantIdList.add(favorite.getRestaurant().getRestaurantId());
+            }
+            model.addAttribute("favoriteRestaurantList", convertObjectToJson(favoriteRestaurantIdList));
+        }
         //
         Pageable pageable = PageRequest.of(page, tierPageSize);
         if (situation.equals("전체") && cuisine.equals("전체")) { // 종류: 전체 & 상황: 전체

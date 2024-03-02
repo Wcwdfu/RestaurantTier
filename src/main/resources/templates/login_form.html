@@ -30,7 +30,7 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="/js/loginScript.js"></script>
+    <script src="/js/loginScript.js" defer></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
             charset="utf-8"></script>
 
@@ -42,24 +42,24 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CX8XG3"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <div class="main-grid">
-        <div class="image-section">
+<div class="main-grid">
+    <div class="image-section">
 
-            <img th:src="${imgUrl}">
-        </div>
-        <div class="login-section">
-            <a class="logo" href="/"><img src="/img/home/restaurant-logo.webp">
+        <img th:src="${imgUrl}">
+    </div>
+    <div class="login-section">
+        <a class="logo" href="/"><img src="/img/home/restaurant-logo.webp">
+        </a>
+
+        <div class="login-container">
+            <p>로그인</p>
+            <a id="loginButton" class="login-button" href="/oauth2/authorization/naver" role="button">
+                <img src="/img/login/login.png" alt="네이버 로그인">
+                <!--<p>네이버 계정으로 로그인</p>-->
             </a>
-
-            <div class="login-container">
-                <p>로그인</p>
-                <a class="login-button" href="/oauth2/authorization/naver" role="button">
-                    <img src="/img/login/login.png" alt="네이버 로그인">
-                    <!--<p>네이버 계정으로 로그인</p>-->
-                </a>
-            </div>
         </div>
     </div>
+</div>
 
 
 <!--    <header>
