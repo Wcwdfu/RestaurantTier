@@ -20,7 +20,7 @@ body {
 }
 /* TABLET */
 @media only screen and (max-width: 1023px) {
-    .category-background, main, .map-open-button-outer, .search-area, .rank-description {
+    .category-background, main, .search-area, .rank-description {
         padding: 0 var(--mobile-outer-container-side-width);
         margin: 10px 0;
         min-width: var(--min-width);
@@ -31,7 +31,7 @@ body {
 }
 /* PC */
 @media only screen and (min-width: 1024px) {
-    .category-background, main, .map-open-button-outer, .search-area, .rank-description {
+    .category-background, main, .search-area, .rank-description {
         width: var(--pc-outer-container-width);
         max-width: var(--max-width);
         margin: 10px auto;
@@ -191,7 +191,7 @@ div.category-list a.unselected:hover {
     font-size: 15px;
     line-height: 22px;
 }
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 410px) {
     .search-container > span {
         font-size: 12px;
     }
@@ -623,15 +623,50 @@ tbody > tr > td > div > img {
 
 
 /* 네이버 지도 */
+.map-open-button-outer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 #mapOpenButton {
-    width: 100%;
-    height: 38px;
-    font-size: 16px;
-    background-color: var(--main-color);
-    color: #FFF;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
     border: none;
     border-radius: 5px;
+    padding: 6px;
+    background-color: #b0e5cd;
+
+    color: #444;
+    font-size: 16px;
+    font-weight: 800;
+}
+@media only screen and (min-width: 351px) {
+    #mapOpenButton > img {
+        width: 32px;
+        height: 32px;
+    }
+}
+@media only screen and (max-width: 350px) {
+    #mapOpenButton > img {
+        width: 24px;
+        height: 24px;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    #mapOpenButton > span {
+        display: block;
+        margin-left: 7px;
+        padding-right: 4px;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    #mapOpenButton > span {
+        display: none;
+    }
 }
 .map-area {
     position: fixed;
