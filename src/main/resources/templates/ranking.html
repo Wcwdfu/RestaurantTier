@@ -109,7 +109,7 @@
                     (userRank.getRank() == 2 ? 'rank-second' :
                     (userRank.getRank() == 3 ? 'rank-third' : ''))}">
                     <td class="td-rank" th:text="${userRank.getRank()}"></td>
-                    <td th:text="${userRank.getUser().getUserNickname()}"></td>
+                    <td th:text="${userRank.getUser().getUserNickname().substring(0,2)} + '****'"></td>
                     <td class="td-eval-count">
                         <div>
                             <span th:text="${userRank.getUser().getEvaluationList().size()} + '개'"></span>
