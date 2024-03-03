@@ -17,9 +17,9 @@ public enum EnumTier {
             return EnumTier.ONE;
         } else if (averageScore >= 5.7) {
             return EnumTier.TWO;
-        } else if (averageScore >= 4.2) {
+        } else if (averageScore > 4.5) {
             return EnumTier.THREE;
-        } else if (averageScore >= 2.7) {
+        } else if (averageScore > 3.0) {
             return EnumTier.FOUR;
         } else if (averageScore >= 1.0) {
             return EnumTier.FIVE;
