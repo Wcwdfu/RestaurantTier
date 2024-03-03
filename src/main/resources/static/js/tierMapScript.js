@@ -38,7 +38,7 @@ if (favoriteRestaurantList) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(14, 28)
             },
-            zIndex: 9999
+            zIndex: 9950
         });
         favoriteRestaurantMarkers.push(marker);
         // info window
@@ -60,7 +60,8 @@ if (favoriteRestaurantList) {
                             '<span>메인 티어</span>' +
                             `<img src="/img/tier/${restaurant.mainTier}tier.png">` +
                         '</div>' +
-                    '</a>'
+                    '</a>',
+                zIndex: 9999
             });
         } else { // 티어가 없는 경우
             var infoWindow = new naver.maps.InfoWindow({
@@ -73,7 +74,8 @@ if (favoriteRestaurantList) {
                                 `<span class="info-window-type">${restaurant.restaurantType}</span>` +
                             '</div>' +
                         '</div>' +
-                    '</a>'
+                    '</a>',
+                zIndex: 9999
             });
         }
         favoriteRestaurantInfoWindows.push(infoWindow);
@@ -100,7 +102,7 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(12, 24)
             },
-            zIndex: 9999 - mainTier // 티어가 높을 수록 앞으로 오도록 함
+            zIndex: 9950 - mainTier // 티어가 높을 수록 앞으로 오도록 함
         });
         tierRestaurantCount++;
         // info window
@@ -120,7 +122,8 @@ for (var i = 0; i < restaurantList.length; i++) {
                         '<span>메인 티어</span>' +
                         `<img src="/img/tier/${restaurant.mainTier}tier.png">` +
                     '</div>' +
-                '</a>'
+                '</a>',
+            zIndex: 9999 - mainTier
         });
         infoWindows.push(infoWindow);
     } else { // 티어가 없는 경우
@@ -133,7 +136,7 @@ for (var i = 0; i < restaurantList.length; i++) {
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(10, 20)
             },
-            zIndex: 9999 - 6
+            zIndex: 9950 - 6
         });
         // info window
         var restaurantImgUrl = restaurant.restaurantImgUrl === 'no_img' ?
@@ -148,7 +151,8 @@ for (var i = 0; i < restaurantList.length; i++) {
                             `<span class="info-window-type">${restaurant.restaurantType}</span>` +
                         '</div>' +
                     '</div>' +
-                '</a>'
+                '</a>',
+            zIndex: 9999 - 6
         });
         infoWindows.push(infoWindow);
     }
