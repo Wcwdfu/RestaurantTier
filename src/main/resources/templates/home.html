@@ -40,6 +40,7 @@
 
     <!-- 아이콘 라이브러리-->
     <script src="https://kit.fontawesome.com/0c60714712.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <!-- 탭 관련 라이브러리 / 순서 지켜야함 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -314,6 +315,31 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">쿠스토랑 평가하고 카페쿠폰받자!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                    방문한 음식점에대한 평가를 해주세요!<br>
+                    평가를 10개이상 하신분들을 대상으로<br>
+                    "커피쿠폰 5천원권(스타벅스/레스티오 중1)"을 드립니다!
+                </div>
+                <div class="modal-footer">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            일주일동안 보지 않기
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <footer th:replace="~{footer::footerFragment}">

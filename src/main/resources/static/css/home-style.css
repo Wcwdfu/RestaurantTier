@@ -229,3 +229,8 @@ footer{
         color: #2a2a2a;
     }
 }
+
+.form-check-input{
+    padding: 8px;
+    margin-right: 10px;
+}
