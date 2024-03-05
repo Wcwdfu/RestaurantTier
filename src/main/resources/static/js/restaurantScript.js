@@ -194,7 +194,7 @@ function resize(width, height){
 
 // 댓글 입력 창 글자 제한
 const commentTextArea = document.getElementById('commentInput');
-const maxLength = 300;
+const maxLength = 1000;
 commentTextArea.addEventListener("input", function() {
     var remainingCharacters = maxLength - commentTextArea.value.length;
     //document.getElementById("remainingCharacters").textContent = remainingCharacters;
