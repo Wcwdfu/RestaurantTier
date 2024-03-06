@@ -86,10 +86,12 @@
                 <col>
                 <col>
                 <col>
+                <col>
             </colgroup>
             <thead>
             <tr>
                 <th scope="col">순위</th>
+                <td></td>
                 <th scope="col" class="th-nickname">닉네임</th>
                 <th scope="col">평가수</th>
             </tr>
@@ -109,6 +111,11 @@
                     (userRank.getRank() == 2 ? 'rank-second' :
                     (userRank.getRank() == 3 ? 'rank-third' : ''))}">
                     <td class="td-rank" th:text="${userRank.getRank()}"></td>
+                    <td class="td-img">
+                        <div>
+                            <img th:src="${userRank.getUser().getRankImg()}" alt="소">
+                        </div>
+                    </td>
                     <td th:if="${userRank.getUser().getUpdatedAt() == null}"
                         th:text="${userRank.getUser().getUserNickname().substring(0,2)} + '****'"></td>
                     <td th:if="${userRank.getUser().getUpdatedAt() != null}"
@@ -132,4 +139,5 @@
     }
 </script>
 </body>
+>>>>>>> a8ef067a88cc4396308c4a61277671c785ab2041
 </html>
