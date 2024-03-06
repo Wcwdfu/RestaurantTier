@@ -115,5 +115,13 @@ public class User {
     @JsonIgnore
     @ManyToMany(mappedBy = "likeUserList")
     private List<PostComment> likePostCommentList = new ArrayList<>();
+
+    public String getRankImg() {
+        if (this.evaluationList.size() >= 10) {
+            return "/img/community/소3.png";
+        } else {
+            return "/img/community/소_평가10개미만.png";
+        }
+    }
 }
 

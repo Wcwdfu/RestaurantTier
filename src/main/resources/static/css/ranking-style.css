@@ -80,6 +80,16 @@ td {
     padding: 4px 0;
     border-top: #ccc solid 1px;
 }
+.td-img > div {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 7px;
+}
+.td-img img {
+    height: 24px;
+    width: 24px
+}
 .td-rank {
     padding-left: 10px;
 }
