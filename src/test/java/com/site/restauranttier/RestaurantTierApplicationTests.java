@@ -42,34 +42,6 @@ class RestaurantTierApplicationTests {
     @Rollback(false)
     void textCommunity() {
 
-        // 커뮤니티 테스트
-
-        Post postsaved = new Post("부탄츄 후기", "부탄츄 건대점에 다녀왔습니다", "자유게시판", "ACTIVE", LocalDateTime.now());
-        Optional<User> userOptional = userRepository.findById(1);
-        User user = userOptional.get();
-        postsaved.setUser(user);
-        PostPhoto postPhoto = new PostPhoto("https://mblogthumb-phinf.pstatic.net/MjAyMDAxMTlfMTEg/MDAxNTc5NDMyNjY5OTg4.XkEOiHNJDaEgWAawh-IzZFPkovVqLXlQRcdDiWFOW5gg.h5WRn-eHCJ9FxK2ou6P892Zt0Xd1_MrBWOWc6t7VMJAg.JPEG.effy0424/1579432668513.jpg?type=w800", "ACTIVE");
-        postsaved.getPostPhotoList().add(postPhoto);
-        postRepository.save(postsaved);
-
-
-        Post post = postRepository.findByPostTitle(postsaved.getPostTitle());
-        PostComment comment = new PostComment("좋은 글입니다","ACTIVE",LocalDateTime.now(),post,user);
-        PostComment savedcomment = postCommentRepository.save(comment);
-        // photo와 user에서 comment 매핑
-        post.getPostCommentList().add(savedcomment);
-        user.getPostCommentList().add(savedcomment);
-        //        포토와 user에서 post를 매핑
-        postPhoto.setPost(post);
-        user.getPostList().add(post);
-
-        postPhotoRepository.save(postPhoto);
-        userRepository.save(user);
-
-
-
-
-
     }
 
 }
