@@ -87,7 +87,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: right;
-    padding-right: 9px;
+    padding: 1px 9px 1px 0;
 }
 .td-img img {
     height: 24px;

@@ -99,6 +99,11 @@
             <tbody id="tierTableBody">
                 <tr th:if="${myRank != null}" class="my-rank">
                     <td class="td-rank" th:text="${myRank.getRank()}"></td>
+                    <td class="td-img">
+                        <div>
+                            <img th:src="${userRank.getUser().getRankImg()}" alt="소">
+                        </div>
+                    </td>
                     <td th:text="${myRank.getUser().getUserNickname()}"></td>
                     <td class="td-eval-count">
                         <div>
@@ -139,5 +144,4 @@
     }
 </script>
 </body>
->>>>>>> a8ef067a88cc4396308c4a61277671c785ab2041
 </html>
