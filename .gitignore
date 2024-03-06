@@ -37,7 +37,7 @@ out/
 .vscode/
 
 ### oauth ###
-application-oauth.properties
+*.properties
 
 ### ect ###
 build.gradle

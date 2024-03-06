@@ -110,7 +110,7 @@
                     (userRank.getRank() == 3 ? 'rank-third' : ''))}">
                     <td class="td-rank" th:text="${userRank.getRank()}"></td>
                     <td th:if="${userRank.getUser().getUpdatedAt() == null}"
-                        th:text="${userRank.getUser().getUserNickname().substring(0,3)} + '****'"></td>
+                        th:text="${userRank.getUser().getUserNickname().substring(0,2)} + '****'"></td>
                     <td th:if="${userRank.getUser().getUpdatedAt() != null}"
                         th:text="${userRank.getUser().getUserNickname()} "></td>
                     <td class="td-eval-count">
