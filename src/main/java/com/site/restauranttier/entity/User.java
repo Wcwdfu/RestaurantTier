@@ -118,7 +118,9 @@ public class User {
     private List<PostComment> likePostCommentList = new ArrayList<>();
 
     public String getRankImg() {
-        if (this.evaluationList.size() >= 10) {
+        if (this.evaluationList.size() >= 30) {
+            return "/img/community/30이상.png";
+        } else if (this.evaluationList.size() >= 10) {
             return "/img/community/소3.png";
         } else {
             return "/img/community/소_평가10개미만.png";

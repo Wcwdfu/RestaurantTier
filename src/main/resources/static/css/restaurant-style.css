@@ -502,6 +502,11 @@ div.basic-info > div.texts > span {
     justify-content: space-between;
     align-items: center;
 }
+.nick-date-div > img {
+    height: 22px;
+    width: 22px;
+    margin-right: 5px;
+}
 .nick-span {
     font-weight: 550;
     margin-right: 10px;
