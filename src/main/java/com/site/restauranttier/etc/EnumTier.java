@@ -13,9 +13,9 @@ public enum EnumTier {
     EnumTier(Integer value) { this.value = value; }
 
     public static EnumTier calculateTierOfRestaurant(Double averageScore) {
-        if (averageScore > 6.0) {
+        if (averageScore >= 6.0) {
             return EnumTier.ONE;
-        } else if (averageScore > 5.5) {
+        } else if (averageScore >= 5.5) {
             return EnumTier.TWO;
         } else if (averageScore > 4.5) {
             return EnumTier.THREE;
