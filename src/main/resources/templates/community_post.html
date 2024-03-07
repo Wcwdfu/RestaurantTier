@@ -170,14 +170,6 @@
                               placeholder="타인의 권리를 침해하거나 명예를 훼손하는 게시물은 제재를 받을 수 있습니다."></textarea>
                     <div class="under-content">
                         <div>
-                            <!--                        <span type="button">-->
-                            <!--                            <img src="/img/community/icon-picture.png">-->
-                            <!--                            <span>-->
-                            <!--                                사진-->
-                            <!--                            </span>-->
-
-                            <!--                        </span>-->
-
                         </div>
                         <button type="submit">
                             작성
@@ -262,7 +254,7 @@
                                                 <img th:unless="${reply.likeUserList.contains(user)}"
                                                      src="/img/community/up.png">
                                             </button>
-                                            <span th:text="${reply.likeCount}"></span>
+                                            <span class="totalLikeCount" th:text="${reply.likeCount}"></span>
                                             <button class="comment-down" type="button" th:data-id="${reply.commentId}">
                                                 <img th:if="${reply.dislikeUserList.contains(user)}"
                                                      src="/img/community/down-red.png">
@@ -286,7 +278,7 @@
                                                 </div>
                                             </div>
                                             <ul style="padding-left: 0;">
-                                                <li th:if="${comment.user == user}">
+                                                <li th:if="${reply.user == user}">
                                                     <!-- 대댓글 삭제 버튼 -->
                                                     <button class="comment-button comment-delete" data-bs-toggle="modal"
                                                             data-bs-target="#commentModal"
