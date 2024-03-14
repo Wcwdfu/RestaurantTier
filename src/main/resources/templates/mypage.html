@@ -92,6 +92,12 @@
                     <span th:text="${user.getUserEmail()}"></span>
                 </div>
 
+                <div id="phoneNumberArea">
+                    <p>연락처 : </p>
+                    <input id=phoneNumber type="text" th:placeholder="${user.phoneNumber}">
+                </div>
+                <div id="phoneNumberComment">이벤트 쿠폰 수신을 위해 핸드폰 번호를 입력해주세요. ('-'제외)</div>
+
                 <div id="nicknameArea">
                     <p>닉네임 : </p>
                     <input id=nickname type="text" th:placeholder="${user.userNickname}">

@@ -13,6 +13,12 @@
     .gray-border-circular{
         padding: 10px;
     }
+    #phoneNumber{
+        padding: 5px;
+    }
+    #phoneNumberComment{
+        padding-left: 10px;
+    }
     #nickname{
         padding: 5px;
     }
@@ -35,6 +41,9 @@
     }
     #area1Top p{
         width: 180px;
+    }
+    #phoneNumberComment{
+        padding-left: 200px;
     }
     #nicknameComment{
         padding-left: 200px;
@@ -106,6 +115,23 @@
 #emailArea > span {
     flex: 1;
 }
+
+#phoneNumberArea{
+    display: flex;
+    max-width: 800px;
+}
+#phoneNumber{
+    width: 60%;
+    border-radius: 5px;
+    margin-right: 15px;
+    flex: 1;
+}
+#phoneNumberComment{
+    width: 100%;
+    color: gray;
+    font-size: 12px;
+}
+
 #nicknameArea{
     display: flex;
     max-width: 800px;
