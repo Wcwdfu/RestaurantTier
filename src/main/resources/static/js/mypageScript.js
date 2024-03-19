@@ -56,22 +56,34 @@ navbar.addEventListener('touchmove', function(e) {
 
 // ------------- 내정보(Area1) nickname바꾸기 로직 -------------------
 document.getElementById('saveBtn').addEventListener('click',function (){
-    var newNickname = document.getElementById("nickname").value; // 해당 input 요소의 값을 가져옴
+    var newNickname = document.getElementById("nickname").value;
+    var newPhoneNum = document.getElementById("phoneNumber").value;
+
+    // 서버로 전송할 데이터 객체 생성
+    var dataToSend = {};
+
+    dataToSend.newNickname = newNickname;
+    dataToSend.newPhoneNum = newPhoneNum;
+
+
+    // 변경된 데이터가 없으면 요청을 보내지 않음
+    if (Object.keys(dataToSend).length === 0) {
+        alert("변경된 내용이 없습니다.");
+        return;
+    }
 
     // 서버로 전송
     fetch("/user/api/myPage/setNickname", {
-        method: "POST",
+        method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ newNickname: newNickname }), // JSON 형태로 데이터 전송
+        body: JSON.stringify(dataToSend), // JSON 형태로 데이터 전송
     })
         .then(response => {
             if (response.ok) {
-                // 변경 성공 시 동작할 코드
-                alert("닉네임 변경 성공")
+                alert("변경사항 저장 성공")
             } else {
-                //
                 return response.text().then(errorMessage => {
                     alert(errorMessage);
                 })
