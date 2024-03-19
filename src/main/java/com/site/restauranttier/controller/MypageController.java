@@ -80,38 +80,64 @@ public class MypageController {
     }
 
     @PreAuthorize("isAuthenticated() and hasRole('USER')")
-    @PostMapping("/api/myPage/setNickname")
-    public ResponseEntity<String> setNickname(@RequestBody Map<String, String> requestBody, Principal principal){
+    @PatchMapping("/api/myPage/setNickname")
+    public ResponseEntity<String> setNickname(
+            @RequestBody Map<String, String> requestBody,
+            Principal principal
+    ){
         String newNickname=requestBody.get("newNickname");
+        String newPhoneNum=requestBody.get("newPhoneNum");
         User user = customOAuth2UserService.getUser(principal.getName());
 
-        // 닉네임 변경 후 30일이 안 지났는지 확인
-        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
-        if (user.getUpdatedAt() != null && user.getUpdatedAt().isAfter(thirtyDaysAgo)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("닉네임을 변경한 지 30일이 지나지 않아 변경할 수 없습니다.");
-        }
-        //전과 동일한 닉네임
-        if(newNickname.toLowerCase().equals(user.getUserNickname().toLowerCase())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이전과 동일한 닉네임입니다.");
-        }
-        // 닉네임이 2글자 이하인 경우
-        if (newNickname.length() < 2) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 2자 이상이어야 합니다.");
-        }
-        // 닉네임이 10자 이상인 경우
-        if (newNickname.length() > 10) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 10자 이하여야 합니다.");
-        }
-        // 닉네임이 이미 존재하는 경우
-        Optional<User> userOptional =  userRepository.findByUserNickname(newNickname);
-        if (userOptional.isPresent() && !newNickname.equals(user.getUserNickname())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 닉네임이 이미 존재합니다.");
+        // 닉네임과 전화번호가 변경되지 않았을 경우
+        if ((newNickname.equals(user.getUserNickname()) || newNickname.equals("")) &&
+                (newPhoneNum.equals(user.getPhoneNumber()) || newPhoneNum.equals(""))) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("변경된 내용이 없습니다.");
         }
 
-        user.setUserNickname(newNickname);
-        user.setUpdatedAt(LocalDateTime.now());
+
+        // 닉네임이 변경되었는지 확인
+        if (!newNickname.equals(user.getUserNickname())&&newNickname!="") {
+            // 닉네임 변경 후 30일이 안 지났는지 확인
+            LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
+            if (user.getUpdatedAt() != null && user.getUpdatedAt().isAfter(thirtyDaysAgo)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("닉네임을 변경한 지 30일이 지나지 않아 변경할 수 없습니다.");
+            }
+            //전과 동일한 닉네임
+            if (newNickname.toLowerCase().equals(user.getUserNickname().toLowerCase())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("이전과 동일한 닉네임입니다.");
+            }
+            // 닉네임이 2글자 이하인 경우
+            if (newNickname.length() < 2) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 2자 이상이어야 합니다.");
+            }
+            // 닉네임이 10자 이상인 경우
+            if (newNickname.length() > 10) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("닉네임은 10자 이하여야 합니다.");
+            }
+            // 닉네임이 이미 존재하는 경우
+            Optional<User> userOptional = userRepository.findByUserNickname(newNickname);
+            if (userOptional.isPresent() && !newNickname.equals(user.getUserNickname())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 닉네임이 이미 존재합니다.");
+            }
+
+            user.setUserNickname(newNickname);
+            user.setUpdatedAt(LocalDateTime.now());
+
+        }
+
+        // 전화번호가 변경되었는지 확인
+        if (!newPhoneNum.equals(user.getPhoneNumber())) {
+            if (newPhoneNum.matches("\\d{11}")) {
+                user.setPhoneNumber(newPhoneNum);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전화번호는 숫자로 11자로만 입력되어야 합니다.");
+            }
+        }
+
+
+
         userRepository.save(user);
-
         return ResponseEntity.ok().build();
     }
 

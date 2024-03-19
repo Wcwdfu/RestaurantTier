@@ -1,7 +1,6 @@
 
 package com.site.restauranttier.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.site.restauranttier.user.UserRole;
 import jakarta.persistence.*;
@@ -13,7 +12,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -31,6 +29,8 @@ public class User {
     private String userPassword;
     @Column(unique = true, nullable = false)
     private String userEmail;
+    @Column(unique = true)
+    private String phoneNumber;
     @Column(unique = true, nullable = false)
     private String userNickname;
     @Column(nullable = false)
@@ -82,18 +82,19 @@ public class User {
     private List<PostScrap> scrapList = new ArrayList<>();
 
     @Builder
-    public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userNickname, UserRole userRole, String status, LocalDateTime createdAt) {
+    public User(String userTokenId, String loginApi, String userPassword, String userEmail, String userPhoneNumber, String userNickname, UserRole userRole, String status, LocalDateTime createdAt) {
         this.userTokenId = userTokenId;
         this.loginApi = loginApi;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
+        this.phoneNumber =userPhoneNumber;
         this.userNickname = userNickname;
         this.userRole = userRole;
         this.status = status;
         this.createdAt = createdAt;
     }
 
-    public User update(String userEmail) {
+    public User updateUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }

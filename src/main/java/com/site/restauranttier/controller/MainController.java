@@ -65,6 +65,12 @@ public class MainController {
         return "terms_of_use";
     }
 
+    // 공지사항
+    @GetMapping("/announcement")
+    public String announcement(){
+        return "announcement";
+    }
+
 
     // 검색 결과 화면
     @GetMapping("/search")
