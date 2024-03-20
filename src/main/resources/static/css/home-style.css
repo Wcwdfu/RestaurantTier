@@ -20,7 +20,7 @@ html{
     font-weight: bold;
 }
 
-.row .col .col-12 {
+.home .col .col-12 {
 
     border: none;
     border-radius: 10px;
@@ -35,18 +35,14 @@ main {
     padding: 0.75rem;
 }
 
-.img {
 
-    border-radius: 10px;
-    background-color: white;
-}
 .mobile-cuisine-name span{
     white-space: nowrap;
 }
 
 
 
-.cell-button > .img {
+.home .cell-button > .img {
     padding: 1.25rem;
     background-color: #f9f6f3;
 }
