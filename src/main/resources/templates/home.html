@@ -76,7 +76,7 @@
             <div class="row align-items-center justify-content-center small-screen">
                 <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font"
                      data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    <h2 class="main-page-title alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">메뉴를 선택해주세요</h2>
+                    <h1 class="main-page-title alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">메뉴를 선택해주세요</h1>
                     <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">건대 주변의 관련 맛집을 볼 수 있습니다</h2>
                 </div>
             </div>
@@ -258,72 +258,13 @@
         </div>
     </section>
 
-<!--    &lt;!&ndash;  인기 식당 탭  &ndash;&gt;-->
-<!--    <section class="overflow-hidden overlap-height position-relative">-->
-<!--        &lt;!&ndash; 문구  &ndash;&gt;-->
-<!--        <div class="container-fluid overlap-gap-section">-->
-<!--            <div class="row justify-content-center mb-2">-->
-<!--                <div class="col-lg-7 text-center alt-font">-->
-<!--                    <h2 class="text-dark-gray mb-0 main-page-title">건대 TOP 맛집</h2>-->
-<!--                    <span class="fs-15 fw-600 text-red text-uppercase mb-10px d-block secondSectionComment">-->
-<!--                    가장 좋은 평가를 받은 맛집을 확인하세요-->
-<!--                </span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;    슬라이더 부분        &ndash;&gt;-->
-<!--            <div class="row slider-row">-->
-<!--                <div class="col-md-12 position-relative feather-shadow sm-feather-shadow-none">-->
-<!--                    <div class="outside-box-right-15 outside-box-left-15 sm-outside-box-right-0 sm-outside-box-left-0">-->
-<!--                        <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden">-->
-<!--                            <div class="swiper-wrapper">-->
-<!--                                &lt;!&ndash; Dynamic restaurant slides &ndash;&gt;-->
-<!--                                <div>-->
-
-<!--                                </div>-->
-<!--                                <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide">-->
-<!--                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">-->
-<!--                                        &lt;!&ndash;슬라이더 이미지 &ndash;&gt;-->
-<!--                                        <a th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}">-->
-<!--                                            <div class="position-relative box-image border-radius-6px"-->
-<!--                                                 id="restaurantImageContainer">-->
-<!--                                                <img id="restaurantImage" class="w-100 border-radius-6px"-->
-<!--                                                     th:src="${restaurant.restaurantImgUrl}" alt="쿠스토랑 건대 맛집 인기">-->
-<!--                                                <div class="box-overlay bg-dark-gray"></div>-->
-<!--                                            </div>-->
-<!--                                        </a>-->
-<!--                                        &lt;!&ndash; 문구 !&ndash;&gt;-->
-<!--                                        <div class="pt-30px bg-white text-center alt-font">-->
-<!--                                            <span class="d-inline-block text-dark-gray fs-19 fw-600"-->
-<!--                                                  th:text="${restaurant.restaurantName}">Restaurant Name</span>-->
-<!--                                            <div class="w-100">-->
-<!--                                                <span class="d-inline-block align-middle"-->
-<!--                                                      th:text="${restaurant.restaurantType}">Type</span>-->
-<!--                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5"-->
-<!--                                                      th:if="${restaurant.restaurantEvaluationCount}">◍</span>-->
-<!--                                                <span class="d-inline-block align-middle"-->
-<!--                                                      th:if="${restaurant.restaurantEvaluationCount}"-->
-<!--                                                      th:text="${restaurant.getMainScoreMaxTen()}"></span>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                            </div>-->
-<!--                            &lt;!&ndash;                            <div class="slider-four-slide-pagination-1 swiper-pagination-clickable swiper-pagination-bullets"></div>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
     <!--뽑기 배너-->
     <section
             class="mt-0 top-banner mb-1 age-title-big-typography cover-background p-0 md-background-position-left-center"
             style="background-image: url('/img/home/background.jpg');">
         <div class="container">
             <div class="row align-items-center justify-content-center small-screen">
-                <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font"
-                     data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 200, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete alt-font">
                     <h1 class="alt-font text-dark-gray text-uppercase ls-minus-1px mb-0">랜덤 맛집 뽑기</h1>
                     <h2 class="m-auto fw-600 text-uppercase mb-0 firstSectionComment">랜덤으로 한 맛집을 추천받을 수 있습니다</h2>
 
@@ -332,7 +273,7 @@
         </div>
     </section>
 
-    <div id="mainContents" class="alt-font">
+    <div id="mainContents" class="alt-font ">
         <div class="dropdown">
             <button class="btn btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown"
@@ -365,10 +306,10 @@
                 <div class="row option">
                     <!-- 음식 이미지 버튼 모아둔 그리드   -->
                     <div class="container fluid icon-grid">
-                        <div class="row mt-2 p-2">
+                        <div class="row mt-2 p-2 home-grid">
                             <div class="cell col-3 col-lg-custom" th:each="cuisine : ${cuisines}">
                                 <button class="cell-button col-12" th:attr="data-cuisine=${cuisine}">
-                                    <img class="img col-12" th:src="@{/img/recommend/아이콘/{cuisine}.png(cuisine=${cuisine})}"
+                                    <img class="img col-12" th:src="@{/img/home/{cuisine}.png(cuisine=${cuisine})}"
                                          th:alt="'쿠스토랑 건대 맛집 ' + ${cuisine}">
                                 </button>
                                 <div class="mobile-cuisine-name">
@@ -431,6 +372,66 @@
 
 
     </div>
+    <!--    &lt;!&ndash;  인기 식당 탭  &ndash;&gt;-->
+    <!--    <section class="overflow-hidden overlap-height position-relative">-->
+    <!--        &lt;!&ndash; 문구  &ndash;&gt;-->
+    <!--        <div class="container-fluid overlap-gap-section">-->
+    <!--            <div class="row justify-content-center mb-2">-->
+    <!--                <div class="col-lg-7 text-center alt-font">-->
+    <!--                    <h2 class="text-dark-gray mb-0 main-page-title">건대 TOP 맛집</h2>-->
+    <!--                    <span class="fs-15 fw-600 text-red text-uppercase mb-10px d-block secondSectionComment">-->
+    <!--                    가장 좋은 평가를 받은 맛집을 확인하세요-->
+    <!--                </span>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash;    슬라이더 부분        &ndash;&gt;-->
+    <!--            <div class="row slider-row">-->
+    <!--                <div class="col-md-12 position-relative feather-shadow sm-feather-shadow-none">-->
+    <!--                    <div class="outside-box-right-15 outside-box-left-15 sm-outside-box-right-0 sm-outside-box-left-0">-->
+    <!--                        <div class="swiper swiper-dark-pagination swiper-line-pagination-style-01 magic-cursor swiper-initialized swiper-horizontal swiper-backface-hidden">-->
+    <!--                            <div class="swiper-wrapper">-->
+    <!--                                &lt;!&ndash; Dynamic restaurant slides &ndash;&gt;-->
+    <!--                                <div>-->
+
+    <!--                                </div>-->
+    <!--                                <div th:each="restaurant, iterStat : ${restaurants}" class="swiper-slide">-->
+    <!--                                    <div class="services-box-style-01 hover-box last-paragraph-no-margin">-->
+    <!--                                        &lt;!&ndash;슬라이더 이미지 &ndash;&gt;-->
+    <!--                                        <a th:href="@{/restaurants/{restaurantId}(restaurantId=${restaurant.restaurantId})}">-->
+    <!--                                            <div class="position-relative box-image border-radius-6px"-->
+    <!--                                                 id="restaurantImageContainer">-->
+    <!--                                                <img id="restaurantImage" class="w-100 border-radius-6px"-->
+    <!--                                                     th:src="${restaurant.restaurantImgUrl}" alt="쿠스토랑 건대 맛집 인기">-->
+    <!--                                                <div class="box-overlay bg-dark-gray"></div>-->
+    <!--                                            </div>-->
+    <!--                                        </a>-->
+    <!--                                        &lt;!&ndash; 문구 !&ndash;&gt;-->
+    <!--                                        <div class="pt-30px bg-white text-center alt-font">-->
+    <!--                                            <span class="d-inline-block text-dark-gray fs-19 fw-600"-->
+    <!--                                                  th:text="${restaurant.restaurantName}">Restaurant Name</span>-->
+    <!--                                            <div class="w-100">-->
+    <!--                                                <span class="d-inline-block align-middle"-->
+    <!--                                                      th:text="${restaurant.restaurantType}">Type</span>-->
+    <!--                                                <span class="d-inline-block align-middle ms-10px me-10px fs-12 opacity-5"-->
+    <!--                                                      th:if="${restaurant.restaurantEvaluationCount}">◍</span>-->
+    <!--                                                <span class="d-inline-block align-middle"-->
+    <!--                                                      th:if="${restaurant.restaurantEvaluationCount}"-->
+    <!--                                                      th:text="${restaurant.getMainScoreMaxTen()}"></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+
+    <!--                            </div>-->
+    <!--                            &lt;!&ndash;                            <div class="slider-four-slide-pagination-1 swiper-pagination-clickable swiper-pagination-bullets"></div>&ndash;&gt;-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+
+
     <!-- Modal -->
 <!--    <div class="modal" id="modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
 <!--        <div class="modal-dialog modal-dialog-centered ">-->

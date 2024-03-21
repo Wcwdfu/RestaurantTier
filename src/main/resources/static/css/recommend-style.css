@@ -65,8 +65,6 @@
 }
 
 
-
-
 .option-area {
     text-align: center;
     display: flex;
@@ -109,23 +107,26 @@
     border-radius: 10px;
 
 }
-.cell-button{
-    background:none;
-    padding:5px;
+
+.cell-button {
+    background: none;
+    padding: 5px;
     border-radius: 10px;
 }
-.mobile-cuisine-name{
+
+.mobile-cuisine-name {
     font-family: 'NanumSquare', sans-serif;
     color: black;
 }
 
 .selected {
-    background-color: #eee; !important;
+    background-color: #eee;
+!important;
 }
 
 
 .btn-area {
-    margin:2rem auto 0;
+    margin: 2rem auto 0;
     width: 300px;
     display: flex;
     justify-content: center;
@@ -266,13 +267,13 @@
     .top-banner {
         height: 200px;
     }
-    .mobile-cuisine-name{
-        font-size:10px;
+
+    .mobile-cuisine-name {
+        font-size: 10px;
     }
 
 
 }
-
 
 
 @media only screen and (min-width: 768px) {
@@ -290,7 +291,7 @@
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
     /* 모바일화면 */
     #mainContents {
         margin: 0 auto;
@@ -298,13 +299,30 @@
         height: 700px;
 
     }
+}
+
+@media only screen and (min-width: 768px) {
+    /* 모바일화면 */
+    #mainContents {
+        margin: 0 auto;
+        width: 70%;
+        height: 700px;
+
+    }
+}
+
+@media only screen and (max-width: 991px) {
 
 
+    #mainContents .cell-button img {
+        padding: 1.25rem;
+    }
 
     .btn-style {
         height: 40px;
 
     }
+
     .option .col .col-12 {
         width: 90%;
         height: 40px;
@@ -366,7 +384,6 @@
     }
 
 
-
     .col {
         margin-top: 5px;
         margin-bottom: 5px;
@@ -396,9 +413,11 @@
         height: 800px;
         margin: 0 auto;
     }
-    .cell-button{
-        padding:1rem;
+
+    .cell-button {
+        padding: 1rem;
     }
+
     .col-lg-custom {
         flex: 0 0 12.5%;
         max-width: 12.5%;
@@ -441,7 +460,6 @@
         display: flex;
         width: 4500px;
     }
-
 
 
     .top-banner {
@@ -503,12 +521,14 @@ footer {
     display: flex;
     align-items: center;
 }
+
 #recommendBtn {
 
     width: 30%;
     max-width: 200px;
 }
-.dropdown{
+
+.dropdown {
     margin-left: 2rem;
 }
 
@@ -516,13 +536,16 @@ footer {
 .dropdown-menu {
     --bs-dropdown-link-active-bg: var(--main-color);
 }
+
 .dropdown-item:hover {
     background-color: var(--main-color); /* 여기서 main color로 설정 */
-    color:white;
+    color: white;
 }
-#dropdownMenuButton{
+
+#dropdownMenuButton {
     border: none;
 }
-.mobile-cuisine-name span{
+
+.mobile-cuisine-name span {
     white-space: nowrap;
 }
