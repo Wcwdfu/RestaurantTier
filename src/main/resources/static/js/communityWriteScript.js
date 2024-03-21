@@ -67,13 +67,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var form = document.querySelector('form');
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
+        // 입력규칙 설정
         var category = form.querySelector('select[name="postCategory"]').value;
         if (!category) {
             alert('카테고리를 선택해주세요.');
             return;
         }
-        // TinyMCE 에디터의 내용 가져오기
+        var title = form.querySelector(".title").value.trim();
+        if (!title) {
+            alert('제목을 입력해주세요.');
+            return;
+        }
         var content = tinymce.get('tiny-editor').getContent();
+        if(!content){
+            alert("내용을 입력해주세요")
+            return
+        }
         var formData = new FormData(form);
         formData.append('content', content); // 폼 데이터에 에디터 내용 추가
 
