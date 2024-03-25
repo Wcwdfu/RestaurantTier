@@ -1,28 +1,4 @@
 
-html{
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    min-height: 100vh; /* 화면의 전체 높이 */
-}
-
-main {
-    flex: 1; /* main 태그가 가능한 많은 공간을 차지하도록 함 */
-    background-color: white;
-}
-
-
-body {
-    min-height: 100vh; /* 최소 높이를 뷰포트 높이의 100%로 설정 */
-    margin: 0; /* 기본 마진 제거 */
-    padding: 0; /* 기본 패딩 제거 */
-    display: flex;
-    flex-direction: column;
-}
-
-footer{
-    flex:1;
-}
 article{
     margin: 20px;
 }
@@ -74,5 +50,18 @@ article{
         font-size: 30px;
         line-height:55px;
         color: #2a2a2a;
+    }
+}
+
+/* TABLET */
+@media only screen and (max-width: 1023px) {
+    article{
+        width: 95%;
+    }
+}
+/* PC */
+@media only screen and (min-width: 1024px) {
+    article{
+        width: 70%;
     }
 }
