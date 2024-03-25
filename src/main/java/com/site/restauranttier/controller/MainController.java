@@ -1,6 +1,5 @@
 package com.site.restauranttier.controller;
 
-import com.google.gson.Gson;
 import com.site.restauranttier.entity.*;
 import com.site.restauranttier.etc.RestaurantTierDataClass;
 import com.site.restauranttier.repository.*;
@@ -8,8 +7,6 @@ import com.site.restauranttier.service.EvaluationService;
 import com.site.restauranttier.service.FeedbackService;
 import com.site.restauranttier.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,7 +24,6 @@ public class MainController {
     private final RestaurantService restaurantService;
     private final EvaluationService evaluationService;
     private final HomeModalRepository HomeModalRepository;
-    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     //@Value("#{'${restaurant.cuisines}'.split(',\\s*')}")
     private List<String> cuisines = Arrays.asList(
@@ -66,13 +61,6 @@ public class MainController {
     public String terms_of_use(){
         return "terms_of_use";
     }
-
-    // 공지사항
-    @GetMapping("/announcement")
-    public String announcement(){
-        return "announcement";
-    }
-
 
     // 검색 결과 화면
     @GetMapping("/search")
