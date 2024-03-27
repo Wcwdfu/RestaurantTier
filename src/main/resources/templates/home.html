@@ -441,7 +441,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body text-dark" th:text="${homeModal.modalBody}">
+                <div class="modal-body text-dark" th:utext="${homeModal.modalBody}">
                 </div>
 
                 <div class="modal-body text-dark" th:text="${'(만료일: ' + homeModal.expiredAt + ')'}">
