@@ -1,4 +1,14 @@
 @import "variables.css";
+.default-logo {
+    height: 42px;
+}
+.alt-logo {
+    height: 38px;
+}
+.mobile-logo {
+    height: 34px;
+}
+
 #myPageToggleButton {
     z-index: 201;
 }
