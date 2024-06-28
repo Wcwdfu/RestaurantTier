@@ -13,9 +13,11 @@
 
 
 ## 정보
-
+김성운 -
+https://github.com/DingWoonee
+심경보 - skb9731@gmail.com
+https://github.com/Wcwdfu
 임재형 – dlawogud517@gmail.com
-
 https://github.com/JaehyeongIm
 
 
