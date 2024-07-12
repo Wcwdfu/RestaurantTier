@@ -1,6 +1,5 @@
 package com.site.restauranttier.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,6 @@ public class RestaurantCommentlike {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="comment_id")
     private RestaurantComment restaurantComment;
