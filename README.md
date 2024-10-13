@@ -13,9 +13,4 @@
 
 
 ## 정보
-
-임재형 – dlawogud517@gmail.com
-
-https://github.com/JaehyeongIm
-
-
+현재 코드를 Github Organization으로 이동하여 개발 진행중입니다. -> https://github.com/kustaurant/BackEnd-integration
